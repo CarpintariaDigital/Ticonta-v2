@@ -1,36 +1,79 @@
-# 🚀 TiConta v2 — Sistema de Gestão Integrado
+# 🚀 TiConta v2 — Sistema de Gestão Integrado para Moçambique
 
 ERP modular, offline-first, com compliance fiscal Moçambique.
 
-## 🎯 Status
+## Stack
 
-**Versão:** 2.0.0 (Em desenvolvimento)
-**Semana:** 1/9
-**Última atualização:** 13 de Agosto de 2026
+**Backend:**
+- FastAPI 0.104+
+- Python 3.11+
+- PostgreSQL 15+
+- SQLAlchemy 2.0
+- Alembic migrations
 
-## 📚 Documentação Rápida
+**Frontend:**
+- Next.js 14 (App Router)
+- React 18.2+
+- TypeScript
+- Tailwind CSS + shadcn/ui
+- Zustand (state)
+- Dexie.js (offline/IndexedDB)
 
-- **Começar:** Ler `START_HERE.md` (no diretório pai)
-- **Prompts:** Ler `TICONTA_QUICK_REFERENCE.md`
-- **Completo:** `/areas/ticonta-prompts-stack-completo.md`
+## Quick Start
 
-## 🏗️ Stack
+### Backend
 
-- Frontend: Next.js 14 + React 18 + TypeScript + Tailwind
-- Backend: FastAPI + Python 3.11 + PostgreSQL
-- DevOps: Docker + GitHub Actions
+```bash
+cd backend
+source venv/bin/activate
+pip install -r requirements.txt
 
-## 📋 Desenvolvimento
+# Database migrations
+alembic upgrade head
 
-- Semana 1: Setup + Database
-- Semana 2: Auth
-- Semanas 3-9: Módulos principais
+# Run server
+python main.py
+# http://localhost:8000/docs (Swagger)
+```
 
-## 🔗 Referência
+### Frontend
 
-**Código antigo:** `../ticonta-old/` (backup, read-only)
-**Migração:** Ver `../MIGRACAO.md`
+```bash
+cd frontend
+npm install
+npm run dev
+# http://localhost:3000
+```
+
+## Prompts para Desenvolver
+
+Ver: `/areas/ticonta-prompts-stack-completo.md`
+Quick reference: `TICONTA_QUICK_REFERENCE.md`
+
+## Estrutura
+
+```
+ticonta-v2/
+├── backend/           # FastAPI + compliance
+├── frontend/          # Next.js PWA
+├── infra/            # Docker + CI/CD (depois)
+└── docs/             # Documentação
+```
+
+## Fases de Desenvolvimento
+
+- **Semana 1:** Setup + Auth ✓
+- **Semana 2:** POS + Contabilidade
+- **Semana 3:** CRM + Projetos
+- **Semana 4:** RH + Compliance
+- **Semana 5:** SyncEngine + Deploy
+
+## License
+
+MIT
 
 ---
 
-Desenvolvido por Carpintaria Digital
+**Status:** Em desenvolvimento 🚧
+**Maintenance:** Atualizar conforme novas versões
+EOF

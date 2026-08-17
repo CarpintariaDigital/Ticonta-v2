@@ -34,6 +34,24 @@ class Settings(BaseSettings):
     # Database
     DATABASE_URL: str
 
+    # Licensing
+    LICENSE_MASTER_KEY: str = "TICONTAV2_MASTER_SECRET_KEY_MOZAMBIQUE_2026"
+    LICENSE_COMPANY_ID: str = "TIC-MZ-001"
+
+    # Twilio (WhatsApp & SMS)
+    TWILIO_ACCOUNT_SID: str = "AC_MOCK_ACCOUNT_SID_TICONTA"
+    TWILIO_AUTH_TOKEN: str = "MOCK_AUTH_TOKEN_TICONTA"
+    TWILIO_WHATSAPP_NUMBER: str = "whatsapp:+14155238886"
+    TWILIO_SMS_NUMBER: str = "+15005550006"
+
+    # Cloud Storage (S3 / Cloudflare R2)
+    STORAGE_PROVIDER: str = "mock"  # mock, s3, r2
+    S3_BUCKET: str = "ticonta-documents"
+    CLOUDFLARE_R2_BUCKET: str = "ticonta-documents"
+    CLOUDFLARE_R2_ACCESS_KEY: str = "mock_r2_access_key"
+    CLOUDFLARE_R2_SECRET_KEY: str = "mock_r2_secret_key"
+    STORAGE_PUBLIC_BASE_URL: str = "https://documents.ticonta.co.mz"
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

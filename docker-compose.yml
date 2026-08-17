@@ -1,0 +1,117 @@
+version: '3.8'
+
+# ==============================================================================
+# TiConta v2 - Root Docker Compose
+# ==============================================================================
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: ticonta-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ticonta_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ticonta_password}
+      POSTGRES_DB: ${POSTGRES_DB:-ticonta_v2}
+    volumes:
+      - ticonta_pgdata:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ticonta_user} -d ${POSTGRES_DB:-ticonta_v2}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - ticonta-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: ticonta-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-ticonta_redis_pass}
+    volumes:
+      - ticonta_redisdata:/data
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-ticonta_redis_pass}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - ticonta-net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ticonta-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-ticonta_user}:${POSTGRES_PASSWORD:-ticonta_password}@db:5432/${POSTGRES_DB:-ticonta_v2}
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-ticonta_redis_pass}@redis:6379/0
+      - SECRET_KEY=${SECRET_KEY:-change-me-in-production-min-32-chars-secret-key-ticonta}
+      - DEBUG=${DEBUG:-False}
+      - ENVIRONMENT=${ENVIRONMENT:-production}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - LICENSE_MASTER_KEY=${LICENSE_MASTER_KEY:-change-me-in-production-min-32-chars-master-key}
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
+      - TWILIO_WHATSAPP_NUMBER=${TWILIO_WHATSAPP_NUMBER}
+      - TWILIO_SMS_NUMBER=${TWILIO_SMS_NUMBER}
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      - ./backend/storage:/app/storage
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - ticonta-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+    container_name: ticonta-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+      - PORT=3000
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - ticonta-net
+
+networks:
+  ticonta-net:
+    name: ticonta-network
+    driver: bridge
+
+volumes:
+  ticonta_pgdata:
+    driver: local
+  ticonta_redisdata:
+    driver: local

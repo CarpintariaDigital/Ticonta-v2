@@ -1,0 +1,8 @@
+{
+  "currency": "MZN",
+  "year": 2024,
+  "employee_contribution_rate": 0.03,
+  "employer_contribution_rate": 0.04,
+  "total_contribution_rate": 0.07,
+  "minimum_wage_reference": 5200.00
+}

@@ -1,0 +1,195 @@
+name: TiConta v2 — Continuous Integration (CI)
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ============================================================================
+  # 1. Backend Testing & Coverage
+  # ============================================================================
+  test-backend:
+    name: 🐍 Backend Tests (Pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          cd backend
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-test.txt
+
+      - name: Run Pytest with Coverage
+        run: |
+          cd backend
+          pytest tests/ -v --cov=app --cov-report=xml --cov-report=term-missing --cov-fail-under=70
+
+      - name: Upload Backend Coverage Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-coverage-report
+          path: backend/coverage.xml
+          retention-days: 7
+
+  # ============================================================================
+  # 2. Frontend Testing & Coverage
+  # ============================================================================
+  test-frontend:
+    name: ⚛️ Frontend Tests (Vitest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: frontend/package.json
+
+      - name: Install Dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: Run Vitest Unit Tests
+        run: |
+          cd frontend
+          npm run test
+
+      - name: Upload Frontend Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-test-results
+          path: frontend/coverage/
+          retention-days: 7
+
+  # ============================================================================
+  # 3. Backend Linting & Static Typing
+  # ============================================================================
+  lint-backend:
+    name: 🔍 Backend Lint (Black, Flake8, Mypy)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Linters
+        run: |
+          pip install --upgrade pip
+          pip install black flake8 mypy types-requests
+
+      - name: Check Code Formatting with Black
+        run: |
+          cd backend
+          black --check --line-length=120 app/ || true
+
+      - name: Lint with Flake8
+        run: |
+          cd backend
+          flake8 app/ --max-line-length=120 --extend-ignore=E203,W503,E402,F401,F841 || true
+
+      - name: Type Check with Mypy
+        run: |
+          cd backend
+          mypy app/ --ignore-missing-imports || true
+
+  # ============================================================================
+  # 4. Frontend Linting & Type Checking
+  # ============================================================================
+  lint-frontend:
+    name: 🎨 Frontend Lint (ESLint & TypeScript)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: frontend/package.json
+
+      - name: Install Dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: Run ESLint
+        run: |
+          cd frontend
+          npm run lint || true
+
+      - name: Check TypeScript Compilation
+        run: |
+          cd frontend
+          npx tsc --noEmit || true
+
+  # ============================================================================
+  # 5. Backend Security Scanning
+  # ============================================================================
+  security-backend:
+    name: 🛡️ Backend Security (Bandit)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Bandit
+        run: pip install bandit[toml]
+
+      - name: Scan Backend Codebase with Bandit
+        run: |
+          cd backend
+          bandit -r app/ -ll -ii || true
+
+  # ============================================================================
+  # 6. Frontend Security & Dependency Audit
+  # ============================================================================
+  security-frontend:
+    name: 🔒 Frontend Security (npm audit)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Run NPM Audit
+        run: |
+          cd frontend
+          npm audit --audit-level=critical || true

@@ -1,4 +1,8 @@
-# Python
+# ==============================================================================
+# TiConta v2 - Git Ignore Configuration
+# ==============================================================================
+
+# Python & Backend
 __pycache__/
 *.py[cod]
 *$py.class
@@ -22,27 +26,79 @@ wheels/
 venv/
 ENV/
 env/
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+*.log
+coverage.xml
 
-# Node
+# Node.js & Frontend
 node_modules/
 .next/
 out/
+build/
 dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+.turbo/
+.vercel/
 
-# IDE
+# Testing & E2E
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
+
+# IDE & Editor files
 .vscode/
+!.vscode/extensions.json
 .idea/
 *.swp
 *.swo
 *~
-.DS_Store
+*.sublime-project
+*.sublime-workspace
+.project
+.settings/
 
-# Env
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# Database & SQLite files
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+*.sql.gz
+*.sql.dump
+
+# Environment Variables & Secrets (NEVER COMMIT)
 .env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
 .env.*.local
-
-# Misc
-*.log
-.sqlite3
-.db
+*.key
+*.pem
+*.crt
+*.cert
+*.pfx
+*.p12
+LICENSE_KEY_*.txt
+secrets/
+private_keys/
+credentials.json
+google-credentials.json

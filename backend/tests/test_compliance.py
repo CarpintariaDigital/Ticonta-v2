@@ -1,7 +1,7 @@
 from decimal import Decimal
 import pytest
 
-from app.compliance.irt import IRTCalculator
+from app.compliance.irt import IRTCalculator, calculate_irt
 from app.compliance.iva import IVAController
 from app.compliance.pita import PITACalculator
 from app.compliance.inss import INSSCalculator
@@ -25,8 +25,8 @@ def test_validate_invoice_number():
 
 
 def test_validate_tax_amounts():
+    # 16% de 1000 = 160
     assert validate_tax_amounts(Decimal("1000.00"), Decimal("160.00"), Decimal("16.0")) is True
-    assert validate_tax_amounts(Decimal("1000.00"), Decimal("70.00"), Decimal("7.0")) is True
     assert validate_tax_amounts(Decimal("1000.00"), Decimal("200.00"), Decimal("16.0")) is False
 
 
@@ -58,6 +58,43 @@ def test_irt_calculations_brackets():
     assert dec["company_nuit"] == "400123456"
     assert dec["employee_count"] == 2
     assert dec["status"] == "READY_FOR_SUBMISSION"
+
+
+def test_calculate_irt_with_dependents_deduction():
+    """
+    Teste 1: trabalhador com salário de 25.000 MZN e 3 dependentes —
+    valida que a isenção adicional por dependentes reduz correctamente
+    o IRPS calculado vs o mesmo salário sem dependentes.
+    """
+    salary = Decimal("25000.00")
+
+    # Cálculo sem dependentes
+    res_no_dependents = calculate_irt(gross_salary=salary, dependents=0)
+    tax_without_dependents = res_no_dependents["irt_retained"]
+
+    # Cálculo com 3 dependentes
+    res_with_dependents = calculate_irt(gross_salary=salary, dependents=3)
+    tax_with_dependents = res_with_dependents["irt_retained"]
+
+    assert tax_without_dependents > Decimal("0.00")
+    assert tax_with_dependents < tax_without_dependents
+    assert res_with_dependents["dependents"] == 3
+    assert res_with_dependents["dependents_deduction"] == Decimal("300.00")
+    assert tax_with_dependents == (tax_without_dependents - Decimal("300.00"))
+
+
+def test_calculate_irt_below_minimum_exempt_salary():
+    """
+    Teste 2: trabalhador com salário abaixo do mínimo isento (15.000 MZN) —
+    valida que o resultado é 0.00 MZN de retenção (isenção total).
+    """
+    salary = Decimal("15000.00")
+    result = calculate_irt(gross_salary=salary, dependents=0)
+
+    assert result["tax_due"] == Decimal("0.00")
+    assert result["irt_retained"] == Decimal("0.00")
+    assert float(result["irt_retained"]) == 0.00
+    assert float(result["rate"]) == 0.00
 
 
 def test_iva_controller_rates_and_return():

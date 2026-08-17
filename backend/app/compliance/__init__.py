@@ -1,4 +1,4 @@
-from app.compliance.irt import IRTCalculator
+from app.compliance.irt import IRTCalculator, calculate_irt
 from app.compliance.iva import IVAController
 from app.compliance.pita import PITACalculator
 from app.compliance.inss import INSSCalculator
@@ -8,6 +8,7 @@ from app.compliance.pgc import PGC_CHART_OF_ACCOUNTS, validate_account_code, is_
 
 __all__ = [
     "IRTCalculator",
+    "calculate_irt",
     "IVAController",
     "PITACalculator",
     "INSSCalculator",

@@ -1,31 +1,45 @@
+import os
 from decimal import Decimal
 import pytest
 from fastapi.testclient import TestClient
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import StaticPool
+from sqlalchemy.pool import StaticPool, NullPool
 
 from app.core.database import Base, get_db
 from app.core.security import create_access_token, hash_pin
 from app.models.entities import Company, Customer, Product
 from app.models.user import User
 from app.models.account import Account
+import app.models
 from main import app
 
-SQLALCHEMY_TEST_DATABASE_URL = "sqlite:///:memory:"
+SQLALCHEMY_TEST_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///:memory:")
 
-engine = create_engine(
-    SQLALCHEMY_TEST_DATABASE_URL,
-    connect_args={"check_same_thread": False},
-    poolclass=StaticPool,
-)
+if "sqlite" in SQLALCHEMY_TEST_DATABASE_URL:
+    engine = create_engine(
+        SQLALCHEMY_TEST_DATABASE_URL,
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+else:
+    engine = create_engine(
+        SQLALCHEMY_TEST_DATABASE_URL,
+        poolclass=NullPool,
+    )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+@pytest.fixture(scope="session", autouse=True)
+def setup_database_schema():
+    Base.metadata.create_all(bind=engine)
+    yield
+    Base.metadata.drop_all(bind=engine)
 
 
 @pytest.fixture(scope="function")
 def db_session():
-    """Cria e destrói o banco SQLite em memória a cada teste isolado."""
-    Base.metadata.create_all(bind=engine)
+    """Cria e isola o banco de dados a cada teste."""
     session = TestingSessionLocal()
 
     # Seed inicial de Company padrão
@@ -94,6 +108,14 @@ def db_session():
     session.add_all([prod1, prod2])
     session.commit()
 
+    if "postgresql" in SQLALCHEMY_TEST_DATABASE_URL:
+        for table in ["companies", "users", "customers", "products"]:
+            try:
+                session.execute(text(f"SELECT setval(pg_get_serial_sequence('{table}', 'id'), coalesce(max(id), 1)) FROM {table};"))
+                session.commit()
+            except Exception:
+                pass
+
     # Limpar cache de relatórios
     from app.services.reports import REPORT_CACHE
     REPORT_CACHE.clear()
@@ -101,8 +123,14 @@ def db_session():
     try:
         yield session
     finally:
+        session.rollback()
+        for tbl in reversed(Base.metadata.sorted_tables):
+            try:
+                session.execute(tbl.delete())
+                session.commit()
+            except Exception:
+                session.rollback()
         session.close()
-        Base.metadata.drop_all(bind=engine)
 
 
 @pytest.fixture(scope="function")

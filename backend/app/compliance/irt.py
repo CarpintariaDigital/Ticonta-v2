@@ -124,3 +124,46 @@ class IRTCalculator:
             "quarterly_installment": float(installment),
             "due_dates": ["31 de Julho", "30 de Setembro", "30 de Novembro"],
         }
+
+
+def calculate_irt(
+    gross_salary: Decimal,
+    dependents: int = 0,
+    inss_deduction: Optional[Decimal] = None,
+) -> Dict[str, Any]:
+    """
+    Função de conveniência para cálculo do IRPS / IRT (2ª Categoria Moçambique).
+    
+    Aplica:
+    1. Dedução de INSS obrigatório (3% do trabalhador)
+    2. Tabela progressiva de retenção na fonte
+    3. Abatimento adicional por dependentes a cargo
+    4. Isenção total para rendimentos abaixo do limiar (20.249,99 MZN)
+    """
+    if not isinstance(gross_salary, Decimal):
+        gross_salary = Decimal(str(gross_salary))
+
+    if inss_deduction is None:
+        inss = (gross_salary * Decimal("0.03")).quantize(Decimal("0.01"))
+    else:
+        inss = Decimal(str(inss_deduction)) if not isinstance(inss_deduction, Decimal) else inss_deduction
+
+    calc = IRTCalculator()
+    taxable = calc.calculate_taxable_income(gross_salary, inss_employee_deduction=inss)
+    bracket_res = calc.apply_tax_brackets(taxable)
+
+    # Abatimento por dependentes (100 MZN por dependente deduzido no imposto)
+    dependents_deduction = Decimal(str(dependents)) * Decimal("100.00")
+    tax_due = max(Decimal("0.00"), bracket_res["tax_due"] - dependents_deduction).quantize(Decimal("0.01"))
+
+    return {
+        "gross_salary": gross_salary,
+        "taxable_income": taxable,
+        "base_tax": bracket_res["tax_due"],
+        "dependents": dependents,
+        "dependents_deduction": dependents_deduction,
+        "tax_due": tax_due,
+        "irt_retained": tax_due,
+        "rate": bracket_res["rate"],
+    }
+

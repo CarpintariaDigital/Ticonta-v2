@@ -217,11 +217,15 @@ class SyncService:
         changes: List[EntityChange] = []
 
         # 1. Produtos atualizados
-        prod_query = self.db.query(Product).filter(Product.company_id == company_id)
+        products = self.db.query(Product).filter(Product.company_id == company_id).all()
         if since_timestamp:
-            prod_query = prod_query.filter(Product.updated_at >= since_timestamp)
+            target_ts = since_timestamp if since_timestamp.tzinfo is not None else since_timestamp.replace(tzinfo=timezone.utc)
+            products = [
+                p for p in products
+                if p.updated_at and (p.updated_at if p.updated_at.tzinfo is not None else p.updated_at.replace(tzinfo=timezone.utc)) >= target_ts
+            ]
         
-        for prod in prod_query.all():
+        for prod in products:
             changes.append(
                 EntityChange(
                     entity="Product",
@@ -242,11 +246,15 @@ class SyncService:
             )
 
         # 2. Clientes atualizados
-        cust_query = self.db.query(Customer).filter(Customer.company_id == company_id)
+        customers = self.db.query(Customer).filter(Customer.company_id == company_id).all()
         if since_timestamp:
-            cust_query = cust_query.filter(Customer.updated_at >= since_timestamp)
+            target_ts = since_timestamp if since_timestamp.tzinfo is not None else since_timestamp.replace(tzinfo=timezone.utc)
+            customers = [
+                c for c in customers
+                if c.updated_at and (c.updated_at if c.updated_at.tzinfo is not None else c.updated_at.replace(tzinfo=timezone.utc)) >= target_ts
+            ]
 
-        for cust in cust_query.all():
+        for cust in customers:
             changes.append(
                 EntityChange(
                     entity="Customer",

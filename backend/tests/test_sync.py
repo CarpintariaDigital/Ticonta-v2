@@ -41,6 +41,7 @@ def db():
         quantity=Decimal("50.000"),
         iva_rate=Decimal("16.00"),
         active=True,
+        updated_at=datetime.utcnow(),
     )
     session.add_all([company, user, prod])
     session.commit()
@@ -150,3 +151,129 @@ def test_sync_pull_incremental_changes(client, auth_headers):
     assert data["changes_count"] >= 1
     entities = [c["entity"] for c in data["changes"]]
     assert "Product" in entities
+
+
+def test_sync_customer_and_product_update(client, auth_headers, db):
+    """Testa sincronização offline de atualizações em Customer e Product (Last-write-wins)."""
+    # 1. Criar um cliente inicial no banco
+    cust = Customer(company_id=1, name="Cliente Antigo", phone="+258840000000", email="antigo@loja.co.mz")
+    db.add(cust)
+    db.commit()
+
+    now = datetime.now(timezone.utc).isoformat()
+    mutation_cust = str(uuid.uuid4())
+    mutation_prod = str(uuid.uuid4())
+
+    payload = {
+        "company_id": 1,
+        "device_id": "POS-TERMINAL-01",
+        "operations": [
+            {
+                "client_mutation_id": mutation_cust,
+                "entity": "Customer",
+                "entity_id": cust.id,
+                "operation": "UPDATE",
+                "client_timestamp": now,
+                "payload": {
+                    "name": "Cliente Atualizado Offline",
+                    "phone": "+258849999999",
+                    "email": "atualizado@loja.co.mz",
+                },
+            },
+            {
+                "client_mutation_id": mutation_prod,
+                "entity": "Product",
+                "entity_id": 1,
+                "operation": "UPDATE",
+                "client_timestamp": now,
+                "payload": {
+                    "quantity": "75.000",
+                    "unit_price": "490.00",
+                },
+            },
+        ],
+    }
+
+    res = client.post("/api/v1/sync/push", json=payload, headers=auth_headers)
+    assert res.status_code == 200
+    data = res.json()
+    assert data["processed_count"] == 2
+    assert all(r["status"] == "APPLIED" for r in data["results"])
+
+    # Validar modificações no DB
+    db.refresh(cust)
+    assert cust.name == "Cliente Atualizado Offline"
+    assert cust.phone == "+258849999999"
+
+    prod = db.query(Product).filter(Product.id == 1).first()
+    assert float(prod.quantity) == 75.0
+    assert float(prod.unit_price) == 490.0
+
+
+def test_sync_unsupported_entity_and_error_handling(client, auth_headers):
+    """Testa rejeição graciosa de entidades não suportadas e tratamento de erros de payload."""
+    now = datetime.now(timezone.utc).isoformat()
+    mutation_unsupported = str(uuid.uuid4())
+    mutation_invalid = str(uuid.uuid4())
+
+    payload = {
+        "company_id": 1,
+        "device_id": "POS-TERMINAL-02",
+        "operations": [
+            {
+                "client_mutation_id": mutation_unsupported,
+                "entity": "NonExistentEntity",
+                "operation": "CREATE",
+                "client_timestamp": now,
+                "payload": {"data": 123},
+            },
+            {
+                "client_mutation_id": mutation_invalid,
+                "entity": "Sale",
+                "operation": "CREATE",
+                "client_timestamp": now,
+                "payload": {
+                    "items": [{"product_id": 999999, "quantity": 10}],  # Produto inexistente gera erro
+                    "payment_method": "cash",
+                },
+            },
+        ],
+    }
+
+    res = client.post("/api/v1/sync/push", json=payload, headers=auth_headers)
+    assert res.status_code == 200
+    data = res.json()
+    assert data["processed_count"] == 2
+    results = data["results"]
+
+    # 1º item: rejeitado por entidade não suportada
+    assert results[0]["status"] == "REJECTED"
+    assert "não suportada" in results[0]["message"]
+
+    # 2º item: rejeitado por exceção capturada (produto não encontrado)
+    assert results[1]["status"] == "REJECTED"
+
+
+def test_sync_pull_with_since_timestamp_filter(client, auth_headers, db):
+    """Testa pull incremental usando filtro de data 'last_sync_timestamp'."""
+    past_timestamp = datetime(2020, 1, 1, tzinfo=timezone.utc).isoformat()
+    future_timestamp = datetime(2035, 1, 1, tzinfo=timezone.utc).isoformat()
+
+    # Com timestamp passado, deve retornar mudanças
+    res_past = client.get(
+        "/api/v1/sync/pull",
+        params={"company_id": 1, "last_sync_timestamp": past_timestamp},
+        headers=auth_headers,
+    )
+    assert res_past.status_code == 200
+    assert res_past.json()["changes_count"] >= 1
+
+    # Com timestamp futuro, não deve retornar nenhuma mudança
+    res_future = client.get(
+        "/api/v1/sync/pull",
+        params={"company_id": 1, "last_sync_timestamp": future_timestamp},
+        headers=auth_headers,
+    )
+    assert res_future.status_code == 200
+    assert res_future.json()["changes_count"] == 0
+

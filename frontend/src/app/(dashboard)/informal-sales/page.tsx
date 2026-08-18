@@ -265,7 +265,9 @@ export default function InformalSalesPage() {
       {activeTab === "overdue" && (
         <OverdueAlerts
           overdueDebits={overdueDebits}
-          onSendReminder={sendReminder}
+          onSendReminder={(debitId, channel, customMessage) =>
+            sendReminder(debitId, { channel, custom_message: customMessage })
+          }
           onOpenCollection={openCollectionModal}
         />
       )}

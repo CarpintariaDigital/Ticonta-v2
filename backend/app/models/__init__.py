@@ -69,6 +69,14 @@ from app.models.pricing import (
     MarketProductType,
     PriceSource,
 )
+from app.models.auto_services import (
+    Vehicle,
+    MechanicTechnician,
+    ServiceOrder,
+    ServiceOrderItem,
+    DiagnosticReport,
+    PaintTuningSpec,
+)
 
 __all__ = [
     "Base",
@@ -142,4 +150,10 @@ __all__ = [
     "ProducerPrice",
     "MarketProductType",
     "PriceSource",
+    "Vehicle",
+    "MechanicTechnician",
+    "ServiceOrder",
+    "ServiceOrderItem",
+    "DiagnosticReport",
+    "PaintTuningSpec",
 ]

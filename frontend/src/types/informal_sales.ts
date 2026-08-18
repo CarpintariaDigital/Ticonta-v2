@@ -4,7 +4,6 @@ export type PaymentMethod = "cash" | "mpesa" | "emola" | "pos" | "card";
 export interface InformalCustomer {
   id: number;
   company_id: number;
-  name: str;
   name: string;
   phone?: string | null;
   location?: string | null;

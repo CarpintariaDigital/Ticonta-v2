@@ -161,6 +161,7 @@ from app.routes.takeaway import router as takeaway_router
 from app.routes.payment import router as payment_router
 from app.routes.poultry import router as poultry_router
 from app.routes.pricing import router as pricing_router
+from app.routes.auto_services import router as auto_services_router
 
 app.include_router(auth_router)
 app.include_router(sales_router)
@@ -183,6 +184,7 @@ app.include_router(takeaway_router)
 app.include_router(payment_router)
 app.include_router(poultry_router)
 app.include_router(pricing_router)
+app.include_router(auto_services_router)
 
 
 # Startup Event to initialize database tables

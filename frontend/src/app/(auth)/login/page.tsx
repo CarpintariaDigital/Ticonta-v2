@@ -45,16 +45,22 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
       <Card className="w-full max-w-md border-zinc-800 bg-zinc-900/90 backdrop-blur text-zinc-100 shadow-2xl">
-        <CardHeader className="space-y-2 text-center">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400">
-            <Lock className="h-6 w-6" />
+        <CardHeader className="space-y-3 text-center">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-900 border border-emerald-500/30 p-1.5 shadow-xl shadow-emerald-500/20">
+            <img
+              src="/logo-ticonta.png"
+              alt="TiConta Logo"
+              className="h-full w-full object-contain"
+            />
           </div>
-          <CardTitle className="text-2xl font-bold tracking-tight text-white">
-            TiConta <span className="text-emerald-500">v2</span>
-          </CardTitle>
-          <CardDescription className="text-zinc-400">
-            Aceda ao sistema com o seu nome de utilizador e PIN
-          </CardDescription>
+          <div>
+            <CardTitle className="text-2xl font-black tracking-tight text-white">
+              TiConta <span className="text-emerald-400">v2 ERP</span>
+            </CardTitle>
+            <CardDescription className="text-xs text-zinc-400 mt-1">
+              Plataforma Integrada de Gestão & Contabilidade PGC Moçambique
+            </CardDescription>
+          </div>
         </CardHeader>
 
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -109,11 +115,11 @@ export default function LoginPage() {
             </div>
           </CardContent>
 
-          <CardFooter className="flex flex-col gap-3 pt-2">
+          <CardFooter className="flex flex-col gap-4 pt-2">
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium shadow-lg shadow-emerald-950"
+              className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 shadow-lg shadow-emerald-900/40"
             >
               {isLoading ? (
                 <>
@@ -124,7 +130,60 @@ export default function LoginPage() {
                 "Entrar no Sistema"
               )}
             </Button>
-            <p className="text-center text-xs text-zinc-500">
+
+            {/* Quick Demo Logins for Testing */}
+            <div className="w-full space-y-2 pt-2 border-t border-zinc-800/80">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 block text-center">
+                ⚡ Acesso Rápido para Demonstração & Teste
+              </span>
+              <div className="grid grid-cols-2 gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={async () => {
+                    form.setValue("username", "admin_user");
+                    form.setValue("pin", "1234");
+                    setAuthError(null);
+                    clearError();
+                    try {
+                      await login("admin_user", "1234");
+                      router.push("/dashboard");
+                    } catch (e: any) {
+                      setAuthError(e.message || "Erro no login de teste");
+                    }
+                  }}
+                  className="border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 text-xs py-2 h-auto flex flex-col items-center gap-0.5 rounded-xl"
+                >
+                  <span className="font-bold">👤 Administrador</span>
+                  <span className="text-[10px] text-zinc-400 font-mono">admin_user • 1234</span>
+                </Button>
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={async () => {
+                    form.setValue("username", "operador_pos");
+                    form.setValue("pin", "4321");
+                    setAuthError(null);
+                    clearError();
+                    try {
+                      await login("operador_pos", "4321");
+                      router.push("/pos");
+                    } catch (e: any) {
+                      setAuthError(e.message || "Erro no login de teste");
+                    }
+                  }}
+                  className="border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 text-xs py-2 h-auto flex flex-col items-center gap-0.5 rounded-xl"
+                >
+                  <span className="font-bold">🛒 Operador POS</span>
+                  <span className="text-[10px] text-zinc-400 font-mono">operador_pos • 4321</span>
+                </Button>
+              </div>
+            </div>
+
+            <p className="text-center text-[11px] text-zinc-500 pt-1">
               TiConta v2 ERP • Offline-First Moçambique
             </p>
           </CardFooter>

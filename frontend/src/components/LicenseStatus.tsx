@@ -118,20 +118,60 @@ export const LicenseStatusCard: React.FC<LicenseStatusProps> = ({ companyId = 1,
 
         {/* Módulos Habilitados */}
         <div className="space-y-3">
-          <h4 className="text-sm font-semibold text-zinc-300">Módulos Ativos no Plano</h4>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex items-center justify-between">
+            <h4 className="text-sm font-semibold text-zinc-300">
+              Módulos Habilitados na Subscrição ({activeModules.length})
+            </h4>
+            {status === "licensed" && (
+              <span className="text-xs text-emerald-400 font-medium">✓ Todos os Módulos Desbloqueados</span>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
             {activeModules.length > 0 ? (
-              activeModules.map((mod) => (
-                <div
-                  key={mod}
-                  className="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-1.5 text-xs text-zinc-300"
-                >
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                  <span className="capitalize">{mod === "*" ? "Acesso Total (*)" : mod}</span>
-                </div>
-              ))
+              activeModules.map((mod) => {
+                const MODULE_NAMES: Record<string, { label: string; desc: string }> = {
+                  pos: { label: "Ponto de Venda (POS)", desc: "Caixa, Faturas VD/FT & IVA" },
+                  auto_services: { label: "Oficina & Serviços Auto", desc: "Mecânica, Bate-Chapa, OBD-II & Tuning" },
+                  restaurant: { label: "Restaurante & Bares", desc: "Mesas, KDS Cozinha & Divisão" },
+                  takeaway: { label: "Takeaway & Entregas", desc: "Estafetas & Rastreamento" },
+                  informal: { label: "Vendas Informais / Fiado", desc: "Caderno Digital & Score Crédito" },
+                  poultry: { label: "Produção Avícola & Ovos", desc: "Lotes, Postura & Zootécnico" },
+                  pricing: { label: "Cotações & Precificação", desc: "Custos de Produção & Margens" },
+                  accounting: { label: "Contabilidade PGC-NIRF", desc: "Diários, Razão & Balancetes" },
+                  crm: { label: "Clientes & CRM", desc: "Contactos & Saldos Devedores" },
+                  hr: { label: "Recursos Humanos & Salários", desc: "Folha, INSS (3%+4%) & IRPS" },
+                  manufacturing: { label: "Fabrico & Marcenaria", desc: "Ordens & Corte de Material" },
+                  projects: { label: "Obras & Projetos", desc: "Centros de Custo & Tarefas" },
+                  reports: { label: "Relatórios Fiscais & BI", desc: "DRE, IVA & Mapas Oficiais" },
+                  document_delivery: { label: "Envio de Documentos", desc: "WhatsApp & Email Automático" },
+                  barcode: { label: "Código de Barras", desc: "Leitura & Etiquetas" },
+                  licensing: { label: "Licenciamento Criptográfico", desc: "Validação Offline HMAC" },
+                  "*": { label: "Acesso Total (*)", desc: "Todos os módulos liberados" },
+                };
+
+                const info = MODULE_NAMES[mod.toLowerCase()] || {
+                  label: mod.toUpperCase(),
+                  desc: "Módulo do Sistema",
+                };
+
+                return (
+                  <div
+                    key={mod}
+                    className="flex items-start gap-2.5 rounded-xl border border-zinc-800/80 bg-zinc-950/80 p-3 hover:border-emerald-500/40 transition-colors"
+                  >
+                    <CheckCircle2 className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-semibold text-white">{info.label}</p>
+                      <p className="text-[11px] text-zinc-400 leading-tight">{info.desc}</p>
+                    </div>
+                  </div>
+                );
+              })
             ) : (
-              <p className="text-sm text-zinc-500">Nenhum módulo ativo.</p>
+              <div className="col-span-full rounded-xl border border-zinc-800 bg-zinc-950/40 p-4 text-center">
+                <p className="text-sm text-zinc-400">Nenhum módulo ativo. Ative uma chave de licença na aba 'Nova Ativação'.</p>
+              </div>
             )}
           </div>
         </div>

@@ -48,7 +48,7 @@ function CheckoutContent() {
     setIsProcessing(true);
 
     try {
-      const result = await paymentService.processPayment({
+      const result = await paymentService.processSubscriptionCheckout({
         planId: selectedPlan.id,
         billingCycle,
         customerName: customerName.trim(),

@@ -2,6 +2,7 @@ import { create } from "zustand";
 import {
   InformalCustomer,
   Debit,
+  DebitStatus,
   SaleWithDebitResponse,
   CashFlowForecastResponse,
   RevenueBreakdownResponse,
@@ -171,25 +172,24 @@ export const useInformalSalesStore = create<InformalSalesState>((set, get) => ({
     const updatedOverdue = s.overdueDebits
       .map((d) => {
         if (d.id === debitId) {
-          const newStatus = remainingBalance === 0 ? "paid" : "partially_paid";
           return {
             ...d,
             amount_paid: d.amount_paid + amountPaid,
             amount_owed: remainingBalance,
-            status: newStatus as any,
+            status: (remainingBalance === 0 ? "paid" : "partially_paid") as DebitStatus,
           };
         }
         return d;
       })
       .filter((d) => d.status !== "paid");
 
-    const updatedDebits = s.customerDebits.map((d) => {
+    const updatedDebits: Debit[] = s.customerDebits.map((d) => {
       if (d.id === debitId) {
         return {
           ...d,
           amount_paid: d.amount_paid + amountPaid,
           amount_owed: remainingBalance,
-          status: remainingBalance === 0 ? "paid" : "partially_paid",
+          status: (remainingBalance === 0 ? "paid" : "partially_paid") as DebitStatus,
         };
       }
       return d;

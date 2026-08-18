@@ -8,7 +8,7 @@ import {
   CheckCircle2,
   Percent,
   Loader2,
-  AlertCircle,
+  Coins,
 } from "lucide-react";
 import { PaymentMethod, SaleSummary } from "@/types/pos";
 import { Button } from "@/components/ui/button";
@@ -34,30 +34,70 @@ export default function POSPayment({
   onCompleteSale,
   disabled,
 }: POSPaymentProps) {
-  const [showDiscountModal, setShowDiscountModal] = useState(false);
-  const [tempDiscount, setTempDiscount] = useState(discountPercentage.toString());
-
-  const paymentMethods: { id: PaymentMethod; label: string; icon: any; color: string }[] = [
-    { id: "cash", label: "Dinheiro / Caixa", icon: Banknote, color: "text-emerald-400 border-emerald-500/30" },
-    { id: "mpesa", label: "M-Pesa (Vodacom)", icon: Smartphone, color: "text-red-400 border-red-500/30" },
-    { id: "emola", label: "e-Mola (Movitel)", icon: Smartphone, color: "text-amber-400 border-amber-500/30" },
-    { id: "card", label: "Cartão / POS", icon: CreditCard, color: "text-blue-400 border-blue-500/30" },
+  const paymentMethods: {
+    id: PaymentMethod;
+    label: string;
+    sub: string;
+    icon: any;
+    keyClass: string;
+    activeBorder: string;
+  }[] = [
+    {
+      id: "cash",
+      label: "DINHEIRO",
+      sub: "Caixa Física",
+      icon: Banknote,
+      keyClass: "key-cash",
+      activeBorder: "border-[#a3e635] ring-2 ring-[#a3e635]/40",
+    },
+    {
+      id: "mpesa",
+      label: "M-PESA",
+      sub: "Vodacom MZ",
+      icon: Smartphone,
+      keyClass: "key-mpesa",
+      activeBorder: "border-[#2dc4a0] ring-2 ring-[#2dc4a0]/40",
+    },
+    {
+      id: "emola",
+      label: "E-MOLA",
+      sub: "Movitel MZ",
+      icon: Smartphone,
+      keyClass: "key-action",
+      activeBorder: "border-[#fbbf24] ring-2 ring-[#fbbf24]/40",
+    },
+    {
+      id: "card",
+      label: "CARTÃO",
+      sub: "POS / Banco",
+      icon: CreditCard,
+      keyClass: "key-card",
+      activeBorder: "border-[#7dd3fc] ring-2 ring-[#7dd3fc]/40",
+    },
   ];
 
-  const handleApplyDiscount = () => {
-    const val = parseFloat(tempDiscount) || 0;
-    onSetDiscount(val);
-    setShowDiscountModal(false);
-  };
-
   return (
-    <div className="flex flex-col h-full rounded-2xl border border-zinc-800 bg-zinc-900/60 backdrop-blur p-4 space-y-4">
-      <div className="border-b border-zinc-800 pb-3">
-        <h3 className="text-sm font-bold text-white">Forma de Pagamento</h3>
-        <p className="text-xs text-zinc-400">Escolha o canal de liquidação</p>
+    <div className="flex flex-col h-full chassis-panel p-4 space-y-3.5 font-mono">
+      {/* Header */}
+      <div className="chassis-header">
+        <div className="flex items-center gap-2">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#1b2d4f] text-[#2dc4a0] border border-[#2dc4a0]/40 shadow-inner">
+            <Coins className="h-3.5 w-3.5" />
+          </div>
+          <div>
+            <h3 className="text-xs font-black text-white uppercase tracking-wider">
+              CANAIS DE LIQUIDAÇÃO
+            </h3>
+            <p className="text-[10px] text-[#4a7a9b]">Selecione a tecla de pagamento</p>
+          </div>
+        </div>
+        <div className="screws-cluster">
+          <div className="screw" />
+          <div className="screw" />
+        </div>
       </div>
 
-      {/* 4 Payment Buttons Grid */}
+      {/* 4 3D Mechanical Payment Keys Grid */}
       <div className="grid grid-cols-2 gap-2.5">
         {paymentMethods.map((pm) => {
           const Icon = pm.icon;
@@ -68,29 +108,26 @@ export default function POSPayment({
               key={pm.id}
               type="button"
               onClick={() => onSelectMethod(pm.id)}
-              className={`flex flex-col items-center justify-center p-3 rounded-xl border text-center transition-all ${
-                isSelected
-                  ? "bg-zinc-800 border-emerald-500 ring-2 ring-emerald-500/30 shadow-lg shadow-emerald-950/30"
-                  : "bg-zinc-950/80 border-zinc-800 hover:border-zinc-700 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-200"
+              className={`key-mechanical ${pm.keyClass} p-3 h-20 rounded-xl flex flex-col items-center justify-center text-center transition-all ${
+                isSelected ? `${pm.activeBorder} shadow-lg scale-[1.02]` : "opacity-90"
               }`}
             >
-              <Icon className={`h-6 w-6 mb-1.5 ${pm.color}`} />
-              <span className={`text-xs font-semibold ${isSelected ? "text-white" : "text-zinc-300"}`}>
-                {pm.label}
-              </span>
+              <Icon className="h-5 w-5 mb-1 opacity-90" />
+              <span className="text-xs font-black tracking-wider uppercase">{pm.label}</span>
+              <span className="text-[9px] opacity-75 uppercase tracking-tight">{pm.sub}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Discount Trigger / Quick percentages */}
-      <div className="space-y-2 rounded-xl border border-zinc-800 bg-zinc-950/60 p-3">
+      {/* Discount Tactile Keypad */}
+      <div className="space-y-1.5 rounded-xl border border-[#162942] bg-[#09121f]/90 p-3">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold text-zinc-300 flex items-center gap-1">
-            <Percent className="h-3.5 w-3.5 text-amber-400" />
-            Desconto Comercial
+          <span className="text-[11px] font-bold text-zinc-300 flex items-center gap-1 uppercase tracking-wider">
+            <Percent className="h-3 w-3 text-amber-400" />
+            DESCONTO DE BALCÃO
           </span>
-          <span className="text-xs font-bold text-amber-400">{discountPercentage}%</span>
+          <span className="text-xs font-black text-amber-400">{discountPercentage}%</span>
         </div>
 
         <div className="grid grid-cols-4 gap-1.5 pt-1">
@@ -99,10 +136,10 @@ export default function POSPayment({
               key={pct}
               type="button"
               onClick={() => onSetDiscount(pct)}
-              className={`py-1 rounded text-xs font-bold border transition-colors ${
+              className={`key-mechanical h-8 rounded-lg text-xs font-extrabold tracking-wider ${
                 discountPercentage === pct
-                  ? "bg-amber-500/20 border-amber-500/50 text-amber-300"
-                  : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:bg-zinc-800"
+                  ? "bg-[#d97706] text-white border-b-2 border-[#78350f] shadow-[0_2px_0_#451a03]"
+                  : "key-action"
               }`}
             >
               {pct}%
@@ -111,34 +148,36 @@ export default function POSPayment({
         </div>
       </div>
 
-      {/* Large Total Display */}
+      {/* Giant VFD Screen: Total Final da Venda */}
       <div className="flex-1 flex flex-col justify-end space-y-3">
-        <div className="rounded-xl border border-emerald-500/20 bg-emerald-950/20 p-4 text-center">
-          <span className="text-xs font-medium uppercase tracking-wider text-emerald-400/80">
-            Total Final da Venda
+        <div className="vfd-display p-4 text-center">
+          <div className="vfd-scanlines absolute inset-0 opacity-30" />
+          <span className="text-[10px] font-black uppercase tracking-widest text-[#4a7a9b] relative z-10 block">
+            /// TOTAL FINAL DA MÁQUINA
           </span>
-          <h2 className="text-3xl font-black text-white tracking-tight mt-1">
+          <div className="text-3xl sm:text-4xl font-black vfd-text tracking-wider mt-1 relative z-10">
             {summary.netTotal.toFixed(2)}{" "}
-            <span className="text-sm font-medium text-zinc-400">MZN</span>
-          </h2>
+            <span className="text-sm font-semibold text-[#4a7a9b]">MZN</span>
+          </div>
         </div>
 
-        {/* Action Button: Concluir Venda */}
+        {/* Action Button: Concluir Venda (Mechanical Enter Key) */}
         <Button
           type="button"
+          variant="retro-primary"
           disabled={disabled || isProcessing || summary.itemCount === 0}
           onClick={onCompleteSale}
-          className="w-full h-14 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-base shadow-xl shadow-emerald-950/50 flex items-center justify-center gap-2 rounded-xl transition-all disabled:opacity-40"
+          className="w-full h-14 font-black text-base uppercase tracking-widest flex items-center justify-center gap-2 rounded-xl"
         >
           {isProcessing ? (
             <>
               <Loader2 className="h-5 w-5 animate-spin" />
-              A processar venda...
+              <span>A PROCESSAR REGISTO...</span>
             </>
           ) : (
             <>
               <CheckCircle2 className="h-5 w-5" />
-              CONCLUIR VENDA
+              <span>REGISTAR VENDA ↵</span>
             </>
           )}
         </Button>
@@ -146,3 +185,4 @@ export default function POSPayment({
     </div>
   );
 }
+

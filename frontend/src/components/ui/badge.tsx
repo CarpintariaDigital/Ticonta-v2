@@ -3,19 +3,21 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+          "border-transparent bg-emerald-600/20 text-emerald-300 border-emerald-500/40",
         secondary:
-          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "border-[#1a2f4c] bg-[#132238] text-zinc-300",
         destructive:
-          "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
-        outline: "text-foreground",
-        success: "border-transparent bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
-        warning: "border-transparent bg-amber-500/20 text-amber-400 border-amber-500/30",
+          "border-red-500/30 bg-red-500/20 text-red-400",
+        outline: "border-zinc-800 text-zinc-300",
+        success: "border-emerald-500/30 bg-emerald-500/20 text-emerald-400",
+        warning: "border-amber-500/30 bg-amber-500/20 text-amber-400",
+        vfd: "border-emerald-500/50 bg-[#060e1a] text-emerald-400 font-mono shadow-[0_0_10px_rgba(45,196,160,0.3)]",
+        led: "border-emerald-500/30 bg-[#0d1d33] text-emerald-300 before:content-[''] before:inline-block before:w-2 before:h-2 before:rounded-full before:bg-emerald-400 before:shadow-[0_0_6px_#2dc4a0]",
       },
     },
     defaultVariants: {
@@ -35,3 +37,4 @@ function Badge({ className, variant, ...props }: BadgeProps) {
 }
 
 export { Badge, badgeVariants };
+

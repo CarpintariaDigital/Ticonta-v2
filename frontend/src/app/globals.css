@@ -4,48 +4,61 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --background: 220 40% 6%;
+    --foreground: 210 40% 98%;
+    --card: 220 45% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 220 45% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 164 74% 39%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 35% 16%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 220 30% 18%;
+    --muted-foreground: 215 25% 65%;
+    --accent: 168 62% 47%;
+    --accent-foreground: 220 40% 6%;
+    --destructive: 0 65% 35%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --radius: 0.5rem;
+    --border: 220 30% 18%;
+    --input: 220 30% 18%;
+    --ring: 164 74% 39%;
+    --radius: 0.75rem;
+
+    /* Hardware & Vintage Cash Register Design Tokens */
+    --chassis-dark: #0a1424;
+    --chassis-body: #101c2e;
+    --chassis-panel: #16253d;
+    --chassis-raised: #1b2d4f;
+    --chassis-border: #0d1d33;
+    --vfd-bg: #07101d;
+    --vfd-text: #2dc4a0;
+    --vfd-glow: rgba(45, 196, 160, 0.4);
+    --paper-bg: #f5f0e8;
+    --paper-text: #1b2d4f;
+    --paper-border: #d4cfc6;
   }
 
   .light {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --background: 210 20% 98%;
+    --foreground: 220 45% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 220 45% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
+    --popover-foreground: 220 45% 10%;
+    --primary: 164 74% 35%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 20% 94%;
+    --secondary-foreground: 220 45% 10%;
+    --muted: 220 20% 92%;
+    --muted-foreground: 220 15% 45%;
+    --accent: 168 62% 42%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 75% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    --border: 220 20% 88%;
+    --input: 220 20% 88%;
+    --ring: 164 74% 35%;
   }
 }
 
@@ -54,7 +67,291 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    background-image: 
+      radial-gradient(ellipse at top, rgba(29, 158, 117, 0.08) 0%, transparent 60%),
+      linear-gradient(180deg, #09111c 0%, #060b12 100%);
+    background-attachment: fixed;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+/* ==========================================================================
+   RETRO-MODERN HARDWARE & CASH REGISTER DESIGN SYSTEM
+   ========================================================================== */
+
+/* 1. Chassis Panels (Vintage Equipment Casing) */
+.chassis-panel {
+  background: linear-gradient(180deg, #16253d 0%, #101c2e 100%);
+  border: 2px solid #0d1d33;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 25px -5px rgba(0, 0, 0, 0.6),
+    0 4px 6px -2px rgba(0, 0, 0, 0.4);
+  border-radius: 1.25rem;
+  position: relative;
+}
+
+.chassis-header {
+  background: #0d192a;
+  border-radius: 0.875rem;
+  padding: 0.5rem 0.875rem;
+  border: 1px solid #1c3150;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 2. Screws & Industrial Fasteners */
+.screw {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #2a466c 0%, #0d1d33 80%);
+  border: 1px solid #4a7a9b;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+.screw::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.screws-cluster {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 3. VFD / Digital Luminous Displays (Precision Calculations) */
+.vfd-display {
+  background: #060e1a;
+  border: 2px solid #0d1d33;
+  border-radius: 0.75rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 3px 8px rgba(0, 0, 0, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.vfd-display::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #2dc4a0, transparent);
+  opacity: 0.6;
+}
+
+.vfd-scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.25) 0px,
+    rgba(0, 0, 0, 0.25) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+.vfd-text {
+  color: #2dc4a0;
+  text-shadow: 
+    0 0 12px rgba(45, 196, 160, 0.5),
+    0 0 24px rgba(45, 196, 160, 0.2);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-feature-settings: "tnum" 1;
+}
+
+.vfd-amber {
+  color: #fbbf24;
+  text-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
+}
+
+/* 4. 3D Mechanical Tactile Keycaps (Caixa Registradora & Calculadora) */
+.key-mechanical {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  user-select: none;
+  cursor: pointer;
+  border-radius: 0.625rem;
+  transition: all 0.08s ease-in-out;
+  border: none;
+  outline: none;
+}
+
+.key-mechanical:active:not(:disabled) {
+  transform: translateY(3px) scale(0.97);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.8) !important;
+}
+
+.key-mechanical:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Key Colors / Roles */
+.key-num {
+  background: linear-gradient(180deg, #244169 0%, #1a3354 100%);
+  color: #e2eaf4;
+  border-bottom: 3.5px solid #0b1828;
+  box-shadow: 0 4px 0 #07101b, 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+.key-num:hover:not(:disabled) {
+  background: linear-gradient(180deg, #2a4c7c 0%, #1f3d64 100%);
+  color: #ffffff;
+}
+
+.key-op {
+  background: linear-gradient(180deg, #1b5b44 0%, #144433 100%);
+  color: #2dc4a0;
+  border-bottom: 3.5px solid #082219;
+  box-shadow: 0 4px 0 #051711, 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+.key-op:hover:not(:disabled) {
+  background: linear-gradient(180deg, #216d52 0%, #17503c 100%);
+  color: #63e6c4;
+}
+
+.key-action {
+  background: linear-gradient(180deg, #1b2e4b 0%, #132238 100%);
+  color: #7ab3d4;
+  border-bottom: 3.5px solid #08121f;
+  box-shadow: 0 4px 0 #050d17, 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+.key-action:hover:not(:disabled) {
+  background: linear-gradient(180deg, #223b61 0%, #172a45 100%);
+  color: #a8d5ef;
+}
+
+.key-enter {
+  background: linear-gradient(180deg, #22b885 0%, #1d9e75 100%);
+  color: #ffffff;
+  border-bottom: 3.5px solid #0c5740;
+  box-shadow: 0 4px 0 #083c2c, 0 6px 14px rgba(29, 158, 117, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.key-enter:hover:not(:disabled) {
+  background: linear-gradient(180deg, #28cfa0 0%, #20b082 100%);
+}
+
+.key-clear {
+  background: linear-gradient(180deg, #5c2626 0%, #441a1a 100%);
+  color: #fca5a5;
+  border-bottom: 3.5px solid #230b0b;
+  box-shadow: 0 4px 0 #170707, 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+.key-clear:hover:not(:disabled) {
+  background: linear-gradient(180deg, #702e2e 0%, #522020 100%);
+  color: #ffffff;
+}
+
+/* Payment Quick Keys */
+.key-cash {
+  background: linear-gradient(180deg, #284c28 0%, #1c361c 100%);
+  color: #a3e635;
+  border-bottom: 3.5px solid #0c1c0c;
+  box-shadow: 0 4px 0 #071207;
+}
+.key-cash:hover:not(:disabled) {
+  background: linear-gradient(180deg, #325f32 0%, #224322 100%);
+  color: #bef264;
+}
+
+.key-mpesa {
+  background: linear-gradient(180deg, #1b4b3b 0%, #13392d 100%);
+  color: #2dc4a0;
+  border-bottom: 3.5px solid #092019;
+  box-shadow: 0 4px 0 #051510;
+}
+.key-mpesa:hover:not(:disabled) {
+  background: linear-gradient(180deg, #225f4b 0%, #174637 100%);
+}
+
+.key-card {
+  background: linear-gradient(180deg, #1e385c 0%, #152944 100%);
+  color: #7dd3fc;
+  border-bottom: 3.5px solid #091523;
+  box-shadow: 0 4px 0 #060d17;
+}
+.key-card:hover:not(:disabled) {
+  background: linear-gradient(180deg, #264673 0%, #1a3355 100%);
+}
+
+/* 5. Thermal Receipt Strip (Perforated Edge Paper) */
+.receipt-strip {
+  background: #f5f0e8;
+  color: #1b2d4f;
+  border-radius: 0.375rem;
+  padding: 0.875rem 1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  border: 1px solid #d4cfc6;
+  position: relative;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.receipt-strip::before,
+.receipt-strip::after {
+  content: '';
+  display: block;
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    #d4cfc6 0px,
+    #d4cfc6 5px,
+    transparent 5px,
+    transparent 10px
+  );
+  margin: -0.875rem -1rem 0.625rem;
+}
+
+.receipt-strip::after {
+  margin: 0.625rem -1rem -0.875rem;
+}
+
+/* Dark Receipt Variant for In-App Dashboard Cards */
+.receipt-strip-dark {
+  background: #09121f;
+  color: #c8d8e8;
+  border-radius: 0.5rem;
+  padding: 0.875rem 1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  border: 1px dashed #1e3654;
+  position: relative;
+}
+
+/* 6. Pulsing Status LEDs */
+.status-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2dc4a0;
+  box-shadow: 0 0 10px rgba(45, 196, 160, 0.8);
+  animation: ledPulse 2s infinite;
+}
+
+@keyframes ledPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.85);
+  }
+}
+

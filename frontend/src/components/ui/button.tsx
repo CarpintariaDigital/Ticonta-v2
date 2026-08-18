@@ -5,26 +5,38 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 select-none",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+          "bg-emerald-600 text-white shadow-md hover:bg-emerald-500 active:scale-98",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+          "border border-zinc-800 bg-zinc-900/80 shadow-sm hover:bg-zinc-800 hover:text-white text-zinc-200",
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+        ghost: "hover:bg-zinc-800/80 hover:text-white text-zinc-300",
+        link: "text-emerald-400 underline-offset-4 hover:underline",
+        
+        /* 3D Mechanical Tactile Keycap Variants */
+        retro: "key-mechanical key-num",
+        "retro-primary": "key-mechanical key-enter",
+        "retro-operator": "key-mechanical key-op",
+        "retro-destructive": "key-mechanical key-clear",
+        "retro-action": "key-mechanical key-action",
+        "retro-cash": "key-mechanical key-cash",
+        "retro-mpesa": "key-mechanical key-mpesa",
+        "retro-card": "key-mechanical key-card",
       },
       size: {
         default: "h-9 px-4 py-2",
         sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-10 rounded-md px-8",
+        lg: "h-11 rounded-xl px-6 text-base",
         icon: "h-9 w-9",
+        keypad: "h-14 text-lg p-0 font-mono",
+        "keypad-sm": "h-10 text-xs px-2 uppercase tracking-wider",
       },
     },
     defaultVariants: {
@@ -55,3 +67,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button"
 
 export { Button, buttonVariants }
+

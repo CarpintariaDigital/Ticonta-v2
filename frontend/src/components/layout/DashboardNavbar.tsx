@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
 import { Button } from "@/components/ui/button";
@@ -94,38 +93,49 @@ export default function DashboardNavbar() {
   const CurrentIcon = currentModule.icon;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-xl px-4 lg:px-6 py-2.5 shadow-lg shadow-black/20">
+    <header className="sticky top-0 z-50 border-b-2 border-[#0d1d33] bg-[#0c1728]/95 backdrop-blur-xl px-4 lg:px-6 py-2 shadow-2xl shadow-black/60">
       <div className="flex items-center justify-between">
-        {/* Left: Brand with Official Logo & Module Switcher */}
+        {/* Left: Hardware Brand Box with Official Logo & Module Switcher */}
         <div className="flex items-center gap-4">
           <Link href="/dashboard" className="flex items-center gap-3 group">
-            <div className="relative h-9 w-9 overflow-hidden rounded-xl bg-slate-900 border border-emerald-500/30 p-1 shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform">
+            <div className="relative h-10 w-10 overflow-hidden rounded-xl bg-gradient-to-br from-[#1b2d4f] to-[#101c2e] border-2 border-[#2dc4a0]/40 p-1.5 shadow-md shadow-[#2dc4a0]/20 group-hover:border-[#2dc4a0] transition-all">
               <img
                 src="/logo-ticonta.png"
                 alt="TiConta Logo"
-                className="h-full w-full object-contain"
+                className="h-full w-full object-contain filter drop-shadow"
               />
             </div>
             <div className="hidden sm:block">
               <div className="flex items-center gap-1.5">
-                <span className="text-sm font-black text-white tracking-tight block">TiConta</span>
-                <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded border border-emerald-500/30">
-                  v2 ERP
+                <span className="text-sm font-black tracking-widest text-white uppercase font-mono">
+                  TiConta
+                </span>
+                <span className="text-[9px] font-bold uppercase tracking-wider bg-emerald-500/20 text-[#2dc4a0] px-1.5 py-0.5 rounded border border-[#2dc4a0]/30 font-mono">
+                  ERP POS
                 </span>
               </div>
-              <span className="text-[10px] text-zinc-400 font-medium">Gestão & Contabilidade MZ</span>
+              <div className="flex items-center gap-1.5 text-[9px] text-[#4a7a9b] font-medium tracking-wider uppercase">
+                <span>Caixa & Gestão MZ</span>
+              </div>
             </div>
           </Link>
 
-          {/* Desktop Module Switcher Dropdown */}
+          {/* Screws Divider */}
+          <div className="hidden lg:flex items-center gap-1 opacity-70">
+            <div className="screw" />
+            <div className="screw" />
+          </div>
+
+          {/* Desktop Module Switcher Dropdown (Hardware Digital Selector) */}
           <div className="relative hidden md:block">
             <button
               onClick={() => setModulesDropdownOpen(!modulesDropdownOpen)}
-              className="flex items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/90 px-3 py-1.5 text-xs font-semibold text-zinc-200 hover:border-emerald-500/40 hover:bg-zinc-850 hover:text-white transition-all shadow-sm"
+              className="flex items-center gap-2 rounded-lg border-2 border-[#162942] bg-[#08121f] px-3 py-1.5 text-xs font-semibold text-zinc-200 hover:border-[#2dc4a0]/60 hover:text-white transition-all shadow-inner"
             >
+              <div className="w-2 h-2 rounded-full bg-[#2dc4a0] shadow-[0_0_6px_#2dc4a0]" />
               <CurrentIcon className={`h-4 w-4 ${currentModule.color}`} />
-              <span>{currentModule.name}</span>
-              <ChevronDown className="h-3.5 w-3.5 text-zinc-400" />
+              <span className="font-mono text-zinc-100">{currentModule.name}</span>
+              <ChevronDown className="h-3.5 w-3.5 text-[#4a7a9b]" />
             </button>
 
             {modulesDropdownOpen && (
@@ -134,14 +144,23 @@ export default function DashboardNavbar() {
                   className="fixed inset-0 z-40"
                   onClick={() => setModulesDropdownOpen(false)}
                 />
-                <div className="absolute left-0 mt-2 w-[580px] z-50 rounded-xl border border-zinc-800 bg-zinc-900/95 p-4 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-150">
+                <div className="absolute left-0 mt-2 w-[600px] z-50 chassis-panel p-4 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-150">
+                  <div className="flex justify-between items-center mb-3 pb-2 border-b border-[#1c3150]">
+                    <span className="text-[10px] font-mono font-bold tracking-widest text-[#2dc4a0] uppercase">
+                      /// MÓDULOS DO SISTEMA TICONTA
+                    </span>
+                    <div className="screws-cluster">
+                      <div className="screw" />
+                      <div className="screw" />
+                    </div>
+                  </div>
                   <div className="grid grid-cols-2 gap-4">
                     {NAVIGATION_MODULES.map((cat) => (
                       <div key={cat.category} className="space-y-1.5">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 px-2 block">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#4a7a9b] px-2 block font-mono">
                           {cat.category}
                         </span>
-                        <div className="space-y-0.5">
+                        <div className="space-y-1">
                           {cat.items.map((item) => {
                             const ItemIcon = item.icon;
                             const isLicensed = !item.requiredModule || hasModule(item.requiredModule);
@@ -153,10 +172,10 @@ export default function DashboardNavbar() {
                                 onClick={() => setModulesDropdownOpen(false)}
                                 className={`flex items-center justify-between gap-2.5 rounded-lg px-2.5 py-1.5 text-xs transition-all ${
                                   isActive
-                                    ? "bg-emerald-500/20 text-emerald-300 font-semibold"
+                                    ? "bg-emerald-500/20 text-[#2dc4a0] border border-[#2dc4a0]/40 font-bold shadow-sm"
                                     : isLicensed
-                                    ? "text-zinc-300 hover:bg-zinc-800/80 hover:text-white"
-                                    : "text-zinc-500 hover:bg-zinc-850 hover:text-zinc-300 opacity-80"
+                                    ? "text-zinc-300 hover:bg-[#1b2d4f] hover:text-white border border-transparent"
+                                    : "text-zinc-500 hover:bg-[#132238] hover:text-zinc-300 opacity-75 border border-transparent"
                                 }`}
                               >
                                 <div className="flex items-center gap-2 truncate">
@@ -182,15 +201,17 @@ export default function DashboardNavbar() {
           </div>
         </div>
 
-        {/* Quick Links on Desktop Bar */}
-        <nav className="hidden xl:flex items-center gap-1">
+        {/* Quick Links on Desktop Bar - Styled with Tactile Keys */}
+        <nav className="hidden xl:flex items-center gap-1.5">
           <Link
             href="/pos"
-            className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-              pathname?.startsWith("/pos") ? "bg-emerald-500/20 text-emerald-400" : "text-zinc-400 hover:text-white"
+            className={`px-3 py-1 rounded-lg text-xs font-bold font-mono tracking-wider transition-all border ${
+              pathname?.startsWith("/pos")
+                ? "bg-[#1d9e75] text-white border-[#0f6e56] shadow-[0_2px_0_#085041]"
+                : "bg-[#142238] text-[#2dc4a0] border-[#0d1d33] hover:bg-[#1a2f4a]"
             }`}
           >
-            POS Caixa
+            [POS CAIXA]
           </Link>
           <Link
             href="/auto-services"
@@ -198,7 +219,7 @@ export default function DashboardNavbar() {
               pathname?.startsWith("/auto-services") ? "bg-teal-500/20 text-teal-400 font-semibold" : "text-zinc-400 hover:text-white"
             }`}
           >
-            Auto & Oficina
+            Oficina
           </Link>
           <Link
             href="/restaurant"
@@ -222,7 +243,7 @@ export default function DashboardNavbar() {
               pathname?.startsWith("/informal-sales") ? "bg-yellow-500/20 text-yellow-400" : "text-zinc-400 hover:text-white"
             }`}
           >
-            Fiado & Ambulante
+            Fiado
           </Link>
           <Link
             href="/poultry"
@@ -250,36 +271,36 @@ export default function DashboardNavbar() {
           </Link>
         </nav>
 
-        {/* Right: Sync Status + User Info + Logout */}
+        {/* Right: Sync Status + Operator Info + Logout Key */}
         <div className="flex items-center gap-3">
           <SyncStatus />
 
-          <div className="hidden sm:flex flex-col text-right">
-            <span className="text-xs font-semibold text-white truncate max-w-[120px]">
-              {user?.username || "Administrador"}
+          <div className="hidden sm:flex flex-col text-right bg-[#07101d] px-2.5 py-1 rounded-lg border border-[#162942]">
+            <span className="text-[11px] font-bold text-zinc-100 truncate max-w-[120px]">
+              {user?.username || "Operador"}
             </span>
-            <span className="text-[10px] text-emerald-400 font-mono uppercase font-semibold">
+            <span className="text-[9px] text-[#2dc4a0] font-mono uppercase font-bold tracking-wider">
               {user?.role || "admin"}
             </span>
           </div>
 
           <Button
-            variant="ghost"
+            variant="retro-destructive"
             size="sm"
             onClick={handleLogout}
-            className="text-zinc-400 hover:text-white hover:bg-zinc-800 h-8 px-2.5 text-xs hidden sm:flex items-center gap-1.5"
+            className="h-8 px-2.5 text-xs hidden sm:flex items-center gap-1.5"
             title="Encerrar Sessão"
           >
             <LogOut className="h-3.5 w-3.5" />
-            <span>Sair</span>
+            <span>SAIR</span>
           </Button>
 
           {/* Mobile Menu Button */}
           <Button
-            variant="outline"
+            variant="retro"
             size="sm"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden border-zinc-800 bg-zinc-900 text-zinc-300 p-1.5 h-8 w-8"
+            className="md:hidden p-1.5 h-8 w-8 text-zinc-300"
           >
             {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </Button>
@@ -288,13 +309,13 @@ export default function DashboardNavbar() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden mt-3 pt-3 border-t border-zinc-800 space-y-4 max-h-[80vh] overflow-y-auto pb-4 animate-in slide-in-from-top-2 duration-200">
+        <div className="md:hidden mt-3 pt-3 border-t border-[#1c3150] space-y-4 max-h-[80vh] overflow-y-auto pb-4 animate-in slide-in-from-top-2 duration-200 chassis-panel p-3">
           {NAVIGATION_MODULES.map((cat) => (
             <div key={cat.category} className="space-y-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 px-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#4a7a9b] px-2 font-mono">
                 {cat.category}
               </span>
-              <div className="grid grid-cols-2 gap-1">
+              <div className="grid grid-cols-2 gap-1.5">
                 {cat.items.map((item) => {
                   const ItemIcon = item.icon;
                   const isLicensed = !item.requiredModule || hasModule(item.requiredModule);
@@ -306,10 +327,10 @@ export default function DashboardNavbar() {
                       onClick={() => setMobileMenuOpen(false)}
                       className={`flex items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-xs transition-all ${
                         isActive
-                          ? "bg-emerald-500/20 text-emerald-300 font-semibold"
+                          ? "bg-emerald-500/20 text-[#2dc4a0] border border-[#2dc4a0]/40 font-bold"
                           : isLicensed
-                          ? "text-zinc-300 bg-zinc-900/60 hover:bg-zinc-800"
-                          : "text-zinc-500 bg-zinc-900/40 hover:bg-zinc-850 opacity-80"
+                          ? "text-zinc-300 bg-[#132238] hover:bg-[#1b2d4f]"
+                          : "text-zinc-500 bg-[#0d1726] hover:bg-[#132238] opacity-80"
                       }`}
                     >
                       <div className="flex items-center gap-2 truncate">
@@ -326,17 +347,17 @@ export default function DashboardNavbar() {
             </div>
           ))}
 
-          <div className="pt-2 border-t border-zinc-800 flex justify-between items-center px-2">
-            <span className="text-xs text-zinc-400">
-              Conectado como <strong className="text-white">{user?.username}</strong>
+          <div className="pt-2 border-t border-[#1c3150] flex justify-between items-center px-2">
+            <span className="text-xs text-zinc-400 font-mono">
+              Operador: <strong className="text-white">{user?.username}</strong>
             </span>
             <Button
-              variant="destructive"
+              variant="retro-destructive"
               size="sm"
               onClick={handleLogout}
               className="text-xs h-7 px-3"
             >
-              Sair
+              SAIR
             </Button>
           </div>
         </div>
@@ -344,3 +365,4 @@ export default function DashboardNavbar() {
     </header>
   );
 }
+

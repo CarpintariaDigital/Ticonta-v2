@@ -13,9 +13,11 @@ export interface UserProfile {
   id: number;
   username: string;
   role: string;
+  company_id?: number;
   is_active: boolean;
   email?: string;
   created_at: string;
+  updated_at?: string;
 }
 
 export interface AuthTokens {

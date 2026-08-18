@@ -3,6 +3,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState, ReactNode } from "react";
 import AuthProvider from "@/components/AuthProvider";
+import PWAManifestManager from "@/components/common/PWAManifestManager";
 
 export default function Providers({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient({
@@ -16,6 +17,7 @@ export default function Providers({ children }: { children: ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <PWAManifestManager />
       <AuthProvider>{children}</AuthProvider>
     </QueryClientProvider>
   );

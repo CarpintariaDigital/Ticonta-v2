@@ -13,6 +13,8 @@ export interface Product {
   iva_rate: number;
   active: boolean;
   image_url?: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface CartItem {

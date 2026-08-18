@@ -1,0 +1,25 @@
+{
+  "name": "TiConta POS",
+  "short_name": "POS",
+  "description": "Ponto de Venda Rápido com emissão de recibos e suporte offline para Moçambique.",
+  "start_url": "/pos",
+  "scope": "/pos/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#10b981",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}

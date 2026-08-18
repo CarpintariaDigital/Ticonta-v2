@@ -1,1 +1,200 @@
-if(!self.define){let e,s={};const a=(a,i)=>(a=new URL(a+".js",i).href,s[a]||new Promise(s=>{if("document"in self){const e=document.createElement("script");e.src=a,e.onload=s,document.head.appendChild(e)}else e=a,importScripts(a),s()}).then(()=>{let e=s[a];if(!e)throw new Error(`Module ${a} didn’t register its module`);return e}));self.define=(i,n)=>{const t=e||("document"in self?document.currentScript.src:"")||location.href;if(s[t])return;let c={};const o=e=>a(e,t),r={module:{uri:t},exports:c,require:o};s[t]=Promise.all(i.map(e=>r[e]||o(e))).then(e=>(n(...e),c))}}define(["./workbox-4754cb34"],function(e){"use strict";importScripts(),self.skipWaiting(),e.clientsClaim(),e.precacheAndRoute([{url:"/_next/app-build-manifest.json",revision:"b2830274312c31562139cdcd6b762ad8"},{url:"/_next/static/8eMzo7i3OPFRWEIJTFsF6/_buildManifest.js",revision:"b9418b3f2fddb202e5112ea6e82c15fe"},{url:"/_next/static/8eMzo7i3OPFRWEIJTFsF6/_ssgManifest.js",revision:"b6652df95db52feb4daf4eca35380933"},{url:"/_next/static/chunks/1241-edc2021a08364098.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/1396-01ea2ba6f1524a45.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/1405-ab6d5b0e94519f68.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/23-d3c35f2ba293e8b8.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/2438-753295fea321c945.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/2472-a7b941f83d52edf4.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/2902-1620445cec8ae7bf.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/333-9f724f8aa0a28bec.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/3809-c7f2f35f9738f49c.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/5166-1f9f4d0ed04f06ce.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/5451-4a35ebe453f56a9d.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/5511-763d89dbef9b62f2.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/5660-d78b2bed0f154969.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/6077-8866c09c3581d1b7.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/6676-eaed8a2da94da354.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/7195-fe724c3abb58fafb.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/7879-39db4cacd20b7161.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/7cb1fa1f-8c1c95df30c71407.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/9837-26c0c530b6912f9e.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(auth)/license-activation/page-698624f8331cba83.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(auth)/login/page-50e35fabba8b4825.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(auth)/register/page-4ef6c15c178507a8.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/accounting/chart-of-accounts/page-17bfd4084d22ad98.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/accounting/journal-entries/page-3caaeb3f2150710e.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/accounting/page-0925338b81112d36.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/accounting/reports/page-eaca227822c6aa3e.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/admin/licensing/page-dca150a864e17e23.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/auto-services/page-ba6b50f262e14608.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/crm/page-adb770d0b1410657.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/dashboard/page-1b7e5db1167ad342.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/hr/page-d7fa6b37c63b0632.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/informal-sales/page-d39301887599a8f5.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/layout-96107263ddf3ed62.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/manufacturing/page-918207ce5f56457d.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/pos/mobile/page-7073ebd505f35cc3.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/pos/page-f43f7c8a841dbfaf.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/poultry/page-f9beebe4740b4891.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/projects/page-f412f8594247a5a5.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/reports/page-2dd18b434441c126.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/restaurant/page-deda61c04f7bf0c6.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/settings/license/page-c7db0b902e822513.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/settings/premium/page-e1b58b7759af9ee2.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(dashboard)/takeaway/page-80ff25ab22366c2d.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(public)/checkout/page-1e7b14b7c4765de7.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/(public)/pricing/page-ee1148836dab86a6.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/_not-found-dfe9c181361b146f.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/app/page-5731fb25fd8b951a.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/layout-b8f9e601a8b80c6e.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/app/page-bd9424b4cdacb85a.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/fd9d1056-1ffd7e582d1ac920.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/framework-4498e84bb0ba1830.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/main-0469d99c49eba4ab.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/main-app-e7cc388a522e4f6c.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/pages/_app-0a6f9986ee298e67.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/pages/_error-77acd5d276fadc61.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js",revision:"837c0df77fd5009c9e46d446188ecfd0"},{url:"/_next/static/chunks/webpack-5496dccbf50edad1.js",revision:"8eMzo7i3OPFRWEIJTFsF6"},{url:"/_next/static/css/c95d6f749185ed46.css",revision:"c95d6f749185ed46"},{url:"/icon.png",revision:"1a1147ad621d36235e3c62ef0df6151d"},{url:"/logo-ticonta.png",revision:"1a1147ad621d36235e3c62ef0df6151d"},{url:"/manifest.json",revision:"d8533f17690b52c11e30fa8cef76c535"}],{ignoreURLParametersMatching:[]}),e.cleanupOutdatedCaches(),e.registerRoute("/",new e.NetworkFirst({cacheName:"start-url",plugins:[{cacheWillUpdate:async({request:e,response:s,event:a,state:i})=>s&&"opaqueredirect"===s.type?new Response(s.body,{status:200,statusText:"OK",headers:s.headers}):s}]}),"GET"),e.registerRoute(/^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,new e.CacheFirst({cacheName:"google-fonts-webfonts",plugins:[new e.ExpirationPlugin({maxEntries:4,maxAgeSeconds:31536e3})]}),"GET"),e.registerRoute(/^https:\/\/fonts\.(?:googleapis)\.com\/.*/i,new e.StaleWhileRevalidate({cacheName:"google-fonts-stylesheets",plugins:[new e.ExpirationPlugin({maxEntries:4,maxAgeSeconds:604800})]}),"GET"),e.registerRoute(/\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,new e.StaleWhileRevalidate({cacheName:"static-font-assets",plugins:[new e.ExpirationPlugin({maxEntries:4,maxAgeSeconds:604800})]}),"GET"),e.registerRoute(/\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,new e.StaleWhileRevalidate({cacheName:"static-image-assets",plugins:[new e.ExpirationPlugin({maxEntries:64,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\/_next\/image\?url=.+$/i,new e.StaleWhileRevalidate({cacheName:"next-image",plugins:[new e.ExpirationPlugin({maxEntries:64,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:mp3|wav|ogg)$/i,new e.CacheFirst({cacheName:"static-audio-assets",plugins:[new e.RangeRequestsPlugin,new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:mp4)$/i,new e.CacheFirst({cacheName:"static-video-assets",plugins:[new e.RangeRequestsPlugin,new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:js)$/i,new e.StaleWhileRevalidate({cacheName:"static-js-assets",plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:css|less)$/i,new e.StaleWhileRevalidate({cacheName:"static-style-assets",plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\/_next\/data\/.+\/.+\.json$/i,new e.StaleWhileRevalidate({cacheName:"next-data",plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:json|xml|csv)$/i,new e.NetworkFirst({cacheName:"static-data-assets",plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(({url:e})=>{if(!(self.origin===e.origin))return!1;const s=e.pathname;return!s.startsWith("/api/auth/")&&!!s.startsWith("/api/")},new e.NetworkFirst({cacheName:"apis",networkTimeoutSeconds:10,plugins:[new e.ExpirationPlugin({maxEntries:16,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(({url:e})=>{if(!(self.origin===e.origin))return!1;return!e.pathname.startsWith("/api/")},new e.NetworkFirst({cacheName:"others",networkTimeoutSeconds:10,plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(({url:e})=>!(self.origin===e.origin),new e.NetworkFirst({cacheName:"cross-origin",networkTimeoutSeconds:10,plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:3600})]}),"GET")});
+/**
+ * TiConta v2 — Modular Service Worker
+ * Suporta cache seletivo por módulo (POS, Fiado, etc.) com offline-first via Workbox
+ */
+
+if (!self.define) {
+  let e, s = {};
+  const a = (a, i) => (
+    a = new URL(a + ".js", i).href,
+    s[a] || new Promise((res) => {
+      if ("document" in self) {
+        const e = document.createElement("script");
+        e.src = a;
+        e.onload = res;
+        document.head.appendChild(e);
+      } else {
+        e = a;
+        importScripts(a);
+        res();
+      }
+    }).then(() => {
+      let e = s[a];
+      if (!e) throw new Error(`Module ${a} didn't register its module`);
+      return e;
+    })
+  );
+  self.define = (i, n) => {
+    const t = e || ("document" in self ? document.currentScript.src : "") || location.href;
+    if (s[t]) return;
+    let c = {};
+    const o = (e) => a(e, t),
+      r = { module: { uri: t }, exports: c, require: o };
+    s[t] = Promise.all(i.map((e) => r[e] || o(e))).then((e) => (n(...e), c));
+  };
+}
+
+define(["./workbox-4754cb34"], function (workbox) {
+  "use strict";
+
+  self.skipWaiting();
+  workbox.clientsClaim();
+
+  // 1. Core Precaching for PWA Shell
+  workbox.precacheAndRoute([
+    { url: "/manifest.json", revision: "v2-core" },
+    { url: "/pos/manifest.json", revision: "v2-pos" },
+    { url: "/informal/manifest.json", revision: "v2-informal" },
+    { url: "/icon-192x192.png", revision: "v2-icon" },
+    { url: "/icon-512x512.png", revision: "v2-icon-512" },
+    { url: "/logo-ticonta.png", revision: "v2-logo" },
+    { url: "/icon.png", revision: "v2-icon-base" }
+  ], { ignoreURLParametersMatching: [/.*/] });
+
+  workbox.cleanupOutdatedCaches();
+
+  // ==========================================================================
+  // 2. Cache Seletivo por Módulo: TiConta POS (/pos/* e APIs de POS)
+  // ==========================================================================
+  workbox.registerRoute(
+    ({ url }) => url.pathname.startsWith("/pos"),
+    new workbox.NetworkFirst({
+      cacheName: "ticonta-pos-runtime",
+      networkTimeoutSeconds: 5,
+      plugins: [
+        new workbox.ExpirationPlugin({
+          maxEntries: 50,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 dias offline para POS
+        }),
+      ],
+    }),
+    "GET"
+  );
+
+  workbox.registerRoute(
+    ({ url }) => url.pathname.startsWith("/api/v1/products") || url.pathname.startsWith("/api/v1/sales"),
+    new workbox.NetworkFirst({
+      cacheName: "ticonta-pos-api-cache",
+      networkTimeoutSeconds: 4,
+      plugins: [
+        new workbox.ExpirationPlugin({
+          maxEntries: 100,
+          maxAgeSeconds: 7 * 24 * 60 * 60,
+        }),
+      ],
+    }),
+    "GET"
+  );
+
+  // ==========================================================================
+  // 3. Cache Seletivo por Módulo: Caderno de Fiado (/informal-sales/*)
+  // ==========================================================================
+  workbox.registerRoute(
+    ({ url }) => url.pathname.startsWith("/informal-sales"),
+    new workbox.NetworkFirst({
+      cacheName: "ticonta-informal-runtime",
+      networkTimeoutSeconds: 5,
+      plugins: [
+        new workbox.ExpirationPlugin({
+          maxEntries: 50,
+          maxAgeSeconds: 30 * 24 * 60 * 60,
+        }),
+      ],
+    }),
+    "GET"
+  );
+
+  workbox.registerRoute(
+    ({ url }) => url.pathname.startsWith("/api/v1/informal-sales"),
+    new workbox.NetworkFirst({
+      cacheName: "ticonta-informal-api-cache",
+      networkTimeoutSeconds: 4,
+      plugins: [
+        new workbox.ExpirationPlugin({
+          maxEntries: 100,
+          maxAgeSeconds: 7 * 24 * 60 * 60,
+        }),
+      ],
+    }),
+    "GET"
+  );
+
+  // ==========================================================================
+  // 4. Cache para Assets Estáticos (Imagens, Fontes, CSS, JS)
+  // ==========================================================================
+  workbox.registerRoute(
+    /\.(?:png|jpg|jpeg|svg|webp|ico)$/i,
+    new workbox.StaleWhileRevalidate({
+      cacheName: "ticonta-images",
+      plugins: [
+        new workbox.ExpirationPlugin({
+          maxEntries: 64,
+          maxAgeSeconds: 30 * 24 * 60 * 60,
+        }),
+      ],
+    }),
+    "GET"
+  );
+
+  workbox.registerRoute(
+    /\.(?:woff|woff2|eot|ttf|otf)$/i,
+    new workbox.CacheFirst({
+      cacheName: "ticonta-fonts",
+      plugins: [
+        new workbox.ExpirationPlugin({
+          maxEntries: 16,
+          maxAgeSeconds: 365 * 24 * 60 * 60,
+        }),
+      ],
+    }),
+    "GET"
+  );
+
+  workbox.registerRoute(
+    /\/_next\/static\/.+\.(?:js|css)$/i,
+    new workbox.StaleWhileRevalidate({
+      cacheName: "ticonta-next-static",
+      plugins: [
+        new workbox.ExpirationPlugin({
+          maxEntries: 128,
+          maxAgeSeconds: 7 * 24 * 60 * 60,
+        }),
+      ],
+    }),
+    "GET"
+  );
+
+  // ==========================================================================
+  // 5. Rotas Gerais com Fallback
+  // ==========================================================================
+  workbox.registerRoute(
+    ({ url }) => url.pathname === "/" || url.pathname.startsWith("/dashboard"),
+    new workbox.NetworkFirst({
+      cacheName: "ticonta-core-runtime",
+      networkTimeoutSeconds: 5,
+      plugins: [
+        new workbox.ExpirationPlugin({
+          maxEntries: 30,
+          maxAgeSeconds: 7 * 24 * 60 * 60,
+        }),
+      ],
+    }),
+    "GET"
+  );
+
+  // Message Handler for dynamic module precache
+  self.addEventListener("message", (event) => {
+    if (event.data && event.data.type === "ROUTE_ACTIVE") {
+      const activePath = event.data.pathname;
+      if (activePath.startsWith("/pos")) {
+        caches.open("ticonta-pos-runtime").then((cache) => {
+          cache.add("/pos").catch(() => {});
+        });
+      } else if (activePath.startsWith("/informal-sales")) {
+        caches.open("ticonta-informal-runtime").then((cache) => {
+          cache.add("/informal-sales").catch(() => {});
+        });
+      }
+    }
+  });
+});

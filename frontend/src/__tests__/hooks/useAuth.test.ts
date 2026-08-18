@@ -31,6 +31,7 @@ describe("useAuthStore & authService", () => {
       access_token: "jwt_mock_access_12345",
       refresh_token: "jwt_mock_refresh_12345",
       token_type: "bearer",
+      expires_in: 3600,
     });
 
     const updatedState = useAuthStore.getState();

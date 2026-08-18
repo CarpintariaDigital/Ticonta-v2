@@ -16,6 +16,7 @@ describe("usePOSStore", () => {
       company_id: 1,
       name: "Porta Chanfuta Maciça",
       sku: "SKU-P1",
+      category: "carpintaria",
       unit_price: 7500,
       cost_price: 4000,
       quantity: 10,

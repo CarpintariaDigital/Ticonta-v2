@@ -16,6 +16,7 @@ describe("useCRMStore", () => {
   it("sets leads to CRM store state", () => {
     const lead: Lead = {
       id: 1,
+      company_id: 1,
       name: "Empresa de Construção Maputo",
       email: "compras@maputo.co.mz",
       phone: "+258841112233",
@@ -38,6 +39,7 @@ describe("useCRMStore", () => {
   it("updates lead stage seamlessly in Kanban", () => {
     const lead: Lead = {
       id: 2,
+      company_id: 1,
       name: "Movelaria Beira",
       email: "beira@loja.co.mz",
       phone: "+258823334455",

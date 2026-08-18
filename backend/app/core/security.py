@@ -32,9 +32,10 @@ def create_access_token(
     user_id: int,
     username: str,
     roles: Union[str, List[str]],
+    modules: Optional[List[str]] = None,
     expires_delta: Optional[timedelta] = None
 ) -> str:
-    """Creates a signed JWT access token with user_id, username, roles, and exp."""
+    """Creates a signed JWT access token with user_id, username, roles, modules, and exp."""
     role_list = [roles] if isinstance(roles, str) else list(roles)
     if expires_delta:
         expire = datetime.now(timezone.utc) + expires_delta
@@ -49,6 +50,7 @@ def create_access_token(
         "user_id": user_id,
         "username": username,
         "roles": role_list,
+        "modules": modules or ["pos", "informal"],
         "type": "access"
     }
     return jwt.encode(

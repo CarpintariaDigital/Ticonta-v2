@@ -96,14 +96,51 @@ class AuthService:
         logger.info("auth_login_success", username=username, user_id=user.id)
         return user
 
+    def get_active_modules_for_user(self, user: User) -> List[str]:
+        """Recupera a lista de módulos activos com base no plano de licença ou permissões."""
+        from app.core.module_map import get_modules_for_plan
+
+        if user.role in ("admin", "superuser"):
+            return get_modules_for_plan("enterprise")
+
+        # Verificar se existe licença activa registada para a empresa
+        try:
+            from app.models.license import License
+            active_lic = (
+                self.db.query(License)
+                .filter(License.company_id == user.company_id, License.is_active == True)
+                .first()
+            )
+            if active_lic and active_lic.plan:
+                return get_modules_for_plan(active_lic.plan)
+        except Exception:
+            pass
+
+        # Em ambiente dev/teste/local sem licença criada, assume enterprise por padrão
+        env_lower = (settings.ENVIRONMENT or "").lower()
+        if env_lower in ("dev", "development", "test", "local"):
+            return get_modules_for_plan("enterprise")
+
+        return get_modules_for_plan("base")
+
     def create_tokens(
         self,
         user_id: int,
         username: str,
-        roles: Union[str, List[str]]
+        roles: Union[str, List[str]],
+        modules: Optional[List[str]] = None
     ) -> Dict[str, Any]:
         """Generates access token (15min default) and refresh token (7days default)."""
-        access_token = create_access_token(user_id=user_id, username=username, roles=roles)
+        if modules is None:
+            user = self.get_user_by_id(user_id)
+            modules = self.get_active_modules_for_user(user) if user else ["pos", "informal"]
+
+        access_token = create_access_token(
+            user_id=user_id,
+            username=username,
+            roles=roles,
+            modules=modules
+        )
         refresh_token = create_refresh_token(user_id=user_id, username=username)
         expires_in = settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
 
@@ -111,7 +148,8 @@ class AuthService:
             "access_token": access_token,
             "refresh_token": refresh_token,
             "token_type": "bearer",
-            "expires_in": expires_in
+            "expires_in": expires_in,
+            "modules": modules
         }
 
     def refresh_access_token(self, refresh_token: str) -> Dict[str, Any]:
@@ -140,7 +178,8 @@ class AuthService:
                     detail="User not found or inactive"
                 )
 
-            return self.create_tokens(user_id=user.id, username=user.username, roles=[user.role])
+            modules = self.get_active_modules_for_user(user)
+            return self.create_tokens(user_id=user.id, username=user.username, roles=[user.role], modules=modules)
 
         except jwt.ExpiredSignatureError:
             logger.warn("token_refresh_failed_expired")

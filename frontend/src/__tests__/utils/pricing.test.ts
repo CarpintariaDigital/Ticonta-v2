@@ -18,13 +18,24 @@ describe("Pricing & Payment Logic", () => {
     expect(res.savings).toBe(1800);
   });
 
-  it("ensures all 4 plans are configured with correct modules", () => {
-    expect(PRICING_PLANS.length).toBe(4);
+  it("ensures all 3 plans are configured with correct modules and prices", () => {
+    expect(PRICING_PLANS.length).toBe(3);
     const planIds = PRICING_PLANS.map((p) => p.id);
-    expect(planIds).toEqual(["basic", "professional", "complete", "enterprise"]);
+    expect(planIds).toEqual(["base", "pro", "enterprise"]);
 
-    const completePlan = PRICING_PLANS.find((p) => p.id === "complete");
-    expect(completePlan?.modules).toContain("manufacturing");
-    expect(completePlan?.modules).toContain("accounting");
+    const basePlan = PRICING_PLANS.find((p) => p.id === "base");
+    expect(basePlan?.monthlyPrice).toBe(800);
+    expect(basePlan?.modules).toContain("pos");
+    expect(basePlan?.modules).toContain("informal");
+
+    const proPlan = PRICING_PLANS.find((p) => p.id === "pro");
+    expect(proPlan?.monthlyPrice).toBe(2500);
+    expect(proPlan?.modules).toContain("restaurant");
+    expect(proPlan?.modules).toContain("accounting");
+
+    const entPlan = PRICING_PLANS.find((p) => p.id === "enterprise");
+    expect(entPlan?.monthlyPrice).toBe(5000);
+    expect(entPlan?.modules).toContain("crm");
+    expect(entPlan?.modules).toContain("poultry");
   });
 });

@@ -21,6 +21,7 @@ from app.models.manufacturing import (
     WorkOrderStatus,
 )
 from app.models.license import License
+from app.models.license_record import LicenseRecord
 from app.models.document_delivery import DocumentDelivery
 from app.models.barcode import BarcodeScanLog
 from app.models.premium_features import PremiumFeature, CompanyPremiumFeature

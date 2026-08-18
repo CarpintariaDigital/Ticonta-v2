@@ -27,36 +27,38 @@ import {
   Menu,
   X,
   ChevronDown,
+  Lock,
 } from "lucide-react";
+import { useLicensedModules } from "@/hooks/useLicensedModules";
 
 export const NAVIGATION_MODULES = [
   {
     category: "Vendas & Serviços",
     items: [
       { name: "Painel Geral", href: "/dashboard", icon: LayoutDashboard, color: "text-zinc-400" },
-      { name: "Ponto de Venda (POS)", href: "/pos", icon: ShoppingCart, color: "text-emerald-400" },
-      { name: "Oficina & Serviços Auto", href: "/auto-services", icon: Wrench, color: "text-teal-400" },
-      { name: "Restaurante & Bares", href: "/restaurant", icon: UtensilsCrossed, color: "text-amber-400" },
-      { name: "Takeaway & Entregas", href: "/takeaway", icon: Bike, color: "text-sky-400" },
-      { name: "Vendas Informais / Fiado", href: "/informal-sales", icon: Store, color: "text-yellow-400" },
+      { name: "Ponto de Venda (POS)", href: "/pos", icon: ShoppingCart, color: "text-emerald-400", requiredModule: "pos" },
+      { name: "Oficina & Serviços Auto", href: "/auto-services", icon: Wrench, color: "text-teal-400", requiredModule: "auto_services" },
+      { name: "Restaurante & Bares", href: "/restaurant", icon: UtensilsCrossed, color: "text-amber-400", requiredModule: "restaurant" },
+      { name: "Takeaway & Entregas", href: "/takeaway", icon: Bike, color: "text-sky-400", requiredModule: "restaurant" },
+      { name: "Vendas Informais / Fiado", href: "/informal-sales", icon: Store, color: "text-yellow-400", requiredModule: "informal" },
     ],
   },
   {
     category: "Agro & Produção",
     items: [
-      { name: "Produção Avícola & Ovos", href: "/poultry", icon: Egg, color: "text-orange-400" },
+      { name: "Produção Avícola & Ovos", href: "/poultry", icon: Egg, color: "text-orange-400", requiredModule: "poultry" },
       { name: "Cotações & Preços", href: "/pricing", icon: TrendingUp, color: "text-teal-400" },
-      { name: "Fabrico & Marcenaria", href: "/manufacturing", icon: Factory, color: "text-indigo-400" },
+      { name: "Fabrico & Marcenaria", href: "/manufacturing", icon: Factory, color: "text-indigo-400", requiredModule: "projects" },
     ],
   },
   {
     category: "Gestão & Compliance",
     items: [
-      { name: "Contabilidade PGC", href: "/accounting", icon: BookOpen, color: "text-blue-400" },
-      { name: "Recursos Humanos & INSS", href: "/hr", icon: Users, color: "text-rose-400" },
-      { name: "Clientes & CRM", href: "/crm", icon: Users, color: "text-purple-400" },
-      { name: "Obras & Projetos", href: "/projects", icon: FolderKanban, color: "text-cyan-400" },
-      { name: "Relatórios Fiscais & BI", href: "/reports", icon: BarChart3, color: "text-emerald-400" },
+      { name: "Contabilidade PGC", href: "/accounting", icon: BookOpen, color: "text-blue-400", requiredModule: "accounting" },
+      { name: "Recursos Humanos & INSS", href: "/hr", icon: Users, color: "text-rose-400", requiredModule: "hr" },
+      { name: "Clientes & CRM", href: "/crm", icon: Users, color: "text-purple-400", requiredModule: "crm" },
+      { name: "Obras & Projetos", href: "/projects", icon: FolderKanban, color: "text-cyan-400", requiredModule: "projects" },
+      { name: "Relatórios Fiscais & BI", href: "/reports", icon: BarChart3, color: "text-emerald-400", requiredModule: "accounting" },
     ],
   },
   {
@@ -72,6 +74,7 @@ export default function DashboardNavbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout } = useAuthStore();
+  const { hasModule } = useLicensedModules();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [modulesDropdownOpen, setModulesDropdownOpen] = useState(false);
 
@@ -131,7 +134,7 @@ export default function DashboardNavbar() {
                   className="fixed inset-0 z-40"
                   onClick={() => setModulesDropdownOpen(false)}
                 />
-                <div className="absolute left-0 mt-2 w-[540px] z-50 rounded-xl border border-zinc-800 bg-zinc-900/95 p-4 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-150">
+                <div className="absolute left-0 mt-2 w-[580px] z-50 rounded-xl border border-zinc-800 bg-zinc-900/95 p-4 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-150">
                   <div className="grid grid-cols-2 gap-4">
                     {NAVIGATION_MODULES.map((cat) => (
                       <div key={cat.category} className="space-y-1.5">
@@ -141,20 +144,31 @@ export default function DashboardNavbar() {
                         <div className="space-y-0.5">
                           {cat.items.map((item) => {
                             const ItemIcon = item.icon;
+                            const isLicensed = !item.requiredModule || hasModule(item.requiredModule);
                             const isActive = pathname === item.href || (item.href !== "/dashboard" && pathname?.startsWith(item.href));
                             return (
                               <Link
                                 key={item.href}
-                                href={item.href}
+                                href={isLicensed ? item.href : "/pricing"}
                                 onClick={() => setModulesDropdownOpen(false)}
-                                className={`flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs transition-all ${
+                                className={`flex items-center justify-between gap-2.5 rounded-lg px-2.5 py-1.5 text-xs transition-all ${
                                   isActive
                                     ? "bg-emerald-500/20 text-emerald-300 font-semibold"
-                                    : "text-zinc-300 hover:bg-zinc-800/80 hover:text-white"
+                                    : isLicensed
+                                    ? "text-zinc-300 hover:bg-zinc-800/80 hover:text-white"
+                                    : "text-zinc-500 hover:bg-zinc-850 hover:text-zinc-300 opacity-80"
                                 }`}
                               >
-                                <ItemIcon className={`h-3.5 w-3.5 ${item.color}`} />
-                                <span className="truncate">{item.name}</span>
+                                <div className="flex items-center gap-2 truncate">
+                                  <ItemIcon className={`h-3.5 w-3.5 ${isLicensed ? item.color : "text-zinc-500"}`} />
+                                  <span className="truncate">{item.name}</span>
+                                </div>
+                                {!isLicensed && (
+                                  <span className="flex items-center gap-1 text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                    <Lock className="h-2.5 w-2.5" />
+                                    <span>Actualizar</span>
+                                  </span>
+                                )}
                               </Link>
                             );
                           })}
@@ -283,20 +297,28 @@ export default function DashboardNavbar() {
               <div className="grid grid-cols-2 gap-1">
                 {cat.items.map((item) => {
                   const ItemIcon = item.icon;
+                  const isLicensed = !item.requiredModule || hasModule(item.requiredModule);
                   const isActive = pathname === item.href || (item.href !== "/dashboard" && pathname?.startsWith(item.href));
                   return (
                     <Link
                       key={item.href}
-                      href={item.href}
+                      href={isLicensed ? item.href : "/pricing"}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-2 rounded-lg px-2.5 py-2 text-xs transition-all ${
+                      className={`flex items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-xs transition-all ${
                         isActive
                           ? "bg-emerald-500/20 text-emerald-300 font-semibold"
-                          : "text-zinc-300 bg-zinc-900/60 hover:bg-zinc-800"
+                          : isLicensed
+                          ? "text-zinc-300 bg-zinc-900/60 hover:bg-zinc-800"
+                          : "text-zinc-500 bg-zinc-900/40 hover:bg-zinc-850 opacity-80"
                       }`}
                     >
-                      <ItemIcon className={`h-3.5 w-3.5 ${item.color}`} />
-                      <span className="truncate">{item.name}</span>
+                      <div className="flex items-center gap-2 truncate">
+                        <ItemIcon className={`h-3.5 w-3.5 ${isLicensed ? item.color : "text-zinc-500"}`} />
+                        <span className="truncate">{item.name}</span>
+                      </div>
+                      {!isLicensed && (
+                        <Lock className="h-3 w-3 text-amber-400 shrink-0" />
+                      )}
                     </Link>
                   );
                 })}

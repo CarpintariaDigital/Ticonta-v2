@@ -86,8 +86,11 @@ app = FastAPI(
     redoc_url="/redoc" if settings.ENVIRONMENT != "prod" else None,
 )
 
+from app.middleware.module_guard import ModuleGuardMiddleware
+
 # Apply Middlewares
 app.add_middleware(StructuredLoggingMiddleware)
+app.add_middleware(ModuleGuardMiddleware)
 app.add_middleware(
     InMemoryRateLimiter,
     requests_limit=100,
@@ -162,6 +165,7 @@ from app.routes.payment import router as payment_router
 from app.routes.poultry import router as poultry_router
 from app.routes.pricing import router as pricing_router
 from app.routes.auto_services import router as auto_services_router
+from app.routes.license_server import router as license_server_router
 
 app.include_router(auth_router)
 app.include_router(sales_router)
@@ -174,6 +178,7 @@ app.include_router(reports_router)
 app.include_router(manufacturing_router)
 app.include_router(licensing_router)
 app.include_router(admin_licensing_router)
+app.include_router(license_server_router)
 app.include_router(document_delivery_router)
 app.include_router(barcode_router)
 app.include_router(premium_router)

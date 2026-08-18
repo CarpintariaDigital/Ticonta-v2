@@ -16,6 +16,7 @@ export interface UserProfile {
   company_id?: number;
   is_active: boolean;
   email?: string;
+  modules?: string[];
   created_at: string;
   updated_at?: string;
 }
@@ -25,6 +26,7 @@ export interface AuthTokens {
   refresh_token: string;
   token_type: string;
   expires_in: number;
+  modules?: string[];
 }
 
 export const authService = {

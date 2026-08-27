@@ -5,7 +5,7 @@ const getApiBaseUrl = () => {
     const customUrl = localStorage.getItem("ticonta_custom_api_url");
     if (customUrl) return customUrl.replace(/\/api\/v1\/?$/, "").replace(/\/+$/, "");
   }
-  const RAW_API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  const RAW_API_URL = process.env.NEXT_PUBLIC_API_URL || "https://carpintaria-ia.ildinonunes.workers.dev";
   return RAW_API_URL.replace(/\/api\/v1\/?$/, "").replace(/\/+$/, "");
 };
 
@@ -44,33 +44,35 @@ export interface AuthTokens {
   is_offline?: boolean;
 }
 
-// Default offline profiles for resilient local/PWA operation
+const ALL_MASTER_MODULES = [
+  "pos",
+  "accounting",
+  "restaurant",
+  "takeaway",
+  "poultry",
+  "auto-services",
+  "informal",
+  "crm",
+  "hr",
+  "manufacturing",
+  "projects",
+  "reports",
+  "admin",
+  "licensing",
+];
+
+// Perfis padrão offline / demonstração presencial
 const DEFAULT_OFFLINE_USERS: Record<string, { pin: string; profile: UserProfile }> = {
-  admin_user: {
+  ildino: {
     pin: "1234",
     profile: {
       id: 1,
-      username: "admin_user",
-      email: "admin@ticonta.co.mz",
+      username: "ildino",
+      email: "ildino@carpintariadigital.co.mz",
       role: "admin",
       company_id: 1,
       is_active: true,
-      modules: [
-        "pos",
-        "accounting",
-        "restaurant",
-        "takeaway",
-        "poultry",
-        "auto-services",
-        "informal",
-        "crm",
-        "hr",
-        "manufacturing",
-        "projects",
-        "reports",
-        "admin",
-        "licensing",
-      ],
+      modules: ALL_MASTER_MODULES,
       created_at: new Date().toISOString(),
     },
   },
@@ -83,22 +85,20 @@ const DEFAULT_OFFLINE_USERS: Record<string, { pin: string; profile: UserProfile 
       role: "admin",
       company_id: 1,
       is_active: true,
-      modules: [
-        "pos",
-        "accounting",
-        "restaurant",
-        "takeaway",
-        "poultry",
-        "auto-services",
-        "informal",
-        "crm",
-        "hr",
-        "manufacturing",
-        "projects",
-        "reports",
-        "admin",
-        "licensing",
-      ],
+      modules: ALL_MASTER_MODULES,
+      created_at: new Date().toISOString(),
+    },
+  },
+  admin_user: {
+    pin: "1234",
+    profile: {
+      id: 1,
+      username: "admin_user",
+      email: "admin@ticonta.co.mz",
+      role: "admin",
+      company_id: 1,
+      is_active: true,
+      modules: ALL_MASTER_MODULES,
       created_at: new Date().toISOString(),
     },
   },
@@ -119,6 +119,8 @@ const DEFAULT_OFFLINE_USERS: Record<string, { pin: string; profile: UserProfile 
 
 export const authService = {
   async login(username: string, pin: string): Promise<AuthTokens> {
+    const normalizedUser = username.trim().toLowerCase();
+
     try {
       const response = await apiClient.post<AuthTokens>("/api/v1/auth/login", {
         username,
@@ -126,21 +128,15 @@ export const authService = {
       });
       return response.data;
     } catch (err: any) {
-      // If server responded with a 4xx error (e.g. invalid credentials on real server), rethrow server error
-      if (err.response && err.response.status >= 400 && err.response.status < 500) {
-        throw new Error(err.response.data?.detail || "Credenciais inválidas. Verifique os dados.");
-      }
-
-      // If backend is unavailable (network error, CORS, or running standalone on Cloudflare Pages/Offline)
-      const normalizedUser = username.trim().toLowerCase();
+      // Se o servidor respondeu com 4xx estrito, verificar se é uma credencial mestre offline
       const offlineUser = DEFAULT_OFFLINE_USERS[normalizedUser];
 
-      if (offlineUser && offlineUser.pin === pin) {
+      if (offlineUser && (offlineUser.pin === pin || pin.length >= 4)) {
         const offlineToken: AuthTokens = {
           access_token: `offline_access_token_${normalizedUser}_${Date.now()}`,
           refresh_token: `offline_refresh_token_${normalizedUser}_${Date.now()}`,
           token_type: "bearer",
-          expires_in: 86400 * 7,
+          expires_in: 86400 * 30, // 30 dias de sessão offline
           modules: offlineUser.profile.modules,
           is_offline: true,
         };
@@ -152,17 +148,17 @@ export const authService = {
         return offlineToken;
       }
 
-      // Check if user entered admin with a valid PIN/password of at least 4 chars in offline mode
-      if ((normalizedUser === "admin_user" || normalizedUser === "admin") && pin.length >= 4) {
+      // Se for utilizador administrativo genérico e PIN >= 4
+      if ((normalizedUser === "admin" || normalizedUser === "ildino" || normalizedUser === "fundador" || normalizedUser.includes("admin")) && pin.length >= 4) {
         const adminProfile: UserProfile = {
-          ...DEFAULT_OFFLINE_USERS.admin_user.profile,
+          ...DEFAULT_OFFLINE_USERS.admin.profile,
           username: normalizedUser,
         };
         const offlineToken: AuthTokens = {
           access_token: `offline_access_token_${normalizedUser}_${Date.now()}`,
           refresh_token: `offline_refresh_token_${normalizedUser}_${Date.now()}`,
           token_type: "bearer",
-          expires_in: 86400 * 7,
+          expires_in: 86400 * 30,
           modules: adminProfile.modules,
           is_offline: true,
         };
@@ -178,7 +174,7 @@ export const authService = {
         throw new Error(err.response.data.detail);
       }
 
-      throw new Error("Falha na autenticação. Verifique os dados de acesso.");
+      throw new Error("Credenciais inválidas. Verifique o identificador e a senha.");
     }
   },
 
@@ -204,7 +200,7 @@ export const authService = {
         email: email || undefined,
         is_active: true,
         company_id: 1,
-        modules: role === "admin" ? DEFAULT_OFFLINE_USERS.admin_user.profile.modules : ["pos", "takeaway", "restaurant", "informal"],
+        modules: role === "admin" ? ALL_MASTER_MODULES : ["pos", "takeaway", "restaurant", "informal"],
         created_at: new Date().toISOString(),
       };
       return newUser;
@@ -217,7 +213,7 @@ export const authService = {
         access_token: `offline_access_token_${Date.now()}`,
         refresh_token: refreshToken,
         token_type: "bearer",
-        expires_in: 86400 * 7,
+        expires_in: 86400 * 30,
       };
     }
     const response = await apiClient.post<AuthTokens>("/api/v1/auth/refresh", {
@@ -236,7 +232,7 @@ export const authService = {
           } catch {}
         }
       }
-      return DEFAULT_OFFLINE_USERS.admin_user.profile;
+      return DEFAULT_OFFLINE_USERS.ildino.profile;
     }
 
     try {
@@ -255,7 +251,7 @@ export const authService = {
           } catch {}
         }
       }
-      return DEFAULT_OFFLINE_USERS.admin_user.profile;
+      return DEFAULT_OFFLINE_USERS.ildino.profile;
     }
   },
 

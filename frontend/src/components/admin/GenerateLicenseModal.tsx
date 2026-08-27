@@ -239,11 +239,49 @@ export const GenerateLicenseModal: React.FC<GenerateLicenseModalProps> = ({
               </div>
             </div>
 
-            <div className="pt-2 flex items-center justify-end">
+            {/* Ações de Compartilhamento WhatsApp e Cópia */}
+            <div className="space-y-2 pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const planNames: Record<string, string> = {
+                    basic: 'Básico (500 MT/mês)',
+                    professional: 'Profissional (1.500 MT/mês)',
+                    complete: 'Completo (3.500 MT/mês)',
+                    enterprise: 'Enterprise (Personalizado)',
+                  };
+                  const planText = planNames[generatedResult.plan] || generatedResult.plan;
+                  const expiryText = new Date(generatedResult.expires_at).toLocaleDateString('pt-MZ');
+
+                  const waText = `🔐 *TICONTA ERP v2 — ATIVAÇÃO DE LICENÇA OFICIAL*
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏢 *Cliente:* ${generatedResult.customer_name}
+📋 *Plano:* ${planText}
+📅 *Validade:* ${expiryText} (${generatedResult.days_remaining} dias)
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔑 *CHAVE DE ATIVAÇÃO:*
+\`${generatedResult.license_key}\`
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️ *COMO ATIVAR:*
+1. Abra o TiConta ERP no seu dispositivo (computador ou telemóvel);
+2. Aceda a *Definições > Licença*;
+3. Cole a Chave de Ativação acima e clique em *Ativar Licença*;
+4. O sistema desbloqueará imediatamente todos os módulos contratados, mesmo sem internet.
+
+🇲🇿 *Suporte Técnico Carpintaria Digital:* +258 84 000 0000`;
+
+                  const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(waText)}`;
+                  window.open(waUrl, '_blank');
+                }}
+                className="w-full py-2.5 px-4 text-xs font-black uppercase tracking-wider text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl shadow-lg shadow-emerald-950 flex items-center justify-center gap-2 transition-all"
+              >
+                <span>📲 Enviar Chave & Instruções via WhatsApp</span>
+              </button>
+
               <button
                 type="button"
                 onClick={resetForm}
-                className="w-full py-2.5 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition-colors"
+                className="w-full py-2.5 text-xs font-bold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors"
               >
                 Concluir & Fechar
               </button>

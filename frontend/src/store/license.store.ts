@@ -4,7 +4,7 @@ import { LicensePlan, LicenseStatus } from "@/types/license";
 import { licensingService } from "@/services/licensing";
 
 interface LicenseState {
-  status: "licensed" | "unlicensed" | "expired" | "revoked";
+  status: "licensed" | "unlicensed" | "expired" | "revoked" | "active";
   plan: LicensePlan | null;
   activeModules: string[];
   licenseKey: string | null;
@@ -36,8 +36,9 @@ export const useLicenseStore = create<LicenseState>()(
         set({ isLoading: true, error: null });
         try {
           const res = await licensingService.getLicenseStatus(company_id);
+          const normalizedStatus = res.status === "active" ? "licensed" : res.status;
           set({
-            status: res.status,
+            status: normalizedStatus,
             plan: res.plan,
             activeModules: res.modules || [],
             licenseKey: res.license_key,

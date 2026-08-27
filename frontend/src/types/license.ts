@@ -14,12 +14,17 @@ export interface License {
 }
 
 export interface LicenseStatus {
-  status: "licensed" | "unlicensed" | "expired" | "revoked";
+  status: "licensed" | "unlicensed" | "expired" | "revoked" | "active";
   plan: LicensePlan | null;
   modules: string[];
   license_key: string | null;
   expires_at: string | null;
   days_remaining: number;
+  has_license?: boolean;
+  is_active?: boolean;
+  is_in_grace_period?: boolean;
+  days_in_grace_period?: number;
+  grace_period_expires_at?: string | null;
 }
 
 export interface ValidateKeyResponse {
@@ -34,10 +39,12 @@ export interface ValidateKeyResponse {
 
 export interface ActivateLicenseResponse {
   message: string;
-  company_id: number;
-  plan: LicensePlan;
-  modules: string[];
-  expires_at: string;
+  company_id?: number;
+  plan?: LicensePlan;
+  modules?: string[];
+  expires_at?: string;
+  success?: boolean;
+  license?: LicenseStatus;
 }
 
 export interface LicenseAdminItem {

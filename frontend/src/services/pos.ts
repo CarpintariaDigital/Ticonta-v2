@@ -20,6 +20,16 @@ export interface CreateSaleInput {
   }[];
 }
 
+export const getTerminalId = (): string => {
+  if (typeof window === "undefined") return "CX01";
+  let termId = localStorage.getItem("ticonta_terminal_id");
+  if (!termId) {
+    termId = `CX${Math.floor(Math.random() * 90 + 10)}`;
+    localStorage.setItem("ticonta_terminal_id", termId);
+  }
+  return termId;
+};
+
 export const posService = {
   async getProducts(): Promise<Product[]> {
     try {
@@ -41,12 +51,20 @@ export const posService = {
   },
 
   async createSale(data: CreateSaleInput): Promise<any> {
+    const terminalId = getTerminalId();
     try {
-      const response = await apiClient.post("/api/v1/sales", data);
+      const response = await apiClient.post("/api/v1/sales", {
+        ...data,
+        terminal_id: terminalId,
+      });
       return { success: true, data: response.data, offline: false };
     } catch (error: any) {
-      // Create and save locally in Dexie
-      const offlineId = `OFF-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`;
+      // Create and save locally in Dexie with unique multi-device terminal partition
+      const timestamp = Date.now();
+      const uniqueSuffix = Math.random().toString(36).substr(2, 4).toUpperCase();
+      const offlineId = `OFF-${terminalId}-${timestamp}-${uniqueSuffix}`;
+      const invoiceNumber = `VD-${terminalId}-${new Date().getFullYear().toString().slice(-2)}${String(timestamp).slice(-4)}-${uniqueSuffix}`;
+
       const offlineSale: OfflineSalePayload = {
         offline_id: offlineId,
         company_id: data.company_id || 1,
@@ -73,12 +91,13 @@ export const posService = {
       return {
         success: true,
         data: {
-          id: 0,
-          invoice_number: `FT (OFFLINE)-${offlineId.slice(-6)}`,
+          id: timestamp % 100000,
+          invoice_number: invoiceNumber,
           net_amount: offlineSale.total_amount - (data.discount || 0),
           sale_date: offlineSale.created_at,
           payment_method: data.payment_method,
           offline: true,
+          terminal_id: terminalId,
         },
         offline: true,
       };

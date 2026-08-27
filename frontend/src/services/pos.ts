@@ -106,6 +106,79 @@ export const posService = {
     }
   },
 
+  async findProductByBarcode(barcode: string): Promise<Product | null> {
+    const cleanCode = barcode.trim().toLowerCase();
+    const all = await this.getProducts();
+    const found = all.find(
+      (p) =>
+        p.sku?.toLowerCase() === cleanCode ||
+        p.name.toLowerCase().includes(cleanCode) ||
+        (p as any).barcode?.toLowerCase() === cleanCode
+    );
+    return found || null;
+  },
+
+  async registerProduct(productData: Partial<Product>): Promise<Product> {
+    const newProduct: Product = {
+      id: Date.now(),
+      company_id: 1,
+      name: productData.name || "Novo Produto",
+      sku: productData.sku || `BAR-${Date.now().toString().slice(-6)}`,
+      category: productData.category || "Geral",
+      unit_price: Number(productData.unit_price) || 0,
+      cost_price: Number(productData.cost_price) || 0,
+      quantity: Number(productData.quantity) || 0,
+      iva_rate: productData.iva_rate !== undefined ? productData.iva_rate : 16,
+      active: true,
+      created_at: new Date().toISOString(),
+    };
+
+    try {
+      await apiClient.post("/api/v1/products", newProduct);
+    } catch {}
+
+    await localDb.products.put(newProduct);
+    return newProduct;
+  },
+
+  async addStockByBarcode(
+    barcode: string,
+    quantityToAdd: number,
+    costPrice?: number,
+    sellingPrice?: number,
+    name?: string
+  ): Promise<{ product: Product; isNew: boolean }> {
+    const existing = await this.findProductByBarcode(barcode);
+
+    if (existing) {
+      const updatedProduct: Product = {
+        ...existing,
+        quantity: existing.quantity + quantityToAdd,
+        cost_price: costPrice !== undefined ? costPrice : existing.cost_price,
+        unit_price: sellingPrice !== undefined ? sellingPrice : existing.unit_price,
+      };
+
+      try {
+        await apiClient.put(`/api/v1/products/${existing.id}`, updatedProduct);
+      } catch {}
+
+      await localDb.products.put(updatedProduct);
+      return { product: updatedProduct, isNew: false };
+    } else {
+      const created = await this.registerProduct({
+        name: name || `Produto ${barcode}`,
+        sku: barcode,
+        unit_price: sellingPrice || 100,
+        cost_price: costPrice || 70,
+        quantity: quantityToAdd,
+        category: "Geral",
+        iva_rate: 16,
+        active: true,
+      });
+      return { product: created, isNew: true };
+    }
+  },
+
   async syncPendingSales(): Promise<number> {
     const pending = await localDb.offlineSales.where("synced").equals(0).toArray();
     let syncedCount = 0;

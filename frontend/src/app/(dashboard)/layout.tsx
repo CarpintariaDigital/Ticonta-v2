@@ -6,6 +6,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import DashboardNavbar from "@/components/layout/DashboardNavbar";
 import UpgradePrompt from "@/components/UpgradePrompt";
 import { useLicensedModules } from "@/hooks/useLicensedModules";
+import SupportChatWidget from "@/components/support/SupportChatWidget";
 
 const ROUTE_MODULE_MAP: Record<string, { module: string; name: string; plan: "Pro" | "Enterprise" }> = {
   "/restaurant": { module: "restaurant", name: "Restaurante & Mesas", plan: "Pro" },
@@ -37,7 +38,7 @@ export default function DashboardLayout({
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans">
+      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans relative">
         {!isPos && <DashboardNavbar />}
         <div className={isPos ? "flex-1 w-full h-screen overflow-hidden" : "flex-1 p-4 lg:p-6 max-w-7xl mx-auto w-full"}>
           {isBlocked ? (
@@ -51,6 +52,9 @@ export default function DashboardLayout({
             children
           )}
         </div>
+
+        {/* Copiloto de Suporte Fiscal & Operacional */}
+        <SupportChatWidget />
       </div>
     </ProtectedRoute>
   );

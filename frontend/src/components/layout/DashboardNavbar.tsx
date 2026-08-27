@@ -93,11 +93,13 @@ export default function DashboardNavbar() {
 
   // Find active module name
   const allItems = NAVIGATION_MODULES.flatMap((c) => c.items);
-  const currentModule = allItems.find((item) => pathname?.startsWith(item.href) && item.href !== "/dashboard") || {
-    name: pathname === "/dashboard" ? "Painel Geral" : "Módulo",
-    icon: LayoutDashboard,
-    color: "text-emerald-400",
-  };
+  const currentModule =
+    allItems.find((item) => item.href === pathname) ||
+    allItems.find((item) => pathname?.startsWith(item.href) && item.href !== "/dashboard") || {
+      name: "Painel Geral",
+      icon: LayoutDashboard,
+      color: "text-emerald-400",
+    };
 
   const CurrentIcon = currentModule.icon;
 
@@ -303,14 +305,19 @@ export default function DashboardNavbar() {
 
           <SyncStatus />
 
-          <div className="hidden sm:flex flex-col text-right bg-[#07101d] px-2.5 py-1 rounded-lg border border-[#162942]">
-            <span className="text-[11px] font-bold text-zinc-100 truncate max-w-[120px]">
+          <Link
+            href="/admin/licensing"
+            className="hidden sm:flex flex-col text-right bg-[#07101d] px-2.5 py-1 rounded-lg border border-[#162942] hover:border-purple-500/60 hover:bg-purple-950/20 transition-all group"
+            title="Abrir Painel de Administração & Licenças"
+          >
+            <span className="text-[11px] font-bold text-zinc-100 group-hover:text-purple-300 truncate max-w-[120px] flex items-center justify-end gap-1">
+              <ShieldCheck className="w-3 h-3 text-purple-400" />
               {user?.username || "Operador"}
             </span>
-            <span className="text-[9px] text-[#2dc4a0] font-mono uppercase font-bold tracking-wider">
-              {user?.role || "admin"}
+            <span className="text-[9px] text-[#2dc4a0] group-hover:text-purple-400 font-mono uppercase font-bold tracking-wider">
+              {user?.role || "admin"} (CONFIG)
             </span>
-          </div>
+          </Link>
 
           <Button
             variant="retro-destructive"

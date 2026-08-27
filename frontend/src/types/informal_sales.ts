@@ -182,3 +182,98 @@ export interface RevenueBreakdownResponse {
   total_recovered_debt: number;
   debit_recovery_rate_percent: number;
 }
+
+// -------------------------------------------------------------
+// XITIQUES (Rotativo & Comercial de Mercadoria)
+// -------------------------------------------------------------
+export type XitiqueType = "rotary_cash" | "commercial_goods";
+export type XitiqueFrequency = "weekly" | "biweekly" | "monthly";
+
+export interface XitiqueMember {
+  id: string;
+  name: string;
+  phone: string;
+  order_position: number; // Mês ou ciclo em que recebe
+  payout_cycle_date: string;
+  has_received: boolean;
+  received_at?: string;
+  goods_description?: string; // Para xitique de mercadorias (ex: 20 sacos cimento, cabaz compras)
+  contributions_paid: number;
+  total_contributed: number;
+  status: "up_to_date" | "pending" | "late";
+}
+
+export interface XitiqueGroup {
+  id: string;
+  name: string;
+  type: XitiqueType;
+  contribution_amount: number; // Valor fixo periódico por membro (ex: 2.000 MT)
+  frequency: XitiqueFrequency;
+  total_cycles: number;
+  current_cycle: number;
+  start_date: string;
+  end_date: string;
+  target_goods_item?: string; // Para ferragem/loja: ex: "Kit Construção Quarto & Sala"
+  members: XitiqueMember[];
+  status: "active" | "completed" | "paused";
+  notes?: string;
+}
+
+// -------------------------------------------------------------
+// GRUPOS DE POUPANÇA & CRÉDITO ROTATIVO (ASCAS / PCR)
+// -------------------------------------------------------------
+export type RepaymentFrequency = "single" | "daily" | "weekly" | "monthly";
+
+export interface SavingsMember {
+  id: string;
+  name: string;
+  phone: string;
+  total_saved: number; // Total acumulado no fundo de poupança
+  active_loan_balance: number; // Dívida ativa de empréstimos
+  interest_paid_to_group: number; // Juros já pagos que alimentam o lucro do grupo
+  status: "active" | "defaulted";
+}
+
+export interface SavingsLoan {
+  id: string;
+  member_id: string;
+  member_name: string;
+  member_phone: string;
+  principal_amount: number; // Valor emprestado
+  interest_rate_percent: number; // Taxa de juro (ex: 10%)
+  interest_amount: number; // Valor em Meticais dos juros
+  total_to_repay: number; // principal + interest
+  amount_repaid: number;
+  remaining_balance: number;
+  repayment_frequency: RepaymentFrequency;
+  due_date: string;
+  disbursed_at: string;
+  status: "active" | "paid" | "overdue";
+  notes?: string;
+}
+
+export interface SavingsShareoutMemberResult {
+  member_id: string;
+  member_name: string;
+  total_saved: number;
+  share_percent: number; // % do fundo total
+  interest_profit_share: number; // Juro distribuído
+  total_payout: number; // poupança + juros lucrados
+  active_debt_deduction: number;
+  net_payout: number; // Valor líquido a receber
+  eligible: boolean;
+}
+
+export interface SavingsGroup {
+  id: string;
+  name: string;
+  start_date: string;
+  end_date: string; // Fim do ciclo onde ocorre a partilha
+  default_interest_rate_percent: number;
+  total_fund_accumulated: number;
+  total_loans_disbursed: number;
+  total_interest_earned: number;
+  members: SavingsMember[];
+  loans: SavingsLoan[];
+  status: "active" | "shared_out" | "closed";
+}

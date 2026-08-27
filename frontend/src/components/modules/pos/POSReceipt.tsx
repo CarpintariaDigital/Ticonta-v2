@@ -58,7 +58,6 @@ ${itemsText}
 📊 *IVA (16% incluído):* ${ivaAmount.toFixed(2)} MT
 💰 *TOTAL PAGO:* *${totalAmount.toFixed(2)} MT*
 ━━━━━━━━━━━━━━━━━━━━
-✅ *Comprovativo Fiscal Certificado pela AT*
 🌱 *Documento 100% Digital • Sem Papel*
 🙏 *Obrigado pela sua preferência!*`;
   };

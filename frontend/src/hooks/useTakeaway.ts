@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useTakeawayStore } from "@/store/takeaway.store";
 import { takeawayService } from "@/services/takeaway";
 import {
@@ -12,58 +12,59 @@ import {
 
 export function useTakeaway() {
   const store = useTakeawayStore();
+  const isInitialLoadedRef = useRef(false);
 
   const fetchOrders = useCallback(
-    async (statusFilter?: string, orderType?: string, search?: string, companyId = 1) => {
-      store.setIsLoading(true);
+    async (sFilter?: string, oType?: string, search?: string, companyId = 1) => {
+      useTakeawayStore.getState().setIsLoading(true);
       try {
         const data = await takeawayService.getOrders(
           companyId,
-          statusFilter === "all" ? undefined : statusFilter,
-          orderType === "all" ? undefined : orderType,
+          sFilter === "all" ? undefined : sFilter,
+          oType === "all" ? undefined : oType,
           search
         );
-        store.setOrders(data);
+        useTakeawayStore.getState().setOrders(data);
       } catch (err) {
         console.error("Erro ao buscar pedidos takeaway:", err);
       } finally {
-        store.setIsLoading(false);
+        useTakeawayStore.getState().setIsLoading(false);
       }
     },
-    [store]
+    []
   );
 
   const fetchPendingDeliveries = useCallback(
     async (companyId = 1) => {
       try {
         const data = await takeawayService.getPendingDeliveries(companyId);
-        store.setPendingDeliveries(data);
+        useTakeawayStore.getState().setPendingDeliveries(data);
       } catch (err) {
         console.error("Erro ao buscar entregas pendentes:", err);
       }
     },
-    [store]
+    []
   );
 
   const fetchStats = useCallback(
     async (companyId = 1) => {
       try {
         const data = await takeawayService.getStats(companyId);
-        store.setStats(data);
+        useTakeawayStore.getState().setStats(data);
       } catch (err) {
         console.error("Erro ao buscar estatísticas de takeaway:", err);
       }
     },
-    [store]
+    []
   );
 
   const createTakeawayOrder = useCallback(
     async (data: TakeawayOrderCreate, companyId = 1) => {
-      store.setIsLoading(true);
+      useTakeawayStore.getState().setIsLoading(true);
       try {
         const order = await takeawayService.createOrder(data, companyId);
-        store.addOrderToState(order);
-        store.setIsNewOrderModalOpen(false);
+        useTakeawayStore.getState().addOrderToState(order);
+        useTakeawayStore.getState().setIsNewOrderModalOpen(false);
         fetchStats(companyId);
         if (order.order_type === "delivery") {
           fetchPendingDeliveries(companyId);
@@ -73,22 +74,22 @@ export function useTakeaway() {
         console.error("Erro ao criar pedido takeaway:", err);
         throw err;
       } finally {
-        store.setIsLoading(false);
+        useTakeawayStore.getState().setIsLoading(false);
       }
     },
-    [fetchPendingDeliveries, fetchStats, store]
+    [fetchPendingDeliveries, fetchStats]
   );
 
   const updateOrderStatus = useCallback(
     async (orderId: number, nextStatus: TakeawayStatus, notes?: string, companyId = 1) => {
-      store.advanceOrderStatusInState(orderId, nextStatus);
+      useTakeawayStore.getState().advanceOrderStatusInState(orderId, nextStatus);
       try {
         const updated = await takeawayService.updateOrderStatus(
           orderId,
           { status: nextStatus, notes },
           companyId
         );
-        store.updateOrderInState(orderId, updated);
+        useTakeawayStore.getState().updateOrderInState(orderId, updated);
         fetchStats(companyId);
         fetchPendingDeliveries(companyId);
         return updated;
@@ -97,16 +98,16 @@ export function useTakeaway() {
         throw err;
       }
     },
-    [fetchPendingDeliveries, fetchStats, store]
+    [fetchPendingDeliveries, fetchStats]
   );
 
   const assignDelivery = useCallback(
     async (orderId: number, data: DeliveryAssignRequest, companyId = 1) => {
-      store.setIsLoading(true);
+      useTakeawayStore.getState().setIsLoading(true);
       try {
         const updated = await takeawayService.assignDelivery(orderId, data, companyId);
-        store.updateOrderInState(orderId, updated);
-        store.setIsAssignModalOpen(false);
+        useTakeawayStore.getState().updateOrderInState(orderId, updated);
+        useTakeawayStore.getState().setIsAssignModalOpen(false);
         fetchPendingDeliveries(companyId);
         fetchStats(companyId);
         return updated;
@@ -114,10 +115,10 @@ export function useTakeaway() {
         console.error("Erro ao atribuir estafeta:", err);
         throw err;
       } finally {
-        store.setIsLoading(false);
+        useTakeawayStore.getState().setIsLoading(false);
       }
     },
-    [fetchPendingDeliveries, fetchStats, store]
+    [fetchPendingDeliveries, fetchStats]
   );
 
   const updateDeliveryStatus = useCallback(
@@ -128,7 +129,7 @@ export function useTakeaway() {
           { delivery_status: deliveryStatus, notes },
           companyId
         );
-        store.updateOrderInState(orderId, updated);
+        useTakeawayStore.getState().updateOrderInState(orderId, updated);
         fetchPendingDeliveries(companyId);
         fetchStats(companyId);
         return updated;
@@ -137,32 +138,35 @@ export function useTakeaway() {
         throw err;
       }
     },
-    [fetchPendingDeliveries, fetchStats, store]
+    [fetchPendingDeliveries, fetchStats]
   );
 
   const trackOrder = useCallback(
     async (orderIdOrCode: string, companyId = 1) => {
-      store.setIsLoading(true);
+      useTakeawayStore.getState().setIsLoading(true);
       try {
         const data = await takeawayService.trackOrder(orderIdOrCode, companyId);
-        store.setTrackingData(data);
-        store.setIsTrackingModalOpen(true);
+        useTakeawayStore.getState().setTrackingData(data);
+        useTakeawayStore.getState().setIsTrackingModalOpen(true);
         return data;
       } catch (err) {
         console.error("Erro ao rastrear pedido:", err);
         throw err;
       } finally {
-        store.setIsLoading(false);
+        useTakeawayStore.getState().setIsLoading(false);
       }
     },
-    [store]
+    []
   );
 
-  // Initial load
+  // Initial load only once on mount
   useEffect(() => {
-    fetchOrders();
-    fetchPendingDeliveries();
-    fetchStats();
+    if (!isInitialLoadedRef.current) {
+      isInitialLoadedRef.current = true;
+      fetchOrders();
+      fetchPendingDeliveries();
+      fetchStats();
+    }
   }, [fetchOrders, fetchPendingDeliveries, fetchStats]);
 
   return {

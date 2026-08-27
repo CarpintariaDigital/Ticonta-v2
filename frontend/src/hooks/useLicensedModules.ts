@@ -40,8 +40,8 @@ export function useLicensedModules(): LicensedModulesHook {
     }
 
     if (extractedModules.length === 0) {
-      // Plano base padrão
-      extractedModules = ["pos", "informal"];
+      // Por padrão em demonstração/instalação inicial, todos os módulos ativos
+      extractedModules = ["*"];
     }
 
     return { modules: extractedModules, isAdmin: false };

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useInformalSalesStore } from "@/store/informal_sales.store";
 import { informalSalesService } from "@/services/informal_sales";
 import {
@@ -11,52 +11,53 @@ import {
 
 export function useInformalSales() {
   const store = useInformalSalesStore();
+  const isInitialLoadedRef = useRef(false);
 
   // ==========================================
   // API Actions
   // ==========================================
   const fetchCustomers = useCallback(
     async (search?: string, onlyWithDebt = false, companyId = 1) => {
-      store.setIsLoading(true);
+      useInformalSalesStore.getState().setIsLoading(true);
       try {
         const data = await informalSalesService.getCustomers(search, onlyWithDebt, companyId);
-        store.setCustomers(data);
+        useInformalSalesStore.getState().setCustomers(data);
       } catch (err) {
         console.error("Erro ao buscar clientes informais:", err);
       } finally {
-        store.setIsLoading(false);
+        useInformalSalesStore.getState().setIsLoading(false);
       }
     },
-    [store]
+    []
   );
 
   const fetchOverdueDebits = useCallback(
     async (companyId = 1) => {
       try {
         const data = await informalSalesService.getOverdueDebits(companyId);
-        store.setOverdueDebits(data);
+        useInformalSalesStore.getState().setOverdueDebits(data);
       } catch (err) {
         console.error("Erro ao buscar débitos vencidos:", err);
       }
     },
-    [store]
+    []
   );
 
   const fetchCustomerDebits = useCallback(
     async (customerId: number, companyId = 1) => {
-      store.setIsLoading(true);
+      useInformalSalesStore.getState().setIsLoading(true);
       try {
         const summary = await informalSalesService.getCustomerDebits(customerId, companyId);
-        store.setCustomerDebits(summary.active_debits);
+        useInformalSalesStore.getState().setCustomerDebits(summary.active_debits);
         return summary;
       } catch (err) {
         console.error("Erro ao buscar fiados do cliente:", err);
         return null;
       } finally {
-        store.setIsLoading(false);
+        useInformalSalesStore.getState().setIsLoading(false);
       }
     },
-    [store]
+    []
   );
 
   const createCustomerQuick = useCallback(
@@ -68,94 +69,102 @@ export function useInformalSales() {
       notes?: string;
       company_id?: number;
     }) => {
-      store.setIsLoading(true);
+      useInformalSalesStore.getState().setIsLoading(true);
       try {
         const created = await informalSalesService.quickCreateCustomer(data);
-        store.addCustomerToState(created);
-        store.setIsNewCustomerModalOpen(false);
+        useInformalSalesStore.getState().addCustomerToState(created);
+        useInformalSalesStore.getState().setIsNewCustomerModalOpen(false);
         return created;
       } catch (err) {
         console.error("Erro ao criar cliente rápido:", err);
         throw err;
       } finally {
-        store.setIsLoading(false);
+        useInformalSalesStore.getState().setIsLoading(false);
       }
     },
-    [store]
+    []
   );
 
   const createSaleWithDebit = useCallback(
     async (data: SaleWithDebitCreate) => {
-      store.setIsLoading(true);
+      useInformalSalesStore.getState().setIsLoading(true);
       try {
         const res = await informalSalesService.createSaleWithDebit(data);
-        store.setLastSaleReceipt(res);
-        store.clearCart();
-        
-        // Refresh customer data and overdue list
-        fetchCustomers(store.searchQuery, store.customerFilter === "with_debt");
+        useInformalSalesStore.getState().setLastSaleReceipt(res);
+        useInformalSalesStore.getState().clearCart();
+        const sq = useInformalSalesStore.getState().searchQuery;
+        const cf = useInformalSalesStore.getState().customerFilter;
+        fetchCustomers(sq, cf === "with_debt");
         fetchOverdueDebits();
         return res;
       } catch (err) {
         console.error("Erro ao registrar venda informal:", err);
         throw err;
       } finally {
-        store.setIsLoading(false);
+        useInformalSalesStore.getState().setIsLoading(false);
       }
     },
-    [fetchCustomers, fetchOverdueDebits, store]
+    [fetchCustomers, fetchOverdueDebits]
   );
 
   const recordPartialPayment = useCallback(
     async (debitId: number, data: PartialPaymentCreate, companyId = 1) => {
-      store.setIsLoading(true);
+      useInformalSalesStore.getState().setIsLoading(true);
       try {
-        const result = await informalSalesService.recordPartialPayment(debitId, data, companyId);
-        store.applyPartialPaymentToState(debitId, result.amount_paid_now, result.remaining_balance);
-        
-        // Refresh customer list
-        fetchCustomers(store.searchQuery, store.customerFilter === "with_debt");
+        const res = await informalSalesService.recordPartialPayment(debitId, data, companyId);
+        useInformalSalesStore.getState().closeCollectionModal();
+        const selected = useInformalSalesStore.getState().selectedCustomer;
+        if (selected) {
+          fetchCustomerDebits(selected.id);
+        }
+        const sq = useInformalSalesStore.getState().searchQuery;
+        const cf = useInformalSalesStore.getState().customerFilter;
+        fetchCustomers(sq, cf === "with_debt");
         fetchOverdueDebits();
-        store.closeCollectionModal();
-        return result;
+        return res;
       } catch (err) {
-        console.error("Erro ao registrar pagamento parcial:", err);
+        console.error("Erro ao abater fiado:", err);
         throw err;
       } finally {
-        store.setIsLoading(false);
+        useInformalSalesStore.getState().setIsLoading(false);
       }
     },
-    [fetchCustomers, fetchOverdueDebits, store]
+    [fetchCustomerDebits, fetchCustomers, fetchOverdueDebits]
   );
 
   const sendReminder = useCallback(
     async (debitId: number, data: SendReminderRequest = {}, companyId = 1) => {
+      useInformalSalesStore.getState().setIsLoading(true);
       try {
         const res = await informalSalesService.sendPaymentReminder(debitId, data, companyId);
-        fetchOverdueDebits();
         return res;
       } catch (err) {
-        console.error("Erro ao enviar lembrete:", err);
+        console.error("Erro ao enviar cobrança WhatsApp:", err);
         throw err;
+      } finally {
+        useInformalSalesStore.getState().setIsLoading(false);
       }
     },
-    [fetchOverdueDebits]
+    []
   );
 
-  const fetchReports = useCallback(async (companyId = 1) => {
-    try {
-      const [forecast, breakdown, risk] = await Promise.all([
-        informalSalesService.getCashFlowForecast(companyId),
-        informalSalesService.getRevenueBreakdown(companyId),
-        informalSalesService.getCreditRiskReport(companyId),
-      ]);
-      store.setCashFlowForecast(forecast);
-      store.setRevenueBreakdown(breakdown);
-      store.setCreditRiskReport(risk);
-    } catch (err) {
-      console.error("Erro ao buscar relatórios:", err);
-    }
-  }, [store]);
+  const fetchReports = useCallback(
+    async (companyId = 1) => {
+      try {
+        const [forecast, breakdown, risk] = await Promise.all([
+          informalSalesService.getCashFlowForecast(companyId),
+          informalSalesService.getRevenueBreakdown(companyId),
+          informalSalesService.getCreditRiskReport(companyId),
+        ]);
+        useInformalSalesStore.getState().setCashFlowForecast(forecast);
+        useInformalSalesStore.getState().setRevenueBreakdown(breakdown);
+        useInformalSalesStore.getState().setCreditRiskReport(risk);
+      } catch (err) {
+        console.error("Erro ao buscar relatórios:", err);
+      }
+    },
+    []
+  );
 
   // ==========================================
   // Computed Cart Totals
@@ -174,11 +183,14 @@ export function useInformalSales() {
     return futureDebt > store.selectedCustomer.trusted_credit_limit;
   }, [store.selectedCustomer, amountOwed]);
 
-  // Initial load
+  // Initial load only once on mount
   useEffect(() => {
-    fetchCustomers();
-    fetchOverdueDebits();
-    fetchReports();
+    if (!isInitialLoadedRef.current) {
+      isInitialLoadedRef.current = true;
+      fetchCustomers();
+      fetchOverdueDebits();
+      fetchReports();
+    }
   }, [fetchCustomers, fetchOverdueDebits, fetchReports]);
 
   return {

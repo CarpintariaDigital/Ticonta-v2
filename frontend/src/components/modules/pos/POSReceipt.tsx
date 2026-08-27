@@ -44,6 +44,11 @@ export default function POSReceipt({ sale, onClose }: POSReceiptProps) {
             .join("\n")
         : `• 1x Consumo Geral — ${totalAmount.toFixed(2)} MT`;
 
+    const cashReceivedText =
+      sale.cash_received && sale.cash_received > totalAmount
+        ? `\n💵 *Entregue:* ${sale.cash_received.toFixed(2)} MT\n🔄 *Troco:* ${(sale.change_amount || sale.cash_received - totalAmount).toFixed(2)} MT`
+        : "";
+
     return `🧾 *TICONTA v2 ERP • TALÃO DIGITAL MZ*
 ━━━━━━━━━━━━━━━━━━━━
 🏢 *LOJA:* TiConta Comercial & Serviços
@@ -56,7 +61,7 @@ ${itemsText}
 ━━━━━━━━━━━━━━━━━━━━
 💵 *Subtotal:* ${(totalAmount - ivaAmount).toFixed(2)} MT
 📊 *IVA (16% incluído):* ${ivaAmount.toFixed(2)} MT
-💰 *TOTAL PAGO:* *${totalAmount.toFixed(2)} MT*
+💰 *TOTAL PAGO:* *${totalAmount.toFixed(2)} MT*${cashReceivedText}
 ━━━━━━━━━━━━━━━━━━━━
 🌱 *Documento 100% Digital • Sem Papel*
 🙏 *Obrigado pela sua preferência!*`;
@@ -192,6 +197,14 @@ ${itemsText}
                 <span className="text-emerald-400">TOTAL PAGO:</span>
                 <span className="text-emerald-400 text-base">{totalAmount.toFixed(2)} MT</span>
               </div>
+              {sale.cash_received && sale.cash_received > totalAmount && (
+                <div className="flex justify-between text-zinc-300 text-[11px] pt-1 font-mono">
+                  <span>Valor Entregue: {sale.cash_received.toFixed(2)} MT</span>
+                  <span className="text-emerald-400 font-bold">
+                    Troco: {(sale.change_amount || sale.cash_received - totalAmount).toFixed(2)} MT
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className="text-center pt-2 border-t border-dashed border-zinc-800 text-[10px] text-zinc-500">

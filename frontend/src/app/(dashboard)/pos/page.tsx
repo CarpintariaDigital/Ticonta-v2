@@ -57,6 +57,7 @@ export default function POSPage() {
   const [scannerInitialMode, setScannerInitialMode] = useState<"venda" | "stock">("venda");
   const [saleError, setSaleError] = useState<string | null>(null);
   const [customerPhone, setCustomerPhone] = useState("");
+  const [cashReceived, setCashReceived] = useState<number | "">("");
   const [showQuickItemModal, setShowQuickItemModal] = useState(false);
   const [quickItemName, setQuickItemName] = useState("");
   const [quickItemPrice, setQuickItemPrice] = useState("");
@@ -71,10 +72,17 @@ export default function POSPage() {
     try {
       const result = await completeSale(selectedMethod);
       if (result && result.data) {
+        const total = summary.netTotal;
+        const paid = Number(cashReceived) || total;
+        const change = selectedMethod === "cash" && paid > total ? paid - total : 0;
+
         setLastCompletedSale({
           ...result.data,
           customer_phone: customerPhone,
+          cash_received: selectedMethod === "cash" ? paid : undefined,
+          change_amount: change > 0 ? change : undefined,
         });
+        setCashReceived("");
       }
     } catch (err: any) {
       setSaleError(err.message || "Falha ao processar a venda.");
@@ -326,7 +334,10 @@ export default function POSPage() {
                 <div className="grid grid-cols-4 gap-1.5">
                   <button
                     type="button"
-                    onClick={() => setPaymentMethod("cash")}
+                    onClick={() => {
+                      setPaymentMethod("cash");
+                      if (!cashReceived) setCashReceived(summary.netTotal);
+                    }}
                     className={`p-1.5 rounded-xl border text-center transition-all ${
                       paymentMethod === "cash"
                         ? "bg-emerald-600 text-white border-emerald-400 font-black shadow-md shadow-emerald-950"
@@ -377,6 +388,66 @@ export default function POSPage() {
                   </button>
                 </div>
               </div>
+
+              {/* Cash Change Calculator Panel (Active when Dinheiro is selected) */}
+              {paymentMethod === "cash" && summary.netTotal > 0 && (
+                <div className="p-2.5 rounded-xl bg-zinc-950 border border-emerald-500/30 space-y-2 animate-in fade-in">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1">
+                      <Banknote className="w-3 h-3" />
+                      Valor Entregue pelo Cliente (MT)
+                    </label>
+                    {Number(cashReceived || 0) >= summary.netTotal && (
+                      <span className="text-[11px] font-black text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
+                        Troco: {(Number(cashReceived || 0) - summary.netTotal).toFixed(2)} MT
+                      </span>
+                    )}
+                  </div>
+
+                  <Input
+                    type="number"
+                    step="any"
+                    placeholder={`Ex: ${summary.netTotal.toFixed(2)}`}
+                    value={cashReceived}
+                    onChange={(e) => setCashReceived(e.target.value === "" ? "" : Number(e.target.value))}
+                    className="h-8 text-xs bg-zinc-900 border-zinc-700 text-white font-mono font-bold focus:border-emerald-500"
+                  />
+
+                  {/* Quick Cash Buttons (Mozambique Meticais Bills) */}
+                  <div className="flex gap-1 overflow-x-auto pb-0.5 text-[10px]">
+                    <button
+                      type="button"
+                      onClick={() => setCashReceived(summary.netTotal)}
+                      className="px-2 py-1 rounded-md bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-bold whitespace-nowrap"
+                    >
+                      Exato
+                    </button>
+                    {[50, 100, 200, 500, 1000, 2000].map((bill) => {
+                      if (bill < summary.netTotal && bill * 2 < summary.netTotal) return null;
+                      return (
+                        <button
+                          key={bill}
+                          type="button"
+                          onClick={() => setCashReceived(bill)}
+                          className={`px-2 py-1 rounded-md font-mono font-bold whitespace-nowrap transition-colors ${
+                            cashReceived === bill
+                              ? "bg-emerald-600 text-white"
+                              : "bg-zinc-900 border border-zinc-800 text-zinc-300 hover:bg-zinc-800"
+                          }`}
+                        >
+                          {bill} MT
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {Number(cashReceived || 0) < summary.netTotal && cashReceived !== "" && (
+                    <p className="text-[10px] text-amber-400 font-medium">
+                      ⚠️ Valor insuficiente: faltam {(summary.netTotal - Number(cashReceived)).toFixed(2)} MT
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Totals & Primary Action */}
               <div className="bg-zinc-950 border border-zinc-800 rounded-xl p-3 space-y-1 text-xs">

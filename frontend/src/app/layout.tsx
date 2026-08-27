@@ -3,9 +3,20 @@ import "./globals.css";
 import Providers from "./providers";
 
 export const metadata: Metadata = {
-  title: "TiConta v2 - ERP Moçambique",
-  description: "ERP modular offline-first com compliance fiscal Moçambique.",
+  title: "TiConta v2 ERP — Gestão & POS Moçambique",
+  description: "ERP modular offline-first com compliance fiscal Moçambique (IVA 16%, PGC-NIRF).",
   manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png" },
+      { url: "/logo-ticonta.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon.png" },
+    ],
+    shortcut: "/icon.png",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

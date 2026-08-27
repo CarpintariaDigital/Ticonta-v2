@@ -64,6 +64,8 @@ export interface GenerateLicensePayload {
   plan: string;
   days: number;
   customer_id?: string;
+  modules?: string[];
+  custom_price_mzn?: number;
 }
 
 export interface AdminStatsResponse {
@@ -218,9 +220,18 @@ export const AdminLicensingService = {
         complete: 3500,
         enterprise: 7500,
       };
-      const monthlyRate = priceMap[data.plan] || 1500;
+      const monthlyRate = data.custom_price_mzn || priceMap[data.plan] || 1500;
       const months = Math.round((data.days || 365) / 30);
-      const totalPriceMZN = monthlyRate * (months || 1);
+      const totalPriceMZN = data.custom_price_mzn ? data.custom_price_mzn * (months || 1) : monthlyRate * (months || 1);
+
+      const customModules =
+        data.modules && data.modules.length > 0
+          ? data.modules
+          : data.plan === "basic"
+          ? ["pos", "informal"]
+          : data.plan === "professional"
+          ? ["pos", "accounting", "crm", "reports", "informal"]
+          : ["pos", "accounting", "restaurant", "takeaway", "auto-services", "poultry", "crm", "hr", "manufacturing", "projects", "reports", "informal", "xitique", "savings"];
 
       const newLicense: LicenseDetail = {
         id: Date.now(),
@@ -233,12 +244,7 @@ export const AdminLicensingService = {
         issued_at: new Date().toISOString(),
         expires_at: expiryDate.toISOString(),
         days_remaining: data.days || 365,
-        modules:
-          data.plan === "basic"
-            ? ["pos", "informal"]
-            : data.plan === "professional"
-            ? ["pos", "accounting", "crm", "reports", "informal"]
-            : ["pos", "accounting", "restaurant", "takeaway", "auto-services", "poultry", "crm", "hr", "manufacturing", "projects", "reports", "informal"],
+        modules: customModules,
         validation_count: 1,
         issue_count: 1,
       };

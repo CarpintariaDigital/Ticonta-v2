@@ -35,6 +35,8 @@ import {
   RefreshCw,
   Coins,
   Package,
+  FileText,
+  Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -55,7 +57,7 @@ const ALL_MODULES: {
   modules: ModuleCardProps[];
 }[] = [
   {
-    category: "Vendas, Balcão & Comunidade",
+    category: "Vendas, Balcão, Propostas & Comunidade",
     modules: [
       {
         title: "Ponto de Venda (POS)",
@@ -69,15 +71,48 @@ const ALL_MODULES: {
         kpiLabel: "Vendas Hoje",
       },
       {
-        title: "Vendas Informais, Fiado & Xitique",
-        description: "Caderno digital, rodas de Xitique rotativo/comercial e Poupança (ASCAS) com empréstimos.",
+        title: "Cotações & Faturas Pró-Forma",
+        description: "Emissão de propostas comerciais com IVA 16%, envio WhatsApp e impressão timbrada A4.",
+        href: "/quotes",
+        icon: FileText,
+        iconColor: "text-blue-400",
+        badge: "Propostas MZ",
+        badgeColor: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+        kpi: "173.000 MT",
+        kpiLabel: "Em Cotações",
+      },
+      {
+        title: "Vendas Informais & Fiado",
+        description: "Caderno digital para vendedores, amortizações parciais, histórico e cobrança via WhatsApp.",
         href: "/informal-sales",
         icon: Store,
         iconColor: "text-yellow-400",
-        badge: "Xitique & Poupança",
+        badge: "Score de Fiado",
         badgeColor: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+        kpi: "42.150 MT",
+        kpiLabel: "Fiado a Receber",
+      },
+      {
+        title: "Xitique (Rotativo & Mercadorias)",
+        description: "Rodas de dinheiro e xitique comercial de lojas/ferragens com escala de entrega por ciclo.",
+        href: "/xitique",
+        icon: Coins,
+        iconColor: "text-yellow-300",
+        badge: "Rotativo & Lojas",
+        badgeColor: "bg-yellow-500/20 text-yellow-300 border-yellow-500/30",
+        kpi: "6 Grupos",
+        kpiLabel: "Rodas Ativas",
+      },
+      {
+        title: "Poupança Comunitária (ASCAS)",
+        description: "Fundos de acumulação a prazo, empréstimos internos com juros e partilha proporcional (Share-out).",
+        href: "/savings",
+        icon: PiggyBank,
+        iconColor: "text-amber-400",
+        badge: "Crédito & Juros",
+        badgeColor: "bg-amber-500/20 text-amber-400 border-amber-500/30",
         kpi: "185.000 MT",
-        kpiLabel: "Fundo de Poupança",
+        kpiLabel: "Fundo Poupado",
       },
       {
         title: "Restaurante & Bares",
@@ -174,6 +209,33 @@ const ALL_MODULES: {
       },
     ],
   },
+  {
+    category: "Administração da Loja & Sistema",
+    modules: [
+      {
+        title: "👑 Painel de Administração & Licenciamento",
+        description: "Emissão oficial de licenças HMAC-SHA256, definição de preços por módulo e envio WhatsApp.",
+        href: "/admin/licensing",
+        icon: ShieldCheck,
+        iconColor: "text-purple-400",
+        badge: "Admin Master",
+        badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/30",
+        kpi: "Licenciamento",
+        kpiLabel: "Emissão de Chaves",
+      },
+      {
+        title: "Dados da Empresa & Logótipo Oficial",
+        description: "Configuração do logótipo da loja, NUIT, contactos e rodapés de recibos e faturas.",
+        href: "/settings/company",
+        icon: Building2,
+        iconColor: "text-teal-400",
+        badge: "Faturação",
+        badgeColor: "bg-teal-500/20 text-teal-300 border-teal-500/30",
+        kpi: "Logótipo & NUIT",
+        kpiLabel: "Personalizado",
+      },
+    ],
+  },
 ];
 
 export default function DashboardPage() {
@@ -216,13 +278,34 @@ export default function DashboardPage() {
             </div>
 
             {/* Quick Action Buttons for Admin Controls & Payments */}
-            <div className="flex flex-wrap items-center gap-2.5">
+            <div className="flex flex-wrap items-center gap-2">
+              <Link href="/admin/licensing">
+                <Button className="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs flex items-center gap-1.5 rounded-xl shadow-lg shadow-purple-950">
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>👑 Painel Admin & Licenças</span>
+                </Button>
+              </Link>
+
+              <Link href="/settings/company">
+                <Button variant="outline" className="border-teal-500/40 bg-teal-950/30 text-teal-300 hover:bg-teal-900/50 font-bold text-xs flex items-center gap-1.5 rounded-xl">
+                  <Building2 className="w-4 h-4" />
+                  <span>Empresa & Logo</span>
+                </Button>
+              </Link>
+
+              <Link href="/quotes">
+                <Button variant="outline" className="border-blue-500/40 bg-blue-950/30 text-blue-300 hover:bg-blue-900/50 font-bold text-xs flex items-center gap-1.5 rounded-xl">
+                  <FileText className="w-4 h-4" />
+                  <span>Pró-Formas</span>
+                </Button>
+              </Link>
+
               <Button
                 onClick={() => setIsUserManagerOpen(true)}
                 className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 rounded-xl shadow-lg shadow-indigo-950"
               >
                 <Users className="w-4 h-4" />
-                <span>Utilizadores & Permissões</span>
+                <span>Utilizadores</span>
               </Button>
 
               <Button

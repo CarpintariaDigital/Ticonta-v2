@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Smartphone,
   Share2,
@@ -26,6 +26,38 @@ export default function POSReceipt({ sale, onClose }: POSReceiptProps) {
   const [isCopied, setIsCopied] = useState(false);
   const [isSharing, setIsSharing] = useState(false);
 
+  const [companyProfile, setCompanyProfile] = useState<{
+    name: string;
+    nuit: string;
+    city: string;
+    logo_url?: string;
+    receipt_footer_note?: string;
+  }>({
+    name: "TiConta Comercial & Serviços",
+    nuit: "400123456",
+    city: "Maputo, Moçambique",
+    logo_url: "/logo-ticonta.png",
+    receipt_footer_note: "Obrigado pela sua preferência!",
+  });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("ticonta_company_profile");
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          setCompanyProfile({
+            name: parsed.name || "TiConta Comercial & Serviços",
+            nuit: parsed.nuit || "400123456",
+            city: `${parsed.city || "Maputo"}, ${parsed.province || "Moçambique"}`,
+            logo_url: parsed.logo_url || "/logo-ticonta.png",
+            receipt_footer_note: parsed.receipt_footer_note || "Obrigado pela sua preferência!",
+          });
+        } catch {}
+      }
+    }
+  }, []);
+
   const invoiceNumber = sale.invoice_number || `VD/${new Date().getFullYear()}/${String(sale.id || 1).padStart(4, "0")}`;
   const saleDate = new Date(sale.sale_date || Date.now()).toLocaleString("pt-MZ");
   const totalAmount = Number(sale.net_amount || sale.total_amount || 0);
@@ -49,12 +81,13 @@ export default function POSReceipt({ sale, onClose }: POSReceiptProps) {
         ? `\n💵 *Entregue:* ${sale.cash_received.toFixed(2)} MT\n🔄 *Troco:* ${(sale.change_amount || sale.cash_received - totalAmount).toFixed(2)} MT`
         : "";
 
-    return `🧾 *TICONTA v2 ERP • TALÃO DIGITAL MZ*
+    return `🧾 *${companyProfile.name.toUpperCase()} • TALÃO DIGITAL MZ*
 ━━━━━━━━━━━━━━━━━━━━
-🏢 *LOJA:* TiConta Comercial & Serviços
+🏢 *LOJA:* ${companyProfile.name}
 📄 *DOCUMENTO:* ${invoiceNumber}
 📅 *DATA/HORA:* ${saleDate}
 💳 *PAGAMENTO:* ${paymentMethodLabel}
+🆔 *NUIT:* ${companyProfile.nuit}
 ━━━━━━━━━━━━━━━━━━━━
 🛒 *ARTIGOS:*
 ${itemsText}
@@ -64,7 +97,7 @@ ${itemsText}
 💰 *TOTAL PAGO:* *${totalAmount.toFixed(2)} MT*${cashReceivedText}
 ━━━━━━━━━━━━━━━━━━━━
 🌱 *Documento 100% Digital • Sem Papel*
-🙏 *Obrigado pela sua preferência!*`;
+🙏 *${companyProfile.receipt_footer_note || "Obrigado pela sua preferência!"}*`;
   };
 
   const handleSendWhatsApp = (e?: React.FormEvent) => {
@@ -137,14 +170,17 @@ ${itemsText}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-4 text-xs space-y-3 relative overflow-hidden shadow-inner">
             <div className="text-center border-b border-dashed border-zinc-800 pb-3">
-              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold mb-1">
-                <Sparkles className="w-3 h-3" />
-                TICONTA v2 DIGITAL
-              </div>
-              <h2 className="text-sm font-black uppercase text-white tracking-widest">
-                TALÃO DIGITAL DE VENDA
+              {companyProfile.logo_url && (
+                <div className="w-10 h-10 mx-auto rounded-lg overflow-hidden bg-zinc-900 border border-zinc-800 p-1 mb-1.5 flex items-center justify-center">
+                  <img src={companyProfile.logo_url} alt="Logo" className="max-h-full max-w-full object-contain" />
+                </div>
+              )}
+              <h2 className="text-sm font-black uppercase text-white tracking-wider">
+                {companyProfile.name}
               </h2>
-              <p className="text-[10px] text-zinc-400">Maputo, Moçambique • NUIT: 400123456</p>
+              <p className="text-[10px] text-zinc-400 font-mono">
+                NUIT: {companyProfile.nuit} • {companyProfile.city}
+              </p>
             </div>
 
             <div className="space-y-1 text-[11px]">

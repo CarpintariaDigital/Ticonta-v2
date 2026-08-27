@@ -27,42 +27,51 @@ import {
   X,
   ChevronDown,
   Lock,
+  Coins,
+  PiggyBank,
+  FileText,
+  Building2,
 } from "lucide-react";
 import { useLicensedModules } from "@/hooks/useLicensedModules";
 
 export const NAVIGATION_MODULES = [
   {
-    category: "Vendas & Serviços",
+    category: "Vendas, Caixa & Propostas",
     items: [
       { name: "Painel Geral", href: "/dashboard", icon: LayoutDashboard, color: "text-zinc-400" },
       { name: "Ponto de Venda (POS)", href: "/pos", icon: ShoppingCart, color: "text-emerald-400", requiredModule: "pos" },
-      { name: "Oficina & Serviços Auto", href: "/auto-services", icon: Wrench, color: "text-teal-400", requiredModule: "auto_services" },
+      { name: "Cotações & Pró-Forma", href: "/quotes", icon: FileText, color: "text-blue-400" },
+      { name: "Vendas Informais & Fiado", href: "/informal-sales", icon: Store, color: "text-yellow-400", requiredModule: "informal" },
+      { name: "Xitique (Rotativo/Comercial)", href: "/xitique", icon: Coins, color: "text-yellow-300", requiredModule: "xitique" },
+      { name: "Poupança & Crédito (ASCAS)", href: "/savings", icon: PiggyBank, color: "text-amber-400", requiredModule: "savings" },
       { name: "Restaurante & Bares", href: "/restaurant", icon: UtensilsCrossed, color: "text-amber-400", requiredModule: "restaurant" },
       { name: "Takeaway & Entregas", href: "/takeaway", icon: Bike, color: "text-sky-400", requiredModule: "restaurant" },
-      { name: "Vendas Informais / Fiado", href: "/informal-sales", icon: Store, color: "text-yellow-400", requiredModule: "informal" },
+      { name: "Oficina & Serviços Auto", href: "/auto-services", icon: Wrench, color: "text-teal-400", requiredModule: "auto_services" },
     ],
   },
   {
-    category: "Agro & Produção",
+    category: "Agro, Indústria & Projetos",
     items: [
       { name: "Produção Avícola & Ovos", href: "/poultry", icon: Egg, color: "text-orange-400", requiredModule: "poultry" },
       { name: "Cotações & Preços", href: "/pricing", icon: TrendingUp, color: "text-teal-400" },
       { name: "Fabrico & Marcenaria", href: "/manufacturing", icon: Factory, color: "text-indigo-400", requiredModule: "projects" },
+      { name: "Obras & Projetos", href: "/projects", icon: FolderKanban, color: "text-cyan-400", requiredModule: "projects" },
     ],
   },
   {
-    category: "Gestão & Compliance",
+    category: "Gestão, Finanças & Equipa",
     items: [
-      { name: "Contabilidade PGC", href: "/accounting", icon: BookOpen, color: "text-blue-400", requiredModule: "accounting" },
+      { name: "Contabilidade PGC-NIRF", href: "/accounting", icon: BookOpen, color: "text-blue-400", requiredModule: "accounting" },
       { name: "Recursos Humanos & INSS", href: "/hr", icon: Users, color: "text-rose-400", requiredModule: "hr" },
       { name: "Clientes & CRM", href: "/crm", icon: Users, color: "text-purple-400", requiredModule: "crm" },
-      { name: "Obras & Projetos", href: "/projects", icon: FolderKanban, color: "text-cyan-400", requiredModule: "projects" },
       { name: "Relatórios Fiscais & BI", href: "/reports", icon: BarChart3, color: "text-emerald-400", requiredModule: "accounting" },
     ],
   },
   {
-    category: "Sistema & Licença",
+    category: "Administração & Configuração",
     items: [
+      { name: "👑 Painel Admin & Licenças", href: "/admin/licensing", icon: ShieldCheck, color: "text-purple-400" },
+      { name: "Dados da Empresa & Logótipo", href: "/settings/company", icon: Building2, color: "text-teal-400" },
       { name: "Gestão de Licenciamento", href: "/settings/license", icon: ShieldCheck, color: "text-emerald-400" },
       { name: "Recursos Premium", href: "/settings/premium", icon: Sparkles, color: "text-amber-400" },
     ],
@@ -262,17 +271,36 @@ export default function DashboardNavbar() {
             Contabilidade
           </Link>
           <Link
-            href="/settings/license"
+            href="/settings/company"
             className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-              pathname?.startsWith("/settings/license") ? "bg-emerald-500/20 text-emerald-400" : "text-zinc-400 hover:text-white"
+              pathname?.startsWith("/settings/company") ? "bg-teal-500/20 text-teal-400 font-bold" : "text-zinc-400 hover:text-white"
             }`}
           >
-            Licença
+            Empresa / Logo
+          </Link>
+          <Link
+            href="/admin/licensing"
+            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1 border ${
+              pathname?.startsWith("/admin")
+                ? "bg-purple-600 text-white border-purple-400 shadow-md shadow-purple-950"
+                : "bg-purple-950/40 text-purple-300 border-purple-500/40 hover:bg-purple-900/60"
+            }`}
+          >
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>ADMIN & LICENÇAS</span>
           </Link>
         </nav>
 
         {/* Right: Sync Status + Operator Info + Logout Key */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
+          <Link
+            href="/admin/licensing"
+            className="xl:hidden px-2 py-1 rounded-lg text-[10px] font-bold bg-purple-600/30 text-purple-300 border border-purple-500/40 hover:bg-purple-600/50 flex items-center gap-1"
+          >
+            <ShieldCheck className="w-3 h-3" />
+            <span>ADMIN</span>
+          </Link>
+
           <SyncStatus />
 
           <div className="hidden sm:flex flex-col text-right bg-[#07101d] px-2.5 py-1 rounded-lg border border-[#162942]">

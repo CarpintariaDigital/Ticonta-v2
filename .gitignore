@@ -13,10 +13,9 @@ develop-eggs/
 dist/
 downloads/
 eggs/
-.eggs/
-lib/
-lib64/
-parts/
+/lib/
+/lib64/
+!frontend/src/lib/
 sdist/
 var/
 wheels/
@@ -28,6 +27,7 @@ ENV/
 env/
 .venv/
 .pytest_cache/
+coverage/
 .coverage
 htmlcov/
 *.cover

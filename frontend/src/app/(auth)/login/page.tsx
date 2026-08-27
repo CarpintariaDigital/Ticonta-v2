@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -44,7 +45,7 @@ export default function LoginPage() {
         router.push("/dashboard");
       }
     } catch (err: any) {
-      setError(err?.message || "Credenciais inválidas. Verifique o utilizador e a senha.");
+      setError(err?.message || "Credenciais inválidas. Verifique o identificador e a senha.");
     }
   };
 
@@ -56,10 +57,10 @@ export default function LoginPage() {
       {/* POS Terminal Frame */}
       <div className="relative w-full max-w-md bg-[#0e1726]/90 border-2 border-[#1c3150] rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/80 backdrop-blur-xl">
         
-        {/* Terminal Header */}
+        {/* Terminal Header with Clickable Link to Home */}
         <div className="flex items-center justify-between border-b border-[#1c3150] pb-5 mb-6">
-          <div className="flex items-center gap-3">
-            <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-emerald-500/10 border border-emerald-500/30 p-1.5 flex items-center justify-center shadow-inner">
+          <Link href="/" className="flex items-center gap-3 group cursor-pointer" title="Voltar à página inicial">
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-emerald-500/10 border border-emerald-500/30 p-1.5 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
               <Image
                 src="/LOGO-TICONTA.png"
                 alt="TiConta Logo"
@@ -71,7 +72,7 @@ export default function LoginPage() {
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-base font-black tracking-widest text-white uppercase font-mono">
+                <span className="text-base font-black tracking-widest text-white uppercase font-mono group-hover:text-emerald-400 transition-colors">
                   TiConta
                 </span>
                 <span className="text-[9px] font-bold uppercase tracking-wider bg-emerald-500/20 text-[#2dc4a0] px-1.5 py-0.5 rounded border border-[#2dc4a0]/30 font-mono">
@@ -83,7 +84,7 @@ export default function LoginPage() {
                 Terminal Autenticado & Fiscal MZ
               </p>
             </div>
-          </div>
+          </Link>
 
           <div className="flex gap-1.5">
             <div className="w-2 h-2 rounded-full bg-emerald-500/60 animate-pulse" />

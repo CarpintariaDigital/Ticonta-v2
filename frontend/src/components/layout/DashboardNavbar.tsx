@@ -31,6 +31,7 @@ import {
   PiggyBank,
   FileText,
   Building2,
+  KeyRound,
 } from "lucide-react";
 import { useLicensedModules } from "@/hooks/useLicensedModules";
 
@@ -72,6 +73,7 @@ export const NAVIGATION_MODULES = [
     items: [
       { name: "👑 Painel Admin & Licenças", href: "/admin/licensing", icon: ShieldCheck, color: "text-purple-400" },
       { name: "Dados da Empresa & Logótipo", href: "/settings/company", icon: Building2, color: "text-teal-400" },
+      { name: "Segurança & Alterar PIN", href: "/settings/security", icon: KeyRound, color: "text-amber-400" },
       { name: "Gestão de Licenciamento", href: "/settings/license", icon: ShieldCheck, color: "text-emerald-400" },
       { name: "Recursos Premium", href: "/settings/premium", icon: Sparkles, color: "text-amber-400" },
     ],

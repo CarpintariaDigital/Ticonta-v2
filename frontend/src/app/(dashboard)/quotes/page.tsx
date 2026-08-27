@@ -267,12 +267,8 @@ ${itemsList}
   );
 
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-        <DashboardNavbar />
-
-        <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
-          {/* Header */}
+    <div className="w-full space-y-6">
+      {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-6 rounded-3xl backdrop-blur shadow-2xl">
             <div className="flex items-center gap-3">
               <div className="p-3 rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 text-blue-400 border border-blue-500/30">
@@ -684,8 +680,6 @@ ${itemsList}
               </div>
             </div>
           )}
-        </main>
       </div>
-    </ProtectedRoute>
   );
 }

@@ -257,12 +257,8 @@ export default function DashboardPage() {
   const maxSale = Math.max(...salesHistory.map((s) => s.total));
 
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-        <DashboardNavbar />
-
-        <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
-          {/* Executive Header & Quick Admin Actions */}
+    <div className="w-full space-y-8">
+      {/* Executive Header & Quick Admin Actions */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-6 rounded-3xl backdrop-blur shadow-2xl">
             <div className="space-y-1">
               <div className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-widest">
@@ -567,7 +563,6 @@ export default function DashboardPage() {
               </div>
             ))}
           </div>
-        </main>
 
         {/* User & Permissions Management Modal */}
         <UserManagerModal
@@ -581,6 +576,5 @@ export default function DashboardPage() {
           onClose={() => setIsPaymentIntegrationsOpen(false)}
         />
       </div>
-    </ProtectedRoute>
   );
 }

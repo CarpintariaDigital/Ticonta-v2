@@ -63,12 +63,8 @@ export default function CompanySettingsPage() {
   };
 
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-        <DashboardNavbar />
-
-        <main className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
-          {/* Header */}
+    <div className="w-full space-y-6">
+      {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-6 rounded-3xl backdrop-blur">
             <div className="flex items-center gap-3">
               <div className="p-3 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 text-emerald-400 border border-emerald-500/30">
@@ -330,8 +326,6 @@ export default function CompanySettingsPage() {
               </div>
             </div>
           </form>
-        </main>
       </div>
-    </ProtectedRoute>
   );
 }

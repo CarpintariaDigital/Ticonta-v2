@@ -172,6 +172,22 @@ export default function LoginPage() {
               "ENTRAR NO TERMINAL ↵"
             )}
           </Button>
+          {/* Link para Ativação de Licença */}
+          <div className="pt-2">
+            <Link
+              href="/license-activation"
+              className="flex items-center justify-between p-3 rounded-lg bg-emerald-950/40 border border-emerald-500/30 hover:border-emerald-500/60 hover:bg-emerald-900/30 transition-all text-xs text-emerald-400 group"
+            >
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span className="font-semibold">Tem uma Chave de Licença TiConta?</span>
+              </div>
+              <span className="text-[10px] uppercase font-mono tracking-wider font-bold bg-emerald-500/20 px-2 py-0.5 rounded text-emerald-300 group-hover:bg-emerald-500 group-hover:text-black transition-colors">
+                Ativar Aqui →
+              </span>
+            </Link>
+          </div>
+
 
           {/* Footer Branding */}
           <div className="text-center pt-4 border-t border-[#1c3150]/60 text-[9px] text-[#4a7a9b] tracking-wider uppercase font-mono">

@@ -41,7 +41,8 @@ export default function SupportChatWidget() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://ia.carpintariadigital.co.mz/api/chat/stream", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://carpintaria-ia.ildinonunes.workers.dev";
+    const response = await fetch(`${apiUrl}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

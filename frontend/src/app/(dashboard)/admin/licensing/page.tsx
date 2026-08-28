@@ -82,6 +82,20 @@ export default function AdminLicensingDashboardPage() {
           </button>
 
           <button
+            onClick={() => {
+              if (confirm('Deseja limpar as licenças de teste/demonstração e iniciar com uma lista limpa para produção?')) {
+                AdminLicensingService.purgeMockLicenses();
+                refetchLicenses();
+                alert('✓ Dados de demonstração limpos com sucesso!');
+              }
+            }}
+            className="px-3.5 py-2.5 bg-slate-900 hover:bg-red-950/60 border border-slate-800 hover:border-red-500/50 text-slate-300 hover:text-red-400 font-medium text-xs rounded-xl transition-all flex items-center gap-1.5"
+            title="Limpar licenças de teste para produção"
+          >
+            🧹 Limpar Demos
+          </button>
+
+          <button
             onClick={() => setIsGenerateOpen(true)}
             className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-blue-500/25 flex items-center gap-2 transition-all"
           >

@@ -145,6 +145,12 @@ const defaultMockLicenses: LicenseDetail[] = [
 ];
 
 export const AdminLicensingService = {
+  purgeMockLicenses(): void {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ticonta_admin_licenses', JSON.stringify([]));
+    }
+  },
+
   async getLicenses(params: {
     page?: number;
     limit?: number;

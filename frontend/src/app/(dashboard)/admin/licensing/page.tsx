@@ -9,7 +9,7 @@ import { LicenseList } from '@/components/admin/LicenseList';
 import { GenerateLicenseModal } from '@/components/admin/GenerateLicenseModal';
 import { RenewalForm } from '@/components/admin/RenewalForm';
 import { RevokeModal } from '@/components/admin/RevokeModal';
-import { AdminLicenseItem } from '@/services/admin_licensing';
+import { AdminLicensingService, AdminLicenseItem } from '@/services/admin_licensing';
 
 export default function AdminLicensingDashboardPage() {
   const {

@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { MessageSquare, X, Send, Sparkles, ShieldCheck } from "lucide-react";
+import { MessageSquare, X, Send, Sparkles, ShieldCheck, MessageCircle, ExternalLink } from "lucide-react";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
+  isFallback?: boolean;
+  unresolvedQuery?: string;
 }
 
 const CHIPS = [
@@ -13,6 +15,8 @@ const CHIPS = [
   "Como fazer o fecho diário de caixa?",
   "Como funciona a sincronização offline?"
 ];
+
+const SUPPORT_WHATSAPP_NUMBER = "258834616193"; // Número Oficial de Suporte da Carpintaria Digital
 
 export default function SupportChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +35,28 @@ export default function SupportChatWidget() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  function getWhatsAppUrl(queryText: string) {
+    const text = encodeURIComponent(
+      `Olá Suporte TiConta / Carpintaria Digital,\n\nTenho uma dúvida que o Copiloto IA não conseguiu esclarecer:\n👉 "${queryText}"\n\nPoderiam apoiar-me?`
+    );
+    return `https://wa.me/${SUPPORT_WHATSAPP_NUMBER}?text=${text}`;
+  }
+
+  function isAiUnsure(text: string): boolean {
+    const lower = text.toLowerCase();
+    const unsureKeywords = [
+      "não tenho certeza",
+      "não encontrei",
+      "não sei",
+      "consulte o suporte",
+      "fora do meu escopo",
+      "não foi possível",
+      "desculpe, não consegui",
+      "falar com um atendente",
+    ];
+    return unsureKeywords.some((kw) => lower.includes(kw));
+  }
+
   async function handleSend(customText?: string) {
     const text = customText || input;
     if (!text.trim() || isLoading) return;
@@ -42,7 +68,7 @@ export default function SupportChatWidget() {
 
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://carpintaria-ia.nunesildino.workers.dev";
-    const response = await fetch(`${apiUrl}/api/chat`, {
+      const response = await fetch(`${apiUrl}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -51,7 +77,7 @@ export default function SupportChatWidget() {
         }),
       });
 
-      if (!response.ok) throw new Error("Erro na resposta");
+      if (!response.ok) throw new Error("Erro na resposta da IA");
 
       if (response.headers.get("content-type")?.includes("text/event-stream")) {
         const reader = response.body?.getReader();
@@ -68,25 +94,41 @@ export default function SupportChatWidget() {
             assistantMsg += chunk;
             setMessages((prev) => {
               const updated = [...prev];
-              updated[updated.length - 1] = { role: "assistant", content: assistantMsg };
+              updated[updated.length - 1] = {
+                role: "assistant",
+                content: assistantMsg,
+                isFallback: isAiUnsure(assistantMsg),
+                unresolvedQuery: isAiUnsure(assistantMsg) ? text : undefined,
+              };
               return updated;
             });
           }
         }
       } else {
         const data = await response.json();
+        const reply = data.reply || "Não consegui obter a informação exata neste momento.";
+        const fallback = isAiUnsure(reply);
+
         setMessages((prev) => [
           ...prev,
-          { role: "assistant", content: data.reply || "Como posso ajudar mais com o TiConta ERP?" },
+          {
+            role: "assistant",
+            content: reply,
+            isFallback: fallback,
+            unresolvedQuery: fallback ? text : undefined,
+          },
         ]);
       }
     } catch {
+      // Fallback quando a API falha ou não tem respostas
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
           content:
-            "O TiConta opera 100% offline no PDV. Para regras fiscais adicionais, o IVA moçambicano é calculado a 16% e todas as retenções são aplicadas em conformidade com o regulamento tributário.",
+            "Não consegui processar a resposta completa neste momento. Para garantir um atendimento rápido e preciso, encaminhe a sua dúvida diretamente à nossa equipa humana de suporte no WhatsApp.",
+          isFallback: true,
+          unresolvedQuery: text,
         },
       ]);
     } finally {
@@ -133,10 +175,10 @@ export default function SupportChatWidget() {
             {messages.map((m, idx) => (
               <div
                 key={idx}
-                className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+                className={`flex flex-col ${m.role === "user" ? "items-end" : "items-start"}`}
               >
                 <div
-                  className={`max-w-[85%] p-3 rounded-xl leading-relaxed ${
+                  className={`max-w-[88%] p-3 rounded-xl leading-relaxed ${
                     m.role === "user"
                       ? "bg-emerald-600 text-white rounded-br-none"
                       : "bg-zinc-800/90 text-zinc-100 border border-zinc-700/60 rounded-bl-none"
@@ -144,6 +186,25 @@ export default function SupportChatWidget() {
                 >
                   {m.content}
                 </div>
+
+                {/* Card de Encaminhamento Direto para WhatsApp quando a IA não tem resposta */}
+                {m.isFallback && m.unresolvedQuery && (
+                  <div className="mt-2 max-w-[88%] bg-emerald-950/80 border border-emerald-500/40 rounded-xl p-2.5 flex flex-col gap-2">
+                    <div className="flex items-center gap-1.5 text-emerald-300 text-[11px] font-medium">
+                      <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Falar com especialista humano no WhatsApp</span>
+                    </div>
+                    <a
+                      href={getWhatsAppUrl(m.unresolvedQuery)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-semibold py-1.5 px-3 rounded-lg transition-colors shadow-sm"
+                    >
+                      <span>Abrir no WhatsApp</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                )}
               </div>
             ))}
             {isLoading && (

@@ -5,6 +5,7 @@ import Link from "next/link";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import DashboardNavbar from "@/components/layout/DashboardNavbar";
 import {
+  Palette,
   Building2,
   KeyRound,
   ShieldCheck,
@@ -16,10 +17,20 @@ import {
 export default function SettingsHubPage() {
   const settingsSections = [
     {
+      title: "Identidade Visual & Branding",
+      desc: "Configure cores primárias, secundárias e logótipo impresso em Base64 nos documentos fiscais.",
+      href: "/settings/branding",
+      icon: Palette,
+      color: "text-amber-400",
+      bg: "bg-amber-500/10",
+      border: "border-amber-500/30",
+    },
+    {
       title: "Dados da Empresa & Logótipo",
       desc: "Configure nome comercial, NUIT moçambicano, endereço, taxas de IVA e logótipo impresso.",
       href: "/settings/company",
-      icon: Building2,
+      icon: Palette,
+  Building2,
       color: "text-teal-400",
       bg: "bg-teal-500/10",
       border: "border-teal-500/30",

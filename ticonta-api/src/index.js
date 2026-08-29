@@ -5,6 +5,7 @@
  * API REST e motor de conformidade para o TiConta ERP Moçambique
  */
 
+import { generatePDF, getBranding } from "./utils/pdfClient.js";
 import {
   calcularIVA,
   calcularIRPS,
@@ -636,6 +637,51 @@ export default {
       }
 
       // ------------------------------------------------------------------------
+      
+      // ------------------------------------------------------------------------
+      // Rota de Geração de PDFs: POST /api/v1/documents/generate ou /api/documents/generate
+      // ------------------------------------------------------------------------
+      if ((path === "/api/v1/documents/generate" || path === "/api/documents/generate") && method === "POST") {
+        const payload = await request.json();
+
+        // Se não vier branding no payload, tenta ler do KV automaticamente
+        if (!payload.branding || !payload.branding.primary_color) {
+          const nuit = payload.client?.nuit || payload.document?.company_nuit || payload.branding?.nuit || authUser?.nuit || "400123456";
+          try {
+            if (nuit && (env.KV || env.TICONTA_KV || env.CACHE)) {
+              payload.branding = await getBranding(env, nuit);
+            }
+          } catch (e) {
+            // Se não encontrar no KV, usar fallback padrão Carpintaria / TiConta
+            if (!payload.branding) {
+              payload.branding = {
+                company_name: "TiConta ERP",
+                primary_color: "#1A365D",
+                secondary_color: "#DD6B20",
+                nuit: nuit
+              };
+            }
+          }
+        }
+
+        const result = await generatePDF(payload);
+        return jsonResponse(result, 200, corsHeaders);
+      }
+
+      // ------------------------------------------------------------------------
+      // Rota de Branding: POST /api/v1/branding/save ou /api/branding/save
+      // ------------------------------------------------------------------------
+      if ((path === "/api/v1/branding/save" || path === "/api/branding/save") && method === "POST") {
+        const branding = await request.json();
+        const nuit = branding.nuit || authUser?.nuit || "400123456";
+        const key = "branding:" + nuit;
+        const kv = env.KV || env.TICONTA_KV || env.CACHE;
+        if (kv) {
+          await kv.put(key, JSON.stringify(branding));
+        }
+        return jsonResponse({ success: true, key, message: "Branding gravado com sucesso no KV" }, 200, corsHeaders);
+      }
+
       // Rota de Licenciamento: POST /api/licencas
       // ------------------------------------------------------------------------
       if (path === "/api/licencas" && method === "POST") {

@@ -38,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt" className="light">
-      <body className="font-sans antialiased bg-zinc-950 text-zinc-50">
+      <body className="font-sans antialiased bg-[#FAF8F5] text-zinc-900 selection:bg-emerald-600 selection:text-white">
         <Providers>{children}</Providers>
       </body>
     </html>

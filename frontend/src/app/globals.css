@@ -355,3 +355,33 @@
   }
 }
 
+
+
+  /* TEMA CLARO MARFIM & GLASSMORPHISM ESVERDEADO (TI CONTA ERP) */
+  :root, .light {
+    --bg-ivory: #FAF8F5;
+    --bg-ivory-warm: #F4EFEB;
+    --surface-glass-light: rgba(255, 255, 255, 0.78);
+    --border-glass-light: rgba(13, 92, 58, 0.15);
+    --text-primary-dark: #121F17;
+    --text-secondary-dark: #4A6354;
+    --emerald-primary: #0D5C3A;
+    --emerald-light: #10B981;
+    --emerald-dark: #073822;
+    --gold-accent: #C9922A;
+  }
+
+  .glass-card-ivory {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(13, 92, 58, 0.14);
+    box-shadow: 0 10px 30px rgba(13, 92, 58, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+    border-radius: 14px;
+  }
+
+  .glass-card-ivory:hover {
+    background: rgba(255, 255, 255, 0.88);
+    border-color: rgba(13, 92, 58, 0.28);
+    box-shadow: 0 14px 38px rgba(13, 92, 58, 0.09);
+  }

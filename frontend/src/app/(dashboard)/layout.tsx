@@ -38,7 +38,7 @@ export default function DashboardLayout({
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans relative">
+      <div className="min-h-screen bg-[#FAF8F5] text-zinc-900 flex flex-col font-sans relative">
         {!isPos && <DashboardNavbar />}
         <div className={isPos ? "flex-1 w-full h-screen overflow-hidden" : "flex-1 p-4 lg:p-6 max-w-7xl mx-auto w-full"}>
           {isBlocked ? (

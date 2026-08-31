@@ -106,7 +106,7 @@ export default function DashboardNavbar() {
   const CurrentIcon = currentModule.icon;
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-[#0d1d33] bg-[#0c1728]/95 backdrop-blur-xl px-4 lg:px-6 py-2 shadow-2xl shadow-black/60">
+    <header className="sticky top-0 z-50 border-b border-emerald-900/10 bg-white/85 shadow-xs backdrop-blur-xl px-4 lg:px-6 py-2 shadow-2xl shadow-black/60">
       <div className="flex items-center justify-between">
         {/* Left: Hardware Brand Box with Official Logo & Module Switcher */}
         <div className="flex items-center gap-4">
@@ -143,7 +143,7 @@ export default function DashboardNavbar() {
           <div className="relative hidden md:block">
             <button
               onClick={() => setModulesDropdownOpen(!modulesDropdownOpen)}
-              className="flex items-center gap-2 rounded-lg border-2 border-[#162942] bg-[#08121f] px-3 py-1.5 text-xs font-semibold text-zinc-200 hover:border-[#2dc4a0]/60 hover:text-white transition-all shadow-inner"
+              className="flex items-center gap-2 rounded-lg border border-emerald-900/15 bg-white/90 shadow-xs px-3 py-1.5 text-xs font-semibold text-zinc-200 hover:border-[#2dc4a0]/60 hover:text-white transition-all shadow-inner"
             >
               <div className="w-2 h-2 rounded-full bg-[#2dc4a0] shadow-[0_0_6px_#2dc4a0]" />
               <CurrentIcon className={`h-4 w-4 ${currentModule.color}`} />
@@ -187,8 +187,8 @@ export default function DashboardNavbar() {
                                   isActive
                                     ? "bg-emerald-500/20 text-[#2dc4a0] border border-[#2dc4a0]/40 font-bold shadow-sm"
                                     : isLicensed
-                                    ? "text-zinc-300 hover:bg-[#1b2d4f] hover:text-white border border-transparent"
-                                    : "text-zinc-500 hover:bg-[#132238] hover:text-zinc-300 opacity-75 border border-transparent"
+                                    ? "text-zinc-700 hover:bg-emerald-50 hover:text-emerald-950 border border-transparent"
+                                    : "text-zinc-500 hover:bg-emerald-50 hover:text-zinc-700 opacity-75 border border-transparent"
                                 }`}
                               >
                                 <div className="flex items-center gap-2 truncate">
@@ -229,7 +229,7 @@ export default function DashboardNavbar() {
           <Link
             href="/auto-services"
             className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-              pathname?.startsWith("/auto-services") ? "bg-teal-500/20 text-teal-400 font-semibold" : "text-zinc-400 hover:text-white"
+              pathname?.startsWith("/auto-services") ? "bg-teal-500/20 text-teal-400 font-semibold" : "text-zinc-600 hover:text-emerald-900"
             }`}
           >
             Oficina
@@ -237,7 +237,7 @@ export default function DashboardNavbar() {
           <Link
             href="/restaurant"
             className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-              pathname?.startsWith("/restaurant") ? "bg-amber-500/20 text-amber-400" : "text-zinc-400 hover:text-white"
+              pathname?.startsWith("/restaurant") ? "bg-amber-500/20 text-amber-400" : "text-zinc-600 hover:text-emerald-900"
             }`}
           >
             Restaurante
@@ -245,7 +245,7 @@ export default function DashboardNavbar() {
           <Link
             href="/takeaway"
             className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-              pathname?.startsWith("/takeaway") ? "bg-sky-500/20 text-sky-400" : "text-zinc-400 hover:text-white"
+              pathname?.startsWith("/takeaway") ? "bg-sky-500/20 text-sky-400" : "text-zinc-600 hover:text-emerald-900"
             }`}
           >
             Takeaway
@@ -253,7 +253,7 @@ export default function DashboardNavbar() {
           <Link
             href="/informal-sales"
             className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-              pathname?.startsWith("/informal-sales") ? "bg-yellow-500/20 text-yellow-400" : "text-zinc-400 hover:text-white"
+              pathname?.startsWith("/informal-sales") ? "bg-yellow-500/20 text-yellow-400" : "text-zinc-600 hover:text-emerald-900"
             }`}
           >
             Fiado
@@ -261,7 +261,7 @@ export default function DashboardNavbar() {
           <Link
             href="/poultry"
             className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-              pathname?.startsWith("/poultry") ? "bg-orange-500/20 text-orange-400" : "text-zinc-400 hover:text-white"
+              pathname?.startsWith("/poultry") ? "bg-orange-500/20 text-orange-400" : "text-zinc-600 hover:text-emerald-900"
             }`}
           >
             Avicultura
@@ -269,7 +269,7 @@ export default function DashboardNavbar() {
           <Link
             href="/accounting"
             className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-              pathname?.startsWith("/accounting") ? "bg-blue-500/20 text-blue-400" : "text-zinc-400 hover:text-white"
+              pathname?.startsWith("/accounting") ? "bg-blue-500/20 text-blue-400" : "text-zinc-600 hover:text-emerald-900"
             }`}
           >
             Contabilidade
@@ -277,7 +277,7 @@ export default function DashboardNavbar() {
           <Link
             href="/settings/company"
             className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
-              pathname?.startsWith("/settings/company") ? "bg-teal-500/20 text-teal-400 font-bold" : "text-zinc-400 hover:text-white"
+              pathname?.startsWith("/settings/company") ? "bg-teal-500/20 text-teal-400 font-bold" : "text-zinc-600 hover:text-emerald-900"
             }`}
           >
             Empresa / Logo
@@ -309,7 +309,7 @@ export default function DashboardNavbar() {
 
           <Link
             href="/admin/licensing"
-            className="hidden sm:flex flex-col text-right bg-[#07101d] px-2.5 py-1 rounded-lg border border-[#162942] hover:border-purple-500/60 hover:bg-purple-950/20 transition-all group"
+            className="hidden sm:flex flex-col text-right bg-emerald-50/80 px-2.5 py-1 rounded-lg border border-emerald-200 hover:border-purple-500/60 hover:bg-purple-950/20 transition-all group"
             title="Abrir Painel de Administração & Licenças"
           >
             <span className="text-[11px] font-bold text-zinc-100 group-hover:text-purple-300 truncate max-w-[120px] flex items-center justify-end gap-1">

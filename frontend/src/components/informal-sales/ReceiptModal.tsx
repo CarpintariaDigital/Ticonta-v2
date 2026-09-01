@@ -54,13 +54,13 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ receipt, onClose }) 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-      <div className="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-sm p-5 md:p-6 shadow-2xl space-y-4 text-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/40 backdrop-blur-sm animate-fade-in">
+      <div className="bg-white border border-zinc-200/80 rounded-2xl w-full max-w-sm p-5 md:p-6 shadow-2xl space-y-4 text-center">
         {/* Header */}
         <div className="flex justify-end">
           <button
             onClick={onClose}
-            className="p-1 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+            className="p-1 text-zinc-500 hover:text-zinc-900 hover:bg-slate-800 rounded-lg transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -71,31 +71,31 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ receipt, onClose }) 
         </div>
 
         <div>
-          <h3 className="text-lg font-bold text-white">Venda Registada com Sucesso!</h3>
-          <p className="text-xs text-slate-400">Fatura: #{receipt.invoice_number}</p>
+          <h3 className="text-lg font-bold text-zinc-900">Venda Registada com Sucesso!</h3>
+          <p className="text-xs text-zinc-500">Fatura: #{receipt.invoice_number}</p>
         </div>
 
         {/* Itemized Thermal Receipt Box */}
-        <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl text-left space-y-2 font-mono text-xs text-slate-300">
-          <div className="flex justify-between pb-2 border-b border-slate-800 font-sans">
-            <span className="text-slate-400">Cliente:</span>
-            <span className="font-bold text-white">{receipt.customer_name}</span>
+        <div className="p-4 bg-white border border-zinc-200 rounded-xl text-left space-y-2 font-mono text-xs text-zinc-700">
+          <div className="flex justify-between pb-2 border-b border-zinc-200 font-sans">
+            <span className="text-zinc-500">Cliente:</span>
+            <span className="font-bold text-zinc-900">{receipt.customer_name}</span>
           </div>
 
           <div className="flex justify-between pt-1">
-            <span className="text-slate-400">Valor Total:</span>
-            <span className="font-bold text-white">{receipt.total_amount.toLocaleString("pt-MZ")} MT</span>
+            <span className="text-zinc-500">Valor Total:</span>
+            <span className="font-bold text-zinc-900">{receipt.total_amount.toLocaleString("pt-MZ")} MT</span>
           </div>
 
           <div className="flex justify-between">
-            <span className="text-slate-400">Valor Pago (Entrada):</span>
+            <span className="text-zinc-500">Valor Pago (Entrada):</span>
             <span className="font-bold text-emerald-400">
               {receipt.amount_paid_now.toLocaleString("pt-MZ")} MT
             </span>
           </div>
 
-          <div className="flex justify-between pt-2 border-t border-slate-800">
-            <span className="text-slate-400 font-sans font-bold">Saldo a Dever:</span>
+          <div className="flex justify-between pt-2 border-t border-zinc-200">
+            <span className="text-zinc-500 font-sans font-bold">Saldo a Dever:</span>
             <span
               className={`font-sans font-extrabold text-sm ${
                 receipt.amount_owed > 0 ? "text-rose-400" : "text-emerald-400"
@@ -126,7 +126,7 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ receipt, onClose }) 
 
           <button
             onClick={handlePrint}
-            className="w-full py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl transition-colors flex items-center justify-center gap-2"
+            className="w-full py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl transition-colors flex items-center justify-center gap-2"
           >
             <Printer className="w-4 h-4" /> Imprimir Talão
           </button>

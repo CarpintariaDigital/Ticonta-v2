@@ -19,9 +19,9 @@ export const MortalityTracker: React.FC<MortalityTrackerProps> = ({
   const isHighMortality = mortalityRatePercent > 5.0;
 
   return (
-    <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 md:p-5 shadow-xl backdrop-blur-md space-y-4">
+    <div className="bg-white/80 border border-zinc-200 rounded-2xl p-4 md:p-5 shadow-xl backdrop-blur-md space-y-4">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+      <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
         <div className="flex items-center gap-2.5">
           <div
             className={`p-2 rounded-xl border ${
@@ -38,7 +38,7 @@ export const MortalityTracker: React.FC<MortalityTrackerProps> = ({
           </div>
           <div>
             <h3 className="text-sm font-bold text-white">Biossegurança & Sobrevivência</h3>
-            <p className="text-xs text-slate-400">Controle sanitário de baixas e mortalidade</p>
+            <p className="text-xs text-zinc-500">Controle sanitário de baixas e mortalidade</p>
           </div>
         </div>
 
@@ -59,7 +59,7 @@ export const MortalityTracker: React.FC<MortalityTrackerProps> = ({
           <span className="font-bold block flex items-center gap-1 text-rose-300">
             <AlertTriangle className="w-3.5 h-3.5" /> ALERTA CRÍTICO: Taxa &gt; 5%
           </span>
-          <p className="text-[11px] text-slate-300">
+          <p className="text-[11px] text-zinc-700">
             Recomenda-se visita técnica veterinária e avaliação da ventilação, qualidade da água e vacinação.
           </p>
         </div>
@@ -67,18 +67,18 @@ export const MortalityTracker: React.FC<MortalityTrackerProps> = ({
 
       {/* Stats Breakdown */}
       <div className="grid grid-cols-3 gap-2 text-xs text-center">
-        <div className="p-2.5 bg-slate-950 rounded-xl border border-slate-800">
-          <span className="text-[10px] text-slate-400 block">Pintos Iniciais</span>
+        <div className="p-2.5 bg-white rounded-xl border border-zinc-200">
+          <span className="text-[10px] text-zinc-500 block">Pintos Iniciais</span>
           <span className="text-sm font-black text-white">{quantityStart}</span>
         </div>
 
-        <div className="p-2.5 bg-slate-950 rounded-xl border border-slate-800">
-          <span className="text-[10px] text-slate-400 block">Efetivo Vivo</span>
+        <div className="p-2.5 bg-white rounded-xl border border-zinc-200">
+          <span className="text-[10px] text-zinc-500 block">Efetivo Vivo</span>
           <span className="text-sm font-black text-emerald-400">{quantityCurrent}</span>
         </div>
 
-        <div className="p-2.5 bg-slate-950 rounded-xl border border-slate-800">
-          <span className="text-[10px] text-slate-400 block">Total de Mortes</span>
+        <div className="p-2.5 bg-white rounded-xl border border-zinc-200">
+          <span className="text-[10px] text-zinc-500 block">Total de Mortes</span>
           <span className="text-sm font-black text-rose-400">{cumulativeMortality}</span>
         </div>
       </div>

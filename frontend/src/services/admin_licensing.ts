@@ -356,6 +356,29 @@ export const AdminLicensingService = {
     }
   },
 
+  
+  async checkExpired(): Promise<{ message: string; revoked_count: number }> {
+    try {
+      const res = await axios.post(`${API_BASE_URL}/api/v1/admin/licenses/check-expired`, {}, {
+        ...getAuthHeaders(),
+        timeout: 4000,
+      });
+      return res.data;
+    } catch {
+      const local = getLocalLicenses();
+      let revoked_count = 0;
+      const now = Date.now();
+      local.forEach((l) => {
+        if (l.status === "active" && new Date(l.expires_at).getTime() < now) {
+          l.status = "expired";
+          revoked_count++;
+        }
+      });
+      saveLocalLicenses(local);
+      return { message: "Verificação concluída", revoked_count };
+    }
+  },
+
   async getUsage(): Promise<AdminUsageResponse> {
     const local = getLocalLicenses();
     return {

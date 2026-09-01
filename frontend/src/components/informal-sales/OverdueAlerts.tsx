@@ -50,8 +50,8 @@ export const OverdueAlerts: React.FC<OverdueAlertsProps> = ({
             <CheckCircle2 className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="text-sm font-bold text-white">Nenhum Fiado Vencido</h4>
-            <p className="text-xs text-slate-400">Todos os clientes estão com as contas em dia!</p>
+            <h4 className="text-sm font-bold text-zinc-900">Nenhum Fiado Vencido</h4>
+            <p className="text-xs text-zinc-500">Todos os clientes estão com as contas em dia!</p>
           </div>
         </div>
       </div>
@@ -59,18 +59,18 @@ export const OverdueAlerts: React.FC<OverdueAlertsProps> = ({
   }
 
   return (
-    <div className="bg-slate-900/90 border border-rose-500/30 rounded-2xl p-4 md:p-5 shadow-2xl space-y-4">
+    <div className="bg-white/90 border border-rose-500/30 rounded-2xl p-4 md:p-5 shadow-2xl space-y-4">
       {/* Alert Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-zinc-200">
         <div className="flex items-center gap-2.5">
           <div className="p-2 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/30 animate-pulse">
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-sm md:text-base font-bold text-white">
+            <h3 className="text-sm md:text-base font-bold text-zinc-900">
               Alertas de Cobrança & Fiados Vencidos
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-zinc-500">
               {overdueDebits.length} conta(s) em atraso • Total:{" "}
               <span className="font-extrabold text-rose-400">
                 {totalOverdueAmount.toLocaleString("pt-MZ")} MT
@@ -89,7 +89,7 @@ export const OverdueAlerts: React.FC<OverdueAlertsProps> = ({
           return (
             <div
               key={debit.id}
-              className="p-3 bg-slate-950/70 border border-slate-800 hover:border-rose-500/40 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-all"
+              className="p-3 bg-white/70 border border-zinc-200 hover:border-rose-500/40 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-all"
             >
               <div className="flex items-start gap-3">
                 <div className="w-9 h-9 rounded-lg bg-rose-950/60 border border-rose-500/40 flex items-center justify-center font-bold text-xs text-rose-300 shrink-0">
@@ -98,21 +98,21 @@ export const OverdueAlerts: React.FC<OverdueAlertsProps> = ({
 
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-white">{debit.customer_name}</span>
+                    <span className="text-xs font-bold text-zinc-900">{debit.customer_name}</span>
                     <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
                       {debit.days_overdue > 0 ? `+${debit.days_overdue} dias atrasado` : "Venceu hoje"}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-3 text-[11px] text-slate-400 mt-0.5">
+                  <div className="flex items-center gap-3 text-[11px] text-zinc-500 mt-0.5">
                     {debit.customer_phone && (
                       <span className="flex items-center gap-1">
-                        <Phone className="w-3 h-3 text-slate-500" /> {debit.customer_phone}
+                        <Phone className="w-3 h-3 text-zinc-500" /> {debit.customer_phone}
                       </span>
                     )}
                     {debit.due_date && (
                       <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3 text-slate-500" /> Venceu em:{" "}
+                        <Calendar className="w-3 h-3 text-zinc-500" /> Venceu em:{" "}
                         {new Date(debit.due_date).toLocaleDateString("pt-MZ")}
                       </span>
                     )}
@@ -121,9 +121,9 @@ export const OverdueAlerts: React.FC<OverdueAlertsProps> = ({
               </div>
 
               {/* Debt Amount & Action Buttons */}
-              <div className="flex items-center justify-between sm:justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-800/80">
+              <div className="flex items-center justify-between sm:justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-zinc-200/80">
                 <div className="text-left sm:text-right pr-2">
-                  <span className="text-[10px] text-slate-400 block">Valor Vencido</span>
+                  <span className="text-[10px] text-zinc-500 block">Valor Vencido</span>
                   <span className="text-sm font-extrabold text-rose-400">
                     {debit.amount_owed.toLocaleString("pt-MZ")} MT
                   </span>
@@ -142,7 +142,7 @@ export const OverdueAlerts: React.FC<OverdueAlertsProps> = ({
                     onClick={() => handleSend(debit.id, "whatsapp")}
                     className={`p-1.5 rounded-lg text-xs font-semibold border flex items-center gap-1 transition-all ${
                       isSent
-                        ? "bg-emerald-600 text-white border-emerald-500"
+                        ? "bg-emerald-600 text-zinc-900 border-emerald-500"
                         : "bg-emerald-950/60 hover:bg-emerald-900 text-emerald-300 border-emerald-600/40"
                     }`}
                     title="Lembrar via WhatsApp"

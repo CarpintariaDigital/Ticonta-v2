@@ -23,10 +23,10 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
 
   if (isLoading || !isAuthenticated) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-white">
+      <div className="flex min-h-screen items-center justify-center bg-white text-white">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
-          <p className="text-sm text-zinc-400">A verificar autenticação...</p>
+          <p className="text-sm text-zinc-500">A verificar autenticação...</p>
         </div>
       </div>
     );
@@ -34,10 +34,10 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
 
   if (allowedRoles && user && !allowedRoles.includes(user.role)) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-white">
-        <div className="rounded-xl border border-red-500/20 bg-zinc-900 p-8 text-center max-w-md">
+      <div className="flex min-h-screen items-center justify-center bg-white text-white">
+        <div className="rounded-xl border border-red-500/20 bg-zinc-50 p-8 text-center max-w-md">
           <h2 className="text-xl font-bold text-red-400">Acesso Restrito</h2>
-          <p className="mt-2 text-sm text-zinc-400">
+          <p className="mt-2 text-sm text-zinc-500">
             O seu perfil ({user.role}) não tem permissão para aceder a este recurso.
           </p>
         </div>

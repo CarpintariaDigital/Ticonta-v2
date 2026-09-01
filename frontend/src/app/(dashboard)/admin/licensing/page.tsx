@@ -55,122 +55,127 @@ export default function AdminLicensingDashboardPage() {
   const [selectedRevokeLic, setSelectedRevokeLic] = useState<AdminLicenseItem | null>(null);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-8 space-y-8">
+    <div className="space-y-8 animate-fade-in">
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 text-blue-400 font-semibold text-xs uppercase tracking-widest mb-1">
-            <ShieldCheck className="w-4 h-4" />
-            Painel Administrativo Carpintaria Digital
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-zinc-200">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <div className="p-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl shadow-xs">
+              <KeyRound className="w-5 h-5" />
+            </div>
+            <h1 className="text-xl md:text-2xl font-bold tracking-tight text-zinc-900 flex items-center gap-2">
+              Gestão de Licenças & Subscrições
+              <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold flex items-center gap-1">
+                <Sparkles className="w-3 h-3 text-emerald-600" /> Super Admin
+              </span>
+            </h1>
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-slate-100 tracking-tight flex items-center gap-3">
-            Gestão & Emissão de Licenças
-          </h1>
-          <p className="text-sm text-slate-400 mt-1">
-            Controlo criptográfico offline (HMAC-SHA256), telemetria e faturação de subscrições em Moçambique.
+          <p className="text-xs text-zinc-500">
+            Controlo de chaves criptográficas (HMAC-SHA256), planos em MZN, clientes e status de ativação
           </p>
         </div>
 
-        {/* Quick Action Button */}
-        <div className="flex items-center gap-3">
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2.5 self-start md:self-auto">
           <button
             onClick={() => refetchLicenses()}
-            className="p-2.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 rounded-xl transition-colors"
-            title="Atualizar Dados"
+            title="Recarregar dados"
+            className="p-2.5 bg-white hover:bg-zinc-50 border border-zinc-200 text-zinc-700 rounded-xl transition-colors shadow-xs"
           >
             <RefreshCw className={`w-4 h-4 ${isLoadingLicenses ? 'animate-spin' : ''}`} />
           </button>
 
           <button
-            onClick={() => {
-              if (confirm('Deseja limpar as licenças de teste/demonstração e iniciar com uma lista limpa para produção?')) {
-                AdminLicensingService.purgeMockLicenses();
+            onClick={async () => {
+              if (confirm('Deseja executar a verificação e revogação em massa de licenças expiradas?')) {
+                const res = await AdminLicensingService.checkExpired();
+                alert(`Verificação concluída: ${res.revoked_count} licenças revogadas.`);
                 refetchLicenses();
-                alert('✓ Dados de demonstração limpos com sucesso!');
               }
             }}
-            className="px-3.5 py-2.5 bg-slate-900 hover:bg-red-950/60 border border-slate-800 hover:border-red-500/50 text-slate-300 hover:text-red-400 font-medium text-xs rounded-xl transition-all flex items-center gap-1.5"
-            title="Limpar licenças de teste para produção"
+            className="px-3.5 py-2.5 bg-white hover:bg-red-50 border border-zinc-200 hover:border-red-300 text-zinc-700 hover:text-red-700 font-medium text-xs rounded-xl transition-all flex items-center gap-1.5 shadow-xs"
           >
-            🧹 Limpar Demos
+            <Activity className="w-3.5 h-3.5" />
+            Auditar Expiradas
           </button>
 
           <button
             onClick={() => setIsGenerateOpen(true)}
-            className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-blue-500/25 flex items-center gap-2 transition-all"
+            className="px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs rounded-xl shadow-sm hover:shadow-md transition-all flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
-            Emitir Nova Licença
+            Nova Licença
           </button>
         </div>
       </div>
 
-      {/* KPI Cards */}
+      {/* 1. KPIs Cards */}
       <StatsCards stats={stats} isLoading={isLoadingStats} />
 
-      {/* Gráficos de Faturação & Planos */}
+      {/* 2. Gráfico de Faturação e Distribuição de Planos */}
       <RevenueChart stats={stats} isLoading={isLoadingStats} />
 
-      {/* Tabela de Licenças */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
-            <KeyRound className="w-5 h-5 text-blue-400" />
-            Todas as Licenças Emitidas
-          </h2>
-          <span className="text-xs text-slate-400 font-medium">
-            {total} subscritor(es) registado(s)
-          </span>
-        </div>
+      {/* 3. Tabela Filtrada de Licenças */}
+      <LicenseList
+        licenses={licenses}
+        total={total}
+        page={page}
+        totalPages={totalPages}
+        isLoading={isLoadingLicenses}
+        planFilter={planFilter}
+        statusFilter={statusFilter}
+        search={search}
+        sortBy={sortBy}
+        order={order}
+        setPage={setPage}
+        setPlanFilter={setPlanFilter}
+        setStatusFilter={setStatusFilter}
+        setSearch={setSearch}
+        setSortBy={setSortBy}
+        setOrder={setOrder}
+        onOpenRenew={(lic) => setSelectedRenewLic(lic)}
+        onOpenRevoke={(lic) => setSelectedRevokeLic(lic)}
+        onResendEmail={resendEmail}
+      />
 
-        <LicenseList
-          licenses={licenses}
-          total={total}
-          page={page}
-          totalPages={totalPages}
-          setPage={setPage}
-          planFilter={planFilter}
-          setPlanFilter={setPlanFilter}
-          statusFilter={statusFilter}
-          setStatusFilter={setStatusFilter}
-          search={search}
-          setSearch={setSearch}
-          sortBy={sortBy}
-          setSortBy={setSortBy}
-          order={order}
-          setOrder={setOrder}
-          onOpenRenew={(lic) => setSelectedRenewLic(lic)}
-          onOpenRevoke={(lic) => setSelectedRevokeLic(lic)}
-          onResendEmail={resendEmail}
-          isLoading={isLoadingLicenses}
+      {/* MODAIS */}
+      {isGenerateOpen && (
+        <GenerateLicenseModal
+          isOpen={isGenerateOpen}
+          onClose={() => setIsGenerateOpen(false)}
+          onGenerate={async (payload) => {
+            await generateLicense(payload);
+            setIsGenerateOpen(false);
+          }}
+          isGenerating={isGenerating}
         />
-      </div>
+      )}
 
-      {/* Modal: Gerar Licença */}
-      <GenerateLicenseModal
-        isOpen={isGenerateOpen}
-        onClose={() => setIsGenerateOpen(false)}
-        onGenerate={generateLicense}
-        isGenerating={isGenerating}
-      />
+      {selectedRenewLic && (
+        <RenewalForm
+          isOpen={Boolean(selectedRenewLic)}
+          license={selectedRenewLic}
+          onClose={() => setSelectedRenewLic(null)}
+          onRenew={async (id: number, days: number) => {
+            await renewLicense(id, days);
+            setSelectedRenewLic(null);
+          }}
+          isRenewing={isRenewing}
+        />
+      )}
 
-      {/* Modal: Renovar Licença */}
-      <RenewalForm
-        license={selectedRenewLic}
-        isOpen={Boolean(selectedRenewLic)}
-        onClose={() => setSelectedRenewLic(null)}
-        onRenew={renewLicense}
-        isRenewing={isRenewing}
-      />
-
-      {/* Modal: Revogar Licença */}
-      <RevokeModal
-        license={selectedRevokeLic}
-        isOpen={Boolean(selectedRevokeLic)}
-        onClose={() => setSelectedRevokeLic(null)}
-        onRevoke={revokeLicense}
-        isRevoking={isRevoking}
-      />
+      {selectedRevokeLic && (
+        <RevokeModal
+          isOpen={Boolean(selectedRevokeLic)}
+          license={selectedRevokeLic}
+          onClose={() => setSelectedRevokeLic(null)}
+          onRevoke={async (id: number, reason: string) => {
+            await revokeLicense(id, reason);
+            setSelectedRevokeLic(null);
+          }}
+          isRevoking={isRevoking}
+        />
+      )}
     </div>
   );
 }

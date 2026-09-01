@@ -2,14 +2,13 @@
 
 import React, { useState } from "react";
 import {
-  Calendar,
-  Clock,
-  Users,
+  CalendarCheck,
   User,
   Phone,
-  CheckCircle2,
+  Clock,
+  Users,
   X,
-  CalendarCheck,
+  Sparkles,
 } from "lucide-react";
 import { Table } from "@/types/restaurant";
 import { Button } from "@/components/ui/button";
@@ -17,7 +16,7 @@ import { Input } from "@/components/ui/input";
 
 interface ReservationFormProps {
   table: Table;
-  onReserve: (tableId: number, data: { guest_count: number; reservation_time: string; customer_name: string; customer_phone?: string }) => Promise<any>;
+  onReserve: (tableId: number, customerName: string, phone: string, time: string, guests: number) => Promise<any>;
   onClose: () => void;
 }
 
@@ -27,12 +26,9 @@ export default function ReservationForm({
   onClose,
 }: ReservationFormProps) {
   const [customerName, setCustomerName] = useState("");
-  const [customerPhone, setCustomerPhone] = useState("+258 84 ");
-  const [guestCount, setGuestCount] = useState(table.capacity || 2);
-  const [reservationDate, setReservationDate] = useState(
-    new Date().toISOString().split("T")[0]
-  );
-  const [reservationTime, setReservationTime] = useState("20:00");
+  const [phone, setPhone] = useState("");
+  const [time, setTime] = useState("");
+  const [guestCount, setGuestCount] = useState(table.capacity);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -41,13 +37,7 @@ export default function ReservationForm({
 
     setIsSubmitting(true);
     try {
-      const fullDateTime = `${reservationDate}T${reservationTime}:00`;
-      await onReserve(table.id, {
-        guest_count: guestCount,
-        reservation_time: fullDateTime,
-        customer_name: customerName,
-        customer_phone: customerPhone,
-      });
+      await onReserve(table.id, customerName, phone, time, guestCount);
       onClose();
     } finally {
       setIsSubmitting(false);
@@ -55,91 +45,74 @@ export default function ReservationForm({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-2xl text-zinc-100 space-y-4">
+    <div className="fixed inset-0 z-50 bg-white/40 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white border border-emerald-900/10 rounded-3xl p-6 shadow-2xl space-y-4 text-zinc-900 select-none">
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
+        <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+            <div className="w-9 h-9 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700">
               <CalendarCheck className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-black text-emerald-950 font-mono">
                 Reservar Mesa {table.table_number}
               </h3>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-zinc-500">
                 Capacidade: {table.capacity} lugares • {table.location}
               </p>
             </div>
           </div>
-          <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0 text-zinc-400 hover:text-white">
+          <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0 text-zinc-500 hover:text-zinc-700 rounded-full">
             <X className="w-4 h-4" />
           </Button>
         </div>
 
         {/* Form Fields */}
-        <form onSubmit={handleSubmit} className="space-y-3.5">
-          <div>
-            <label className="text-xs font-medium text-zinc-300 block mb-1">
-              Nome do Cliente / Reserva *
-            </label>
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div className="space-y-1">
+            <label className="text-xs font-semibold text-zinc-700">Nome do Cliente *</label>
             <div className="relative">
               <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
               <Input
                 required
+                placeholder="Ex: Dr. Alberto Matsinhe"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
-                placeholder="Ex: Carlos Mondlane"
-                className="pl-9 bg-zinc-950 border-zinc-800 text-xs h-9 text-zinc-100"
+                className="pl-9 bg-white border-zinc-300 text-xs h-9 text-zinc-900 rounded-xl"
               />
             </div>
           </div>
 
-          <div>
-            <label className="text-xs font-medium text-zinc-300 block mb-1">
-              Telefone de Contacto (Moçambique)
-            </label>
-            <div className="relative">
-              <Phone className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
-              <Input
-                value={customerPhone}
-                onChange={(e) => setCustomerPhone(e.target.value)}
-                placeholder="+258 84 123 4567"
-                className="pl-9 bg-zinc-950 border-zinc-800 text-xs h-9 text-zinc-100 font-mono"
-              />
+          <div className="grid grid-cols-2 gap-2">
+            <div className="space-y-1">
+              <label className="text-xs font-semibold text-zinc-700">Telefone / WhatsApp</label>
+              <div className="relative">
+                <Phone className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+                <Input
+                  placeholder="+258 84..."
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="pl-9 bg-white border-zinc-300 text-xs h-9 text-zinc-900 font-mono rounded-xl"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-semibold text-zinc-700">Hora Prevista</label>
+              <div className="relative">
+                <Clock className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+                <Input
+                  type="time"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                  className="pl-9 bg-white border-zinc-300 text-xs h-9 text-zinc-900 font-mono rounded-xl"
+                />
+              </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2.5">
-            <div>
-              <label className="text-xs font-medium text-zinc-300 block mb-1">
-                Data da Reserva
-              </label>
-              <Input
-                type="date"
-                value={reservationDate}
-                onChange={(e) => setReservationDate(e.target.value)}
-                className="bg-zinc-950 border-zinc-800 text-xs h-9 text-zinc-100"
-              />
-            </div>
-
-            <div>
-              <label className="text-xs font-medium text-zinc-300 block mb-1">
-                Hora da Reserva
-              </label>
-              <Input
-                type="time"
-                value={reservationTime}
-                onChange={(e) => setReservationTime(e.target.value)}
-                className="bg-zinc-950 border-zinc-800 text-xs h-9 text-zinc-100"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="text-xs font-medium text-zinc-300 block mb-1">
-              Número de Pessoas
-            </label>
+          <div className="space-y-1">
+            <label className="text-xs font-semibold text-zinc-700">Número de Lugares / Pessoas</label>
             <div className="relative">
               <Users className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
               <Input
@@ -148,18 +121,18 @@ export default function ReservationForm({
                 max={table.capacity * 2}
                 value={guestCount}
                 onChange={(e) => setGuestCount(parseInt(e.target.value) || 1)}
-                className="pl-9 bg-zinc-950 border-zinc-800 text-xs h-9 text-zinc-100 font-mono"
+                className="pl-9 bg-white border-zinc-300 text-xs h-9 text-zinc-900 font-mono rounded-xl"
               />
             </div>
           </div>
 
-          <div className="pt-3 border-t border-zinc-800 flex justify-end gap-2">
+          <div className="pt-3 border-t border-zinc-200 flex justify-end gap-2">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={onClose}
-              className="border-zinc-700 text-zinc-300"
+              className="border-zinc-300 text-zinc-700 rounded-xl"
             >
               Cancelar
             </Button>
@@ -167,7 +140,7 @@ export default function ReservationForm({
               type="submit"
               size="sm"
               disabled={isSubmitting || !customerName}
-              className="bg-amber-600 hover:bg-amber-500 text-white font-bold"
+              className="bg-amber-700 hover:bg-amber-800 text-white font-bold rounded-xl shadow-xs"
             >
               <CalendarCheck className="w-4 h-4 mr-1.5" />
               {isSubmitting ? "Gravando..." : "Confirmar Reserva"}

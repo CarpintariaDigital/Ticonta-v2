@@ -100,39 +100,39 @@ export default function RestaurantPage() {
 
   return (
     <ProtectedRoute>
-      <div className="flex flex-col h-screen bg-zinc-950 text-zinc-100 overflow-hidden font-sans select-none">
+      <div className="flex flex-col h-screen bg-[#FAF8F5] text-zinc-900 overflow-hidden font-sans select-none">
         {/* Top Navigation Bar */}
-        <header className="flex h-14 shrink-0 items-center justify-between border-b border-zinc-800/80 bg-zinc-900/90 px-4 backdrop-blur z-20">
+        <header className="flex h-14 shrink-0 items-center justify-between border-b border-emerald-900/10 bg-white/85 px-4 backdrop-blur z-20 shadow-xs">
           {/* Left: Brand & Back to Dashboard */}
           <div className="flex items-center gap-3">
             <Link href="/dashboard">
-              <Button variant="ghost" size="sm" className="h-8 text-zinc-400 hover:text-white px-2">
+              <Button variant="ghost" size="sm" className="h-8 text-zinc-600 hover:text-zinc-900 px-2">
                 <ArrowLeft className="w-4 h-4 mr-1" />
                 Painel
               </Button>
             </Link>
-            <div className="h-4 w-px bg-zinc-800" />
+            <div className="h-4 w-px bg-zinc-200" />
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <div className="w-7 h-7 rounded-lg bg-amber-50 border border-amber-300 flex items-center justify-center text-amber-700">
                 <UtensilsCrossed className="w-4 h-4" />
               </div>
-              <span className="font-black text-sm tracking-tight text-white">
+              <span className="font-black text-sm tracking-tight text-emerald-950 font-mono">
                 TiConta • Restaurante & Bar
               </span>
             </div>
           </div>
 
           {/* Center: Module View Switcher */}
-          <nav className="flex items-center gap-1 bg-zinc-950 p-1 rounded-xl border border-zinc-800">
+          <nav className="flex items-center gap-1 bg-zinc-100 p-1 rounded-xl border border-zinc-200">
             <button
               onClick={() => setActiveView("map")}
               className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 activeView === "map"
-                  ? "bg-zinc-800 text-white shadow-sm border border-zinc-700"
-                  : "text-zinc-400 hover:text-zinc-200"
+                  ? "bg-white text-emerald-950 shadow-xs border border-zinc-200 font-bold"
+                  : "text-zinc-600 hover:text-zinc-900"
               }`}
             >
-              <UtensilsCrossed className="w-3.5 h-3.5" />
+              <UtensilsCrossed className="w-3.5 h-3.5 text-amber-600" />
               <span>Salão & Mesas</span>
             </button>
 
@@ -140,14 +140,14 @@ export default function RestaurantPage() {
               onClick={() => setActiveView("kds")}
               className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all relative ${
                 activeView === "kds"
-                  ? "bg-zinc-800 text-white shadow-sm border border-zinc-700"
-                  : "text-zinc-400 hover:text-zinc-200"
+                  ? "bg-white text-emerald-950 shadow-xs border border-zinc-200 font-bold"
+                  : "text-zinc-600 hover:text-zinc-900"
               }`}
             >
-              <ChefHat className="w-3.5 h-3.5 text-amber-400" />
+              <ChefHat className="w-3.5 h-3.5 text-amber-600" />
               <span>Cozinha (KDS)</span>
               {kdsStats.totalPending > 0 && (
-                <span className="w-4 h-4 rounded-full bg-red-500 text-white text-[10px] flex items-center justify-center font-mono font-bold">
+                <span className="w-4 h-4 rounded-full bg-rose-600 text-white text-[10px] flex items-center justify-center font-mono font-bold">
                   {kdsStats.totalPending}
                 </span>
               )}
@@ -157,11 +157,11 @@ export default function RestaurantPage() {
               onClick={() => setActiveView("reports")}
               className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 activeView === "reports"
-                  ? "bg-zinc-800 text-white shadow-sm border border-zinc-700"
-                  : "text-zinc-400 hover:text-zinc-200"
+                  ? "bg-white text-emerald-950 shadow-xs border border-zinc-200 font-bold"
+                  : "text-zinc-600 hover:text-zinc-900"
               }`}
             >
-              <BarChart3 className="w-3.5 h-3.5 text-blue-400" />
+              <BarChart3 className="w-3.5 h-3.5 text-blue-600" />
               <span>Relatórios & Pico</span>
             </button>
           </nav>
@@ -169,13 +169,13 @@ export default function RestaurantPage() {
           {/* Right: Connection badges & Settings */}
           <div className="flex items-center gap-2.5">
             {/* Real-time WebSocket Status */}
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-950 border border-zinc-800 text-xs">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-zinc-200 text-xs shadow-xs">
               <span
                 className={`w-2 h-2 rounded-full ${
-                  wsConnected ? "bg-emerald-500 shadow-[0_0_8px_#10b981]" : "bg-red-500"
+                  wsConnected ? "bg-emerald-600 shadow-[0_0_8px_#10b981]" : "bg-rose-500"
                 }`}
               />
-              <span className="text-[11px] font-mono text-zinc-400 hidden sm:inline">
+              <span className="text-[11px] font-mono text-zinc-600 hidden sm:inline">
                 {wsConnected ? "KDS AO VIVO" : "OFFLINE"}
               </span>
             </div>
@@ -184,7 +184,7 @@ export default function RestaurantPage() {
               variant="ghost"
               size="sm"
               onClick={() => setIsSettingsModalOpen(true)}
-              className="h-8 w-8 p-0 text-zinc-400 hover:text-white"
+              className="h-8 w-8 p-0 text-zinc-500 hover:text-zinc-900"
             >
               <Settings className="w-4 h-4" />
             </Button>
@@ -289,7 +289,7 @@ export default function RestaurantPage() {
         {isReservationModalOpen && tableForReservation && (
           <ReservationForm
             table={tableForReservation}
-            onReserve={reserveTable}
+            onReserve={(tableId, customerName, phone, time, guests) => reserveTable(tableId, { customer_name: customerName, customer_phone: phone, reservation_time: time, guest_count: guests })}
             onClose={() => {
               setIsReservationModalOpen(false);
               setTableForReservation(null);

@@ -51,9 +51,9 @@ export default function PremiumMarketplacePage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white p-6 space-y-8 max-w-7xl mx-auto">
+    <div className="min-h-screen bg-white text-white p-6 space-y-8 max-w-7xl mx-auto">
       {/* 1. Hero Section */}
-      <div className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-gradient-to-br from-emerald-950/40 via-zinc-900 to-zinc-950 p-8 shadow-2xl">
+      <div className="relative overflow-hidden rounded-3xl border border-zinc-200 bg-gradient-to-br from-emerald-950/40 via-zinc-900 to-zinc-950 p-8 shadow-2xl">
         <div className="relative z-10 max-w-2xl space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
             <Sparkles className="h-3.5 w-3.5" />
@@ -62,7 +62,7 @@ export default function PremiumMarketplacePage() {
           <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
             Potencialize o seu TiConta
           </h1>
-          <p className="text-sm text-zinc-300 leading-relaxed">
+          <p className="text-sm text-zinc-700 leading-relaxed">
             Ative funcionalidades avançadas sob demanda. Pague apenas pelo que a sua empresa realmente utiliza, com cálculo de mensalidade transparente e em tempo real.
           </p>
         </div>
@@ -79,7 +79,7 @@ export default function PremiumMarketplacePage() {
             <AlertCircle className="h-4 w-4 shrink-0" />
             <span>{error}</span>
           </div>
-          <button onClick={clearError} className="text-zinc-400 hover:text-white">✕</button>
+          <button onClick={clearError} className="text-zinc-500 hover:text-white">✕</button>
         </div>
       )}
 
@@ -105,7 +105,7 @@ export default function PremiumMarketplacePage() {
               variant="outline"
               onClick={refetch}
               disabled={isLoading}
-              className="border-zinc-800 bg-zinc-900 text-xs text-zinc-300 hover:text-white h-8"
+              className="border-zinc-200 bg-zinc-50 text-xs text-zinc-700 hover:text-white h-8"
             >
               <RefreshCw className={`h-3.5 w-3.5 mr-1 ${isLoading ? "animate-spin" : ""}`} />
               Atualizar

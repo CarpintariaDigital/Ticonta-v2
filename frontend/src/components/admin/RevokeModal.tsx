@@ -40,21 +40,21 @@ export const RevokeModal: React.FC<RevokeModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl overflow-hidden">
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-md bg-white border border-zinc-200 rounded-3xl p-6 shadow-2xl overflow-hidden">
+        <div className="flex items-center justify-between pb-4 border-b border-zinc-200">
           <div className="flex items-center gap-3">
             <div className="p-2.5 bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-xl">
               <Ban className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-slate-100">Revogar Licença</h2>
-              <p className="text-xs text-slate-400">{license.customer_name}</p>
+              <h2 className="text-lg font-bold text-zinc-900">Revogar Licença</h2>
+              <p className="text-xs text-zinc-500">{license.customer_name}</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded-full transition-colors"
+            className="p-2 text-zinc-500 hover:text-zinc-800 hover:bg-slate-800 rounded-full transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -76,7 +76,7 @@ export const RevokeModal: React.FC<RevokeModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-semibold text-zinc-700 uppercase tracking-wider mb-1.5">
               Motivo do Cancelamento / Revogação *
             </label>
             <textarea
@@ -85,7 +85,7 @@ export const RevokeModal: React.FC<RevokeModalProps> = ({
               placeholder="ex: Falta de pagamento da subscrição ou pedido de rescisão contratual..."
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-950/60 border border-slate-700/80 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition-colors"
+              className="w-full px-3.5 py-2.5 bg-zinc-50/80 border border-zinc-200/80 rounded-xl text-sm text-zinc-900 placeholder-slate-500 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition-colors"
             />
           </div>
 
@@ -93,7 +93,7 @@ export const RevokeModal: React.FC<RevokeModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded-xl transition-colors"
+              className="px-4 py-2.5 text-sm font-medium text-zinc-500 hover:text-zinc-800 hover:bg-slate-800 rounded-xl transition-colors"
             >
               Voltar
             </button>

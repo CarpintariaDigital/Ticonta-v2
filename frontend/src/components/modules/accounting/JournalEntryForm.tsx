@@ -81,13 +81,13 @@ export default function JournalEntryForm({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Debit Account */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-zinc-300">
+          <label className="text-xs font-semibold text-zinc-700">
             Conta a Debitar (+) <span className="text-emerald-400 font-normal">Aplicação / Activo</span>
           </label>
           <select
             value={debitAccountId}
             onChange={(e) => setDebitAccountId(Number(e.target.value))}
-            className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
           >
             <option value={0}>Selecione a conta de débito...</option>
             {postableAccounts.map((acc) => (
@@ -100,13 +100,13 @@ export default function JournalEntryForm({
 
         {/* Credit Account */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-zinc-300">
+          <label className="text-xs font-semibold text-zinc-700">
             Conta a Creditar (-) <span className="text-blue-400 font-normal">Origem / Passivo / Proveito</span>
           </label>
           <select
             value={creditAccountId}
             onChange={(e) => setCreditAccountId(Number(e.target.value))}
-            className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
           >
             <option value={0}>Selecione a conta de crédito...</option>
             {postableAccounts.map((acc) => (
@@ -121,7 +121,7 @@ export default function JournalEntryForm({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Amount */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-zinc-300">
+          <label className="text-xs font-semibold text-zinc-700">
             Valor do Lançamento (MZN)
           </label>
           <Input
@@ -131,34 +131,34 @@ export default function JournalEntryForm({
             placeholder="0.00"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs font-mono"
+            className="bg-white border-zinc-200 text-xs font-mono"
           />
         </div>
 
         {/* Entry Date */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-zinc-300">
+          <label className="text-xs font-semibold text-zinc-700">
             Data do Lançamento
           </label>
           <Input
             type="date"
             value={entryDate}
             onChange={(e) => setEntryDate(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs"
+            className="bg-white border-zinc-200 text-xs"
           />
         </div>
       </div>
 
       {/* Description */}
       <div className="space-y-1.5">
-        <label className="text-xs font-semibold text-zinc-300">
+        <label className="text-xs font-semibold text-zinc-700">
           Descrição / Histórico Contábil
         </label>
         <Input
           placeholder="Ex: Aquisição de consumíveis de escritório conforme Factura FT-2026/089"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="bg-zinc-950 border-zinc-800 text-xs"
+          className="bg-white border-zinc-200 text-xs"
         />
       </div>
 
@@ -168,7 +168,7 @@ export default function JournalEntryForm({
             type="button"
             variant="outline"
             onClick={onCancel}
-            className="border-zinc-800 bg-zinc-900 text-zinc-300 text-xs"
+            className="border-zinc-200 bg-zinc-50 text-zinc-700 text-xs"
           >
             Cancelar
           </Button>

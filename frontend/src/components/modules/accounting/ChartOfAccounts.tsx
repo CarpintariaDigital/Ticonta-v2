@@ -46,11 +46,11 @@ export default function ChartOfAccounts({
   }, {} as Record<string, Account[]>);
 
   return (
-    <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 backdrop-blur p-5 space-y-4">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800 pb-4">
+    <div className="rounded-2xl border border-zinc-200 bg-white backdrop-blur p-5 space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200 pb-4">
         <div>
           <h2 className="text-lg font-bold text-white">Plano de Contas (PGC-NIRF Moçambique)</h2>
-          <p className="text-xs text-zinc-400">
+          <p className="text-xs text-zinc-500">
             Estrutura hierárquica padronizada de contas para escrituração contábil
           </p>
         </div>
@@ -74,16 +74,16 @@ export default function ChartOfAccounts({
           return (
             <div
               key={classNum}
-              className="rounded-xl border border-zinc-800/80 bg-zinc-950/60 overflow-hidden"
+              className="rounded-xl border border-zinc-200/80 bg-zinc-50/80 overflow-hidden"
             >
               {/* Class Header */}
               <button
                 onClick={() => toggleClass(classNum)}
-                className="w-full flex items-center justify-between p-3.5 bg-zinc-900/90 hover:bg-zinc-800/70 transition-colors text-left"
+                className="w-full flex items-center justify-between p-3.5 bg-white/90 hover:bg-zinc-800/70 transition-colors text-left"
               >
                 <div className="flex items-center gap-2.5">
                   {isCollapsed ? (
-                    <ChevronRight className="h-4 w-4 text-zinc-400" />
+                    <ChevronRight className="h-4 w-4 text-zinc-500" />
                   ) : (
                     <ChevronDown className="h-4 w-4 text-emerald-400" />
                   )}
@@ -92,7 +92,7 @@ export default function ChartOfAccounts({
                     {classDescriptions[classNum] || `Classe ${classNum}`}
                   </span>
                 </div>
-                <span className="text-xs text-zinc-400 font-mono">
+                <span className="text-xs text-zinc-500 font-mono">
                   {classAccounts.length} conta(s)
                 </span>
               </button>
@@ -107,8 +107,8 @@ export default function ChartOfAccounts({
                       <div
                         key={account.id}
                         onClick={() => onSelectAccount && onSelectAccount(account)}
-                        className={`flex items-center justify-between px-4 py-2.5 text-xs transition-colors hover:bg-zinc-900/50 ${
-                          isHeader ? "bg-zinc-900/30 font-bold text-zinc-200" : "text-zinc-300 pl-8"
+                        className={`flex items-center justify-between px-4 py-2.5 text-xs transition-colors hover:bg-zinc-50/50 ${
+                          isHeader ? "bg-zinc-50/30 font-bold text-zinc-800" : "text-zinc-700 pl-8"
                         } ${onSelectAccount ? "cursor-pointer" : ""}`}
                       >
                         <div className="flex items-center gap-2 min-w-0 flex-1">
@@ -135,10 +135,10 @@ export default function ChartOfAccounts({
                         </div>
 
                         <div className="flex items-center gap-6 text-right font-mono">
-                          <div className="w-24 hidden md:block text-zinc-400">
+                          <div className="w-24 hidden md:block text-zinc-500">
                             Déb: {Number(account.debit_balance).toFixed(2)}
                           </div>
-                          <div className="w-24 hidden md:block text-zinc-400">
+                          <div className="w-24 hidden md:block text-zinc-500">
                             Créd: {Number(account.credit_balance).toFixed(2)}
                           </div>
                           <div className="w-28 font-bold text-white">

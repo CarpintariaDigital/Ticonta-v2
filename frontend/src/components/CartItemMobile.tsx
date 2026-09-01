@@ -18,16 +18,16 @@ export const CartItemMobile: React.FC<CartItemMobileProps> = ({
   onRemove,
 }) => {
   return (
-    <div className="flex items-center justify-between p-3.5 bg-zinc-900/90 border border-zinc-800 rounded-xl hover:border-zinc-700 transition-all">
+    <div className="flex items-center justify-between p-3.5 bg-white/90 border border-zinc-200 rounded-xl hover:border-zinc-200 transition-all">
       {/* Thumbnail & Title */}
       <div className="flex items-center gap-3 min-w-0 flex-1">
-        <div className="h-10 w-10 shrink-0 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center justify-center text-zinc-400">
+        <div className="h-10 w-10 shrink-0 bg-white border border-zinc-200 rounded-lg flex items-center justify-center text-zinc-500">
           <QrCode className="h-5 w-5 text-emerald-400" />
         </div>
 
         <div className="min-w-0 pr-2">
           <h4 className="text-sm font-semibold text-white truncate">{item.name}</h4>
-          <p className="text-[11px] font-mono text-zinc-400">
+          <p className="text-[11px] font-mono text-zinc-500">
             {item.barcode || item.sku} • {item.unit_price.toLocaleString("pt-MZ")} MZN
           </p>
         </div>
@@ -35,10 +35,10 @@ export const CartItemMobile: React.FC<CartItemMobileProps> = ({
 
       {/* Quantity & Subtotal */}
       <div className="flex items-center gap-3">
-        <div className="flex items-center bg-zinc-950 border border-zinc-800 rounded-lg p-0.5">
+        <div className="flex items-center bg-white border border-zinc-200 rounded-lg p-0.5">
           <button
             onClick={() => onDecrement(item.product_id)}
-            className="p-1.5 text-zinc-400 hover:text-white rounded hover:bg-zinc-800 transition-colors"
+            className="p-1.5 text-zinc-500 hover:text-white rounded hover:bg-zinc-800 transition-colors"
           >
             <Minus className="h-3.5 w-3.5" />
           </button>
@@ -47,7 +47,7 @@ export const CartItemMobile: React.FC<CartItemMobileProps> = ({
           </span>
           <button
             onClick={() => onIncrement(item.product_id)}
-            className="p-1.5 text-zinc-400 hover:text-white rounded hover:bg-zinc-800 transition-colors"
+            className="p-1.5 text-zinc-500 hover:text-white rounded hover:bg-zinc-800 transition-colors"
           >
             <Plus className="h-3.5 w-3.5" />
           </button>

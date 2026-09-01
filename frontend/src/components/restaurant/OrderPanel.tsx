@@ -41,12 +41,12 @@ export default function OrderPanel({
 }: OrderPanelProps) {
   if (!selectedTable) {
     return (
-      <div className="flex flex-col items-center justify-center h-full bg-zinc-950/60 rounded-xl border border-zinc-800/80 p-8 text-center backdrop-blur-sm">
-        <div className="w-16 h-16 rounded-full bg-zinc-900 flex items-center justify-center mb-4 border border-zinc-800">
-          <Utensils className="w-8 h-8 text-zinc-500" />
+      <div className="flex flex-col items-center justify-center h-full bg-white/85 rounded-2xl border border-emerald-900/10 p-8 text-center backdrop-blur shadow-xs">
+        <div className="w-16 h-16 rounded-2xl bg-emerald-50 flex items-center justify-center mb-4 border border-emerald-200 text-emerald-700">
+          <Utensils className="w-8 h-8" />
         </div>
-        <h3 className="text-base font-semibold text-zinc-200">Nenhuma mesa selecionada</h3>
-        <p className="text-xs text-zinc-400 max-w-xs mt-1">
+        <h3 className="text-base font-bold text-emerald-950">Nenhuma mesa selecionada</h3>
+        <p className="text-xs text-zinc-500 max-w-xs mt-1">
           Selecione uma mesa no mapa ao lado para visualizar a comanda ou abrir um novo pedido.
         </p>
       </div>
@@ -56,37 +56,37 @@ export default function OrderPanel({
   // If table is selected but no order is open yet
   if (!currentOrder) {
     return (
-      <div className="flex flex-col justify-between h-full bg-zinc-950/60 rounded-xl border border-zinc-800/80 p-6 backdrop-blur-sm">
+      <div className="flex flex-col justify-between h-full bg-white/85 rounded-2xl border border-emerald-900/10 p-6 backdrop-blur shadow-xs">
         <div>
-          <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
+          <div className="flex items-center justify-between pb-4 border-b border-zinc-200">
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xl font-bold text-zinc-100">
+                <h3 className="text-xl font-black text-emerald-950 font-mono">
                   Mesa {selectedTable.table_number}
-                </span>
-                <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 text-xs">
+                </h3>
+                <Badge variant="outline" className="text-[10px] bg-emerald-50 text-emerald-800 border-emerald-200">
                   {selectedTable.status === "available" ? "Disponível" : selectedTable.status}
                 </Badge>
               </div>
-              <p className="text-xs text-zinc-400 mt-0.5">
+              <p className="text-xs text-zinc-500 mt-0.5">
                 Capacidade: {selectedTable.capacity} pessoas • Localização: {selectedTable.location}
               </p>
             </div>
           </div>
 
           <div className="my-8 text-center space-y-3">
-            <div className="w-14 h-14 mx-auto rounded-full bg-emerald-950/40 border border-emerald-600/30 flex items-center justify-center text-emerald-400">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700">
               <Plus className="w-6 h-6" />
             </div>
-            <h4 className="text-sm font-semibold text-zinc-200">Mesa livre para atendimento</h4>
-            <p className="text-xs text-zinc-400 max-w-sm mx-auto">
+            <h4 className="text-sm font-bold text-emerald-950">Mesa livre para atendimento</h4>
+            <p className="text-xs text-zinc-500 max-w-sm mx-auto">
               Inicie uma nova comanda para esta mesa e adicione os pedidos diretamente da cozinha ou bar.
             </p>
           </div>
         </div>
 
         <Button
-          className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-5 text-sm shadow-lg shadow-emerald-950/50"
+          className="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-5 text-sm shadow-md rounded-xl font-mono"
           onClick={() => onCreateOrderForTable(selectedTable.id)}
         >
           <Plus className="w-4 h-4 mr-2" />
@@ -99,30 +99,30 @@ export default function OrderPanel({
   const getPrepStatusBadge = (status: ItemPrepStatus) => {
     switch (status) {
       case "pending":
-        return <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/30 text-[10px]">Pendente</Badge>;
+        return <Badge className="bg-amber-50 text-amber-800 border-amber-200 text-[10px]">Pendente</Badge>;
       case "preparing":
-        return <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/30 text-[10px]">Em Preparo</Badge>;
+        return <Badge className="bg-blue-50 text-blue-800 border-blue-200 text-[10px]">Em Preparo</Badge>;
       case "ready":
-        return <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 text-[10px]">Pronto</Badge>;
+        return <Badge className="bg-emerald-50 text-emerald-800 border-emerald-200 text-[10px]">Pronto</Badge>;
       case "served":
-        return <Badge className="bg-zinc-800 text-zinc-400 border-zinc-700 text-[10px]">Servido</Badge>;
+        return <Badge className="bg-zinc-100 text-zinc-700 border-zinc-200 text-[10px]">Servido</Badge>;
     }
   };
 
   return (
-    <div className="flex flex-col h-full bg-zinc-950/60 rounded-xl border border-zinc-800/80 p-4 backdrop-blur-sm overflow-hidden">
+    <div className="flex flex-col h-full bg-white/85 rounded-2xl border border-emerald-900/10 p-4 backdrop-blur shadow-xs overflow-hidden">
       {/* Header Info */}
-      <div className="flex items-center justify-between pb-3 border-b border-zinc-800/80 shrink-0">
+      <div className="flex items-center justify-between pb-3 border-b border-zinc-200 shrink-0">
         <div>
           <div className="flex items-center gap-2">
-            <h3 className="text-lg font-bold text-zinc-100">
+            <h3 className="text-lg font-black text-emerald-950 font-mono">
               Mesa {selectedTable.table_number}
             </h3>
-            <span className="text-xs font-mono bg-zinc-900 px-2 py-0.5 rounded text-emerald-400 border border-zinc-800">
+            <span className="text-xs font-mono bg-emerald-50 px-2 py-0.5 rounded text-emerald-800 border border-emerald-200 font-bold">
               {currentOrder.order_number}
             </span>
           </div>
-          <div className="flex items-center gap-2 text-xs text-zinc-400 mt-0.5">
+          <div className="flex items-center gap-2 text-xs text-zinc-500 mt-0.5">
             <Users2 className="w-3.5 h-3.5" />
             <span>{currentOrder.guest_count} Clientes</span>
             <span>•</span>
@@ -133,7 +133,7 @@ export default function OrderPanel({
 
         <Button
           size="sm"
-          className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold h-8"
+          className="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold h-8 rounded-xl shadow-xs"
           onClick={onOpenMenu}
         >
           <Plus className="w-3.5 h-3.5 mr-1" />
@@ -153,21 +153,21 @@ export default function OrderPanel({
           currentOrder.items.map((item) => (
             <div
               key={item.id}
-              className="flex items-start justify-between p-2.5 rounded-lg bg-zinc-900/70 border border-zinc-800/90 hover:border-zinc-700 transition-all"
+              className="flex items-start justify-between p-2.5 rounded-xl bg-zinc-50 border border-zinc-200 hover:border-zinc-300 transition-all"
             >
               <div className="flex-1 pr-2">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-sm text-zinc-100">
+                  <span className="font-bold text-sm text-emerald-950 font-mono">
                     {item.quantity}x
                   </span>
-                  <span className="font-medium text-sm text-zinc-200">
+                  <span className="font-semibold text-sm text-zinc-900">
                     {item.menu_item_name || "Item"}
                   </span>
                 </div>
 
                 {/* Special Requests (Allergies, preferences) */}
                 {item.special_requests && (
-                  <div className="text-[11px] text-amber-400/90 font-mono mt-0.5 flex items-center gap-1">
+                  <div className="text-[11px] text-amber-700 font-mono mt-0.5 flex items-center gap-1">
                     <span>⚠️</span>
                     <span>{item.special_requests}</span>
                   </div>
@@ -175,14 +175,14 @@ export default function OrderPanel({
 
                 <div className="flex items-center gap-2 mt-1.5">
                   {getPrepStatusBadge(item.preparation_status)}
-                  <span className="text-[11px] text-zinc-500">
+                  <span className="text-[11px] text-zinc-500 font-mono">
                     {Number(item.unit_price).toFixed(2)} MZN/un
                   </span>
                 </div>
               </div>
 
               <div className="flex flex-col items-end justify-between self-stretch">
-                <span className="font-bold text-sm text-emerald-400">
+                <span className="font-bold text-sm text-emerald-800 font-mono">
                   {Number(item.subtotal).toFixed(2)} MZN
                 </span>
 
@@ -191,7 +191,7 @@ export default function OrderPanel({
                   <Button
                     size="sm"
                     variant="outline"
-                    className="h-6 text-[10px] px-2 border-emerald-600/40 text-emerald-300 hover:bg-emerald-950/40"
+                    className="h-6 text-[10px] px-2 border-emerald-300 text-emerald-800 hover:bg-emerald-100 rounded-lg"
                     onClick={() => onUpdateItemStatus(item.id, "served")}
                   >
                     <CheckCircle2 className="w-3 h-3 mr-1" />
@@ -205,29 +205,29 @@ export default function OrderPanel({
       </div>
 
       {/* Financial Summary & Actions */}
-      <div className="pt-3 border-t border-zinc-800/80 shrink-0 space-y-2">
-        <div className="space-y-1 text-xs text-zinc-400">
+      <div className="pt-3 border-t border-zinc-200 shrink-0 space-y-2">
+        <div className="space-y-1 text-xs text-zinc-600">
           <div className="flex justify-between">
             <span>Subtotal</span>
-            <span className="font-medium text-zinc-200">
+            <span className="font-medium text-zinc-900 font-mono">
               {Number(currentOrder.subtotal).toFixed(2)} MZN
             </span>
           </div>
           <div className="flex justify-between">
             <span>IVA (16%)</span>
-            <span className="font-medium text-zinc-200">
+            <span className="font-medium text-zinc-900 font-mono">
               {Number(currentOrder.tax).toFixed(2)} MZN
             </span>
           </div>
           <div className="flex justify-between">
             <span>Taxa de Serviço (10%)</span>
-            <span className="font-medium text-zinc-200">
+            <span className="font-medium text-zinc-900 font-mono">
               {Number(currentOrder.service_charge).toFixed(2)} MZN
             </span>
           </div>
-          <div className="flex justify-between pt-1 border-t border-zinc-800 font-bold text-sm text-zinc-100">
+          <div className="flex justify-between pt-1 border-t border-zinc-200 font-bold text-sm text-zinc-900">
             <span>Total a Pagar</span>
-            <span className="text-base text-emerald-400 font-mono">
+            <span className="text-base text-emerald-700 font-black font-mono">
               {Number(currentOrder.total).toFixed(2)} MZN
             </span>
           </div>
@@ -237,15 +237,15 @@ export default function OrderPanel({
         <div className="grid grid-cols-2 gap-2 pt-1">
           <Button
             variant="outline"
-            className="border-zinc-700 hover:bg-zinc-900 text-zinc-200 text-xs font-semibold h-10"
+            className="border-zinc-300 hover:bg-zinc-100 text-zinc-800 text-xs font-semibold h-10 rounded-xl"
             onClick={onOpenSplitModal}
           >
-            <Split className="w-3.5 h-3.5 mr-1.5 text-blue-400" />
+            <Split className="w-3.5 h-3.5 mr-1.5 text-blue-600" />
             Dividir Conta
           </Button>
 
           <Button
-            className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold h-10 shadow-lg shadow-emerald-950/40"
+            className="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold h-10 shadow-md rounded-xl font-mono"
             onClick={onOpenBillModal}
           >
             <Receipt className="w-3.5 h-3.5 mr-1.5" />

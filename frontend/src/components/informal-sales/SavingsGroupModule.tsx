@@ -328,19 +328,19 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-zinc-900 border border-zinc-800 p-5 rounded-2xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-zinc-50 border border-zinc-200 p-5 rounded-2xl">
         <div className="flex items-center gap-3">
           <div className="p-3 bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-xl">
             <PiggyBank className="w-6 h-6" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+            <h2 className="text-xl font-bold text-zinc-900 tracking-tight flex items-center gap-2">
               Grupo de Poupança & Crédito Rotativo
               <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono">
                 ASCAS / PCR
               </span>
             </h2>
-            <p className="text-xs text-zinc-400">
+            <p className="text-xs text-zinc-500">
               Poupança acumulada a prazo, empréstimos internos com juros e partilha proporcional de lucros (Share-out).
             </p>
           </div>
@@ -349,7 +349,7 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
         <div className="flex items-center gap-2">
           <Button
             onClick={() => setIsDepositModalOpen(true)}
-            className="bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs flex items-center gap-1.5 border border-zinc-700"
+            className="bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs flex items-center gap-1.5 border border-zinc-200"
           >
             <Coins className="w-4 h-4 text-amber-400" />
             Novo Depósito
@@ -366,9 +366,9 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-zinc-900 border-zinc-800 text-white">
+        <Card className="bg-zinc-50 border-zinc-200 text-zinc-900">
           <CardContent className="p-4 space-y-1">
-            <span className="text-[11px] text-zinc-400 font-semibold uppercase">Total no Fundo de Poupança</span>
+            <span className="text-[11px] text-zinc-500 font-semibold uppercase">Total no Fundo de Poupança</span>
             <div className="text-xl font-black text-amber-400">
               {totalSavingsPool.toLocaleString("pt-MZ")} MT
             </div>
@@ -378,9 +378,9 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
           </CardContent>
         </Card>
 
-        <Card className="bg-zinc-900 border-zinc-800 text-white">
+        <Card className="bg-zinc-50 border-zinc-200 text-zinc-900">
           <CardContent className="p-4 space-y-1">
-            <span className="text-[11px] text-zinc-400 font-semibold uppercase">Empréstimos Ativos</span>
+            <span className="text-[11px] text-zinc-500 font-semibold uppercase">Empréstimos Ativos</span>
             <div className="text-xl font-black text-rose-400">
               {totalActiveLoansDebt.toLocaleString("pt-MZ")} MT
             </div>
@@ -390,9 +390,9 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
           </CardContent>
         </Card>
 
-        <Card className="bg-zinc-900 border-zinc-800 text-white">
+        <Card className="bg-zinc-50 border-zinc-200 text-zinc-900">
           <CardContent className="p-4 space-y-1">
-            <span className="text-[11px] text-zinc-400 font-semibold uppercase">Juros Lucrados p/ Partilha</span>
+            <span className="text-[11px] text-zinc-500 font-semibold uppercase">Juros Lucrados p/ Partilha</span>
             <div className="text-xl font-black text-emerald-400">
               {group.total_interest_earned.toLocaleString("pt-MZ")} MT
             </div>
@@ -402,11 +402,11 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
           </CardContent>
         </Card>
 
-        <Card className="bg-zinc-900 border-zinc-800 text-white">
+        <Card className="bg-zinc-50 border-zinc-200 text-zinc-900">
           <CardContent className="p-4 space-y-1">
-            <span className="text-[11px] text-zinc-400 font-semibold uppercase">Encerramento do Ciclo</span>
-            <div className="text-sm font-bold text-white flex items-center gap-1.5 pt-1">
-              <Calendar className="w-4 h-4 text-zinc-400" />
+            <span className="text-[11px] text-zinc-500 font-semibold uppercase">Encerramento do Ciclo</span>
+            <div className="text-sm font-bold text-zinc-900 flex items-center gap-1.5 pt-1">
+              <Calendar className="w-4 h-4 text-zinc-500" />
               <span>{group.end_date}</span>
             </div>
             <p className="text-[10px] text-emerald-400 font-mono">
@@ -417,13 +417,13 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
       </div>
 
       {/* Sub Navigation */}
-      <div className="flex gap-2 border-b border-zinc-800 pb-2">
+      <div className="flex gap-2 border-b border-zinc-200 pb-2">
         <button
           onClick={() => setActiveSubTab("members")}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-colors ${
             activeSubTab === "members"
               ? "bg-amber-500/20 text-amber-300 border border-amber-500/40"
-              : "text-zinc-400 hover:text-white"
+              : "text-zinc-500 hover:text-zinc-900"
           }`}
         >
           Membros & Poupança Acumulada
@@ -433,7 +433,7 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-colors ${
             activeSubTab === "loans"
               ? "bg-amber-500/20 text-amber-300 border border-amber-500/40"
-              : "text-zinc-400 hover:text-white"
+              : "text-zinc-500 hover:text-zinc-900"
           }`}
         >
           Empréstimos & Dívidas ({group.loans.filter((l) => l.status === "active").length})
@@ -443,7 +443,7 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 ${
             activeSubTab === "shareout"
               ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
-              : "text-zinc-400 hover:text-white"
+              : "text-zinc-500 hover:text-zinc-900"
           }`}
         >
           <Sparkles className="w-3.5 h-3.5" />
@@ -453,11 +453,11 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
 
       {/* 1. Members Tab */}
       {activeSubTab === "members" && (
-        <Card className="bg-zinc-900 border-zinc-800 text-white overflow-hidden">
+        <Card className="bg-zinc-50 border-zinc-200 text-zinc-900 overflow-hidden">
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-zinc-950/80 text-zinc-400 uppercase text-[10px] font-bold border-b border-zinc-800">
+                <thead className="bg-white/80 text-zinc-500 uppercase text-[10px] font-bold border-b border-zinc-200">
                   <tr>
                     <th className="py-3 px-4">Membro</th>
                     <th className="py-3 px-4">Contacto</th>
@@ -467,11 +467,11 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
                     <th className="py-3 px-4 text-right">Estado</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-800 text-zinc-300">
+                <tbody className="divide-y divide-zinc-800 text-zinc-700">
                   {group.members.map((m) => (
                     <tr key={m.id} className="hover:bg-zinc-800/40">
-                      <td className="py-3.5 px-4 font-bold text-white">{m.name}</td>
-                      <td className="py-3.5 px-4 text-zinc-400 font-mono">{m.phone}</td>
+                      <td className="py-3.5 px-4 font-bold text-zinc-900">{m.name}</td>
+                      <td className="py-3.5 px-4 text-zinc-500 font-mono">{m.phone}</td>
                       <td className="py-3.5 px-4 font-black text-amber-400">
                         {m.total_saved.toLocaleString("pt-MZ")} MT
                       </td>
@@ -484,7 +484,7 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
                           <span className="text-emerald-400 text-[11px]">Sem Dívida</span>
                         )}
                       </td>
-                      <td className="py-3.5 px-4 font-mono text-zinc-300">
+                      <td className="py-3.5 px-4 font-mono text-zinc-700">
                         +{m.interest_paid_to_group.toLocaleString("pt-MZ")} MT
                       </td>
                       <td className="py-3.5 px-4 text-right">
@@ -503,11 +503,11 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
 
       {/* 2. Loans Tab */}
       {activeSubTab === "loans" && (
-        <Card className="bg-zinc-900 border-zinc-800 text-white overflow-hidden">
+        <Card className="bg-zinc-50 border-zinc-200 text-zinc-900 overflow-hidden">
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-zinc-950/80 text-zinc-400 uppercase text-[10px] font-bold border-b border-zinc-800">
+                <thead className="bg-white/80 text-zinc-500 uppercase text-[10px] font-bold border-b border-zinc-200">
                   <tr>
                     <th className="py-3 px-4">Membro</th>
                     <th className="py-3 px-4">Principal</th>
@@ -518,10 +518,10 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
                     <th className="py-3 px-4 text-right">Ações</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-800 text-zinc-300">
+                <tbody className="divide-y divide-zinc-800 text-zinc-700">
                   {group.loans.map((ln) => (
                     <tr key={ln.id} className="hover:bg-zinc-800/40">
-                      <td className="py-3.5 px-4 font-bold text-white">
+                      <td className="py-3.5 px-4 font-bold text-zinc-900">
                         {ln.member_name}
                         {ln.notes && <span className="block text-[10px] text-zinc-500 font-normal">{ln.notes}</span>}
                       </td>
@@ -529,7 +529,7 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
                       <td className="py-3.5 px-4 font-mono text-amber-400 font-bold">
                         {ln.interest_rate_percent}% (+{ln.interest_amount} MT)
                       </td>
-                      <td className="py-3.5 px-4 font-mono font-bold text-white">
+                      <td className="py-3.5 px-4 font-mono font-bold text-zinc-900">
                         {ln.total_to_repay.toLocaleString("pt-MZ")} MT
                       </td>
                       <td className="py-3.5 px-4 font-mono">
@@ -541,7 +541,7 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
                           <span className="text-emerald-400 font-bold">Totalmente Pago</span>
                         )}
                       </td>
-                      <td className="py-3.5 px-4 text-zinc-300 font-medium">
+                      <td className="py-3.5 px-4 text-zinc-700 font-medium">
                         {ln.due_date} ({ln.repayment_frequency})
                       </td>
                       <td className="py-3.5 px-4 text-right">
@@ -563,7 +563,7 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
                             size="sm"
                             variant="outline"
                             onClick={() => handleSendLoanReminderWhatsApp(ln)}
-                            className="h-7 text-[11px] border-zinc-700 hover:bg-zinc-800 text-amber-400 hover:text-amber-300 font-bold px-2 rounded-lg flex items-center gap-1"
+                            className="h-7 text-[11px] border-zinc-200 hover:bg-zinc-800 text-amber-400 hover:text-amber-300 font-bold px-2 rounded-lg flex items-center gap-1"
                           >
                             <Send className="w-3 h-3" />
                             Cobrar WhatsApp
@@ -586,25 +586,25 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
             <div className="flex items-center gap-3">
               <Sparkles className="w-6 h-6 text-emerald-400 shrink-0" />
               <div>
-                <h4 className="font-bold text-white text-sm">Simulador de Partilha Final (Share-out)</h4>
-                <p className="text-zinc-400">
+                <h4 className="font-bold text-zinc-900 text-sm">Simulador de Partilha Final (Share-out)</h4>
+                <p className="text-zinc-500">
                   Os juros acumulados pelos empréstimos ({group.total_interest_earned.toLocaleString("pt-MZ")} MT) são distribuídos de forma proporcional à poupança de cada membro, deduzindo dívidas em aberto.
                 </p>
               </div>
             </div>
             <div className="text-right shrink-0 font-mono">
-              <span className="text-[10px] text-zinc-400 block">Total a Distribuir:</span>
+              <span className="text-[10px] text-zinc-500 block">Total a Distribuir:</span>
               <span className="text-base font-black text-emerald-400">
                 {(totalSavingsPool + group.total_interest_earned).toLocaleString("pt-MZ")} MT
               </span>
             </div>
           </div>
 
-          <Card className="bg-zinc-900 border-zinc-800 text-white overflow-hidden">
+          <Card className="bg-zinc-50 border-zinc-200 text-zinc-900 overflow-hidden">
             <CardContent className="p-0">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-zinc-950/80 text-zinc-400 uppercase text-[10px] font-bold border-b border-zinc-800">
+                  <thead className="bg-white/80 text-zinc-500 uppercase text-[10px] font-bold border-b border-zinc-200">
                     <tr>
                       <th className="py-3 px-4">Membro</th>
                       <th className="py-3 px-4">Poupança Pessoal</th>
@@ -614,10 +614,10 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
                       <th className="py-3 px-4 text-right">Valor Líquido a Receber</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-zinc-800 text-zinc-300">
+                  <tbody className="divide-y divide-zinc-800 text-zinc-700">
                     {shareoutResults.map((res) => (
                       <tr key={res.member_id} className="hover:bg-zinc-800/40">
-                        <td className="py-3.5 px-4 font-bold text-white">{res.member_name}</td>
+                        <td className="py-3.5 px-4 font-bold text-zinc-900">{res.member_name}</td>
                         <td className="py-3.5 px-4 font-mono">{res.total_saved.toLocaleString("pt-MZ")} MT</td>
                         <td className="py-3.5 px-4 font-mono text-amber-400 font-bold">{res.share_percent}%</td>
                         <td className="py-3.5 px-4 font-mono text-emerald-400 font-bold">
@@ -647,25 +647,25 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
 
       {/* Modal: Depósito de Poupança */}
       {isDepositModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-zinc-50 border border-zinc-200 rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
+              <h3 className="text-base font-bold text-zinc-900 flex items-center gap-2">
                 <Coins className="w-5 h-5 text-amber-400" />
                 Registar Depósito de Poupança
               </h3>
-              <button onClick={() => setIsDepositModalOpen(false)} className="text-zinc-400 hover:text-white">
+              <button onClick={() => setIsDepositModalOpen(false)} className="text-zinc-500 hover:text-zinc-900">
                 ✕
               </button>
             </div>
             <form onSubmit={handleAddDeposit} className="space-y-4 text-xs">
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Membro *</label>
+                <label className="block text-zinc-700 font-semibold mb-1">Membro *</label>
                 <select
                   required
                   value={selectedMemberId}
                   onChange={(e) => setSelectedMemberId(e.target.value)}
-                  className="w-full h-10 px-3 bg-zinc-950 border border-zinc-700 rounded-md text-white"
+                  className="w-full h-10 px-3 bg-white border border-zinc-200 rounded-md text-zinc-900"
                 >
                   <option value="">Selecione o membro...</option>
                   {group.members.map((m) => (
@@ -676,13 +676,13 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
                 </select>
               </div>
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Montante a Poupar (MT) *</label>
+                <label className="block text-zinc-700 font-semibold mb-1">Montante a Poupar (MT) *</label>
                 <Input
                   type="number"
                   required
                   value={depositAmount}
                   onChange={(e) => setDepositAmount(Number(e.target.value))}
-                  className="bg-zinc-950 border-zinc-700 text-white font-mono"
+                  className="bg-white border-zinc-200 text-zinc-900 font-mono"
                 />
               </div>
               <div className="pt-2 flex justify-end gap-2">
@@ -700,25 +700,25 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
 
       {/* Modal: Conceder Empréstimo */}
       {isLoanModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-zinc-50 border border-zinc-200 rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
+              <h3 className="text-base font-bold text-zinc-900 flex items-center gap-2">
                 <Coins className="w-5 h-5 text-amber-400" />
                 Conceder Empréstimo Interno
               </h3>
-              <button onClick={() => setIsLoanModalOpen(false)} className="text-zinc-400 hover:text-white">
+              <button onClick={() => setIsLoanModalOpen(false)} className="text-zinc-500 hover:text-zinc-900">
                 ✕
               </button>
             </div>
             <form onSubmit={handleDisburseLoan} className="space-y-4 text-xs">
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Membro Solicitante *</label>
+                <label className="block text-zinc-700 font-semibold mb-1">Membro Solicitante *</label>
                 <select
                   required
                   value={loanMemberId}
                   onChange={(e) => setLoanMemberId(e.target.value)}
-                  className="w-full h-10 px-3 bg-zinc-950 border border-zinc-700 rounded-md text-white"
+                  className="w-full h-10 px-3 bg-white border border-zinc-200 rounded-md text-zinc-900"
                 >
                   <option value="">Selecione o membro...</option>
                   {group.members.map((m) => (
@@ -731,34 +731,34 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Valor Principal (MT) *</label>
+                  <label className="block text-zinc-700 font-semibold mb-1">Valor Principal (MT) *</label>
                   <Input
                     type="number"
                     required
                     value={loanPrincipal}
                     onChange={(e) => setLoanPrincipal(Number(e.target.value))}
-                    className="bg-zinc-950 border-zinc-700 text-white font-mono"
+                    className="bg-white border-zinc-200 text-zinc-900 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Taxa de Juros (%) *</label>
+                  <label className="block text-zinc-700 font-semibold mb-1">Taxa de Juros (%) *</label>
                   <Input
                     type="number"
                     required
                     value={loanInterestRate}
                     onChange={(e) => setLoanInterestRate(Number(e.target.value))}
-                    className="bg-zinc-950 border-zinc-700 text-white font-mono"
+                    className="bg-white border-zinc-200 text-zinc-900 font-mono"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Modalidade Reembolso</label>
+                  <label className="block text-zinc-700 font-semibold mb-1">Modalidade Reembolso</label>
                   <select
                     value={loanRepaymentFreq}
                     onChange={(e) => setLoanRepaymentFreq(e.target.value as RepaymentFrequency)}
-                    className="w-full h-10 px-3 bg-zinc-950 border border-zinc-700 rounded-md text-white"
+                    className="w-full h-10 px-3 bg-white border border-zinc-200 rounded-md text-zinc-900"
                   >
                     <option value="monthly">Mensal</option>
                     <option value="weekly">Semanal</option>
@@ -767,19 +767,19 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
                   </select>
                 </div>
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Data Limite *</label>
+                  <label className="block text-zinc-700 font-semibold mb-1">Data Limite *</label>
                   <Input
                     type="date"
                     required
                     value={loanDueDate}
                     onChange={(e) => setLoanDueDate(e.target.value)}
-                    className="bg-zinc-950 border-zinc-700 text-white font-mono"
+                    className="bg-white border-zinc-200 text-zinc-900 font-mono"
                   />
                 </div>
               </div>
 
-              <div className="p-3 bg-zinc-950 rounded-xl border border-zinc-800 text-[11px] space-y-1">
-                <div className="flex justify-between text-zinc-400">
+              <div className="p-3 bg-white rounded-xl border border-zinc-200 text-[11px] space-y-1">
+                <div className="flex justify-between text-zinc-500">
                   <span>Juros a pagar ao grupo:</span>
                   <span className="text-amber-400 font-bold">
                     {((loanPrincipal * loanInterestRate) / 100).toLocaleString("pt-MZ")} MT
@@ -808,36 +808,36 @@ Agradecemos o pagamento pontual para fortalecer o fundo comum e os lucros de jur
 
       {/* Modal: Amortizar Empréstimo */}
       {isRepayModalOpen && selectedLoanForRepay && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-zinc-50 border border-zinc-200 rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
+              <h3 className="text-base font-bold text-zinc-900 flex items-center gap-2">
                 <Coins className="w-5 h-5 text-emerald-400" />
                 Amortizar Empréstimo
               </h3>
-              <button onClick={() => setIsRepayModalOpen(false)} className="text-zinc-400 hover:text-white">
+              <button onClick={() => setIsRepayModalOpen(false)} className="text-zinc-500 hover:text-zinc-900">
                 ✕
               </button>
             </div>
             <form onSubmit={handleRepayLoan} className="space-y-4 text-xs">
               <div>
-                <span className="text-zinc-400 block mb-1">Membro:</span>
-                <span className="font-bold text-white text-sm">{selectedLoanForRepay.member_name}</span>
+                <span className="text-zinc-500 block mb-1">Membro:</span>
+                <span className="font-bold text-zinc-900 text-sm">{selectedLoanForRepay.member_name}</span>
               </div>
               <div>
-                <span className="text-zinc-400 block mb-1">Saldo Devedor Total:</span>
+                <span className="text-zinc-500 block mb-1">Saldo Devedor Total:</span>
                 <span className="font-black text-rose-400 text-base font-mono">
                   {selectedLoanForRepay.remaining_balance.toLocaleString("pt-MZ")} MT
                 </span>
               </div>
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Valor a Pagar Agora (MT) *</label>
+                <label className="block text-zinc-700 font-semibold mb-1">Valor a Pagar Agora (MT) *</label>
                 <Input
                   type="number"
                   required
                   value={repayAmount}
                   onChange={(e) => setRepayAmount(Number(e.target.value))}
-                  className="bg-zinc-950 border-zinc-700 text-white font-mono"
+                  className="bg-white border-zinc-200 text-zinc-900 font-mono"
                 />
               </div>
               <div className="pt-2 flex justify-end gap-2">

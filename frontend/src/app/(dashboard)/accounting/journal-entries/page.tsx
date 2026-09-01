@@ -55,22 +55,22 @@ export default function JournalEntriesPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans">
+      <div className="min-h-screen bg-white text-zinc-900 flex flex-col font-sans">
         {/* Header */}
-        <header className="border-b border-zinc-800 bg-zinc-900/60 backdrop-blur px-6 py-4 flex items-center justify-between">
+        <header className="border-b border-zinc-200 bg-white backdrop-blur px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/accounting">
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 w-8 p-0 text-zinc-400 hover:text-white hover:bg-zinc-800"
+                className="h-8 w-8 p-0 text-zinc-500 hover:text-white hover:bg-zinc-800"
               >
                 <ArrowLeft className="h-4 w-4" />
               </Button>
             </Link>
             <div>
               <h1 className="text-base font-bold text-white leading-tight">Diário e Razão Geral</h1>
-              <p className="text-xs text-zinc-400">Lançamentos de Partidas Dobradas</p>
+              <p className="text-xs text-zinc-500">Lançamentos de Partidas Dobradas</p>
             </div>
           </div>
 
@@ -93,14 +93,14 @@ export default function JournalEntriesPage() {
                 placeholder="Pesquisar por número do diário ou descrição..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-zinc-900 border-zinc-800 pl-9 text-xs"
+                className="bg-zinc-50 border-zinc-200 pl-9 text-xs"
               />
             </div>
             <Button
               variant="outline"
               size="sm"
               onClick={loadData}
-              className="border-zinc-800 bg-zinc-900 text-zinc-300 text-xs"
+              className="border-zinc-200 bg-zinc-50 text-zinc-700 text-xs"
             >
               <RefreshCw className="h-3.5 w-3.5 mr-1.5" />
               Atualizar
@@ -108,10 +108,10 @@ export default function JournalEntriesPage() {
           </div>
 
           {/* Entries Table */}
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 backdrop-blur overflow-hidden">
+          <div className="rounded-2xl border border-zinc-200 bg-white backdrop-blur overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full text-left font-mono text-xs text-zinc-300">
-                <thead className="bg-zinc-950/80 text-[11px] uppercase tracking-wider text-zinc-400 border-b border-zinc-800">
+              <table className="w-full text-left font-mono text-xs text-zinc-700">
+                <thead className="bg-white/80 text-[11px] uppercase tracking-wider text-zinc-500 border-b border-zinc-200">
                   <tr>
                     <th className="py-3 px-4">Nº Diário</th>
                     <th className="py-3 px-4">Data</th>
@@ -130,9 +130,9 @@ export default function JournalEntriesPage() {
                     </tr>
                   ) : (
                     filteredEntries.map((entry) => (
-                      <tr key={entry.id} className="hover:bg-zinc-900/50 transition-colors">
+                      <tr key={entry.id} className="hover:bg-zinc-50/50 transition-colors">
                         <td className="py-3 px-4 font-bold text-white">{entry.entry_number}</td>
-                        <td className="py-3 px-4 text-zinc-400">
+                        <td className="py-3 px-4 text-zinc-500">
                           {new Date(entry.entry_date).toLocaleDateString("pt-MZ")}
                         </td>
                         <td className="py-3 px-4 text-emerald-400">
@@ -141,7 +141,7 @@ export default function JournalEntriesPage() {
                         <td className="py-3 px-4 text-blue-400">
                           {entry.credit_account_code} - {entry.credit_account_name || `Conta #${entry.credit_account_id}`}
                         </td>
-                        <td className="py-3 px-4 text-zinc-300 max-w-xs truncate font-sans">
+                        <td className="py-3 px-4 text-zinc-700 max-w-xs truncate font-sans">
                           {entry.description || "-"}
                         </td>
                         <td className="py-3 px-4 text-right font-bold text-white">
@@ -158,9 +158,9 @@ export default function JournalEntriesPage() {
 
         {/* Modal Novo Lançamento */}
         {showModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-            <div className="w-full max-w-2xl rounded-2xl border border-zinc-800 bg-zinc-900 p-6 shadow-2xl space-y-4">
-              <h3 className="text-base font-bold text-white border-b border-zinc-800 pb-3">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/40 backdrop-blur-sm p-4">
+            <div className="w-full max-w-2xl rounded-2xl border border-zinc-200 bg-zinc-50 p-6 shadow-2xl space-y-4">
+              <h3 className="text-base font-bold text-white border-b border-zinc-200 pb-3">
                 Novo Lançamento no Diário (Partida Dobrada)
               </h3>
               <JournalEntryForm

@@ -62,26 +62,28 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
-      <Card className="w-full max-w-md border-zinc-800 bg-zinc-900/90 backdrop-blur text-zinc-100 shadow-2xl">
-        <CardHeader className="space-y-2 text-center">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400">
+    <div className="flex min-h-screen items-center justify-center bg-[#FAF8F5] px-4 font-sans relative">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-100/50 via-[#FAF8F5] to-[#FAF8F5] pointer-events-none" />
+
+      <Card className="w-full max-w-md border-emerald-900/10 bg-white/90 backdrop-blur text-zinc-900 shadow-xl rounded-3xl relative">
+        <CardHeader className="space-y-2 text-center pb-4">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-200">
             <UserPlus className="h-6 w-6" />
           </div>
-          <CardTitle className="text-2xl font-bold tracking-tight text-white">
+          <CardTitle className="text-2xl font-black tracking-tight text-emerald-950">
             Criar Utilizador
           </CardTitle>
-          <CardDescription className="text-zinc-400">
-            Registe um novo operador ou administrador no TiConta v2
+          <CardDescription className="text-zinc-500 text-xs">
+            Registe um novo operador ou administrador no TiConta v2 ERP
           </CardDescription>
         </CardHeader>
 
         {success ? (
           <CardContent className="space-y-4 text-center py-6">
             <div className="flex justify-center">
-              <CheckCircle2 className="h-12 w-12 text-emerald-500 animate-bounce" />
+              <CheckCircle2 className="h-12 w-12 text-emerald-600 animate-bounce" />
             </div>
-            <p className="text-sm font-medium text-emerald-400">
+            <p className="text-sm font-semibold text-emerald-800">
               Utilizador registado com sucesso! A redirecionar para login...
             </p>
           </CardContent>
@@ -89,67 +91,67 @@ export default function RegisterPage() {
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <CardContent className="space-y-4">
               {(regError || error) && (
-                <div className="flex items-center gap-2 rounded-lg border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-400">
-                  <AlertCircle className="h-4 w-4 shrink-0" />
+                <div className="flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 p-3 text-xs text-red-700">
+                  <AlertCircle className="h-4 w-4 shrink-0 text-red-600" />
                   <span>{regError || error}</span>
                 </div>
               )}
 
-              <div className="space-y-2">
-                <label className="text-xs font-medium uppercase tracking-wider text-zinc-400">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold uppercase tracking-wider text-emerald-950 font-mono">
                   Nome de Utilizador
                 </label>
                 <div className="relative">
-                  <User className="absolute left-3 top-2.5 h-4 w-4 text-zinc-500" />
+                  <User className="absolute left-3 top-2.5 h-4 w-4 text-zinc-400" />
                   <Input
                     {...form.register("username")}
                     placeholder="Ex: joao.silva"
-                    className="bg-zinc-950 border-zinc-800 pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
+                    className="bg-white border-zinc-300 pl-9 text-zinc-900 placeholder:text-zinc-400 focus-visible:ring-emerald-600 rounded-xl"
                   />
                 </div>
                 {form.formState.errors.username && (
-                  <p className="text-xs text-red-400">
+                  <p className="text-xs text-red-600">
                     {form.formState.errors.username.message}
                   </p>
                 )}
               </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-medium uppercase tracking-wider text-zinc-400">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold uppercase tracking-wider text-emerald-950 font-mono">
                   Email (Opcional)
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-2.5 h-4 w-4 text-zinc-500" />
+                  <Mail className="absolute left-3 top-2.5 h-4 w-4 text-zinc-400" />
                   <Input
                     {...form.register("email")}
                     type="email"
                     placeholder="joao@empresa.co.mz"
-                    className="bg-zinc-950 border-zinc-800 pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
+                    className="bg-white border-zinc-300 pl-9 text-zinc-900 placeholder:text-zinc-400 focus-visible:ring-emerald-600 rounded-xl"
                   />
                 </div>
                 {form.formState.errors.email && (
-                  <p className="text-xs text-red-400">
+                  <p className="text-xs text-red-600">
                     {form.formState.errors.email.message}
                   </p>
                 )}
               </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-medium uppercase tracking-wider text-zinc-400">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold uppercase tracking-wider text-emerald-950 font-mono">
                   Código PIN de Acesso
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-2.5 h-4 w-4 text-zinc-500" />
+                  <Lock className="absolute left-3 top-2.5 h-4 w-4 text-zinc-400" />
                   <Input
                     {...form.register("pin")}
                     type="password"
                     maxLength={10}
                     placeholder="••••"
-                    className="bg-zinc-950 border-zinc-800 pl-9 tracking-widest text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
+                    className="bg-white border-zinc-300 pl-9 tracking-widest text-zinc-900 placeholder:text-zinc-400 focus-visible:ring-emerald-600 rounded-xl font-mono"
                   />
                 </div>
                 {form.formState.errors.pin && (
-                  <p className="text-xs text-red-400">
+                  <p className="text-xs text-red-600">
                     {form.formState.errors.pin.message}
                   </p>
                 )}
@@ -160,7 +162,7 @@ export default function RegisterPage() {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium shadow-lg shadow-emerald-950"
+                className="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl shadow-md font-mono"
               >
                 {isLoading ? (
                   <>
@@ -171,10 +173,10 @@ export default function RegisterPage() {
                   "Concluir Registo"
                 )}
               </Button>
-              <div className="text-center text-xs text-zinc-400">
+              <div className="text-center text-xs text-zinc-500">
                 Já tem conta?{" "}
-                <Link href="/login" className="text-emerald-400 hover:underline">
-                  Entrar
+                <Link href="/login" className="text-emerald-700 font-semibold hover:underline">
+                  Entrar no Terminal
                 </Link>
               </div>
             </CardFooter>

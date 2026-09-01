@@ -14,7 +14,7 @@ export const StatsCards: React.FC<StatsCardsProps> = ({ stats, isLoading }) => {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="h-32 bg-slate-800/50 rounded-2xl border border-slate-700/60 animate-pulse" />
+          <div key={i} className="h-32 bg-slate-800/50 rounded-2xl border border-zinc-200/60 animate-pulse" />
         ))}
       </div>
     );
@@ -38,7 +38,7 @@ export const StatsCards: React.FC<StatsCardsProps> = ({ stats, isLoading }) => {
       icon: KeyRound,
       color: 'from-blue-500/20 to-indigo-500/20 text-blue-400 border-blue-500/30',
       badge: `${stats.revoked_licenses} revogadas`,
-      badgeColor: 'bg-slate-700/50 text-slate-300',
+      badgeColor: 'bg-slate-700/50 text-zinc-700',
     },
     {
       title: 'Licenças Ativas',
@@ -65,7 +65,7 @@ export const StatsCards: React.FC<StatsCardsProps> = ({ stats, isLoading }) => {
       icon: AlertTriangle,
       color: 'from-rose-500/20 to-red-500/20 text-rose-400 border-rose-500/30',
       badge: stats.upcoming_expirations_30_days > 0 ? 'Ação necessária' : 'Regularizado',
-      badgeColor: stats.upcoming_expirations_30_days > 0 ? 'bg-rose-500/20 text-rose-300' : 'bg-slate-700/50 text-slate-300',
+      badgeColor: stats.upcoming_expirations_30_days > 0 ? 'bg-rose-500/20 text-rose-300' : 'bg-slate-700/50 text-zinc-700',
     },
   ];
 
@@ -76,23 +76,23 @@ export const StatsCards: React.FC<StatsCardsProps> = ({ stats, isLoading }) => {
         return (
           <div
             key={idx}
-            className="relative overflow-hidden bg-slate-900/80 backdrop-blur-md rounded-2xl p-5 border border-slate-800 shadow-lg hover:border-slate-700 transition-all duration-300"
+            className="relative overflow-hidden bg-white/80 backdrop-blur-md rounded-2xl p-5 border border-zinc-200 shadow-lg hover:border-zinc-200 transition-all duration-300"
           >
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-medium text-slate-400">{card.title}</span>
+              <span className="text-sm font-medium text-zinc-500">{card.title}</span>
               <div className={`p-2.5 rounded-xl border bg-gradient-to-br ${card.color}`}>
                 <Icon className="w-5 h-5" />
               </div>
             </div>
 
             <div className="flex items-baseline justify-between mb-1">
-              <div className="text-2xl font-bold text-slate-100 tracking-tight">{card.value}</div>
+              <div className="text-2xl font-bold text-zinc-900 tracking-tight">{card.value}</div>
               <span className={`text-xs px-2.5 py-0.5 rounded-full font-semibold ${card.badgeColor}`}>
                 {card.badge}
               </span>
             </div>
 
-            <p className="text-xs text-slate-400 font-normal">{card.subtext}</p>
+            <p className="text-xs text-zinc-500 font-normal">{card.subtext}</p>
           </div>
         );
       })}

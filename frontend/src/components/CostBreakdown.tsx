@@ -11,7 +11,7 @@ interface CostBreakdownProps {
 
 export const CostBreakdownSummary: React.FC<CostBreakdownProps> = ({ breakdown }) => {
   return (
-    <div className="chassis-panel p-5 text-zinc-100 shadow-2xl font-mono space-y-4">
+    <div className="chassis-panel p-5 text-zinc-900 shadow-2xl font-mono space-y-4">
       {/* Hardware Header */}
       <div className="chassis-header">
         <div className="flex items-center gap-2.5">
@@ -42,7 +42,7 @@ export const CostBreakdownSummary: React.FC<CostBreakdownProps> = ({ breakdown }
 
       {/* Ledger Tape Lines */}
       <div className="receipt-strip-dark p-4 space-y-2 text-xs">
-        <div className="flex items-center justify-between text-zinc-300 py-1 border-b border-[#1c3150]">
+        <div className="flex items-center justify-between text-zinc-700 py-1 border-b border-[#1c3150]">
           <span className="font-bold text-white uppercase">PLANO BASE ({breakdown.base_plan}):</span>
           <span className="text-[#2dc4a0] font-bold">{breakdown.base_plan_cost_mzn.toLocaleString("pt-MZ")} MT/mês</span>
         </div>
@@ -62,7 +62,7 @@ export const CostBreakdownSummary: React.FC<CostBreakdownProps> = ({ breakdown }
       {/* Total in VFD Display */}
       <div className="vfd-display p-3.5 flex items-center justify-between">
         <div className="vfd-scanlines absolute inset-0 opacity-30" />
-        <span className="text-xs font-black text-zinc-300 uppercase tracking-widest relative z-10">
+        <span className="text-xs font-black text-zinc-700 uppercase tracking-widest relative z-10">
           TOTAL MENSAL ESTIMADO:
         </span>
         <span className="text-2xl font-black vfd-text relative z-10">

@@ -61,8 +61,8 @@ export default function FinancialReportView({ data }: FinancialReportViewProps) 
 
       {/* Cash & Bank Balances */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5 space-y-4">
-          <h4 className="text-xs font-bold text-white uppercase tracking-wider border-b border-zinc-800 pb-2 flex items-center gap-2">
+        <div className="rounded-2xl border border-zinc-200 bg-white p-5 space-y-4">
+          <h4 className="text-xs font-bold text-white uppercase tracking-wider border-b border-zinc-200 pb-2 flex items-center gap-2">
             <Wallet className="h-4 w-4 text-amber-400" />
             Disponibilidades em Caixa
           </h4>
@@ -70,13 +70,13 @@ export default function FinancialReportView({ data }: FinancialReportViewProps) 
             {Number(data.cash_in_hand).toLocaleString("pt-MZ")}{" "}
             <span className="text-sm font-normal text-zinc-500">MZN</span>
           </p>
-          <span className="text-xs text-zinc-400 block">
+          <span className="text-xs text-zinc-500 block">
             Soma dos caixas físicos de ponto de venda e fundo de maneio.
           </span>
         </div>
 
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5 space-y-4">
-          <h4 className="text-xs font-bold text-white uppercase tracking-wider border-b border-zinc-800 pb-2 flex items-center gap-2">
+        <div className="rounded-2xl border border-zinc-200 bg-white p-5 space-y-4">
+          <h4 className="text-xs font-bold text-white uppercase tracking-wider border-b border-zinc-200 pb-2 flex items-center gap-2">
             <Building className="h-4 w-4 text-blue-400" />
             Saldos Bancários Globais
           </h4>
@@ -84,7 +84,7 @@ export default function FinancialReportView({ data }: FinancialReportViewProps) 
             {Number(data.bank_balances).toLocaleString("pt-MZ")}{" "}
             <span className="text-sm font-normal text-zinc-500">MZN</span>
           </p>
-          <span className="text-xs text-zinc-400 block">
+          <span className="text-xs text-zinc-500 block">
             Contas correntes conciliadas em instituições bancárias locais.
           </span>
         </div>

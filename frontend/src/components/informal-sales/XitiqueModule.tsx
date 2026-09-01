@@ -302,19 +302,19 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
   return (
     <div className="space-y-6">
       {/* Top Header Controls */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-zinc-900 border border-zinc-800 p-5 rounded-2xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-zinc-50 border border-zinc-200 p-5 rounded-2xl">
         <div className="flex items-center gap-3">
           <div className="p-3 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-xl">
             <Users className="w-6 h-6" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+            <h2 className="text-xl font-bold text-zinc-900 tracking-tight flex items-center gap-2">
               Gestão de Xitique
               <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono">
                 Rotativo & Comercial
               </span>
             </h2>
-            <p className="text-xs text-zinc-400">
+            <p className="text-xs text-zinc-500">
               Controlo de rodas de dinheiro, ordem de beneficiários e xitique de mercadorias para lojas e ferragens.
             </p>
           </div>
@@ -340,7 +340,7 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
             className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all border flex items-center gap-2 ${
               selectedGroup.id === g.id
                 ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/50 shadow-md"
-                : "bg-zinc-900/80 text-zinc-400 border-zinc-800 hover:text-white"
+                : "bg-white/80 text-zinc-500 border-zinc-200 hover:text-zinc-900"
             }`}
           >
             {g.type === "commercial_goods" ? (
@@ -349,7 +349,7 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
               <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
             )}
             <span>{g.name}</span>
-            <span className="text-[10px] bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-400 font-mono">
+            <span className="text-[10px] bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-500 font-mono">
               {g.members.length} membros
             </span>
           </button>
@@ -358,9 +358,9 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
 
       {/* Selected Group Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-zinc-900 border-zinc-800 text-white">
+        <Card className="bg-zinc-50 border-zinc-200 text-zinc-900">
           <CardContent className="p-4 space-y-1">
-            <span className="text-[11px] text-zinc-400 font-semibold uppercase">Modalidade</span>
+            <span className="text-[11px] text-zinc-500 font-semibold uppercase">Modalidade</span>
             <div className="flex items-center gap-1.5 font-bold text-sm text-emerald-400">
               {selectedGroup.type === "commercial_goods" ? (
                 <>
@@ -375,15 +375,15 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
               )}
             </div>
             <p className="text-[10px] text-zinc-500">
-              Periodicidade: <span className="text-zinc-300 capitalize">{selectedGroup.frequency}</span>
+              Periodicidade: <span className="text-zinc-700 capitalize">{selectedGroup.frequency}</span>
             </p>
           </CardContent>
         </Card>
 
-        <Card className="bg-zinc-900 border-zinc-800 text-white">
+        <Card className="bg-zinc-50 border-zinc-200 text-zinc-900">
           <CardContent className="p-4 space-y-1">
-            <span className="text-[11px] text-zinc-400 font-semibold uppercase">Quota por Membro</span>
-            <div className="text-lg font-black text-white">
+            <span className="text-[11px] text-zinc-500 font-semibold uppercase">Quota por Membro</span>
+            <div className="text-lg font-black text-zinc-900">
               {selectedGroup.contribution_amount.toLocaleString("pt-MZ")} MT
             </div>
             <p className="text-[10px] text-zinc-500">
@@ -392,9 +392,9 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
           </CardContent>
         </Card>
 
-        <Card className="bg-zinc-900 border-zinc-800 text-white">
+        <Card className="bg-zinc-50 border-zinc-200 text-zinc-900">
           <CardContent className="p-4 space-y-1">
-            <span className="text-[11px] text-zinc-400 font-semibold uppercase">Pote da Ronda / Total</span>
+            <span className="text-[11px] text-zinc-500 font-semibold uppercase">Pote da Ronda / Total</span>
             <div className="text-lg font-black text-emerald-400">
               {totalPotValue.toLocaleString("pt-MZ")} MT
             </div>
@@ -404,13 +404,13 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
           </CardContent>
         </Card>
 
-        <Card className="bg-emerald-950/30 border-emerald-500/30 text-white">
+        <Card className="bg-emerald-950/30 border-emerald-500/30 text-zinc-900">
           <CardContent className="p-4 space-y-1">
             <span className="text-[11px] text-emerald-400 font-bold uppercase flex items-center gap-1">
               <Sparkles className="w-3.5 h-3.5" />
               Beneficiário da Vez (Ciclo {selectedGroup.current_cycle})
             </span>
-            <div className="text-sm font-bold text-white truncate">
+            <div className="text-sm font-bold text-zinc-900 truncate">
               {currentBeneficiary ? currentBeneficiary.name : "Nenhum"}
             </div>
             <p className="text-[10px] text-emerald-300 font-mono">
@@ -426,7 +426,7 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
           <div className="flex items-center gap-2.5">
             <Package className="w-5 h-5 text-blue-400 shrink-0" />
             <div>
-              <span className="font-bold text-white block">Pacote de Mercadoria Contratado:</span>
+              <span className="font-bold text-zinc-900 block">Pacote de Mercadoria Contratado:</span>
               <span>{selectedGroup.target_goods_item}</span>
             </div>
           </div>
@@ -437,13 +437,13 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
       )}
 
       {/* Members Order & Payout Table */}
-      <Card className="bg-zinc-900 border-zinc-800 text-white overflow-hidden">
-        <CardHeader className="border-b border-zinc-800 py-3.5 px-4 flex flex-row items-center justify-between">
+      <Card className="bg-zinc-50 border-zinc-200 text-zinc-900 overflow-hidden">
+        <CardHeader className="border-b border-zinc-200 py-3.5 px-4 flex flex-row items-center justify-between">
           <div>
-            <CardTitle className="text-sm font-bold text-white">
+            <CardTitle className="text-sm font-bold text-zinc-900">
               Escala da Roda & Estado de Pagamentos ({selectedGroup.members.length} Membros)
             </CardTitle>
-            <p className="text-[11px] text-zinc-400">
+            <p className="text-[11px] text-zinc-500">
               Ordem de levantamento do xitique e controlo de quotas pagas
             </p>
           </div>
@@ -451,7 +451,7 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-zinc-950/80 text-zinc-400 uppercase text-[10px] font-bold border-b border-zinc-800">
+              <thead className="bg-white/80 text-zinc-500 uppercase text-[10px] font-bold border-b border-zinc-200">
                 <tr>
                   <th className="py-3 px-4">Ordem</th>
                   <th className="py-3 px-4">Nome do Membro</th>
@@ -462,7 +462,7 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
                   <th className="py-3 px-4 text-right">Ações</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-800 text-zinc-300">
+              <tbody className="divide-y divide-zinc-800 text-zinc-700">
                 {selectedGroup.members.map((m) => {
                   const isCurrent = m.order_position === selectedGroup.current_cycle;
                   return (
@@ -477,13 +477,13 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
                           className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-[11px] font-bold ${
                             isCurrent
                               ? "bg-emerald-500 text-black shadow-md shadow-emerald-500/20"
-                              : "bg-zinc-800 text-zinc-300"
+                              : "bg-zinc-800 text-zinc-700"
                           }`}
                         >
                           {m.order_position}
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 font-bold text-white">
+                      <td className="py-3.5 px-4 font-bold text-zinc-900">
                         {m.name}
                         {isCurrent && (
                           <span className="ml-2 text-[10px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
@@ -491,8 +491,8 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
                           </span>
                         )}
                       </td>
-                      <td className="py-3.5 px-4 text-zinc-400 font-mono">{m.phone}</td>
-                      <td className="py-3.5 px-4 text-zinc-300 font-medium">{m.payout_cycle_date}</td>
+                      <td className="py-3.5 px-4 text-zinc-500 font-mono">{m.phone}</td>
+                      <td className="py-3.5 px-4 text-zinc-700 font-medium">{m.payout_cycle_date}</td>
                       <td className="py-3.5 px-4 font-mono">
                         <span className="text-emerald-400 font-bold">{m.contributions_paid}</span> /{" "}
                         {selectedGroup.total_cycles} ({m.total_contributed.toLocaleString("pt-MZ")} MT)
@@ -527,7 +527,7 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
                             size="sm"
                             variant="outline"
                             onClick={() => handleSendReminderWhatsApp(selectedGroup, m)}
-                            className="h-7 text-[11px] border-zinc-700 hover:bg-zinc-800 text-emerald-400 hover:text-emerald-300 font-bold px-2 rounded-lg flex items-center gap-1"
+                            className="h-7 text-[11px] border-zinc-200 hover:bg-zinc-800 text-emerald-400 hover:text-emerald-300 font-bold px-2 rounded-lg flex items-center gap-1"
                             title="Lembrete WhatsApp"
                           >
                             <Send className="w-3 h-3" />
@@ -546,16 +546,16 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
 
       {/* Modal: Criar Novo Grupo de Xitique */}
       {isNewGroupModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/80 backdrop-blur-sm animate-in fade-in">
-          <div className="relative w-full max-w-lg bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-sm animate-in fade-in">
+          <div className="relative w-full max-w-lg bg-zinc-50 border border-zinc-200 rounded-2xl p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
+              <h3 className="text-base font-bold text-zinc-900 flex items-center gap-2">
                 <Plus className="w-5 h-5 text-emerald-400" />
                 Criar Novo Grupo de Xitique
               </h3>
               <button
                 onClick={() => setIsNewGroupModalOpen(false)}
-                className="text-zinc-400 hover:text-white text-sm"
+                className="text-zinc-500 hover:text-zinc-900 text-sm"
               >
                 ✕
               </button>
@@ -563,23 +563,23 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
 
             <form onSubmit={handleCreateGroup} className="space-y-4 text-xs">
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Nome do Grupo *</label>
+                <label className="block text-zinc-700 font-semibold mb-1">Nome do Grupo *</label>
                 <Input
                   required
                   placeholder="ex: Xitique dos Mecânicos da Matola"
                   value={newGroupName}
                   onChange={(e) => setNewGroupName(e.target.value)}
-                  className="bg-zinc-950 border-zinc-700 text-white"
+                  className="bg-white border-zinc-200 text-zinc-900"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Tipo de Xitique *</label>
+                  <label className="block text-zinc-700 font-semibold mb-1">Tipo de Xitique *</label>
                   <select
                     value={newGroupType}
                     onChange={(e) => setNewGroupType(e.target.value as XitiqueType)}
-                    className="w-full h-10 px-3 bg-zinc-950 border border-zinc-700 rounded-md text-white"
+                    className="w-full h-10 px-3 bg-white border border-zinc-200 rounded-md text-zinc-900"
                   >
                     <option value="rotary_cash">Dinheiro Rotativo</option>
                     <option value="commercial_goods">Mercadoria / Loja</option>
@@ -587,11 +587,11 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
                 </div>
 
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Periodicidade *</label>
+                  <label className="block text-zinc-700 font-semibold mb-1">Periodicidade *</label>
                   <select
                     value={newFrequency}
                     onChange={(e) => setNewFrequency(e.target.value as XitiqueFrequency)}
-                    className="w-full h-10 px-3 bg-zinc-950 border border-zinc-700 rounded-md text-white"
+                    className="w-full h-10 px-3 bg-white border border-zinc-200 rounded-md text-zinc-900"
                   >
                     <option value="weekly">Semanal</option>
                     <option value="biweekly">Quinzenal</option>
@@ -601,30 +601,30 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
               </div>
 
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Valor da Quota por Membro (MT) *</label>
+                <label className="block text-zinc-700 font-semibold mb-1">Valor da Quota por Membro (MT) *</label>
                 <Input
                   type="number"
                   required
                   value={newContribution}
                   onChange={(e) => setNewContribution(Number(e.target.value))}
-                  className="bg-zinc-950 border-zinc-700 text-white font-mono"
+                  className="bg-white border-zinc-200 text-zinc-900 font-mono"
                 />
               </div>
 
               {newGroupType === "commercial_goods" && (
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Descrição do Pacote de Mercadoria</label>
+                  <label className="block text-zinc-700 font-semibold mb-1">Descrição do Pacote de Mercadoria</label>
                   <Input
                     placeholder="ex: 50 Sacos Cimento + 15 Varões Aço ou Cabaz Alimentar Familiar"
                     value={newTargetGoods}
                     onChange={(e) => setNewTargetGoods(e.target.value)}
-                    className="bg-zinc-950 border-zinc-700 text-white"
+                    className="bg-white border-zinc-200 text-zinc-900"
                   />
                 </div>
               )}
 
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">
+                <label className="block text-zinc-700 font-semibold mb-1">
                   Membros (1 por linha na ordem de recebimento) *
                 </label>
                 <textarea
@@ -633,7 +633,7 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
                   placeholder={"Mama Esperança\nCarlos Chauke\nAida Cossa\nHelena Sitoe"}
                   value={memberNamesInput}
                   onChange={(e) => setMemberNamesInput(e.target.value)}
-                  className="w-full p-2.5 bg-zinc-950 border border-zinc-700 rounded-md text-white font-mono text-xs focus:outline-none focus:border-emerald-500"
+                  className="w-full p-2.5 bg-white border border-zinc-200 rounded-md text-zinc-900 font-mono text-xs focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
@@ -642,7 +642,7 @@ Lembramos do pagamento da quota do ciclo atual para a entrega do pote ao benefic
                   type="button"
                   variant="outline"
                   onClick={() => setIsNewGroupModalOpen(false)}
-                  className="border-zinc-700 text-zinc-300"
+                  className="border-zinc-200 text-zinc-700"
                 >
                   Cancelar
                 </Button>

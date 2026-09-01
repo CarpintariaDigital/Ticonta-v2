@@ -51,26 +51,26 @@ export const HealthForm: React.FC<HealthFormProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-      <div className="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-md shadow-2xl flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/40 backdrop-blur-sm animate-fade-in">
+      <div className="bg-white border border-zinc-200/80 rounded-2xl w-full max-w-md shadow-2xl flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-950/50">
+        <div className="flex items-center justify-between p-4 border-b border-zinc-200 bg-zinc-50/70">
           <div className="flex items-center gap-2">
             <HeartPulse className="w-5 h-5 text-teal-400" />
             <div>
               <h3 className="text-sm font-bold text-white">Registo Sanitário & Vacina</h3>
-              <p className="text-[11px] text-slate-400">Lote #{flock.flock_number}</p>
+              <p className="text-[11px] text-zinc-500">Lote #{flock.flock_number}</p>
             </div>
           </div>
 
-          <button onClick={onClose} className="p-1 text-slate-400 hover:text-white rounded-lg">
+          <button onClick={onClose} className="p-1 text-zinc-500 hover:text-white rounded-lg">
             <X className="w-4 h-4" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
               Data da Aplicação
             </label>
             <input
@@ -78,12 +78,12 @@ export const HealthForm: React.FC<HealthFormProps> = ({
               required
               value={recordDate}
               onChange={(e) => setRecordDate(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs focus:outline-none focus:border-teal-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs focus:outline-none focus:border-teal-500"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
               Doença / Tipo de Vacinação *
             </label>
             <input
@@ -92,7 +92,7 @@ export const HealthForm: React.FC<HealthFormProps> = ({
               value={disease}
               onChange={(e) => setDisease(e.target.value)}
               list="vaccine-suggestions"
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs focus:outline-none focus:border-teal-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs focus:outline-none focus:border-teal-500"
             />
             <datalist id="vaccine-suggestions">
               {COMMON_VACCINES.map((v, idx) => (
@@ -102,7 +102,7 @@ export const HealthForm: React.FC<HealthFormProps> = ({
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
               Tratamento / Medicamento Administrado *
             </label>
             <textarea
@@ -110,13 +110,13 @@ export const HealthForm: React.FC<HealthFormProps> = ({
               required
               value={treatment}
               onChange={(e) => setTreatment(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs focus:outline-none focus:border-teal-500 resize-none"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs focus:outline-none focus:border-teal-500 resize-none"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
                 Aves Tratadas / Afetadas
               </label>
               <input
@@ -124,12 +124,12 @@ export const HealthForm: React.FC<HealthFormProps> = ({
                 min="0"
                 value={birdsAffected}
                 onChange={(e) => setBirdsAffected(parseInt(e.target.value, 10) || 0)}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs font-bold focus:outline-none focus:border-teal-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs font-bold focus:outline-none focus:border-teal-500"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
                 Custo do Tratamento (MT)
               </label>
               <input
@@ -137,7 +137,7 @@ export const HealthForm: React.FC<HealthFormProps> = ({
                 min="0"
                 value={cost}
                 onChange={(e) => setCost(parseFloat(e.target.value) || 0)}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs font-bold focus:outline-none focus:border-teal-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs font-bold focus:outline-none focus:border-teal-500"
               />
             </div>
           </div>
@@ -146,7 +146,7 @@ export const HealthForm: React.FC<HealthFormProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl"
+              className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl"
             >
               Cancelar
             </button>

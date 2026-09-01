@@ -132,22 +132,22 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="relative w-full max-w-3xl rounded-2xl border border-zinc-800 bg-zinc-950 p-6 text-zinc-100 shadow-2xl space-y-6 max-h-[92vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/40 backdrop-blur-sm p-4 overflow-y-auto">
+      <div className="relative w-full max-w-3xl rounded-2xl border border-emerald-900/10 bg-white p-6 text-zinc-900 shadow-2xl space-y-6 max-h-[92vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
+        <div className="flex items-center justify-between border-b border-zinc-200 pb-4">
           <div className="flex items-center gap-3">
-            <div className="rounded-xl bg-emerald-500/10 p-2.5 text-emerald-400 border border-emerald-500/20">
+            <div className="rounded-xl bg-emerald-50 p-2.5 text-emerald-700 border border-emerald-200">
               <Wrench className="h-6 w-6" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">Nova Ordem de Serviço (OS)</h2>
-              <p className="text-xs text-zinc-400">Recepção, Checklist 360º e Orçamentação da Viatura</p>
+              <h2 className="text-xl font-bold text-zinc-900">Nova Ordem de Serviço (OS)</h2>
+              <p className="text-xs text-zinc-500">Recepção, Checklist 360º e Orçamentação da Viatura</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-2 text-zinc-400 hover:bg-zinc-900 hover:text-white"
+            className="rounded-lg p-2 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-700 transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
@@ -155,21 +155,21 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Seleção do Veículo */}
-          <div className="rounded-xl border border-zinc-850 bg-zinc-900/60 p-4 space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+          <div className="rounded-xl border border-zinc-200 bg-zinc-50/70 p-4 space-y-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-800 flex items-center gap-1.5">
               <Car className="h-4 w-4" />
               1. Identificação do Veículo
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="text-xs text-zinc-400 block mb-1">Selecionar Viatura</label>
+                <label className="text-xs text-zinc-600 font-medium block mb-1">Selecionar Viatura</label>
                 <select
                   value={selectedVehicleId}
                   onChange={(e) =>
                     setSelectedVehicleId(e.target.value === "new" ? "new" : Number(e.target.value))
                   }
-                  className="w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs text-white focus:ring-1 focus:ring-emerald-500"
+                  className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs text-zinc-900 shadow-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
                 >
                   <option value="new">+ Registar Nova Viatura</option>
                   {vehicles.map((v) => (
@@ -182,13 +182,13 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
 
               {selectedVehicleId === "new" && (
                 <div>
-                  <label className="text-xs text-zinc-400 block mb-1">Matrícula (ex: ABC-123-MC)</label>
+                  <label className="text-xs text-zinc-600 font-medium block mb-1">Matrícula (ex: ABC-123-MC)</label>
                   <Input
                     required
                     value={plate}
                     onChange={(e) => setPlate(e.target.value)}
                     placeholder="MM-00-00 ou ABC-123-MC"
-                    className="bg-zinc-950 border-zinc-800 text-xs text-white"
+                    className="bg-white border-zinc-200 text-xs text-zinc-900"
                   />
                 </div>
               )}
@@ -197,39 +197,39 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
             {selectedVehicleId === "new" && (
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
                 <div>
-                  <label className="text-[11px] text-zinc-400 block mb-1">Marca</label>
+                  <label className="text-[11px] text-zinc-600 font-medium block mb-1">Marca</label>
                   <Input
                     value={make}
                     onChange={(e) => setMake(e.target.value)}
-                    className="bg-zinc-950 border-zinc-800 text-xs"
+                    className="bg-white border-zinc-200 text-xs text-zinc-900"
                   />
                 </div>
                 <div>
-                  <label className="text-[11px] text-zinc-400 block mb-1">Modelo</label>
+                  <label className="text-[11px] text-zinc-600 font-medium block mb-1">Modelo</label>
                   <Input
                     value={model}
                     onChange={(e) => setModel(e.target.value)}
-                    className="bg-zinc-950 border-zinc-800 text-xs"
+                    className="bg-white border-zinc-200 text-xs text-zinc-900"
                   />
                 </div>
                 <div>
-                  <label className="text-[11px] text-zinc-400 block mb-1">Ano</label>
+                  <label className="text-[11px] text-zinc-600 font-medium block mb-1">Ano</label>
                   <Input
                     type="number"
                     value={year}
                     onChange={(e) => setYear(Number(e.target.value))}
-                    className="bg-zinc-950 border-zinc-800 text-xs"
+                    className="bg-white border-zinc-200 text-xs text-zinc-900"
                   />
                 </div>
                 <div>
-                  <label className="text-[11px] text-zinc-400 block mb-1">Combustível</label>
+                  <label className="text-[11px] text-zinc-600 font-medium block mb-1">Combustível</label>
                   <select
                     value={fuelType}
                     onChange={(e) => setFuelType(e.target.value)}
-                    className="w-full rounded-lg border border-zinc-800 bg-zinc-950 px-2 py-2 text-xs text-white"
+                    className="w-full rounded-lg border border-zinc-200 bg-white px-2 py-1.5 text-xs text-zinc-900 shadow-xs focus:ring-1 focus:ring-emerald-600"
                   >
+                    <option value="gasolina">Gasolina</option>
                     <option value="diesel">Diesel</option>
-                    <option value="petrol">Gasolina</option>
                     <option value="hybrid">Híbrido</option>
                     <option value="electric">Elétrico</option>
                   </select>
@@ -238,46 +238,46 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
             )}
           </div>
 
-          {/* Modalidade de Serviço & Checklist */}
-          <div className="rounded-xl border border-zinc-850 bg-zinc-900/60 p-4 space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+          {/* Dados do Serviço & Diagnóstico Inicial */}
+          <div className="rounded-xl border border-zinc-200 bg-zinc-50/70 p-4 space-y-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-800 flex items-center gap-1.5">
               <Wrench className="h-4 w-4" />
-              2. Modalidade & Checklist de Entrada
+              2. Detalhes do Serviço & Checklist
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label className="text-xs text-zinc-400 block mb-1">Categoria Principal</label>
+                <label className="text-xs text-zinc-600 font-medium block mb-1">Tipo de Serviço</label>
                 <select
                   value={serviceType}
-                  onChange={(e) => setServiceType(e.target.value as any)}
-                  className="w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs text-white font-medium focus:ring-1 focus:ring-emerald-500"
+                  onChange={(e) => setServiceType(e.target.value as AutoServiceType)}
+                  className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs text-zinc-900 shadow-xs focus:ring-1 focus:ring-emerald-600"
                 >
-                  <option value="maintenance">🔧 Manutenção Preventiva & Geral</option>
-                  <option value="bodywork_chapa">🔨 Bate-Chapa & Funilaria</option>
-                  <option value="diagnosis">⚡ Diagnóstico OBD-II & Eletrónico</option>
-                  <option value="painting">🎨 Pintura em Estufa & Verniz</option>
-                  <option value="tuning">🚀 Tuning & Reprogramação ECU</option>
-                  <option value="full_service">⭐ Serviço Completo Integrado</option>
+                  <option value="maintenance">Mecânica Geral / Revisão</option>
+                  <option value="bodywork_chapa">Bate-Chapa & Alinhamento</option>
+                  <option value="diagnosis">Diagnóstico OBD-II / Elétrico</option>
+                  <option value="painting">Pintura em Estufa</option>
+                  <option value="tuning">Tuning / Modificação / ECU</option>
+                  <option value="full_service">Serviço Completo 360º</option>
                 </select>
               </div>
 
               <div>
-                <label className="text-xs text-zinc-400 block mb-1">Quilometragem (KM)</label>
+                <label className="text-xs text-zinc-600 font-medium block mb-1">Quilometragem de Entrada (KM)</label>
                 <Input
                   type="number"
                   value={mileage}
                   onChange={(e) => setMileage(Number(e.target.value))}
-                  className="bg-zinc-950 border-zinc-800 text-xs"
+                  className="bg-white border-zinc-200 text-xs text-zinc-900"
                 />
               </div>
 
               <div>
-                <label className="text-xs text-zinc-400 block mb-1">Nível de Combustível</label>
+                <label className="text-xs text-zinc-600 font-medium block mb-1">Nível de Combustível</label>
                 <select
                   value={fuelLevel}
                   onChange={(e) => setFuelLevel(e.target.value)}
-                  className="w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs text-white"
+                  className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs text-zinc-900 shadow-xs"
                 >
                   <option value="Reserva">Reserva (Quase vazio)</option>
                   <option value="1/4">1/4 de Depósito</option>
@@ -289,32 +289,32 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
             </div>
 
             <div>
-              <label className="text-xs text-zinc-400 block mb-1">Sintomas / Queixa do Cliente</label>
+              <label className="text-xs text-zinc-600 font-medium block mb-1">Sintomas / Queixa do Cliente</label>
               <textarea
                 rows={2}
                 value={customerComplaint}
                 onChange={(e) => setCustomerComplaint(e.target.value)}
                 placeholder="Ex: Barulho na suspensão ao passar em lombas; Troca de óleo 45.000 km..."
-                className="w-full rounded-lg border border-zinc-800 bg-zinc-950 p-2.5 text-xs text-white placeholder:text-zinc-600 focus:ring-1 focus:ring-emerald-500"
+                className="w-full rounded-lg border border-zinc-200 bg-white p-2.5 text-xs text-zinc-900 placeholder:text-zinc-500 focus:ring-1 focus:ring-emerald-600 focus:outline-none"
               />
             </div>
 
             {/* Checklist Danos 360º */}
             <div>
-              <label className="text-xs text-zinc-400 block mb-1">Inspeção Visual (Danos Anteriores)</label>
+              <label className="text-xs text-zinc-600 font-medium block mb-1">Inspeção Visual (Danos Anteriores)</label>
               <div className="flex gap-2 mb-2">
                 <Input
                   value={newDamageArea}
                   onChange={(e) => setNewDamageArea(e.target.value)}
                   placeholder="Ex: Risco no parachoques traseiro esquerdo"
-                  className="bg-zinc-950 border-zinc-800 text-xs flex-1"
+                  className="bg-white border-zinc-200 text-xs flex-1 text-zinc-900"
                 />
                 <Button
                   type="button"
                   size="sm"
                   variant="outline"
                   onClick={handleAddDamage}
-                  className="border-zinc-800 text-xs"
+                  className="border-zinc-200 text-zinc-700 bg-white hover:bg-zinc-50 text-xs"
                 >
                   + Adicionar Dano
                 </Button>
@@ -323,13 +323,13 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
                 {damages.map((d, i) => (
                   <span
                     key={i}
-                    className="inline-flex items-center gap-1 rounded bg-zinc-900 border border-zinc-800 px-2 py-0.5 text-[11px] text-zinc-300"
+                    className="inline-flex items-center gap-1 rounded bg-amber-50 border border-amber-200 px-2 py-0.5 text-[11px] text-amber-900 font-medium"
                   >
                     ⚠️ {d}
                     <button
                       type="button"
                       onClick={() => setDamages(damages.filter((_, idx) => idx !== i))}
-                      className="text-zinc-500 hover:text-red-400"
+                      className="text-amber-700 hover:text-red-600 ml-1"
                     >
                       ×
                     </button>
@@ -340,9 +340,9 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
           </div>
 
           {/* Peças & Mão-de-Obra */}
-          <div className="rounded-xl border border-zinc-850 bg-zinc-900/60 p-4 space-y-3">
+          <div className="rounded-xl border border-zinc-200 bg-zinc-50/70 p-4 space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-800 flex items-center gap-1.5">
                 <DollarSign className="h-4 w-4" />
                 3. Orçamento de Peças & Mão-de-Obra
               </h3>
@@ -351,7 +351,7 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
                 size="sm"
                 variant="outline"
                 onClick={handleAddItem}
-                className="border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs h-7"
+                className="border-emerald-200 bg-emerald-50 text-emerald-800 text-xs h-7 hover:bg-emerald-100"
               >
                 + Adicionar Item
               </Button>
@@ -363,7 +363,7 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
                   <select
                     value={it.item_type}
                     onChange={(e) => handleItemChange(idx, "item_type", e.target.value)}
-                    className="w-32 rounded-lg border border-zinc-800 bg-zinc-950 px-2 py-1.5 text-xs text-white"
+                    className="w-32 rounded-lg border border-zinc-200 bg-white px-2 py-1.5 text-xs text-zinc-900 shadow-xs"
                   >
                     <option value="part">Peça</option>
                     <option value="labor">Mão-de-Obra</option>
@@ -376,7 +376,7 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
                     placeholder="Descrição do serviço ou peça..."
                     value={it.description}
                     onChange={(e) => handleItemChange(idx, "description", e.target.value)}
-                    className="bg-zinc-950 border-zinc-800 text-xs flex-1"
+                    className="bg-white border-zinc-200 text-xs flex-1 text-zinc-900"
                   />
 
                   <Input
@@ -384,7 +384,7 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
                     placeholder="Qtd"
                     value={it.quantity}
                     onChange={(e) => handleItemChange(idx, "quantity", Number(e.target.value))}
-                    className="bg-zinc-950 border-zinc-800 text-xs w-16 text-center"
+                    className="bg-white border-zinc-200 text-xs w-16 text-center text-zinc-900"
                   />
 
                   <Input
@@ -392,13 +392,13 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
                     placeholder="Preço MT"
                     value={it.unit_price}
                     onChange={(e) => handleItemChange(idx, "unit_price", Number(e.target.value))}
-                    className="bg-zinc-950 border-zinc-800 text-xs w-28 text-right font-mono"
+                    className="bg-white border-zinc-200 text-xs w-28 text-right font-mono text-zinc-900"
                   />
 
                   <button
                     type="button"
                     onClick={() => handleRemoveItem(idx)}
-                    className="p-1 text-zinc-500 hover:text-red-400"
+                    className="p-1 text-zinc-500 hover:text-red-600"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -407,21 +407,21 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
             </div>
 
             {/* Totais com IVA */}
-            <div className="pt-3 border-t border-zinc-800 flex justify-end">
+            <div className="pt-3 border-t border-zinc-200 flex justify-end">
               <div className="w-64 space-y-1 text-xs">
-                <div className="flex justify-between text-zinc-400">
+                <div className="flex justify-between text-zinc-600">
                   <span>Total Peças/Materiais:</span>
-                  <span className="font-mono text-white">{totalParts.toLocaleString("pt-MZ")} MT</span>
+                  <span className="font-mono text-zinc-900 font-semibold">{totalParts.toLocaleString("pt-MZ")} MT</span>
                 </div>
-                <div className="flex justify-between text-zinc-400">
+                <div className="flex justify-between text-zinc-600">
                   <span>Total Mão-de-Obra:</span>
-                  <span className="font-mono text-white">{totalLabor.toLocaleString("pt-MZ")} MT</span>
+                  <span className="font-mono text-zinc-900 font-semibold">{totalLabor.toLocaleString("pt-MZ")} MT</span>
                 </div>
-                <div className="flex justify-between text-zinc-400">
+                <div className="flex justify-between text-zinc-600">
                   <span>IVA (16% MZ):</span>
-                  <span className="font-mono text-white">{iva.toLocaleString("pt-MZ")} MT</span>
+                  <span className="font-mono text-zinc-900 font-semibold">{iva.toLocaleString("pt-MZ")} MT</span>
                 </div>
-                <div className="flex justify-between font-bold text-emerald-400 pt-1 border-t border-zinc-800 text-sm">
+                <div className="flex justify-between font-bold text-emerald-800 pt-1 border-t border-zinc-200 text-sm">
                   <span>Total Final:</span>
                   <span className="font-mono">{totalFinal.toLocaleString("pt-MZ")} MT</span>
                 </div>
@@ -435,14 +435,14 @@ export const ServiceOrderModal: React.FC<ServiceOrderModalProps> = ({
               type="button"
               variant="outline"
               onClick={onClose}
-              className="border-zinc-800 text-zinc-400 text-xs"
+              className="border-zinc-200 text-zinc-700 bg-white hover:bg-zinc-50 text-xs shadow-xs"
             >
               Cancelar
             </Button>
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs px-6 shadow-lg shadow-emerald-950"
+              className="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs px-6 shadow-sm"
             >
               {isSubmitting ? "A registar..." : "Abrir Ordem de Serviço"}
             </Button>

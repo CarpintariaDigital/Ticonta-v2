@@ -64,23 +64,23 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-lg shadow-2xl flex flex-col overflow-hidden my-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/40 backdrop-blur-sm animate-fade-in overflow-y-auto">
+      <div className="bg-white border border-zinc-200/80 rounded-2xl w-full max-w-lg shadow-2xl flex flex-col overflow-hidden my-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-slate-800 bg-slate-950/50">
+        <div className="flex items-center justify-between p-5 border-b border-zinc-200 bg-zinc-50/70">
           <div className="flex items-center gap-2.5">
             <div className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
               <Egg className="w-5 h-5" />
             </div>
             <div>
               <h3 className="text-base font-bold text-white">Criar Novo Lote de Aves</h3>
-              <p className="text-xs text-slate-400">Registo de entrada de pintos no pavilhão</p>
+              <p className="text-xs text-zinc-500">Registo de entrada de pintos no pavilhão</p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+            className="p-1.5 text-zinc-500 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -89,7 +89,7 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
         <form onSubmit={handleSubmit} className="p-5 space-y-4 overflow-y-auto max-h-[80vh]">
           {/* Species Selection */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
+            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1.5">
               Espécie de Aves *
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -101,13 +101,13 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
                   className={`p-3 rounded-xl border text-left flex items-center gap-2.5 transition-all text-xs ${
                     species === opt.id
                       ? "bg-emerald-950/60 border-emerald-500 text-white font-bold shadow-md"
-                      : "bg-slate-950/80 border-slate-800 text-slate-400 hover:text-slate-200"
+                      : "bg-white border-zinc-200 text-zinc-500 hover:text-zinc-800"
                   }`}
                 >
                   <span className="text-xl">{opt.icon}</span>
                   <div>
                     <span className="block font-semibold">{opt.label}</span>
-                    <span className="text-[10px] text-slate-500">Ciclo: ~{opt.cycleDays} dias</span>
+                    <span className="text-[10px] text-zinc-500">Ciclo: ~{opt.cycleDays} dias</span>
                   </div>
                 </button>
               ))}
@@ -117,7 +117,7 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
           {/* Quantity & Cost per Bird */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
                 Quantidade de Pintos *
               </label>
               <input
@@ -126,12 +126,12 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
                 required
                 value={quantity}
                 onChange={(e) => setQuantity(parseInt(e.target.value, 10) || 0)}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-sm font-bold focus:outline-none focus:border-emerald-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-sm font-bold focus:outline-none focus:border-emerald-500"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
                 Custo por Pinto (MT) *
               </label>
               <input
@@ -141,14 +141,14 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
                 required
                 value={costPerBird}
                 onChange={(e) => setCostPerBird(parseFloat(e.target.value) || 0)}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-sm font-bold focus:outline-none focus:border-emerald-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-sm font-bold focus:outline-none focus:border-emerald-500"
               />
             </div>
           </div>
 
           {/* Initial Cost Summary Banner */}
-          <div className="p-3 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between text-xs">
-            <span className="text-slate-400">Investimento Inicial em Pintos:</span>
+          <div className="p-3 bg-white border border-zinc-200 rounded-xl flex items-center justify-between text-xs">
+            <span className="text-zinc-500">Investimento Inicial em Pintos:</span>
             <span className="font-extrabold text-emerald-400 text-sm">
               {totalInitialCost.toLocaleString("pt-MZ")} MT
             </span>
@@ -157,7 +157,7 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
           {/* Start Date & Feed Type */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
                 Data de Entrada *
               </label>
               <input
@@ -165,12 +165,12 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
                 required
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
                 Tipo de Ração
               </label>
               <input
@@ -178,14 +178,14 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
                 value={feedType}
                 onChange={(e) => setFeedType(e.target.value)}
                 placeholder="Ex: Ração Inicial 50kg"
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-emerald-500"
               />
             </div>
           </div>
 
           {/* Custom Flock Number / Batch Code */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
               Código / Nome do Lote (Opcional)
             </label>
             <input
@@ -193,7 +193,7 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
               value={flockNumber}
               onChange={(e) => setFlockNumber(e.target.value)}
               placeholder="Ex: LOTE-2026-003 (Gerado auto se vazio)"
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-emerald-500"
             />
           </div>
 
@@ -202,7 +202,7 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl transition-colors"
+              className="flex-1 py-3 px-4 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl transition-colors"
             >
               Cancelar
             </button>

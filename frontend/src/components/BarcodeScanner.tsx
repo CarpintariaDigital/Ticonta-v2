@@ -105,7 +105,7 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isOpen, 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-between bg-black/95 text-white animate-in fade-in duration-200 p-4">
       {/* Top Header */}
-      <div className="w-full max-w-md flex items-center justify-between py-2 border-b border-zinc-800">
+      <div className="w-full max-w-md flex items-center justify-between py-2 border-b border-zinc-200">
         <div className="flex items-center gap-2">
           <QrCode className="h-5 w-5 text-emerald-400" />
           <span className="font-bold text-sm tracking-wide">LEITOR DE CÓDIGO DE BARRAS</span>
@@ -116,7 +116,7 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isOpen, 
             <button
               onClick={toggleTorch}
               className={`p-2 rounded-full border transition-all ${
-                torchOn ? "bg-amber-400 text-black border-amber-400" : "bg-zinc-900 border-zinc-700 text-zinc-300"
+                torchOn ? "bg-amber-400 text-black border-amber-400" : "bg-zinc-50 border-zinc-200 text-zinc-700"
               }`}
               title="Ligar Lanterna"
             >
@@ -126,7 +126,7 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isOpen, 
 
           <button
             onClick={onClose}
-            className="p-2 rounded-full bg-zinc-900 border border-zinc-700 text-zinc-300 hover:text-white"
+            className="p-2 rounded-full bg-zinc-50 border border-zinc-200 text-zinc-700 hover:text-white"
           >
             <X className="h-4 w-4" />
           </button>
@@ -137,12 +137,12 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isOpen, 
       <div className="w-full max-w-md flex-1 flex flex-col items-center justify-center my-4 relative">
         <div
           id={readerElementId}
-          className="w-full max-w-[320px] aspect-square rounded-2xl overflow-hidden border-2 border-emerald-500/80 shadow-[0_0_30px_rgba(16,185,129,0.2)] bg-zinc-950 relative"
+          className="w-full max-w-[320px] aspect-square rounded-2xl overflow-hidden border-2 border-emerald-500/80 shadow-[0_0_30px_rgba(16,185,129,0.2)] bg-white relative"
         />
 
         {/* Guia de Enquadramento */}
         <div className="absolute pointer-events-none w-64 h-36 border-2 border-dashed border-emerald-400/90 rounded-xl flex items-center justify-center">
-          <span className="text-[11px] font-mono text-emerald-400/80 bg-black/60 px-2 py-0.5 rounded">
+          <span className="text-[11px] font-mono text-emerald-400/80 bg-zinc-950/30 px-2 py-0.5 rounded">
             Alinhe o Código aqui
           </span>
         </div>
@@ -156,9 +156,9 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isOpen, 
       </div>
 
       {/* Bottom Controls / Manual Fallback */}
-      <div className="w-full max-w-md bg-zinc-900/90 border border-zinc-800 rounded-2xl p-3 space-y-2">
+      <div className="w-full max-w-md bg-white/90 border border-zinc-200 rounded-2xl p-3 space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-xs text-zinc-400">Teclado Manual</span>
+          <span className="text-xs text-zinc-500">Teclado Manual</span>
           <button
             onClick={() => setShowManual(!showManual)}
             className="text-xs text-emerald-400 hover:underline flex items-center gap-1"
@@ -174,7 +174,7 @@ export const BarcodeScanner: React.FC<BarcodeScannerProps> = ({ onScan, isOpen, 
               value={manualCode}
               onChange={(e) => setManualCode(e.target.value)}
               placeholder="Ex: 560123456789 ou SKU-PORTA-01"
-              className="bg-zinc-950 border-zinc-700 text-white placeholder:text-zinc-600 h-9 text-xs"
+              className="bg-white border-zinc-200 text-white placeholder:text-zinc-600 h-9 text-xs"
               autoFocus
             />
             <Button type="submit" size="sm" className="bg-emerald-600 hover:bg-emerald-500 text-white h-9 px-4 text-xs font-semibold">

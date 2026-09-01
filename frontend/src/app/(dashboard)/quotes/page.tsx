@@ -269,7 +269,7 @@ ${itemsList}
   return (
     <div className="w-full space-y-6">
       {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-6 rounded-3xl backdrop-blur shadow-2xl">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/80 border border-zinc-200 p-6 rounded-3xl backdrop-blur shadow-2xl">
             <div className="flex items-center gap-3">
               <div className="p-3 rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 text-blue-400 border border-blue-500/30">
                 <FileText className="w-6 h-6" />
@@ -278,7 +278,7 @@ ${itemsList}
                 <h1 className="text-2xl font-bold text-white tracking-tight">
                   Cotações & Faturas Pró-Forma
                 </h1>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-zinc-500">
                   Emissão de propostas comerciais com IVA 16%, envio WhatsApp e conversão em venda.
                 </p>
               </div>
@@ -296,16 +296,16 @@ ${itemsList}
           {/* Search & Metrics bar */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="sm:col-span-2 relative">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <Input
                 placeholder="Pesquisar por nº de documento, cliente ou NUIT..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-slate-900 border-slate-800 text-white text-xs h-11 rounded-2xl"
+                className="pl-10 bg-white border-zinc-200 text-white text-xs h-11 rounded-2xl"
               />
             </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl px-4 py-2 flex items-center justify-between">
-              <span className="text-xs text-slate-400">Total em Propostas:</span>
+            <div className="bg-white border border-zinc-200 rounded-2xl px-4 py-2 flex items-center justify-between">
+              <span className="text-xs text-zinc-500">Total em Propostas:</span>
               <span className="font-mono font-bold text-white text-sm">
                 {quotes.reduce((acc, q) => acc + q.total_amount, 0).toLocaleString("pt-MZ")}{" "}
                 <span className="text-emerald-400 text-xs">MT</span>
@@ -314,10 +314,10 @@ ${itemsList}
           </div>
 
           {/* Quotes Table */}
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+          <div className="bg-white border border-zinc-200 rounded-3xl overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950/80 text-slate-400 uppercase text-[10px] font-bold border-b border-slate-800">
+                <thead className="bg-white text-zinc-500 uppercase text-[10px] font-bold border-b border-zinc-200">
                   <tr>
                     <th className="py-3.5 px-4">Documento</th>
                     <th className="py-3.5 px-4">Cliente / Entidade</th>
@@ -328,7 +328,7 @@ ${itemsList}
                     <th className="py-3.5 px-4 text-right">Ações</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/80 text-slate-300">
+                <tbody className="divide-y divide-slate-800/80 text-zinc-700">
                   {filteredQuotes.map((q) => (
                     <tr key={q.id} className="hover:bg-slate-800/40 transition-colors">
                       <td className="py-3.5 px-4">
@@ -345,15 +345,15 @@ ${itemsList}
                       </td>
                       <td className="py-3.5 px-4">
                         <span className="font-bold text-white block">{q.customer_name}</span>
-                        <span className="text-[10px] text-slate-400 font-mono">
+                        <span className="text-[10px] text-zinc-500 font-mono">
                           NUIT: {q.customer_nuit} {q.customer_phone && `• 📞 ${q.customer_phone}`}
                         </span>
                       </td>
                       <td className="py-3.5 px-4 text-[11px]">
                         <div>{q.date}</div>
-                        <div className="text-slate-500 text-[10px]">{q.validity_days} dias validade</div>
+                        <div className="text-zinc-500 text-[10px]">{q.validity_days} dias validade</div>
                       </td>
-                      <td className="py-3.5 px-4 font-mono text-slate-300">
+                      <td className="py-3.5 px-4 font-mono text-zinc-700">
                         {q.items.length} itens
                       </td>
                       <td className="py-3.5 px-4 font-mono font-bold text-emerald-400 text-sm">
@@ -388,7 +388,7 @@ ${itemsList}
                           <button
                             onClick={() => handlePrint(q)}
                             title="Imprimir / PDF"
-                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors"
+                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-zinc-800 border border-zinc-200 transition-colors"
                           >
                             <Printer className="w-3.5 h-3.5" />
                           </button>
@@ -403,14 +403,14 @@ ${itemsList}
 
           {/* Modal: Create Proforma / Quote */}
           {isModalOpen && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in">
-              <div className="relative w-full max-w-3xl bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-800 shrink-0">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white backdrop-blur-sm animate-in fade-in">
+              <div className="relative w-full max-w-3xl bg-white border border-zinc-200 rounded-3xl p-6 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+                <div className="flex items-center justify-between pb-3 border-b border-zinc-200 shrink-0">
                   <h2 className="text-base font-bold text-white flex items-center gap-2">
                     <FileText className="w-5 h-5 text-blue-400" />
                     Nova Fatura Pró-Forma / Cotação Comercial
                   </h2>
-                  <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-white">
+                  <button onClick={() => setIsModalOpen(false)} className="text-zinc-500 hover:text-white">
                     ✕
                   </button>
                 </div>
@@ -424,7 +424,7 @@ ${itemsList}
                       className={`p-2.5 rounded-xl border text-center font-bold transition-all ${
                         quoteType === "proforma"
                           ? "bg-blue-600 text-white border-blue-400"
-                          : "bg-slate-950 border-slate-800 text-slate-400"
+                          : "bg-white border-zinc-200 text-zinc-500"
                       }`}
                     >
                       Fatura Pró-Forma (FP)
@@ -435,7 +435,7 @@ ${itemsList}
                       className={`p-2.5 rounded-xl border text-center font-bold transition-all ${
                         quoteType === "quote"
                           ? "bg-purple-600 text-white border-purple-400"
-                          : "bg-slate-950 border-slate-800 text-slate-400"
+                          : "bg-white border-zinc-200 text-zinc-500"
                       }`}
                     >
                       Cotação Comercial (COT)
@@ -443,48 +443,48 @@ ${itemsList}
                   </div>
 
                   {/* Customer Details */}
-                  <div className="bg-slate-950/60 p-3.5 rounded-2xl border border-slate-800 space-y-3">
-                    <span className="text-[10px] font-bold uppercase text-slate-400 block">
+                  <div className="bg-zinc-50/80 p-3.5 rounded-2xl border border-zinc-200 space-y-3">
+                    <span className="text-[10px] font-bold uppercase text-zinc-500 block">
                       Dados do Cliente / Adjudicatário
                     </span>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-slate-300 font-semibold mb-1">Nome / Empresa *</label>
+                        <label className="block text-zinc-700 font-semibold mb-1">Nome / Empresa *</label>
                         <Input
                           required
                           placeholder="ex: Moza Empreendimentos Lda"
                           value={customerName}
                           onChange={(e) => setCustomerName(e.target.value)}
-                          className="bg-slate-900 border-slate-700 text-white"
+                          className="bg-white border-zinc-200 text-white"
                         />
                       </div>
                       <div>
-                        <label className="block text-slate-300 font-semibold mb-1">NUIT</label>
+                        <label className="block text-zinc-700 font-semibold mb-1">NUIT</label>
                         <Input
                           placeholder="ex: 400123456"
                           value={customerNuit}
                           onChange={(e) => setCustomerNuit(e.target.value)}
-                          className="bg-slate-900 border-slate-700 text-white font-mono"
+                          className="bg-white border-zinc-200 text-white font-mono"
                         />
                       </div>
                       <div>
-                        <label className="block text-slate-300 font-semibold mb-1">Contacto WhatsApp *</label>
+                        <label className="block text-zinc-700 font-semibold mb-1">Contacto WhatsApp *</label>
                         <Input
                           required
                           placeholder="ex: 841234567"
                           value={customerPhone}
                           onChange={(e) => setCustomerPhone(e.target.value)}
-                          className="bg-slate-900 border-slate-700 text-white font-mono"
+                          className="bg-white border-zinc-200 text-white font-mono"
                         />
                       </div>
                       <div>
-                        <label className="block text-slate-300 font-semibold mb-1">Email</label>
+                        <label className="block text-zinc-700 font-semibold mb-1">Email</label>
                         <Input
                           type="email"
                           placeholder="compras@empresa.co.mz"
                           value={customerEmail}
                           onChange={(e) => setCustomerEmail(e.target.value)}
-                          className="bg-slate-900 border-slate-700 text-white"
+                          className="bg-white border-zinc-200 text-white"
                         />
                       </div>
                     </div>
@@ -493,7 +493,7 @@ ${itemsList}
                   {/* Items Lines */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold uppercase text-slate-400 block">
+                      <span className="text-[10px] font-bold uppercase text-zinc-500 block">
                         Linhas de Artigos / Serviços
                       </span>
                       <Button
@@ -509,7 +509,7 @@ ${itemsList}
                       {items.map((item, idx) => (
                         <div
                           key={item.id}
-                          className="grid grid-cols-12 gap-2 p-2 bg-slate-950 border border-slate-800 rounded-xl items-center"
+                          className="grid grid-cols-12 gap-2 p-2 bg-white border border-zinc-200 rounded-xl items-center"
                         >
                           <div className="col-span-6">
                             <Input
@@ -517,7 +517,7 @@ ${itemsList}
                               placeholder="Designação do artigo ou serviço"
                               value={item.description}
                               onChange={(e) => handleItemChange(item.id, "description", e.target.value)}
-                              className="bg-slate-900 border-slate-700 text-white h-8 text-xs"
+                              className="bg-white border-zinc-200 text-white h-8 text-xs"
                             />
                           </div>
                           <div className="col-span-2">
@@ -527,7 +527,7 @@ ${itemsList}
                               placeholder="Qtd"
                               value={item.quantity}
                               onChange={(e) => handleItemChange(item.id, "quantity", Number(e.target.value))}
-                              className="bg-slate-900 border-slate-700 text-white h-8 text-xs font-mono"
+                              className="bg-white border-zinc-200 text-white h-8 text-xs font-mono"
                             />
                           </div>
                           <div className="col-span-2">
@@ -537,7 +537,7 @@ ${itemsList}
                               placeholder="Preço (MT)"
                               value={item.unit_price || ""}
                               onChange={(e) => handleItemChange(item.id, "unit_price", Number(e.target.value))}
-                              className="bg-slate-900 border-slate-700 text-white h-8 text-xs font-mono"
+                              className="bg-white border-zinc-200 text-white h-8 text-xs font-mono"
                             />
                           </div>
                           <div className="col-span-1">
@@ -546,7 +546,7 @@ ${itemsList}
                               placeholder="Desc %"
                               value={item.discount || ""}
                               onChange={(e) => handleItemChange(item.id, "discount", Number(e.target.value))}
-                              className="bg-slate-900 border-slate-700 text-white h-8 text-xs font-mono"
+                              className="bg-white border-zinc-200 text-white h-8 text-xs font-mono"
                             />
                           </div>
                           <div className="col-span-1 text-center">
@@ -567,42 +567,42 @@ ${itemsList}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                     <div className="space-y-2">
                       <div>
-                        <label className="block text-slate-300 font-semibold mb-1">Validade da Proposta (Dias)</label>
+                        <label className="block text-zinc-700 font-semibold mb-1">Validade da Proposta (Dias)</label>
                         <Input
                           type="number"
                           value={validityDays}
                           onChange={(e) => setValidityDays(Number(e.target.value))}
-                          className="bg-slate-900 border-slate-700 text-white font-mono"
+                          className="bg-white border-zinc-200 text-white font-mono"
                         />
                       </div>
                       <div>
-                        <label className="block text-slate-300 font-semibold mb-1">Condições de Pagamento</label>
+                        <label className="block text-zinc-700 font-semibold mb-1">Condições de Pagamento</label>
                         <Input
                           value={paymentTerms}
                           onChange={(e) => setPaymentTerms(e.target.value)}
-                          className="bg-slate-900 border-slate-700 text-white"
+                          className="bg-white border-zinc-200 text-white"
                         />
                       </div>
                     </div>
 
-                    <div className="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-1 font-mono text-xs">
-                      <div className="flex justify-between text-slate-400">
+                    <div className="bg-white p-3 rounded-2xl border border-zinc-200 space-y-1 font-mono text-xs">
+                      <div className="flex justify-between text-zinc-500">
                         <span>Subtotal:</span>
                         <span>{subtotal.toFixed(2)} MT</span>
                       </div>
-                      <div className="flex justify-between text-slate-400">
+                      <div className="flex justify-between text-zinc-500">
                         <span>IVA {companyProfile.default_vat_rate}%:</span>
                         <span className="text-emerald-400">{taxAmount.toFixed(2)} MT</span>
                       </div>
-                      <div className="flex justify-between font-black text-sm pt-2 border-t border-slate-800 text-white">
+                      <div className="flex justify-between font-black text-sm pt-2 border-t border-zinc-200 text-white">
                         <span>VALOR TOTAL:</span>
                         <span className="text-emerald-400">{totalAmount.toFixed(2)} MT</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
-                    <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)} className="border-slate-700">
+                  <div className="flex justify-end gap-2 pt-3 border-t border-zinc-200">
+                    <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)} className="border-zinc-200">
                       Cancelar
                     </Button>
                     <Button type="submit" className="bg-blue-600 hover:bg-blue-500 text-white font-bold">

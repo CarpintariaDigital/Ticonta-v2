@@ -69,15 +69,15 @@ export default function ReportsPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans">
+      <div className="min-h-screen bg-white text-zinc-900 flex flex-col font-sans">
         {/* Top Header */}
-        <header className="border-b border-zinc-800 bg-zinc-900/60 backdrop-blur px-6 py-4 flex items-center justify-between">
+        <header className="border-b border-zinc-200 bg-white backdrop-blur px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/dashboard">
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 w-8 p-0 text-zinc-400 hover:text-white hover:bg-zinc-800"
+                className="h-8 w-8 p-0 text-zinc-500 hover:text-white hover:bg-zinc-800"
               >
                 <ArrowLeft className="h-4 w-4" />
               </Button>
@@ -87,13 +87,13 @@ export default function ReportsPage() {
             </div>
             <div>
               <h1 className="text-base font-bold text-white leading-tight">Relatórios & BI Executivo</h1>
-              <p className="text-xs text-zinc-400">Análise de Desempenho, Vendas, Margens e Compliance</p>
+              <p className="text-xs text-zinc-500">Análise de Desempenho, Vendas, Margens e Compliance</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 bg-zinc-900 px-2.5 py-1 rounded-lg border border-zinc-800">
-              <span className="text-[11px] font-semibold text-zinc-400">Período:</span>
+            <div className="flex items-center gap-1.5 bg-zinc-50 px-2.5 py-1 rounded-lg border border-zinc-200">
+              <span className="text-[11px] font-semibold text-zinc-500">Período:</span>
               <input
                 type="month"
                 value={selectedPeriod}
@@ -106,7 +106,7 @@ export default function ReportsPage() {
               variant="outline"
               size="sm"
               onClick={() => fetchActiveReport(activeReportType, selectedPeriod)}
-              className="border-zinc-800 bg-zinc-900 text-zinc-300 hover:bg-zinc-800 text-xs"
+              className="border-zinc-200 bg-zinc-50 text-zinc-700 hover:bg-zinc-800 text-xs"
             >
               <RefreshCw className={`h-3.5 w-3.5 mr-1.5 ${isLoading ? "animate-spin" : ""}`} />
               Atualizar
@@ -116,7 +116,7 @@ export default function ReportsPage() {
               variant="outline"
               size="sm"
               onClick={handleExportCSV}
-              className="border-zinc-800 bg-zinc-900 text-zinc-300 text-xs"
+              className="border-zinc-200 bg-zinc-50 text-zinc-700 text-xs"
             >
               <FileSpreadsheet className="h-3.5 w-3.5 mr-1.5 text-emerald-400" />
               Excel / CSV
@@ -134,7 +134,7 @@ export default function ReportsPage() {
         </header>
 
         {/* Tab Navigation */}
-        <div className="border-b border-zinc-800 bg-zinc-900/40 px-6 py-2">
+        <div className="border-b border-zinc-200 bg-zinc-50/40 px-6 py-2">
           <div className="flex flex-wrap gap-2">
             {REPORT_TABS.map((tab) => {
               const Icon = tab.icon;
@@ -145,7 +145,7 @@ export default function ReportsPage() {
                   className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
                     activeReportType === tab.id
                       ? "bg-purple-600 text-white shadow-lg shadow-purple-950/40"
-                      : "bg-zinc-900 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200 border border-zinc-800"
+                      : "bg-zinc-50 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-800 border border-zinc-200"
                   }`}
                 >
                   <Icon className="h-3.5 w-3.5" />
@@ -164,25 +164,25 @@ export default function ReportsPage() {
           )}
 
           {activeReportType === "crm" && crmData && (
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 space-y-4 font-sans">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-zinc-800 pb-2">
+            <div className="rounded-2xl border border-zinc-200 bg-white p-6 space-y-4 font-sans">
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-zinc-200 pb-2">
                 Resumo Executivo do Pipeline CRM ({crmData.period})
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                  <span className="text-xs text-zinc-400 font-bold">Valor Total em Propostas</span>
+                <div className="p-4 rounded-xl bg-white border border-zinc-200">
+                  <span className="text-xs text-zinc-500 font-bold">Valor Total em Propostas</span>
                   <p className="text-xl font-black text-white mt-1">
                     {Number(crmData.pipeline_total_value).toLocaleString("pt-MZ")} MZN
                   </p>
                 </div>
-                <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                  <span className="text-xs text-zinc-400 font-bold">Valor Ponderado (Probabilidade)</span>
+                <div className="p-4 rounded-xl bg-white border border-zinc-200">
+                  <span className="text-xs text-zinc-500 font-bold">Valor Ponderado (Probabilidade)</span>
                   <p className="text-xl font-black text-amber-400 mt-1">
                     {Number(crmData.weighted_pipeline_value).toLocaleString("pt-MZ")} MZN
                   </p>
                 </div>
-                <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                  <span className="text-xs text-zinc-400 font-bold">Taxa de Sucesso (Win Rate)</span>
+                <div className="p-4 rounded-xl bg-white border border-zinc-200">
+                  <span className="text-xs text-zinc-500 font-bold">Taxa de Sucesso (Win Rate)</span>
                   <p className="text-xl font-black text-emerald-400 mt-1">
                     {crmData.win_rate_percentage}%
                   </p>
@@ -192,31 +192,31 @@ export default function ReportsPage() {
           )}
 
           {activeReportType === "projects" && projectsData && (
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 space-y-4 font-sans">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-zinc-800 pb-2">
+            <div className="rounded-2xl border border-zinc-200 bg-white p-6 space-y-4 font-sans">
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-zinc-200 pb-2">
                 Desempenho Financeiro de Obras & Contratos
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                  <span className="text-xs text-zinc-400 font-bold">Orçamento Contratado</span>
+                <div className="p-4 rounded-xl bg-white border border-zinc-200">
+                  <span className="text-xs text-zinc-500 font-bold">Orçamento Contratado</span>
                   <p className="text-xl font-black text-white mt-1">
                     {Number(projectsData.total_budget_contracted).toLocaleString("pt-MZ")} MZN
                   </p>
                 </div>
-                <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                  <span className="text-xs text-zinc-400 font-bold">Custos Reais de Execução</span>
+                <div className="p-4 rounded-xl bg-white border border-zinc-200">
+                  <span className="text-xs text-zinc-500 font-bold">Custos Reais de Execução</span>
                   <p className="text-xl font-black text-red-400 mt-1">
                     {Number(projectsData.total_actual_expenses).toLocaleString("pt-MZ")} MZN
                   </p>
                 </div>
-                <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                  <span className="text-xs text-zinc-400 font-bold">Margem de Lucro Global</span>
+                <div className="p-4 rounded-xl bg-white border border-zinc-200">
+                  <span className="text-xs text-zinc-500 font-bold">Margem de Lucro Global</span>
                   <p className="text-xl font-black text-emerald-400 mt-1">
                     {Number(projectsData.overall_profit).toLocaleString("pt-MZ")} MZN
                   </p>
                 </div>
-                <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                  <span className="text-xs text-zinc-400 font-bold">Avanço Físico Médio</span>
+                <div className="p-4 rounded-xl bg-white border border-zinc-200">
+                  <span className="text-xs text-zinc-500 font-bold">Avanço Físico Médio</span>
                   <p className="text-xl font-black text-blue-400 mt-1">
                     {projectsData.average_progress_percentage}%
                   </p>
@@ -226,31 +226,31 @@ export default function ReportsPage() {
           )}
 
           {activeReportType === "hr" && hrData && (
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 space-y-4 font-sans">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-zinc-800 pb-2">
+            <div className="rounded-2xl border border-zinc-200 bg-white p-6 space-y-4 font-sans">
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-zinc-200 pb-2">
                 Demonstrativo de Recursos Humanos & Encargos INSS
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                  <span className="text-xs text-zinc-400 font-bold">Massa Salarial</span>
+                <div className="p-4 rounded-xl bg-white border border-zinc-200">
+                  <span className="text-xs text-zinc-500 font-bold">Massa Salarial</span>
                   <p className="text-xl font-black text-white mt-1">
                     {Number(hrData.total_gross_payroll).toLocaleString("pt-MZ")} MZN
                   </p>
                 </div>
-                <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                  <span className="text-xs text-zinc-400 font-bold">Guia Total INSS (7%)</span>
+                <div className="p-4 rounded-xl bg-white border border-zinc-200">
+                  <span className="text-xs text-zinc-500 font-bold">Guia Total INSS (7%)</span>
                   <p className="text-xl font-black text-purple-400 mt-1">
                     {Number(hrData.total_inss_guia).toLocaleString("pt-MZ")} MZN
                   </p>
                 </div>
-                <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                  <span className="text-xs text-zinc-400 font-bold">Retenção IRPS</span>
+                <div className="p-4 rounded-xl bg-white border border-zinc-200">
+                  <span className="text-xs text-zinc-500 font-bold">Retenção IRPS</span>
                   <p className="text-xl font-black text-amber-400 mt-1">
                     {Number(hrData.total_irps_retained).toLocaleString("pt-MZ")} MZN
                   </p>
                 </div>
-                <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                  <span className="text-xs text-zinc-400 font-bold">Taxa de Assiduidade</span>
+                <div className="p-4 rounded-xl bg-white border border-zinc-200">
+                  <span className="text-xs text-zinc-500 font-bold">Taxa de Assiduidade</span>
                   <p className="text-xl font-black text-emerald-400 mt-1">
                     {hrData.attendance_rate_percentage}%
                   </p>

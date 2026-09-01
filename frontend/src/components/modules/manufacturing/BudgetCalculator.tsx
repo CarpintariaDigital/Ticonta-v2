@@ -55,165 +55,152 @@ export default function BudgetCalculator({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 font-sans">
       {/* Input Parameters Form */}
-      <div className="space-y-4 rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5">
-        <h4 className="text-xs font-bold text-white uppercase tracking-wider border-b border-zinc-800 pb-2 flex items-center gap-2">
-          <Calculator className="h-4 w-4 text-emerald-400" />
-          Parâmetros de Custo de Fabrico
+      <div className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-5 shadow-xs">
+        <h4 className="text-xs font-bold text-emerald-950 uppercase tracking-wider border-b border-zinc-200 pb-2 flex items-center gap-2 font-mono">
+          <Calculator className="h-4 w-4 text-emerald-600" />
+          Parâmetros de Custo Direto & Mão de Obra
         </h4>
 
-        <div className="space-y-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-zinc-300">
-              Custo de Matéria-Prima & Insumos (MZN)
-            </label>
+            <label className="text-zinc-600 font-semibold">Custo de Materiais (MZN)</label>
             <Input
               type="number"
               value={materialCost}
               onChange={(e) => setMaterialCost(e.target.value)}
-              className="bg-zinc-950 border-zinc-800 text-xs font-mono"
+              className="bg-white border-zinc-300 font-mono text-zinc-900 rounded-xl"
             />
-            <span className="text-[10px] text-zinc-500">Madeira, MDF, colas, puxadores e ferragens</span>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-zinc-300">Horas de Mão de Obra</label>
-              <Input
-                type="number"
-                value={laborHours}
-                onChange={(e) => setLaborHours(e.target.value)}
-                className="bg-zinc-950 border-zinc-800 text-xs font-mono"
-              />
-            </div>
-
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-zinc-300">Taxa Horária (MZN/h)</label>
-              <Input
-                type="number"
-                value={laborRate}
-                onChange={(e) => setLaborRate(e.target.value)}
-                className="bg-zinc-950 border-zinc-800 text-xs font-mono"
-              />
-            </div>
+          <div className="space-y-1">
+            <label className="text-zinc-600 font-semibold">Horas Estimadas de Trabalho</label>
+            <Input
+              type="number"
+              value={laborHours}
+              onChange={(e) => setLaborHours(e.target.value)}
+              className="bg-white border-zinc-300 font-mono text-zinc-900 rounded-xl"
+            />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-zinc-300">Encargos / Overhead (%)</label>
-              <Input
-                type="number"
-                value={overheadPct}
-                onChange={(e) => setOverheadPct(e.target.value)}
-                className="bg-zinc-950 border-zinc-800 text-xs font-mono"
-              />
-              <span className="text-[10px] text-zinc-500">Energia, desgaste de ferramentas</span>
-            </div>
+          <div className="space-y-1">
+            <label className="text-zinc-600 font-semibold">Taxa Horária Mão de Obra (MZN/h)</label>
+            <Input
+              type="number"
+              value={laborRate}
+              onChange={(e) => setLaborRate(e.target.value)}
+              className="bg-white border-zinc-300 font-mono text-zinc-900 rounded-xl"
+            />
+          </div>
 
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-zinc-300">Margem por Dentro (%)</label>
-              <Input
-                type="number"
-                value={marginPct}
-                onChange={(e) => setMarginPct(e.target.value)}
-                className="bg-zinc-950 border-zinc-800 text-xs font-mono"
-              />
-              <span className="text-[10px] text-zinc-500">Margem líquida de lucro</span>
-            </div>
+          <div className="space-y-1">
+            <label className="text-zinc-600 font-semibold">Custos Indiretos / Overhead (%)</label>
+            <Input
+              type="number"
+              value={overheadPct}
+              onChange={(e) => setOverheadPct(e.target.value)}
+              className="bg-white border-zinc-300 font-mono text-zinc-900 rounded-xl"
+            />
+          </div>
+
+          <div className="space-y-1 sm:col-span-2">
+            <label className="text-zinc-600 font-semibold">Margem de Lucro Desejada (%)</label>
+            <Input
+              type="number"
+              value={marginPct}
+              onChange={(e) => setMarginPct(e.target.value)}
+              className="bg-white border-zinc-300 font-mono text-zinc-900 rounded-xl"
+            />
           </div>
         </div>
 
         {onCreateWorkOrder && (
-          <div className="pt-4 border-t border-zinc-800 space-y-2">
-            <label className="text-xs font-semibold text-zinc-300">Converter em Ordem de Produção (OP)</label>
+          <div className="pt-3 border-t border-zinc-200 space-y-2">
+            <label className="text-xs font-bold text-emerald-950 uppercase tracking-wider block font-mono">
+              Converter Orçamento em Ordem de Produção (OP)
+            </label>
             <div className="flex gap-2">
               <Input
-                placeholder="Nome da peça (ex: Balcão Caixa em Madeira Chanfuta)"
+                placeholder="Descrição da Encomenda (ex: 8 Balcões de Atendimento)"
                 value={projectName}
                 onChange={(e) => setProjectName(e.target.value)}
-                className="bg-zinc-950 border-zinc-800 text-xs flex-1"
+                className="bg-white border-zinc-300 text-xs text-zinc-900 rounded-xl"
               />
               <Button
                 size="sm"
                 onClick={handleSaveAsWorkOrder}
-                disabled={!projectName.trim() || !result}
-                className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shrink-0"
+                className="bg-amber-700 hover:bg-amber-800 text-white font-bold shrink-0 rounded-xl font-mono shadow-xs"
               >
                 <Save className="h-3.5 w-3.5 mr-1" />
                 Criar OP
               </Button>
             </div>
             {savedSuccess && (
-              <span className="text-[11px] text-emerald-400 flex items-center gap-1">
-                <CheckCircle2 className="h-3 w-3" /> Ordem de produção criada com sucesso!
-              </span>
+              <p className="text-xs text-emerald-700 flex items-center gap-1 font-semibold">
+                <CheckCircle2 className="h-3.5 w-3.5" /> Ordem de produção criada com sucesso!
+              </p>
             )}
           </div>
         )}
       </div>
 
-      {/* Real-time Calculation Breakdown Cards */}
-      {result && (
-        <div className="space-y-4 rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5 flex flex-col justify-between">
-          <div>
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider border-b border-zinc-800 pb-2">
-              Demonstrativo Financeiro do Orçamento
-            </h4>
+      {/* Real-time Calculation Breakdown Preview */}
+      <div className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-5 shadow-xs flex flex-col justify-between">
+        <div>
+          <h4 className="text-xs font-bold text-emerald-950 uppercase tracking-wider border-b border-zinc-200 pb-2 flex items-center gap-2 font-mono">
+            <TrendingUp className="h-4 w-4 text-emerald-600" />
+            Desdobramento Financeiro do Orçamento
+          </h4>
 
-            <div className="space-y-3 pt-3">
-              <div className="flex justify-between text-xs py-1 border-b border-zinc-800/40">
-                <span className="text-zinc-400">1. Custo Matéria-Prima:</span>
-                <span className="font-mono text-white">
-                  {Number(result.material_cost).toLocaleString("pt-MZ")} MZN
+          {result ? (
+            <div className="space-y-2.5 pt-3 text-xs text-zinc-700">
+              <div className="flex justify-between py-1 border-b border-zinc-100">
+                <span className="text-zinc-500">Custo Total de Materiais:</span>
+                <span className="font-mono font-medium text-zinc-900">
+                  {result.material_cost.toLocaleString("pt-MZ")} MZN
                 </span>
               </div>
-
-              <div className="flex justify-between text-xs py-1 border-b border-zinc-800/40">
-                <span className="text-zinc-400">
-                  2. Mão de Obra ({result.labor_hours}h × {result.labor_rate} MZN):
-                </span>
-                <span className="font-mono text-white">
-                  {Number(result.labor_cost).toLocaleString("pt-MZ")} MZN
+              <div className="flex justify-between py-1 border-b border-zinc-100">
+                <span className="text-zinc-500">Custo Total de Mão de Obra:</span>
+                <span className="font-mono font-medium text-zinc-900">
+                  {result.labor_cost.toLocaleString("pt-MZ")} MZN
                 </span>
               </div>
-
-              <div className="flex justify-between text-xs py-1 border-b border-zinc-800/40">
-                <span className="text-zinc-400">
-                  3. Encargos / Desgaste ({result.overhead_percentage}%):
-                </span>
-                <span className="font-mono text-white">
-                  {Number(result.overhead_cost).toLocaleString("pt-MZ")} MZN
+              <div className="flex justify-between py-1 border-b border-zinc-100">
+                <span className="text-zinc-500">Custos Indiretos (Overhead):</span>
+                <span className="font-mono font-medium text-zinc-900">
+                  {result.overhead_cost.toLocaleString("pt-MZ")} MZN
                 </span>
               </div>
-
-              <div className="flex justify-between text-xs py-1.5 border-b border-zinc-800 font-bold">
-                <span className="text-zinc-300">Custo Total de Produção:</span>
-                <span className="font-mono text-amber-400">
-                  {Number(result.total_direct_cost).toLocaleString("pt-MZ")} MZN
+              <div className="flex justify-between py-1 border-b border-zinc-200 font-bold text-zinc-900">
+                <span>Custo Real de Produção:</span>
+                <span className="font-mono text-zinc-900">
+                  {(result.total_direct_cost + result.overhead_cost).toLocaleString("pt-MZ")} MZN
+                </span>
+              </div>
+              <div className="flex justify-between py-1 text-emerald-800 font-bold">
+                <span>Margem de Lucro Bruto ({marginPct}%):</span>
+                <span className="font-mono">
+                  + {result.profit.toLocaleString("pt-MZ")} MZN
                 </span>
               </div>
             </div>
-          </div>
-
-          <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/30 p-4 space-y-1">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase text-emerald-400">
-                Preço Final Sugerido ao Cliente
-              </span>
-              <span className="text-xs font-bold text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded">
-                Margem: {result.margin_percentage}%
-              </span>
-            </div>
-            <p className="text-2xl font-black text-white font-mono">
-              {Number(result.final_price).toLocaleString("pt-MZ")}{" "}
-              <span className="text-xs font-normal text-zinc-400">MZN</span>
-            </p>
-            <div className="text-xs text-emerald-400/90 pt-1 flex justify-between border-t border-emerald-500/20 font-mono">
-              <span>Lucro Bruto Previsto:</span>
-              <span className="font-bold">+{Number(result.profit).toLocaleString("pt-MZ")} MZN</span>
-            </div>
-          </div>
+          ) : (
+            <p className="text-xs text-zinc-500 py-6 text-center">A calcular...</p>
+          )}
         </div>
-      )}
+
+        {result && (
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-center space-y-1">
+            <span className="text-xs font-bold text-emerald-900 uppercase tracking-wider font-mono">
+              Preço Final Proposto ao Cliente
+            </span>
+            <div className="text-2xl sm:text-3xl font-black text-emerald-950 font-mono">
+              {result.final_price.toLocaleString("pt-MZ")}{" "}
+              <span className="text-sm font-normal text-emerald-800">MZN</span>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

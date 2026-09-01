@@ -71,7 +71,7 @@ export const FlockOverviewCards: React.FC<FlockOverviewCardsProps> = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
         {flocks.length === 0 ? (
-          <div className="col-span-2 py-12 text-center text-slate-500 bg-slate-900/60 border border-slate-800 rounded-2xl">
+          <div className="col-span-2 py-12 text-center text-zinc-500 bg-white border border-zinc-200 rounded-2xl">
             <Egg className="w-10 h-10 mx-auto mb-2 opacity-40" />
             <p className="text-xs">Nenhum lote de aves cadastrado nesta exploração.</p>
           </div>
@@ -93,8 +93,8 @@ export const FlockOverviewCards: React.FC<FlockOverviewCardsProps> = ({
                 onClick={() => onSelectFlock(flock)}
                 className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer flex flex-col justify-between space-y-3 ${
                   isSelected
-                    ? "bg-slate-900 border-indigo-500 ring-2 ring-indigo-500/50 shadow-xl shadow-indigo-950/40"
-                    : "bg-slate-900/80 border-slate-800 hover:border-slate-700 hover:bg-slate-900"
+                    ? "bg-white border-indigo-500 ring-2 ring-indigo-500/50 shadow-xl shadow-indigo-950/40"
+                    : "bg-white/80 border-zinc-200 hover:border-zinc-200 hover:bg-white"
                 }`}
               >
                 {/* Top Info */}
@@ -117,27 +117,27 @@ export const FlockOverviewCards: React.FC<FlockOverviewCardsProps> = ({
                               ? "bg-amber-500/20 text-amber-300 border border-amber-500/40"
                               : flock.status === "growing"
                               ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
-                              : "bg-slate-800 text-slate-400"
+                              : "bg-slate-800 text-zinc-500"
                           }`}
                         >
                           {flock.status === "growing" ? "Crescimento" : flock.status === "producing" ? "Em Postura" : flock.status}
                         </span>
                       </div>
-                      <span className="text-xs text-slate-400 font-medium">
+                      <span className="text-xs text-zinc-500 font-medium">
                         {speciesInfo.label} • Idade: <strong className="text-indigo-300">{ageInDays} dias</strong>
                       </span>
                     </div>
                   </div>
 
-                  <span className="text-xs font-bold text-slate-300 bg-slate-950 px-2 py-1 rounded-lg border border-slate-800">
+                  <span className="text-xs font-bold text-zinc-700 bg-white px-2 py-1 rounded-lg border border-zinc-200">
                     {flock.cost_per_bird} MT/pinto
                   </span>
                 </div>
 
                 {/* Progress & Live Count */}
-                <div className="p-3 bg-slate-950/80 rounded-xl border border-slate-800/80 space-y-1.5 text-xs">
+                <div className="p-3 bg-white rounded-xl border border-zinc-200/80 space-y-1.5 text-xs">
                   <div className="flex justify-between items-baseline">
-                    <span className="text-slate-400">Efetivo Vivo / Inicial:</span>
+                    <span className="text-zinc-500">Efetivo Vivo / Inicial:</span>
                     <span className="font-extrabold text-white">
                       <strong className="text-emerald-400 text-sm">{flock.quantity_current}</strong> /{" "}
                       {flock.quantity_at_start} aves
@@ -145,7 +145,7 @@ export const FlockOverviewCards: React.FC<FlockOverviewCardsProps> = ({
                   </div>
 
                   <div className="flex justify-between items-baseline text-[11px]">
-                    <span className="text-slate-400">Taxa de Sobrevivência:</span>
+                    <span className="text-zinc-500">Taxa de Sobrevivência:</span>
                     <span className="font-bold text-emerald-400">{survivalRate}% ({mortalityCount} mortes)</span>
                   </div>
 

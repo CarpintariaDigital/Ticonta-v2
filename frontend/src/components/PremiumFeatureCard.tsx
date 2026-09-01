@@ -44,8 +44,8 @@ export const PremiumFeatureCard: React.FC<PremiumFeatureCardProps> = ({
   return (
     <Card className={`relative flex flex-col justify-between border transition-all duration-200 ${
       feature.enabled
-        ? "border-emerald-500/50 bg-zinc-900/90 shadow-lg shadow-emerald-950/20"
-        : "border-zinc-800 bg-zinc-950/80 hover:border-zinc-700"
+        ? "border-emerald-500/50 bg-white/90 shadow-lg shadow-emerald-950/20"
+        : "border-zinc-200 bg-white/80 hover:border-zinc-200"
     }`}>
       {feature.popular && (
         <div className="absolute -top-3 right-4">
@@ -57,35 +57,35 @@ export const PremiumFeatureCard: React.FC<PremiumFeatureCardProps> = ({
 
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
-          <div className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 shrink-0">
+          <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200 shrink-0">
             {getIcon(feature.name)}
           </div>
 
           <div className="flex flex-col items-end">
             <span className="text-lg font-bold text-white font-mono">
-              +{feature.monthly_cost_mzn.toLocaleString("pt-MZ")} <span className="text-xs text-zinc-400 font-normal">MT/mês</span>
+              +{feature.monthly_cost_mzn.toLocaleString("pt-MZ")} <span className="text-xs text-zinc-500 font-normal">MT/mês</span>
             </span>
-            <span className="text-[11px] text-zinc-400 capitalize">{feature.category}</span>
+            <span className="text-[11px] text-zinc-500 capitalize">{feature.category}</span>
           </div>
         </div>
 
         <CardTitle className="text-base font-bold text-white mt-2 flex items-center gap-2">
           {feature.name.replace(/_/g, " ").toUpperCase()}
         </CardTitle>
-        <CardDescription className="text-xs text-zinc-400 line-clamp-2">
+        <CardDescription className="text-xs text-zinc-500 line-clamp-2">
           {feature.description}
         </CardDescription>
       </CardHeader>
 
       <CardContent className="py-2">
-        <div className="flex items-center justify-between pt-2 border-t border-zinc-800/80">
+        <div className="flex items-center justify-between pt-2 border-t border-zinc-200/80">
           <div className="flex items-center gap-1.5">
             {feature.enabled ? (
               <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 text-[11px] flex items-center gap-1">
                 <CheckCircle className="h-3 w-3" /> Ativo
               </Badge>
             ) : (
-              <Badge className="bg-zinc-800 text-zinc-400 border-zinc-700 text-[11px] flex items-center gap-1">
+              <Badge className="bg-zinc-800 text-zinc-500 border-zinc-200 text-[11px] flex items-center gap-1">
                 <Lock className="h-3 w-3" /> Inativo
               </Badge>
             )}
@@ -93,14 +93,14 @@ export const PremiumFeatureCard: React.FC<PremiumFeatureCardProps> = ({
 
           <button
             onClick={() => onOpenDetails(feature)}
-            className="text-xs text-zinc-400 hover:text-emerald-400 flex items-center gap-1 transition-colors"
+            className="text-xs text-zinc-500 hover:text-emerald-400 flex items-center gap-1 transition-colors"
           >
             <Info className="h-3.5 w-3.5" /> Saiba Mais
           </button>
         </div>
       </CardContent>
 
-      <CardFooter className="pt-2 border-t border-zinc-800/80">
+      <CardFooter className="pt-2 border-t border-zinc-200/80">
         <Button
           onClick={() => onToggle(feature.name, !feature.enabled)}
           disabled={isLoading}

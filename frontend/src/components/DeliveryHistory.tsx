@@ -91,14 +91,14 @@ export const DeliveryHistoryTable: React.FC = () => {
   };
 
   return (
-    <Card className="border-zinc-800 bg-zinc-900/90 text-zinc-100 shadow-xl">
-      <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between pb-4 border-b border-zinc-800">
+    <Card className="border-zinc-200 bg-white/90 text-zinc-900 shadow-xl">
+      <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between pb-4 border-b border-zinc-200">
         <div>
           <CardTitle className="text-lg font-bold text-white flex items-center gap-2">
             <Send className="h-5 w-5 text-emerald-400" />
             Histórico de Envios (WhatsApp & SMS)
           </CardTitle>
-          <CardDescription className="text-zinc-400 text-xs">
+          <CardDescription className="text-zinc-500 text-xs">
             Auditoria e rastreio de entrega de faturas e recibos digitais
           </CardDescription>
         </div>
@@ -107,7 +107,7 @@ export const DeliveryHistoryTable: React.FC = () => {
           <select
             value={methodFilter}
             onChange={(e) => setMethodFilter(e.target.value)}
-            className="rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-1.5 text-xs text-zinc-300 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs text-zinc-700 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           >
             <option value="">Todos os Meios</option>
             <option value="whatsapp">WhatsApp</option>
@@ -118,7 +118,7 @@ export const DeliveryHistoryTable: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-1.5 text-xs text-zinc-300 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs text-zinc-700 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           >
             <option value="">Todos os Estados</option>
             <option value="sent">Enviado</option>
@@ -131,7 +131,7 @@ export const DeliveryHistoryTable: React.FC = () => {
             variant="outline"
             onClick={() => fetchHistory({ delivery_method: methodFilter || undefined, status: statusFilter || undefined })}
             disabled={isLoading}
-            className="border-zinc-800 bg-zinc-950 text-zinc-300 hover:text-white"
+            className="border-zinc-200 bg-white text-zinc-700 hover:text-white"
           >
             <RefreshCw className={`h-3.5 w-3.5 mr-1 ${isLoading ? "animate-spin" : ""}`} />
             Atualizar
@@ -142,7 +142,7 @@ export const DeliveryHistoryTable: React.FC = () => {
             variant="outline"
             onClick={exportCSV}
             disabled={!history.length}
-            className="border-zinc-800 bg-zinc-950 text-zinc-300 hover:text-white"
+            className="border-zinc-200 bg-white text-zinc-700 hover:text-white"
           >
             <Download className="h-3.5 w-3.5 mr-1" />
             CSV
@@ -153,7 +153,7 @@ export const DeliveryHistoryTable: React.FC = () => {
       <CardContent className="p-0">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="border-b border-zinc-800 bg-zinc-950/60 font-semibold uppercase text-zinc-400">
+            <thead className="border-b border-zinc-200 bg-zinc-50/80 font-semibold uppercase text-zinc-500">
               <tr>
                 <th className="py-3 px-4">Documento</th>
                 <th className="py-3 px-4">Método</th>
@@ -170,14 +170,14 @@ export const DeliveryHistoryTable: React.FC = () => {
                     <td className="py-3 px-4 font-semibold text-white uppercase">
                       {item.document_type} #{item.document_id}
                     </td>
-                    <td className="py-3 px-4 flex items-center gap-1.5 capitalize text-zinc-300">
+                    <td className="py-3 px-4 flex items-center gap-1.5 capitalize text-zinc-700">
                       {getMethodIcon(item.delivery_method)}
                       {item.delivery_method}
                     </td>
-                    <td className="py-3 px-4 font-mono text-zinc-300">
+                    <td className="py-3 px-4 font-mono text-zinc-700">
                       {item.customer_phone || item.customer_email || "Consumidor Final"}
                     </td>
-                    <td className="py-3 px-4 text-zinc-400">
+                    <td className="py-3 px-4 text-zinc-500">
                       {item.sent_at ? new Date(item.sent_at).toLocaleString("pt-MZ") : "N/D"}
                     </td>
                     <td className="py-3 px-4">{getStatusBadge(item.status)}</td>
@@ -186,7 +186,7 @@ export const DeliveryHistoryTable: React.FC = () => {
                         href={item.pdf_url}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center text-zinc-400 hover:text-emerald-400 p-1"
+                        className="inline-flex items-center text-zinc-500 hover:text-emerald-400 p-1"
                         title="Ver PDF"
                       >
                         <ExternalLink className="h-3.5 w-3.5" />
@@ -198,7 +198,7 @@ export const DeliveryHistoryTable: React.FC = () => {
                           variant="outline"
                           onClick={() => handleResend(item.id)}
                           disabled={resendingId === item.id}
-                          className="border-zinc-800 bg-zinc-950 text-[11px] h-7 px-2 hover:bg-emerald-600 hover:text-white"
+                          className="border-zinc-200 bg-white text-[11px] h-7 px-2 hover:bg-emerald-600 hover:text-white"
                         >
                           {resendingId === item.id ? "A reenviar..." : "Reenviar"}
                         </Button>

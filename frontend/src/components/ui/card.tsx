@@ -6,8 +6,8 @@ const Card = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement> & { variant?: "default" | "chassis" | "vfd" | "receipt" }
 >(({ className, variant = "default", ...props }, ref) => {
   const variantStyles = {
-    default: "rounded-xl border border-zinc-800/90 bg-[#101c2e]/90 text-zinc-100 shadow-xl backdrop-blur-sm",
-    chassis: "chassis-panel p-4 text-zinc-100",
+    default: "rounded-xl border border-zinc-200/90 bg-[#101c2e]/90 text-zinc-900 shadow-xl backdrop-blur-sm",
+    chassis: "chassis-panel p-4 text-zinc-900",
     vfd: "vfd-display p-4 text-emerald-400",
     receipt: "receipt-strip-dark",
   };
@@ -55,7 +55,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-xs text-zinc-400 font-medium", className)}
+    className={cn("text-xs text-zinc-500 font-medium", className)}
     {...props}
   />
 ));
@@ -75,7 +75,7 @@ const CardFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex items-center p-5 pt-0 border-t border-zinc-800/80 mt-4", className)}
+    className={cn("flex items-center p-5 pt-0 border-t border-zinc-200/80 mt-4", className)}
     {...props}
   />
 ));

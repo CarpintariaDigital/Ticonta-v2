@@ -57,16 +57,16 @@ export default function SyncStatus() {
         {isSyncing ? (
           <RefreshCw className="h-3.5 w-3.5 animate-spin text-emerald-400 ml-1" />
         ) : isOpen ? (
-          <ChevronUp className="h-3 w-3 text-zinc-400" />
+          <ChevronUp className="h-3 w-3 text-zinc-500" />
         ) : (
-          <ChevronDown className="h-3 w-3 text-zinc-400" />
+          <ChevronDown className="h-3 w-3 text-zinc-500" />
         )}
       </button>
 
       {/* Expanded Sync Panel */}
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-80 sm:w-96 z-50 rounded-2xl border border-zinc-800 bg-zinc-900 p-4 shadow-2xl space-y-3 backdrop-blur-xl">
-          <div className="flex items-center justify-between border-b border-zinc-800 pb-2.5">
+        <div className="absolute right-0 top-full mt-2 w-80 sm:w-96 z-50 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 shadow-2xl space-y-3 backdrop-blur-xl">
+          <div className="flex items-center justify-between border-b border-zinc-200 pb-2.5">
             <div className="flex items-center gap-2">
               <div
                 className={`h-2.5 w-2.5 rounded-full ${
@@ -75,22 +75,22 @@ export default function SyncStatus() {
               />
               <h4 className="text-xs font-bold text-white">SyncEngine TiConta v2</h4>
             </div>
-            <span className="text-[10px] font-mono text-zinc-400">
+            <span className="text-[10px] font-mono text-zinc-500">
               {pendingCount} pendente(s)
             </span>
           </div>
 
           {/* Details */}
-          <div className="space-y-1 text-xs text-zinc-300">
+          <div className="space-y-1 text-xs text-zinc-700">
             <div className="flex justify-between">
-              <span className="text-zinc-400">Estado de Rede:</span>
+              <span className="text-zinc-500">Estado de Rede:</span>
               <span className={isOnline ? "text-emerald-400 font-semibold" : "text-amber-400 font-semibold"}>
                 {isOnline ? "Conectado ao Servidor Central" : "Sem Internet (Modo Local)"}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-zinc-400">Última Sincronização:</span>
-              <span className="font-mono text-zinc-200">
+              <span className="text-zinc-500">Última Sincronização:</span>
+              <span className="font-mono text-zinc-800">
                 {lastSyncTimestamp
                   ? new Date(lastSyncTimestamp).toLocaleTimeString("pt-MZ")
                   : "Nunca"}
@@ -107,24 +107,24 @@ export default function SyncStatus() {
 
           {/* Activity Logs */}
           <div className="space-y-1.5">
-            <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider">
+            <span className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">
               Histórico Recente
             </span>
-            <div className="max-h-28 overflow-y-auto space-y-1 rounded-lg border border-zinc-800/80 bg-zinc-950 p-2 text-[11px] font-mono">
+            <div className="max-h-28 overflow-y-auto space-y-1 rounded-lg border border-zinc-200/80 bg-white p-2 text-[11px] font-mono">
               {recentLogs.length === 0 ? (
                 <div className="text-center text-zinc-600 text-[10px] py-1">
                   Nenhuma atividade registrada
                 </div>
               ) : (
                 recentLogs.map((log) => (
-                  <div key={log.id} className="flex items-center justify-between text-zinc-400">
+                  <div key={log.id} className="flex items-center justify-between text-zinc-500">
                     <div className="flex items-center gap-1 truncate pr-2">
                       {log.status === "success" ? (
                         <CheckCircle2 className="h-3 w-3 text-emerald-400 shrink-0" />
                       ) : (
                         <Clock className="h-3 w-3 text-zinc-500 shrink-0" />
                       )}
-                      <span className="truncate text-zinc-300">{log.message}</span>
+                      <span className="truncate text-zinc-700">{log.message}</span>
                     </div>
                     <span className="text-[9px] text-zinc-500 shrink-0">{log.timestamp}</span>
                   </div>

@@ -23,17 +23,17 @@ export const PremiumFeatureDetails: React.FC<PremiumFeatureDetailsProps> = ({
   if (!isOpen || !feature) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-      <div className="w-full max-w-lg rounded-2xl border border-zinc-800 bg-zinc-900 text-zinc-100 shadow-2xl p-6 relative max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/40 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+      <div className="w-full max-w-lg rounded-2xl border border-zinc-200 bg-zinc-50 text-zinc-900 shadow-2xl p-6 relative max-h-[90vh] overflow-y-auto">
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition-colors"
+          className="absolute right-4 top-4 text-zinc-500 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition-colors"
         >
           <X className="h-5 w-5" />
         </button>
 
         {/* Header */}
-        <div className="space-y-2 pb-4 border-b border-zinc-800">
+        <div className="space-y-2 pb-4 border-b border-zinc-200">
           <div className="flex items-center gap-2">
             <span className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
               <Sparkles className="h-5 w-5" />
@@ -42,7 +42,7 @@ export const PremiumFeatureDetails: React.FC<PremiumFeatureDetailsProps> = ({
               <h3 className="text-lg font-bold text-white uppercase">
                 {feature.name.replace(/_/g, " ")}
               </h3>
-              <p className="text-xs text-zinc-400">Módulo Premium Adicional</p>
+              <p className="text-xs text-zinc-500">Módulo Premium Adicional</p>
             </div>
           </div>
         </div>
@@ -51,13 +51,13 @@ export const PremiumFeatureDetails: React.FC<PremiumFeatureDetailsProps> = ({
         <div className="py-4 space-y-4 text-xs">
           <div>
             <h4 className="font-semibold text-white mb-1">Descrição do Recurso</h4>
-            <p className="text-zinc-300 leading-relaxed">{feature.description}</p>
+            <p className="text-zinc-700 leading-relaxed">{feature.description}</p>
           </div>
 
           {/* Vantagens / Casos de Uso */}
           <div>
             <h4 className="font-semibold text-white mb-2">Principais Benefícios</h4>
-            <ul className="space-y-2 text-zinc-300">
+            <ul className="space-y-2 text-zinc-700">
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
                 <span>Totalmente integrado ao fluxo de faturação e POS do TiConta</span>
@@ -74,9 +74,9 @@ export const PremiumFeatureDetails: React.FC<PremiumFeatureDetailsProps> = ({
           </div>
 
           {/* Custo */}
-          <div className="p-3.5 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-between">
+          <div className="p-3.5 rounded-xl bg-white border border-zinc-200 flex items-center justify-between">
             <div>
-              <span className="text-zinc-400 block text-[11px]">Investimento Mensal</span>
+              <span className="text-zinc-500 block text-[11px]">Investimento Mensal</span>
               <span className="text-base font-bold text-emerald-400 font-mono">
                 +{feature.monthly_cost_mzn.toLocaleString("pt-MZ")} MZN/mês
               </span>
@@ -85,11 +85,11 @@ export const PremiumFeatureDetails: React.FC<PremiumFeatureDetailsProps> = ({
           </div>
 
           {/* FAQ Simples */}
-          <div className="space-y-2 pt-2 border-t border-zinc-800">
+          <div className="space-y-2 pt-2 border-t border-zinc-200">
             <h4 className="font-semibold text-white flex items-center gap-1.5">
               <HelpCircle className="h-4 w-4 text-emerald-400" /> Perguntas Frequentes
             </h4>
-            <div className="space-y-2 text-zinc-400 text-[11px]">
+            <div className="space-y-2 text-zinc-500 text-[11px]">
               <p>
                 <b>Posso cancelar a qualquer momento?</b> Sim, o custo é recalculado na hora e não haverá cobrança na fatura seguinte.
               </p>
@@ -101,11 +101,11 @@ export const PremiumFeatureDetails: React.FC<PremiumFeatureDetailsProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="pt-4 border-t border-zinc-800 flex items-center justify-end gap-2">
+        <div className="pt-4 border-t border-zinc-200 flex items-center justify-end gap-2">
           <Button
             variant="outline"
             onClick={onClose}
-            className="border-zinc-800 bg-zinc-950 text-zinc-300 hover:text-white text-xs"
+            className="border-zinc-200 bg-white text-zinc-700 hover:text-white text-xs"
           >
             Fechar
           </Button>

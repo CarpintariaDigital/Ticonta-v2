@@ -20,6 +20,8 @@ import {
   CheckCircle2,
   X,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface TakeawayOrderFormProps {
   isLoading: boolean;
@@ -129,23 +131,23 @@ export const TakeawayOrderForm: React.FC<TakeawayOrderFormProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/40 backdrop-blur-sm animate-in fade-in overflow-y-auto">
+      <div className="bg-white border border-emerald-900/10 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto text-zinc-900">
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-slate-800 bg-slate-950/40">
+        <div className="flex items-center justify-between p-5 border-b border-zinc-200 bg-zinc-50">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white shadow-md">
+            <div className="p-2.5 rounded-2xl bg-sky-50 text-sky-700 border border-sky-200">
               <ShoppingBag className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base md:text-lg font-bold text-white">Novo Pedido Takeaway & Entrega</h3>
-              <p className="text-xs text-slate-400">Balcão para viagem ou envio com estafeta</p>
+              <h3 className="text-base md:text-lg font-black text-emerald-950 font-mono">Novo Pedido Takeaway & Entrega</h3>
+              <p className="text-xs text-zinc-500">Balcão para viagem ou envio com estafeta</p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+            className="p-1.5 text-zinc-500 hover:text-zinc-700 rounded-full hover:bg-zinc-100 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -154,29 +156,29 @@ export const TakeawayOrderForm: React.FC<TakeawayOrderFormProps> = ({
         <form onSubmit={handleSubmit} className="p-5 overflow-y-auto space-y-4 flex-1">
           {/* Order Type Toggle (Takeaway vs Delivery) */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
+            <label className="text-xs font-bold text-emerald-950 uppercase tracking-wider block mb-1.5 font-mono">
               Tipo de Encomenda *
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
                 onClick={() => setOrderType("takeaway")}
-                className={`p-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-bold transition-all ${
+                className={`p-3 rounded-2xl border flex items-center justify-center gap-2 text-xs font-bold transition-all ${
                   orderType === "takeaway"
-                    ? "bg-indigo-600 text-white border-indigo-500 shadow-md shadow-indigo-950/40"
-                    : "bg-slate-950 text-slate-400 border-slate-800 hover:text-slate-200"
+                    ? "bg-emerald-700 text-white border-emerald-700 shadow-xs font-mono"
+                    : "bg-zinc-50 text-zinc-600 border-zinc-200 hover:bg-zinc-100"
                 }`}
               >
-                <ShoppingBag className="w-4 h-4" /> Takeaway (Levantamento no Balcão)
+                <ShoppingBag className="w-4 h-4" /> Takeaway (Balcão)
               </button>
 
               <button
                 type="button"
                 onClick={() => setOrderType("delivery")}
-                className={`p-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-bold transition-all ${
+                className={`p-3 rounded-2xl border flex items-center justify-center gap-2 text-xs font-bold transition-all ${
                   orderType === "delivery"
-                    ? "bg-purple-600 text-white border-purple-500 shadow-md shadow-purple-950/40"
-                    : "bg-slate-950 text-slate-400 border-slate-800 hover:text-slate-200"
+                    ? "bg-sky-600 text-white border-sky-600 shadow-xs font-mono"
+                    : "bg-zinc-50 text-zinc-600 border-zinc-200 hover:bg-zinc-100"
                 }`}
               >
                 <Bike className="w-4 h-4" /> Delivery (Entrega ao Domicílio)
@@ -187,35 +189,35 @@ export const TakeawayOrderForm: React.FC<TakeawayOrderFormProps> = ({
           {/* Customer Details */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
                 Nome do Cliente *
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-2.5 w-3.5 h-3.5 text-slate-500" />
-                <input
+                <User className="absolute left-3 top-2.5 w-3.5 h-3.5 text-zinc-500" />
+                <Input
                   type="text"
                   required
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
                   placeholder="Ex: Dra. Teresa Silva"
-                  className="w-full pl-9 pr-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                  className="pl-9 bg-white border-zinc-300 rounded-xl text-zinc-900 text-xs"
                 />
               </div>
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
                 Telefone (WhatsApp) *
               </label>
               <div className="relative">
-                <Phone className="absolute left-3 top-2.5 w-3.5 h-3.5 text-slate-500" />
-                <input
+                <Phone className="absolute left-3 top-2.5 w-3.5 h-3.5 text-zinc-500" />
+                <Input
                   type="tel"
                   required
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
                   placeholder="+258 84 000 0000"
-                  className="w-full pl-9 pr-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                  className="pl-9 bg-white border-zinc-300 rounded-xl text-zinc-900 text-xs font-mono"
                 />
               </div>
             </div>
@@ -223,41 +225,41 @@ export const TakeawayOrderForm: React.FC<TakeawayOrderFormProps> = ({
 
           {/* Delivery Specific Fields */}
           {orderType === "delivery" && (
-            <div className="p-3.5 bg-purple-950/20 border border-purple-500/30 rounded-xl space-y-3">
+            <div className="p-3.5 bg-sky-50 border border-sky-200 rounded-2xl space-y-3">
               <div>
-                <label className="text-xs font-semibold text-purple-300 uppercase tracking-wider block mb-1">
+                <label className="text-xs font-bold text-sky-900 uppercase tracking-wider block mb-1 font-mono">
                   Endereço Completo de Entrega *
                 </label>
                 <div className="relative">
-                  <MapPin className="absolute left-3 top-2.5 w-3.5 h-3.5 text-purple-400" />
-                  <input
+                  <MapPin className="absolute left-3 top-2.5 w-3.5 h-3.5 text-sky-600" />
+                  <Input
                     type="text"
                     required
                     value={deliveryAddress}
                     onChange={(e) => setDeliveryAddress(e.target.value)}
                     placeholder="Bairro, Rua, Prédio/Casa, Ponto de Referência..."
-                    className="w-full pl-9 pr-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-purple-500"
+                    className="pl-9 bg-white border-zinc-300 rounded-xl text-zinc-900 text-xs"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[11px] text-slate-400 block mb-1">Taxa de Entrega (MT)</label>
-                  <input
+                  <label className="text-[11px] text-zinc-600 font-semibold block mb-1">Taxa de Entrega (MT)</label>
+                  <Input
                     type="number"
                     value={deliveryFee}
                     onChange={(e) => setDeliveryFee(Math.max(0, parseFloat(e.target.value) || 0))}
-                    className="w-full px-3 py-1.5 bg-slate-950 border border-slate-700 rounded-lg text-white text-xs font-bold focus:outline-none focus:border-purple-500"
+                    className="bg-white border-zinc-300 rounded-xl text-zinc-900 text-xs font-bold font-mono"
                   />
                 </div>
                 <div>
-                  <label className="text-[11px] text-slate-400 block mb-1">Horário Desejado</label>
-                  <input
+                  <label className="text-[11px] text-zinc-600 font-semibold block mb-1">Horário Desejado</label>
+                  <Input
                     type="datetime-local"
                     value={deliveryTime}
                     onChange={(e) => setDeliveryTime(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-purple-500"
+                    className="bg-white border-zinc-300 rounded-xl text-zinc-900 text-xs font-mono"
                   />
                 </div>
               </div>
@@ -266,7 +268,7 @@ export const TakeawayOrderForm: React.FC<TakeawayOrderFormProps> = ({
 
           {/* Menu Presets (1-Toque) */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
+            <label className="text-xs font-bold text-emerald-950 uppercase tracking-wider block mb-1.5 font-mono">
               Adicionar do Menu
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -275,12 +277,12 @@ export const TakeawayOrderForm: React.FC<TakeawayOrderFormProps> = ({
                   key={idx}
                   type="button"
                   onClick={() => handleAddPreset(p)}
-                  className="p-2 bg-slate-950 border border-slate-800 hover:border-indigo-500/50 rounded-xl text-left transition-all group flex flex-col justify-between"
+                  className="p-2.5 bg-zinc-50 border border-zinc-200 hover:border-emerald-500 hover:bg-white rounded-2xl text-left transition-all group flex flex-col justify-between shadow-2xs"
                 >
-                  <span className="text-xs font-medium text-slate-200 group-hover:text-white line-clamp-1">
+                  <span className="text-xs font-semibold text-zinc-800 group-hover:text-emerald-800 line-clamp-1">
                     {p.name}
                   </span>
-                  <span className="text-xs font-bold text-emerald-400 mt-1 block">
+                  <span className="text-xs font-black text-emerald-800 mt-1 block font-mono">
                     {p.price.toLocaleString("pt-MZ")} MT
                   </span>
                 </button>
@@ -290,41 +292,41 @@ export const TakeawayOrderForm: React.FC<TakeawayOrderFormProps> = ({
 
           {/* Custom Item Form */}
           <div className="flex gap-2">
-            <input
+            <Input
               type="text"
               value={customItemName}
               onChange={(e) => setCustomItemName(e.target.value)}
               placeholder="Outro item personalizado..."
-              className="flex-1 px-3 py-1.5 bg-slate-950 border border-slate-700 rounded-lg text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+              className="flex-1 bg-white border-zinc-300 rounded-xl text-zinc-900 text-xs placeholder:text-zinc-500"
             />
-            <input
+            <Input
               type="number"
               value={customItemPrice}
               onChange={(e) => setCustomItemPrice(e.target.value)}
               placeholder="Preço"
-              className="w-20 px-3 py-1.5 bg-slate-950 border border-slate-700 rounded-lg text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+              className="w-24 bg-white border-zinc-300 rounded-xl text-zinc-900 text-xs font-mono"
             />
-            <button
+            <Button
               type="button"
               onClick={handleAddCustom}
-              className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold rounded-lg flex items-center gap-1"
+              className="bg-zinc-800 hover:bg-zinc-50 text-white text-xs font-semibold rounded-xl flex items-center gap-1"
             >
               <Plus className="w-3.5 h-3.5" /> Adicionar
-            </button>
+            </Button>
           </div>
 
           {/* Items in Cart Table */}
-          <div className="p-3 bg-slate-950/80 border border-slate-800 rounded-xl space-y-2 max-h-44 overflow-y-auto">
+          <div className="p-3 bg-zinc-50 border border-zinc-200 rounded-2xl space-y-2 max-h-44 overflow-y-auto">
             {items.length === 0 ? (
-              <p className="text-xs text-slate-500 text-center py-3">Nenhum item no pedido.</p>
+              <p className="text-xs text-zinc-500 text-center py-3">Nenhum item no pedido.</p>
             ) : (
               items.map((it, idx) => (
-                <div key={idx} className="flex items-center justify-between text-xs p-1.5 bg-slate-900 rounded-lg">
+                <div key={idx} className="flex items-center justify-between text-xs p-2 bg-white rounded-xl border border-zinc-200">
                   <div className="flex-1 pr-2">
-                    <span className="font-semibold text-white block truncate">{it.item_name}</span>
-                    <span className="text-slate-400 text-[11px]">
+                    <span className="font-bold text-zinc-900 block truncate">{it.item_name}</span>
+                    <span className="text-zinc-500 text-[11px] font-mono">
                       {it.unit_price} MT x {it.quantity} ={" "}
-                      <strong className="text-emerald-400">{it.unit_price * it.quantity} MT</strong>
+                      <strong className="text-emerald-800">{it.unit_price * it.quantity} MT</strong>
                     </span>
                   </div>
 
@@ -332,22 +334,22 @@ export const TakeawayOrderForm: React.FC<TakeawayOrderFormProps> = ({
                     <button
                       type="button"
                       onClick={() => handleUpdateQuantity(idx, -1)}
-                      className="w-6 h-6 bg-slate-800 rounded flex items-center justify-center text-slate-300"
+                      className="w-6 h-6 bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 rounded flex items-center justify-center text-zinc-700 font-bold"
                     >
                       <Minus className="w-3 h-3" />
                     </button>
-                    <span className="w-5 text-center font-bold text-white">{it.quantity}</span>
+                    <span className="w-5 text-center font-black text-zinc-900 font-mono">{it.quantity}</span>
                     <button
                       type="button"
                       onClick={() => handleUpdateQuantity(idx, 1)}
-                      className="w-6 h-6 bg-slate-800 rounded flex items-center justify-center text-slate-300"
+                      className="w-6 h-6 bg-emerald-700 hover:bg-emerald-800 rounded flex items-center justify-center text-white font-bold"
                     >
                       <Plus className="w-3 h-3" />
                     </button>
                     <button
                       type="button"
                       onClick={() => handleRemoveItem(idx)}
-                      className="p-1 text-slate-500 hover:text-rose-400 ml-1"
+                      className="p-1 text-zinc-500 hover:text-rose-600 ml-1"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -359,7 +361,7 @@ export const TakeawayOrderForm: React.FC<TakeawayOrderFormProps> = ({
 
           {/* Payment Method */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
+            <label className="text-xs font-bold text-emerald-950 uppercase tracking-wider block mb-1.5 font-mono">
               Meio de Pagamento
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -375,10 +377,10 @@ export const TakeawayOrderForm: React.FC<TakeawayOrderFormProps> = ({
                     key={m.id}
                     type="button"
                     onClick={() => setPaymentMethod(m.id)}
-                    className={`p-2 rounded-xl text-xs font-medium border flex items-center justify-center gap-1.5 transition-all ${
+                    className={`p-2.5 rounded-2xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all font-mono ${
                       isSelected
-                        ? "bg-indigo-600 text-white border-indigo-500 font-bold shadow-md"
-                        : "bg-slate-950 text-slate-400 border-slate-800 hover:text-slate-200"
+                        ? "bg-emerald-700 text-white border-emerald-700 shadow-xs"
+                        : "bg-zinc-50 text-zinc-600 border-zinc-200 hover:bg-zinc-100"
                     }`}
                   >
                     <Icon className="w-3.5 h-3.5" />
@@ -390,20 +392,20 @@ export const TakeawayOrderForm: React.FC<TakeawayOrderFormProps> = ({
           </div>
 
           {/* Totals Summary */}
-          <div className="p-3 bg-slate-950 border border-slate-800 rounded-xl space-y-1 text-xs">
-            <div className="flex justify-between text-slate-400">
+          <div className="p-3.5 bg-zinc-50 border border-zinc-200 rounded-2xl space-y-1 text-xs">
+            <div className="flex justify-between text-zinc-500">
               <span>Subtotal Itens:</span>
-              <span>{subtotal.toLocaleString("pt-MZ")} MT</span>
+              <span className="font-mono font-medium">{subtotal.toLocaleString("pt-MZ")} MT</span>
             </div>
             {orderType === "delivery" && (
-              <div className="flex justify-between text-slate-400">
+              <div className="flex justify-between text-zinc-500">
                 <span>Taxa de Entrega:</span>
-                <span>{calculatedDeliveryFee.toLocaleString("pt-MZ")} MT</span>
+                <span className="font-mono font-medium">{calculatedDeliveryFee.toLocaleString("pt-MZ")} MT</span>
               </div>
             )}
-            <div className="flex justify-between items-baseline pt-2 border-t border-slate-800 text-sm font-bold text-white">
+            <div className="flex justify-between items-baseline pt-2 border-t border-zinc-200 text-sm font-bold text-zinc-900">
               <span>Total da Encomenda:</span>
-              <span className="text-base font-extrabold text-emerald-400">
+              <span className="text-base font-black text-emerald-800 font-mono">
                 {total.toLocaleString("pt-MZ")} MT
               </span>
             </div>
@@ -411,21 +413,22 @@ export const TakeawayOrderForm: React.FC<TakeawayOrderFormProps> = ({
 
           {/* Action Buttons */}
           <div className="flex gap-2 pt-2">
-            <button
+            <Button
               type="button"
+              variant="outline"
               onClick={onClose}
-              className="flex-1 py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl transition-colors"
+              className="flex-1 border-zinc-300 text-zinc-700 rounded-xl"
             >
               Cancelar
-            </button>
-            <button
+            </Button>
+            <Button
               type="submit"
               disabled={isLoading || items.length === 0}
-              className="flex-1 py-2.5 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-950/50 active:scale-95 transition-all flex items-center justify-center gap-1.5"
+              className="flex-1 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl shadow-xs flex items-center justify-center gap-1.5 font-mono"
             >
               <CheckCircle2 className="w-4 h-4" />
               {isLoading ? "A registar pedido..." : "Confirmar e Enviar para Cozinha"}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

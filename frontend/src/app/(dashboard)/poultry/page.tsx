@@ -92,21 +92,21 @@ export default function PoultryDashboardPage() {
   const projectedRevenue = forecast?.projected_revenue_at_sale || 325000;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-6 lg:p-8 space-y-6">
+    <div className="space-y-6 animate-fade-in">
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-zinc-200">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-2xl bg-gradient-to-br from-amber-500 via-orange-600 to-yellow-500 text-white shadow-lg shadow-amber-950/50">
+          <div className="p-3 rounded-2xl bg-amber-50 text-amber-700 border border-amber-200 shadow-xs">
             <Egg className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-xl md:text-2xl font-black tracking-tight text-white flex items-center gap-2">
+            <h1 className="text-xl md:text-2xl font-black tracking-tight text-zinc-900 flex items-center gap-2">
               Gestão Avícola & Produção de Ovos e Frangos
-              <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
                 Agro TiConta
               </span>
             </h1>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-zinc-500">
               Acompanhamento de lotes de corte e postura, conversão alimentar (FCR) e projeção de lucros
             </p>
           </div>
@@ -117,7 +117,7 @@ export default function PoultryDashboardPage() {
             <select
               value={selectedFarmId || ""}
               onChange={(e) => setSelectedFarmId(parseInt(e.target.value, 10))}
-              className="px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white text-xs font-semibold focus:outline-none focus:border-amber-500"
+              className="px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs font-semibold focus:outline-none focus:border-amber-600 shadow-xs"
             >
               {farms.map((f) => (
                 <option key={f.id} value={f.id}>
@@ -129,7 +129,7 @@ export default function PoultryDashboardPage() {
 
           <button
             onClick={() => setIsNewFlockOpen(true)}
-            className="px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 shadow-md shadow-emerald-950/50 active:scale-95 transition-all"
+            className="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 shadow-sm active:scale-95 transition-all"
           >
             <Plus className="w-4 h-4" /> Novo Lote
           </button>
@@ -138,36 +138,36 @@ export default function PoultryDashboardPage() {
 
       {/* Top Quick Stats Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
-        <div className="p-3.5 bg-slate-900/70 border border-slate-800 rounded-2xl">
-          <span className="text-[11px] text-slate-400 block mb-1">Efetivo Vivo Total</span>
-          <span className="text-lg md:text-xl font-extrabold text-emerald-400">
+        <div className="p-3.5 bg-white border border-zinc-200/80 rounded-2xl shadow-xs">
+          <span className="text-[11px] text-zinc-500 block mb-1 font-medium">Efetivo Vivo Total</span>
+          <span className="text-lg md:text-xl font-extrabold text-emerald-700">
             {totalLiveBirds.toLocaleString("pt-MZ")} aves
           </span>
-          <span className="text-[10px] text-slate-500 block">em {flocks.length} lotes</span>
+          <span className="text-[10px] text-zinc-400 block">em {flocks.length} lotes</span>
         </div>
 
-        <div className="p-3.5 bg-slate-900/70 border border-slate-800 rounded-2xl">
-          <span className="text-[11px] text-slate-400 block mb-1">Mortalidade Geral</span>
-          <span className="text-lg md:text-xl font-extrabold text-rose-400">
+        <div className="p-3.5 bg-white border border-zinc-200/80 rounded-2xl shadow-xs">
+          <span className="text-[11px] text-zinc-500 block mb-1 font-medium">Mortalidade Geral</span>
+          <span className="text-lg md:text-xl font-extrabold text-rose-600">
             {overallMortalityRate}%
           </span>
-          <span className="text-[10px] text-slate-500 block">{totalMortality} baixas totais</span>
+          <span className="text-[10px] text-zinc-400 block">{totalMortality} baixas totais</span>
         </div>
 
-        <div className="p-3.5 bg-slate-900/70 border border-slate-800 rounded-2xl">
-          <span className="text-[11px] text-slate-400 block mb-1">🥚 Ovos Colhidos</span>
-          <span className="text-lg md:text-xl font-extrabold text-amber-400">
+        <div className="p-3.5 bg-white border border-zinc-200/80 rounded-2xl shadow-xs">
+          <span className="text-[11px] text-zinc-500 block mb-1 font-medium">🥚 Ovos Colhidos</span>
+          <span className="text-lg md:text-xl font-extrabold text-amber-600">
             {totalEggHarvested.toLocaleString("pt-MZ")}
           </span>
-          <span className="text-[10px] text-slate-500 block">~{Math.floor(totalEggHarvested / 30)} cartelas</span>
+          <span className="text-[10px] text-zinc-400 block">~{Math.floor(totalEggHarvested / 30)} cartelas</span>
         </div>
 
-        <div className="p-3.5 bg-slate-900/70 border border-slate-800 rounded-2xl">
-          <span className="text-[11px] text-slate-400 block mb-1">Faturamento Projetado</span>
-          <span className="text-lg md:text-xl font-extrabold text-white">
+        <div className="p-3.5 bg-white border border-zinc-200/80 rounded-2xl shadow-xs">
+          <span className="text-[11px] text-zinc-500 block mb-1 font-medium">Faturamento Projetado</span>
+          <span className="text-lg md:text-xl font-extrabold text-zinc-900">
             {projectedRevenue.toLocaleString("pt-MZ")} MT
           </span>
-          <span className="text-[10px] text-emerald-400 block font-semibold">+51% ROI estimado</span>
+          <span className="text-[10px] text-emerald-700 block font-semibold">+51% ROI estimado</span>
         </div>
       </div>
 
@@ -265,10 +265,10 @@ export default function PoultryDashboardPage() {
         />
       )}
 
-      {/* MODAL 5: Health & Vaccination Log */}
-      {isHealthLogOpen && activeFlockForAction && (
+      {/* MODAL 5: Health & Medication Log */}
+      {isHealthLogOpen && (
         <HealthForm
-          flock={activeFlockForAction}
+          flock={activeFlockForAction || flocks[0]}
           isLoading={isLoading}
           onClose={() => {
             setIsHealthLogOpen(false);

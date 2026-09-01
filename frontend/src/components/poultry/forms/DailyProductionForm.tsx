@@ -42,26 +42,26 @@ export const DailyProductionForm: React.FC<DailyProductionFormProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-      <div className="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-md shadow-2xl flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/40 backdrop-blur-sm animate-fade-in">
+      <div className="bg-white border border-zinc-200/80 rounded-2xl w-full max-w-md shadow-2xl flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-950/50">
+        <div className="flex items-center justify-between p-4 border-b border-zinc-200 bg-zinc-50/70">
           <div className="flex items-center gap-2">
             <Egg className="w-5 h-5 text-amber-400" />
             <div>
               <h3 className="text-sm font-bold text-white">Registo Diário de Ovos</h3>
-              <p className="text-[11px] text-slate-400">Lote #{flock.flock_number}</p>
+              <p className="text-[11px] text-zinc-500">Lote #{flock.flock_number}</p>
             </div>
           </div>
 
-          <button onClick={onClose} className="p-1 text-slate-400 hover:text-white rounded-lg">
+          <button onClick={onClose} className="p-1 text-zinc-500 hover:text-white rounded-lg">
             <X className="w-4 h-4" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
               Data da Colheita
             </label>
             <input
@@ -69,13 +69,13 @@ export const DailyProductionForm: React.FC<DailyProductionFormProps> = ({
               required
               value={productionDate}
               onChange={(e) => setProductionDate(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs focus:outline-none focus:border-amber-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs focus:outline-none focus:border-amber-500"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
                 Total de Ovos *
               </label>
               <input
@@ -84,12 +84,12 @@ export const DailyProductionForm: React.FC<DailyProductionFormProps> = ({
                 required
                 value={quantity}
                 onChange={(e) => setQuantity(parseInt(e.target.value, 10) || 0)}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-base font-black focus:outline-none focus:border-amber-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-base font-black focus:outline-none focus:border-amber-500"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
                 Rachados / Rejeitados
               </label>
               <input
@@ -97,13 +97,13 @@ export const DailyProductionForm: React.FC<DailyProductionFormProps> = ({
                 min="0"
                 value={brokenQuantity}
                 onChange={(e) => setBrokenQuantity(parseInt(e.target.value, 10) || 0)}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-base font-bold focus:outline-none focus:border-amber-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-base font-bold focus:outline-none focus:border-amber-500"
               />
             </div>
           </div>
 
           {/* Tray Equivalent Helper */}
-          <div className="p-3 bg-slate-950 border border-slate-800 rounded-xl text-xs flex justify-between items-center text-slate-300">
+          <div className="p-3 bg-white border border-zinc-200 rounded-xl text-xs flex justify-between items-center text-zinc-700">
             <span>Equivalente em Cartelas:</span>
             <span className="font-extrabold text-amber-400">
               {totalTrays} cartelas (30 ovos) {remainderEggs > 0 ? `+ ${remainderEggs} ovos` : ""}
@@ -112,7 +112,7 @@ export const DailyProductionForm: React.FC<DailyProductionFormProps> = ({
 
           {/* Quality Selector */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
+            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1.5">
               Classificação da Casca / Qualidade
             </label>
             <div className="grid grid-cols-3 gap-2 text-xs">
@@ -128,7 +128,7 @@ export const DailyProductionForm: React.FC<DailyProductionFormProps> = ({
                   className={`p-2 rounded-xl border text-center font-semibold transition-all ${
                     quality === q.id
                       ? "bg-amber-600 text-white border-amber-500 font-bold shadow"
-                      : "bg-slate-950 text-slate-400 border-slate-800 hover:text-slate-200"
+                      : "bg-white text-zinc-500 border-zinc-200 hover:text-zinc-800"
                   }`}
                 >
                   {q.label}
@@ -141,7 +141,7 @@ export const DailyProductionForm: React.FC<DailyProductionFormProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl"
+              className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl"
             >
               Cancelar
             </button>

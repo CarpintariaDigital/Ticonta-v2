@@ -62,35 +62,43 @@ export default function TableMap({
     switch (status) {
       case "available":
         return {
-          bg: "bg-emerald-950/40 border-emerald-500/50 hover:border-emerald-400 hover:bg-emerald-900/30",
-          glow: "group-hover:shadow-[0_0_20px_rgba(16,185,129,0.25)]",
-          badge: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
-          indicator: "bg-emerald-500 shadow-[0_0_8px_#10b981]",
+          bg: "bg-emerald-50/70 border-emerald-300 hover:border-emerald-500 hover:bg-emerald-100/70",
+          glow: "group-hover:shadow-md",
+          badge: "bg-emerald-100 text-emerald-800 border-emerald-300",
+          indicator: "bg-emerald-600 shadow-[0_0_8px_#10b981]",
           label: "Disponível",
+          titleColor: "text-emerald-950",
+          btnColor: "text-emerald-800 hover:text-emerald-950 hover:bg-emerald-200/60",
         };
       case "occupied":
         return {
-          bg: "bg-blue-950/40 border-blue-500/60 hover:border-blue-400 hover:bg-blue-900/30",
-          glow: "group-hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]",
-          badge: "bg-blue-500/10 text-blue-400 border-blue-500/30",
-          indicator: "bg-blue-500 shadow-[0_0_8px_#3b82f6]",
+          bg: "bg-blue-50/70 border-blue-300 hover:border-blue-500 hover:bg-blue-100/70",
+          glow: "group-hover:shadow-md",
+          badge: "bg-blue-100 text-blue-800 border-blue-300",
+          indicator: "bg-blue-600 shadow-[0_0_8px_#3b82f6]",
           label: "Ocupada",
+          titleColor: "text-blue-950",
+          btnColor: "text-blue-800 hover:text-blue-950 hover:bg-blue-200/60",
         };
       case "reserved":
         return {
-          bg: "bg-amber-950/40 border-amber-500/60 hover:border-amber-400 hover:bg-amber-900/30",
-          glow: "group-hover:shadow-[0_0_20px_rgba(245,158,11,0.25)]",
-          badge: "bg-amber-500/10 text-amber-400 border-amber-500/30",
-          indicator: "bg-amber-500 shadow-[0_0_8px_#f59e0b]",
+          bg: "bg-amber-50/70 border-amber-300 hover:border-amber-500 hover:bg-amber-100/70",
+          glow: "group-hover:shadow-md",
+          badge: "bg-amber-100 text-amber-800 border-amber-300",
+          indicator: "bg-amber-600 shadow-[0_0_8px_#f59e0b]",
           label: "Reservada",
+          titleColor: "text-amber-950",
+          btnColor: "text-amber-800 hover:text-amber-950 hover:bg-amber-200/60",
         };
       case "dirty":
         return {
-          bg: "bg-zinc-900/70 border-zinc-700 hover:border-zinc-500 hover:bg-zinc-800/60",
-          glow: "group-hover:shadow-[0_0_15px_rgba(113,113,122,0.2)]",
-          badge: "bg-zinc-800 text-zinc-400 border-zinc-700",
+          bg: "bg-zinc-100/80 border-zinc-300 hover:border-zinc-400 hover:bg-zinc-200/60",
+          glow: "group-hover:shadow-md",
+          badge: "bg-zinc-200 text-zinc-700 border-zinc-300",
           indicator: "bg-zinc-500 shadow-[0_0_8px_#71717a]",
           label: "Aguardando Limpeza",
+          titleColor: "text-zinc-900",
+          btnColor: "text-zinc-700 hover:text-zinc-900 hover:bg-zinc-300/60",
         };
     }
   };
@@ -121,43 +129,51 @@ export default function TableMap({
   };
 
   return (
-    <div className="flex flex-col h-full bg-zinc-950/60 rounded-xl border border-zinc-800/80 p-4 backdrop-blur-sm overflow-hidden">
+    <div className="flex flex-col h-full bg-white/85 rounded-2xl border border-emerald-900/10 p-4 backdrop-blur shadow-xs overflow-hidden">
       {/* Top Header: Floor Map Title & Location Tabs */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-zinc-800/80">
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-zinc-200">
         <div>
           <div className="flex items-center gap-2">
-            <UtensilsCrossed className="w-5 h-5 text-emerald-400" />
-            <h2 className="text-lg font-bold tracking-tight text-zinc-100">
+            <UtensilsCrossed className="w-5 h-5 text-amber-600" />
+            <h2 className="text-lg font-bold tracking-tight text-emerald-950">
               Mapa de Salão & Mesas
             </h2>
           </div>
-          <p className="text-xs text-zinc-400">
+          <p className="text-xs text-zinc-500">
             Arraste para organizar ou toque para abrir comanda
           </p>
         </div>
 
         {/* Location Filter Pills */}
-        <div className="flex items-center gap-1.5 bg-zinc-900/90 p-1 rounded-lg border border-zinc-800">
-          {[
-            { id: "all", label: "Todas", icon: Maximize2 },
-            { id: "indoor", label: "Interior", icon: MapPin },
-            { id: "outdoor", label: "Esplanada", icon: Coffee },
-            { id: "bar", label: "Bar", icon: Sparkles },
-          ].map((tab) => {
-            const Icon = tab.icon;
-            const active = filterLocation === tab.id;
+        <div className="flex items-center gap-1.5 bg-zinc-100 p-1 rounded-xl border border-zinc-200">
+          {(["all", "indoor", "outdoor", "bar"] as const).map((loc) => {
+            const labels = {
+              all: "Todas",
+              indoor: "Interior",
+              outdoor: "Esplanada",
+              bar: "Bar",
+            };
+            const icons = {
+              all: Maximize2,
+              indoor: MapPin,
+              outdoor: Coffee,
+              bar: UtensilsCrossed,
+            };
+            const Icon = icons[loc];
+            const isActive = filterLocation === loc;
+
             return (
               <button
-                key={tab.id}
-                onClick={() => onFilterLocationChange(tab.id as any)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
-                  active
-                    ? "bg-zinc-800 text-white shadow-sm font-semibold border border-zinc-700"
-                    : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50"
+                key={loc}
+                onClick={() => onFilterLocationChange(loc)}
+                className={`flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-lg transition-all ${
+                  isActive
+                    ? "bg-white text-emerald-950 shadow-xs border border-zinc-200 font-bold"
+                    : "text-zinc-600 hover:text-zinc-900"
                 }`}
               >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{tab.label}</span>
+                <Icon className="w-3 h-3" />
+                <span>{labels[loc]}</span>
               </button>
             );
           })}
@@ -166,36 +182,36 @@ export default function TableMap({
 
       {/* Status Legend Bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 my-3">
-        <div className="flex items-center justify-between px-3 py-1.5 bg-emerald-950/20 border border-emerald-500/20 rounded-lg">
+        <div className="flex items-center justify-between px-3 py-1.5 bg-emerald-50 border border-emerald-200 rounded-xl">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
-            <span className="text-xs font-medium text-emerald-400">Disponíveis</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 shadow-[0_0_8px_#10b981]" />
+            <span className="text-xs font-medium text-emerald-800">Disponíveis</span>
           </div>
-          <span className="text-xs font-bold text-emerald-300">{availableCount}</span>
+          <span className="text-xs font-bold text-emerald-900 font-mono">{availableCount}</span>
         </div>
 
-        <div className="flex items-center justify-between px-3 py-1.5 bg-blue-950/20 border border-blue-500/20 rounded-lg">
+        <div className="flex items-center justify-between px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-xl">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]" />
-            <span className="text-xs font-medium text-blue-400">Ocupadas</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-600 shadow-[0_0_8px_#3b82f6]" />
+            <span className="text-xs font-medium text-blue-800">Ocupadas</span>
           </div>
-          <span className="text-xs font-bold text-blue-300">{occupiedCount}</span>
+          <span className="text-xs font-bold text-blue-900 font-mono">{occupiedCount}</span>
         </div>
 
-        <div className="flex items-center justify-between px-3 py-1.5 bg-amber-950/20 border border-amber-500/20 rounded-lg">
+        <div className="flex items-center justify-between px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-xl">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-[0_0_8px_#f59e0b]" />
-            <span className="text-xs font-medium text-amber-400">Reservadas</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-600 shadow-[0_0_8px_#f59e0b]" />
+            <span className="text-xs font-medium text-amber-800">Reservadas</span>
           </div>
-          <span className="text-xs font-bold text-amber-300">{reservedCount}</span>
+          <span className="text-xs font-bold text-amber-900 font-mono">{reservedCount}</span>
         </div>
 
-        <div className="flex items-center justify-between px-3 py-1.5 bg-zinc-900/60 border border-zinc-800 rounded-lg">
+        <div className="flex items-center justify-between px-3 py-1.5 bg-zinc-100 border border-zinc-200 rounded-xl">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-zinc-500" />
-            <span className="text-xs font-medium text-zinc-400">Limpeza</span>
+            <span className="text-xs font-medium text-zinc-700">Limpeza</span>
           </div>
-          <span className="text-xs font-bold text-zinc-300">{dirtyCount}</span>
+          <span className="text-xs font-bold text-zinc-900 font-mono">{dirtyCount}</span>
         </div>
       </div>
 
@@ -214,11 +230,11 @@ export default function TableMap({
                 onDragOver={handleDragOver}
                 onDrop={(e) => handleDrop(e, table.id)}
                 onClick={() => onSelectTable(table)}
-                className={`group relative flex flex-col justify-between p-3.5 rounded-xl border transition-all duration-200 cursor-pointer select-none ${
+                className={`group relative flex flex-col justify-between p-3.5 rounded-2xl border transition-all duration-200 cursor-pointer select-none ${
                   config.bg
                 } ${config.glow} ${
                   isSelected
-                    ? "ring-2 ring-emerald-400 ring-offset-2 ring-offset-zinc-950 scale-[1.02] shadow-xl"
+                    ? "ring-2 ring-emerald-600 ring-offset-2 ring-offset-[#FAF8F5] scale-[1.02] shadow-md"
                     : "hover:scale-[1.01]"
                 }`}
               >
@@ -226,47 +242,47 @@ export default function TableMap({
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
                     <span className={`w-2.5 h-2.5 rounded-full ${config.indicator}`} />
-                    <span className="text-lg font-black tracking-tight text-white">
+                    <span className={`text-lg font-black tracking-tight ${config.titleColor} font-mono`}>
                       Mesa {table.table_number}
                     </span>
                   </div>
-                  <Badge variant="outline" className={`text-[10px] px-1.5 py-0.5 ${config.badge}`}>
+                  <Badge variant="outline" className={`text-[10px] px-1.5 py-0.5 rounded-lg ${config.badge}`}>
                     {config.label}
                   </Badge>
                 </div>
 
                 {/* Body Details: Capacity & Location */}
                 <div className="my-3 space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs text-zinc-400">
+                  <div className="flex items-center gap-1.5 text-xs text-zinc-600">
                     <Users className="w-3.5 h-3.5 text-zinc-500" />
                     <span>{table.capacity} lugares</span>
-                    <span className="text-zinc-600">•</span>
+                    <span className="text-zinc-500">•</span>
                     <span className="capitalize">{table.location}</span>
                   </div>
 
                   {/* Reservation details if reserved */}
                   {table.status === "reserved" && table.reserved_for && (
-                    <div className="text-[11px] text-amber-300 font-medium truncate pt-1">
+                    <div className="text-[11px] text-amber-800 font-semibold truncate pt-1">
                       👤 {table.reserved_for}
                     </div>
                   )}
 
                   {/* Dirty status helper */}
                   {table.status === "dirty" && (
-                    <div className="text-[11px] text-zinc-400 italic pt-1">
+                    <div className="text-[11px] text-zinc-500 italic pt-1">
                       Aguardando higienização
                     </div>
                   )}
                 </div>
 
                 {/* Quick Action Footer */}
-                <div className="pt-2 border-t border-zinc-800/60 flex items-center justify-between gap-1">
+                <div className="pt-2 border-t border-zinc-200/80 flex items-center justify-between gap-1">
                   {table.status === "available" && (
                     <>
                       <Button
                         size="sm"
                         variant="ghost"
-                        className="h-7 px-2 text-[11px] text-emerald-400 hover:text-emerald-300 hover:bg-emerald-950/40 w-full"
+                        className={`h-7 px-2 text-[11px] font-bold ${config.btnColor} w-full`}
                         onClick={(e) => {
                           e.stopPropagation();
                           onSelectTable(table);
@@ -276,7 +292,7 @@ export default function TableMap({
                       </Button>
                       <button
                         title="Reservar mesa"
-                        className="h-7 w-7 flex items-center justify-center rounded-md text-zinc-400 hover:text-amber-300 hover:bg-amber-950/30"
+                        className="h-7 w-7 flex items-center justify-center rounded-lg text-zinc-500 hover:text-amber-800 hover:bg-amber-100"
                         onClick={(e) => {
                           e.stopPropagation();
                           onOpenReservationModal(table);
@@ -291,7 +307,7 @@ export default function TableMap({
                     <Button
                       size="sm"
                       variant="ghost"
-                      className="h-7 px-2 text-[11px] text-blue-400 hover:text-blue-300 hover:bg-blue-950/40 w-full font-medium"
+                      className={`h-7 px-2 text-[11px] font-bold ${config.btnColor} w-full`}
                       onClick={(e) => {
                         e.stopPropagation();
                         onSelectTable(table);
@@ -305,7 +321,7 @@ export default function TableMap({
                     <Button
                       size="sm"
                       variant="ghost"
-                      className="h-7 px-2 text-[11px] text-amber-400 hover:text-amber-300 hover:bg-amber-950/40 w-full"
+                      className={`h-7 px-2 text-[11px] font-bold ${config.btnColor} w-full`}
                       onClick={(e) => {
                         e.stopPropagation();
                         onSelectTable(table);
@@ -319,13 +335,13 @@ export default function TableMap({
                     <Button
                       size="sm"
                       variant="outline"
-                      className="h-7 px-2 text-[11px] border-zinc-700 text-zinc-200 hover:bg-emerald-950/40 hover:text-emerald-400 hover:border-emerald-600/50 w-full"
+                      className="h-7 px-2 text-[11px] font-bold border-zinc-300 text-zinc-800 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 w-full rounded-lg"
                       onClick={(e) => {
                         e.stopPropagation();
                         onCleanTable(table.id);
                       }}
                     >
-                      <CheckCircle2 className="w-3.5 h-3.5 mr-1 text-emerald-400" />
+                      <CheckCircle2 className="w-3.5 h-3.5 mr-1 text-emerald-600" />
                       Pronta para Uso
                     </Button>
                   )}

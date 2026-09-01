@@ -37,31 +37,31 @@ export default function ProjectDashboard({
   const [activeTab, setActiveTab] = useState<"overview" | "tasks" | "expenses">("overview");
 
   const STATUS_BADGES: Record<ProjectStatus, { label: string; style: string }> = {
-    planning: { label: "Planeamento", style: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
-    active: { label: "Em Execução", style: "bg-amber-500/10 text-amber-400 border-amber-500/20" },
-    completed: { label: "Concluído", style: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
-    closed: { label: "Encerrado", style: "bg-zinc-500/10 text-zinc-400 border-zinc-500/20" },
+    planning: { label: "Planeamento", style: "bg-blue-50 text-blue-800 border-blue-200" },
+    active: { label: "Em Execução", style: "bg-amber-50 text-amber-800 border-amber-300" },
+    completed: { label: "Concluído", style: "bg-emerald-50 text-emerald-800 border-emerald-300" },
+    closed: { label: "Encerrado", style: "bg-zinc-100 text-zinc-700 border-zinc-200" },
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-      <div className="flex h-[90vh] w-full max-w-4xl flex-col rounded-2xl border border-zinc-800 bg-zinc-900 shadow-2xl overflow-hidden font-sans">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/40 backdrop-blur-sm p-4 animate-in fade-in">
+      <div className="flex h-[90vh] w-full max-w-4xl flex-col rounded-3xl border border-emerald-900/10 bg-white shadow-2xl overflow-hidden font-sans text-zinc-900">
         {/* Top Header */}
-        <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-950 px-6 py-4">
+        <div className="flex items-center justify-between border-b border-zinc-200 bg-zinc-50 px-6 py-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2.5">
-              <h3 className="text-base font-bold text-white">{project.name}</h3>
+              <h3 className="text-base font-black text-emerald-950 font-mono">{project.name}</h3>
               <span
-                className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border ${
+                className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase border font-mono ${
                   STATUS_BADGES[project.status].style
                 }`}
               >
                 {STATUS_BADGES[project.status].label}
               </span>
             </div>
-            <p className="text-xs text-zinc-400 font-mono">
+            <p className="text-xs text-zinc-500 font-mono">
               Início: {project.start_date || "N/A"} • Previsão Fim: {project.end_date || "N/A"} • Progresso:{" "}
-              <b className="text-emerald-400">{project.progress}%</b>
+              <b className="text-emerald-700">{project.progress}%</b>
             </p>
           </div>
 
@@ -70,7 +70,7 @@ export default function ProjectDashboard({
               variant="ghost"
               size="sm"
               onClick={onClose}
-              className="h-8 w-8 p-0 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-full"
+              className="h-8 w-8 p-0 text-zinc-500 hover:text-zinc-700 hover:bg-zinc-100 rounded-full"
             >
               <X className="h-4 w-4" />
             </Button>
@@ -78,17 +78,17 @@ export default function ProjectDashboard({
         </div>
 
         {/* Quick Status State Switcher */}
-        <div className="flex items-center gap-2 border-b border-zinc-800/80 bg-zinc-900/60 px-6 py-2">
-          <span className="text-xs font-semibold text-zinc-400 mr-2">Estado da Obra:</span>
+        <div className="flex items-center gap-2 border-b border-zinc-200 bg-white px-6 py-2">
+          <span className="text-xs font-semibold text-zinc-500 mr-2">Estado da Obra:</span>
           {(["planning", "active", "completed", "closed"] as ProjectStatus[]).map((st) => (
             <button
               key={st}
               disabled={project.status === st}
               onClick={() => onUpdateStatus(st)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
+              className={`px-2.5 py-1 rounded-xl text-xs font-bold border transition-all font-mono ${
                 project.status === st
-                  ? "bg-zinc-800 text-zinc-500 border-zinc-700 cursor-not-allowed"
-                  : "bg-zinc-950 text-zinc-300 border-zinc-800 hover:bg-zinc-800"
+                  ? "bg-zinc-100 text-zinc-500 border-zinc-200 cursor-not-allowed"
+                  : "bg-white text-zinc-700 border-zinc-300 hover:bg-zinc-50"
               }`}
             >
               {STATUS_BADGES[st].label}
@@ -97,33 +97,33 @@ export default function ProjectDashboard({
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-zinc-800 px-6 bg-zinc-950/40">
+        <div className="flex border-b border-zinc-200 px-6 bg-zinc-50">
           <button
             onClick={() => setActiveTab("overview")}
-            className={`py-2.5 px-4 text-xs font-bold border-b-2 transition-all ${
+            className={`py-2.5 px-4 text-xs font-bold border-b-2 transition-all font-mono ${
               activeTab === "overview"
-                ? "border-emerald-500 text-emerald-400"
-                : "border-transparent text-zinc-400 hover:text-zinc-200"
+                ? "border-emerald-700 text-emerald-800"
+                : "border-transparent text-zinc-500 hover:text-zinc-900"
             }`}
           >
             Visão Geral & Orçamento
           </button>
           <button
             onClick={() => setActiveTab("tasks")}
-            className={`py-2.5 px-4 text-xs font-bold border-b-2 transition-all ${
+            className={`py-2.5 px-4 text-xs font-bold border-b-2 transition-all font-mono ${
               activeTab === "tasks"
-                ? "border-emerald-500 text-emerald-400"
-                : "border-transparent text-zinc-400 hover:text-zinc-200"
+                ? "border-emerald-700 text-emerald-800"
+                : "border-transparent text-zinc-500 hover:text-zinc-900"
             }`}
           >
             Tarefas & Cronograma ({project.tasks?.length || 0})
           </button>
           <button
             onClick={() => setActiveTab("expenses")}
-            className={`py-2.5 px-4 text-xs font-bold border-b-2 transition-all ${
+            className={`py-2.5 px-4 text-xs font-bold border-b-2 transition-all font-mono ${
               activeTab === "expenses"
-                ? "border-emerald-500 text-emerald-400"
-                : "border-transparent text-zinc-400 hover:text-zinc-200"
+                ? "border-emerald-700 text-emerald-800"
+                : "border-transparent text-zinc-500 hover:text-zinc-900"
             }`}
           >
             Custos & Despesas ({project.expenses?.length || 0})
@@ -136,11 +136,11 @@ export default function ProjectDashboard({
             <div className="space-y-4">
               <BudgetVsActual summary={summary} />
               {project.description && (
-                <div className="rounded-xl border border-zinc-800 bg-zinc-950/60 p-4 space-y-1 text-xs">
-                  <span className="font-bold text-zinc-400 uppercase tracking-wider block">
+                <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-4 space-y-1 text-xs">
+                  <span className="font-bold text-emerald-950 uppercase tracking-wider block font-mono">
                     Escopo do Projeto
                   </span>
-                  <p className="text-zinc-300">{project.description}</p>
+                  <p className="text-zinc-700">{project.description}</p>
                 </div>
               )}
             </div>

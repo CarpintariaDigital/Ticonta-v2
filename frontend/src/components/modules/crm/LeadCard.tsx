@@ -22,16 +22,16 @@ export default function LeadCard({ lead, onClick, onMoveStage }: LeadCardProps) 
       whatsapp: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
       website: "bg-blue-500/10 text-blue-400 border-blue-500/20",
       referral: "bg-purple-500/10 text-purple-400 border-purple-500/20",
-      direct: "bg-zinc-500/10 text-zinc-400 border-zinc-500/20",
+      direct: "bg-zinc-500/10 text-zinc-500 border-zinc-500/20",
       phone: "bg-amber-500/10 text-amber-400 border-amber-500/20",
     };
-    return colors[source] || "bg-zinc-800 text-zinc-400";
+    return colors[source] || "bg-zinc-800 text-zinc-500";
   };
 
   return (
     <div
       onClick={onClick}
-      className="group relative rounded-xl border border-zinc-800 bg-zinc-900/80 p-3.5 shadow-sm hover:border-zinc-700 hover:bg-zinc-900 transition-all cursor-pointer space-y-3"
+      className="group relative rounded-xl border border-zinc-200 bg-white/80 p-3.5 shadow-sm hover:border-zinc-200 hover:bg-zinc-50 transition-all cursor-pointer space-y-3"
     >
       {/* Top Header */}
       <div className="flex items-start justify-between gap-2">
@@ -48,7 +48,7 @@ export default function LeadCard({ lead, onClick, onMoveStage }: LeadCardProps) 
       </div>
 
       {/* Contacts Info */}
-      <div className="space-y-1 text-[11px] text-zinc-400">
+      <div className="space-y-1 text-[11px] text-zinc-500">
         {lead.phone && (
           <div className="flex items-center gap-1.5 truncate">
             <Phone className="h-3 w-3 text-zinc-500 shrink-0" />
@@ -64,11 +64,11 @@ export default function LeadCard({ lead, onClick, onMoveStage }: LeadCardProps) 
       </div>
 
       {/* Value & Probability */}
-      <div className="flex items-center justify-between border-t border-zinc-800/60 pt-2 text-xs font-mono">
+      <div className="flex items-center justify-between border-t border-zinc-200/60 pt-2 text-xs font-mono">
         <div>
           <span className="text-[10px] text-zinc-500 block">Valor Estimado</span>
           <span className="font-bold text-white">
-            {Number(lead.value).toLocaleString("pt-MZ")} <span className="text-[9px] text-zinc-400">MZN</span>
+            {Number(lead.value).toLocaleString("pt-MZ")} <span className="text-[9px] text-zinc-500">MZN</span>
           </span>
         </div>
 
@@ -80,7 +80,7 @@ export default function LeadCard({ lead, onClick, onMoveStage }: LeadCardProps) 
                 ? "text-emerald-400"
                 : lead.probability >= 40
                 ? "text-amber-400"
-                : "text-zinc-400"
+                : "text-zinc-500"
             }`}
           >
             {lead.probability}%
@@ -96,7 +96,7 @@ export default function LeadCard({ lead, onClick, onMoveStage }: LeadCardProps) 
         </div>
 
         {lead.interactions && lead.interactions.length > 0 && (
-          <div className="flex items-center gap-1 text-zinc-400">
+          <div className="flex items-center gap-1 text-zinc-500">
             <MessageSquare className="h-3 w-3" />
             <span>{lead.interactions.length}</span>
           </div>

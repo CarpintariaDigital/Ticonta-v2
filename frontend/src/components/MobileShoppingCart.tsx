@@ -45,7 +45,7 @@ export const MobileShoppingCart: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-full max-w-md mx-auto bg-zinc-950 text-white min-h-screen">
+    <div className="flex flex-col h-full max-w-md mx-auto bg-white text-white min-h-screen">
       {/* 1. Barcode Activation Zone (Large Centered) */}
       <div className="p-4">
         <button
@@ -57,7 +57,7 @@ export const MobileShoppingCart: React.FC = () => {
           </div>
           <div className="text-center">
             <span className="text-sm font-bold text-emerald-400 block">TOQUE PARA LER CÓDIGO</span>
-            <span className="text-[11px] text-zinc-400">Suporta EAN-13, Code-128 e QR-Code</span>
+            <span className="text-[11px] text-zinc-500">Suporta EAN-13, Code-128 e QR-Code</span>
           </div>
         </button>
       </div>
@@ -84,7 +84,7 @@ export const MobileShoppingCart: React.FC = () => {
 
       {/* 3. Cart Items List (Scrollable) */}
       <div className="flex-1 overflow-y-auto px-4 space-y-2 pb-36">
-        <div className="flex items-center justify-between py-1 text-xs text-zinc-400">
+        <div className="flex items-center justify-between py-1 text-xs text-zinc-500">
           <span>Artigos no Carrinho ({itemCount})</span>
           {items.length > 0 && (
             <button
@@ -116,17 +116,17 @@ export const MobileShoppingCart: React.FC = () => {
       </div>
 
       {/* 4. Cart Summary (Sticky Bottom) */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-zinc-900 border-t border-zinc-800 p-4 space-y-3 z-40">
+      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-zinc-50 border-t border-zinc-200 p-4 space-y-3 z-40">
         <div className="space-y-1">
-          <div className="flex justify-between text-xs text-zinc-400">
+          <div className="flex justify-between text-xs text-zinc-500">
             <span>Subtotal:</span>
             <span>{cartTotal.toLocaleString("pt-MZ")} MZN</span>
           </div>
-          <div className="flex justify-between text-xs text-zinc-400">
+          <div className="flex justify-between text-xs text-zinc-500">
             <span>IVA Estimado (16%):</span>
             <span>{tax.toLocaleString("pt-MZ")} MZN</span>
           </div>
-          <div className="flex justify-between text-base font-bold text-white pt-1 border-t border-zinc-800">
+          <div className="flex justify-between text-base font-bold text-white pt-1 border-t border-zinc-200">
             <span>TOTAL:</span>
             <span className="text-emerald-400 font-mono text-lg">
               {cartTotal.toLocaleString("pt-MZ")} MZN

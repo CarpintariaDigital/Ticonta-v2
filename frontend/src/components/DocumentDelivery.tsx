@@ -81,10 +81,10 @@ export const DocumentDeliveryModal: React.FC<DocumentDeliveryModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-      <Card className="w-full max-w-md border-zinc-800 bg-zinc-900 text-zinc-100 shadow-2xl relative">
+      <Card className="w-full max-w-md border-zinc-200 bg-zinc-50 text-zinc-900 shadow-2xl relative">
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition-colors"
+          className="absolute right-4 top-4 text-zinc-500 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition-colors"
         >
           <X className="h-4 w-4" />
         </button>
@@ -94,7 +94,7 @@ export const DocumentDeliveryModal: React.FC<DocumentDeliveryModalProps> = ({
             <Send className="h-5 w-5 text-emerald-400" />
             Enviar {documentType === "receipt" ? "Recibo" : documentType === "invoice" ? "Fatura" : "Documento"}?
           </CardTitle>
-          <CardDescription className="text-zinc-400 text-xs">
+          <CardDescription className="text-zinc-500 text-xs">
             {documentNumber ? `Documento: ${documentNumber}` : "Envie a 2ª via digital diretamente ao cliente"}
           </CardDescription>
         </CardHeader>
@@ -109,7 +109,7 @@ export const DocumentDeliveryModal: React.FC<DocumentDeliveryModalProps> = ({
                 className={`flex flex-col items-center justify-center p-3 rounded-xl border text-xs font-semibold transition-all ${
                   selectedMethod === "whatsapp"
                     ? "border-emerald-500 bg-emerald-500/10 text-emerald-400"
-                    : "border-zinc-800 bg-zinc-950 text-zinc-400 hover:text-white"
+                    : "border-zinc-200 bg-white text-zinc-500 hover:text-white"
                 }`}
               >
                 <MessageSquare className="h-5 w-5 mb-1 text-emerald-400" />
@@ -122,7 +122,7 @@ export const DocumentDeliveryModal: React.FC<DocumentDeliveryModalProps> = ({
                 className={`flex flex-col items-center justify-center p-3 rounded-xl border text-xs font-semibold transition-all ${
                   selectedMethod === "sms"
                     ? "border-emerald-500 bg-emerald-500/10 text-emerald-400"
-                    : "border-zinc-800 bg-zinc-950 text-zinc-400 hover:text-white"
+                    : "border-zinc-200 bg-white text-zinc-500 hover:text-white"
                 }`}
               >
                 <Smartphone className="h-5 w-5 mb-1 text-blue-400" />
@@ -135,7 +135,7 @@ export const DocumentDeliveryModal: React.FC<DocumentDeliveryModalProps> = ({
                 className={`flex flex-col items-center justify-center p-3 rounded-xl border text-xs font-semibold transition-all ${
                   selectedMethod === "email"
                     ? "border-emerald-500 bg-emerald-500/10 text-emerald-400"
-                    : "border-zinc-800 bg-zinc-950 text-zinc-400 hover:text-white"
+                    : "border-zinc-200 bg-white text-zinc-500 hover:text-white"
                 }`}
               >
                 <Mail className="h-5 w-5 mb-1 text-amber-400" />
@@ -146,7 +146,7 @@ export const DocumentDeliveryModal: React.FC<DocumentDeliveryModalProps> = ({
             {/* Input Dinâmico */}
             {selectedMethod !== "email" ? (
               <div className="space-y-1.5">
-                <label className="text-xs font-medium text-zinc-300 uppercase">
+                <label className="text-xs font-medium text-zinc-700 uppercase">
                   Número de Telemóvel (+258)
                 </label>
                 <Input
@@ -154,13 +154,13 @@ export const DocumentDeliveryModal: React.FC<DocumentDeliveryModalProps> = ({
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+258 84 123 4567"
-                  className="bg-zinc-950 border-zinc-800 text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
+                  className="bg-white border-zinc-200 text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
                   disabled={isLoading}
                 />
               </div>
             ) : (
               <div className="space-y-1.5">
-                <label className="text-xs font-medium text-zinc-300 uppercase">
+                <label className="text-xs font-medium text-zinc-700 uppercase">
                   Endereço de Email
                 </label>
                 <Input
@@ -169,7 +169,7 @@ export const DocumentDeliveryModal: React.FC<DocumentDeliveryModalProps> = ({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="cliente@empresa.co.mz"
-                  className="bg-zinc-950 border-zinc-800 text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
+                  className="bg-white border-zinc-200 text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
                   disabled={isLoading}
                 />
               </div>
@@ -182,9 +182,9 @@ export const DocumentDeliveryModal: React.FC<DocumentDeliveryModalProps> = ({
                 id="saveContact"
                 checked={saveForFuture}
                 onChange={(e) => setSaveForFuture(e.target.checked)}
-                className="h-4 w-4 rounded border-zinc-800 bg-zinc-950 text-emerald-600 focus:ring-emerald-500"
+                className="h-4 w-4 rounded border-zinc-200 bg-white text-emerald-600 focus:ring-emerald-500"
               />
-              <label htmlFor="saveContact" className="text-xs text-zinc-400 cursor-pointer">
+              <label htmlFor="saveContact" className="text-xs text-zinc-500 cursor-pointer">
                 Guardar contacto para próximas vendas
               </label>
             </div>
@@ -205,12 +205,12 @@ export const DocumentDeliveryModal: React.FC<DocumentDeliveryModalProps> = ({
             )}
           </CardContent>
 
-          <CardFooter className="flex justify-end gap-2 pt-2 border-t border-zinc-800/80">
+          <CardFooter className="flex justify-end gap-2 pt-2 border-t border-zinc-200/80">
             <Button
               type="button"
               variant="outline"
               onClick={onClose}
-              className="border-zinc-800 bg-zinc-950 text-zinc-300 hover:text-white"
+              className="border-zinc-200 bg-white text-zinc-700 hover:text-white"
             >
               Agora Não
             </Button>

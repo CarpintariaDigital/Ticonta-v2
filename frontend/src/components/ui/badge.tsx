@@ -10,10 +10,10 @@ const badgeVariants = cva(
         default:
           "border-transparent bg-emerald-600/20 text-emerald-300 border-emerald-500/40",
         secondary:
-          "border-[#1a2f4c] bg-[#132238] text-zinc-300",
+          "border-[#1a2f4c] bg-[#132238] text-zinc-700",
         destructive:
           "border-red-500/30 bg-red-500/20 text-red-400",
-        outline: "border-zinc-800 text-zinc-300",
+        outline: "border-zinc-200 text-zinc-700",
         success: "border-emerald-500/30 bg-emerald-500/20 text-emerald-400",
         warning: "border-amber-500/30 bg-amber-500/20 text-amber-400",
         vfd: "border-emerald-500/50 bg-[#060e1a] text-emerald-400 font-mono shadow-[0_0_10px_rgba(45,196,160,0.3)]",

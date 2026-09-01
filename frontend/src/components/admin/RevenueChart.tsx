@@ -33,8 +33,8 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({ stats, isLoading }) 
   if (isLoading || !stats) {
     return (
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2 h-72 bg-slate-800/50 rounded-2xl border border-slate-700/60 animate-pulse" />
-        <div className="h-72 bg-slate-800/50 rounded-2xl border border-slate-700/60 animate-pulse" />
+        <div className="lg:col-span-2 h-72 bg-slate-800/50 rounded-2xl border border-zinc-200/60 animate-pulse" />
+        <div className="h-72 bg-slate-800/50 rounded-2xl border border-zinc-200/60 animate-pulse" />
       </div>
     );
   }
@@ -62,14 +62,14 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({ stats, isLoading }) 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
       {/* 1. Gráfico de Tendência de Faturação */}
-      <div className="lg:col-span-2 bg-slate-900/80 backdrop-blur-md rounded-2xl p-5 border border-slate-800 shadow-lg flex flex-col justify-between">
+      <div className="lg:col-span-2 bg-white/80 backdrop-blur-md rounded-2xl p-5 border border-zinc-200 shadow-lg flex flex-col justify-between">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-base font-semibold text-slate-100 flex items-center gap-2">
+            <h3 className="text-base font-semibold text-zinc-900 flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-emerald-400" />
               Tendência de Receita Mensal (MZN)
             </h3>
-            <p className="text-xs text-slate-400">Evolução do faturamento dos últimos 6 meses</p>
+            <p className="text-xs text-zinc-500">Evolução do faturamento dos últimos 6 meses</p>
           </div>
           <span className="text-xs font-semibold px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full">
             +24.5% este mês
@@ -106,14 +106,14 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({ stats, isLoading }) 
       </div>
 
       {/* 2. Distribuição de Licenças por Plano */}
-      <div className="bg-slate-900/80 backdrop-blur-md rounded-2xl p-5 border border-slate-800 shadow-lg flex flex-col justify-between">
+      <div className="bg-white/80 backdrop-blur-md rounded-2xl p-5 border border-zinc-200 shadow-lg flex flex-col justify-between">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-base font-semibold text-slate-100 flex items-center gap-2">
+          <h3 className="text-base font-semibold text-zinc-900 flex items-center gap-2">
             <PieIcon className="w-5 h-5 text-indigo-400" />
             Licenças por Plano
           </h3>
         </div>
-        <p className="text-xs text-slate-400 mb-2">Proporção de assinantes por categoria</p>
+        <p className="text-xs text-zinc-500 mb-2">Proporção de assinantes por categoria</p>
 
         <div className="h-52 w-full">
           {planData.length > 0 ? (
@@ -148,12 +148,12 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({ stats, isLoading }) 
                 <Legend
                   verticalAlign="bottom"
                   height={36}
-                  formatter={(value) => <span className="text-xs text-slate-300 font-medium">{value}</span>}
+                  formatter={(value) => <span className="text-xs text-zinc-700 font-medium">{value}</span>}
                 />
               </PieChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex items-center justify-center h-full text-xs text-slate-500">
+            <div className="flex items-center justify-center h-full text-xs text-zinc-500">
               Nenhuma licença registada
             </div>
           )}

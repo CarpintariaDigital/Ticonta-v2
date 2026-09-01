@@ -243,9 +243,9 @@ export const DualBarcodeScanner: React.FC<DualBarcodeScannerProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-between bg-black/90 text-zinc-100 p-4 backdrop-blur-md font-mono selection:bg-emerald-500 selection:text-black">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-between bg-black/90 text-zinc-900 p-4 backdrop-blur-md font-mono selection:bg-emerald-500 selection:text-black">
       {/* Top Header */}
-      <div className="w-full max-w-md flex items-center justify-between py-2 border-b border-zinc-800">
+      <div className="w-full max-w-md flex items-center justify-between py-2 border-b border-zinc-200">
         <div className="flex items-center gap-2">
           <div className="p-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-emerald-400">
             <QrCode className="h-4 w-4" />
@@ -254,7 +254,7 @@ export const DualBarcodeScanner: React.FC<DualBarcodeScannerProps> = ({
             <h3 className="font-black text-xs uppercase tracking-wider text-white">
               Leitor Barcode & QR Code
             </h3>
-            <p className="text-[10px] text-zinc-400">Câmara Traseira HD / Mobile</p>
+            <p className="text-[10px] text-zinc-500">Câmara Traseira HD / Mobile</p>
           </div>
         </div>
 
@@ -266,7 +266,7 @@ export const DualBarcodeScanner: React.FC<DualBarcodeScannerProps> = ({
               className={`p-2 rounded-lg border transition-all ${
                 torchOn
                   ? "bg-amber-400 text-black border-amber-400 shadow-md shadow-amber-400/30"
-                  : "bg-zinc-900 border-zinc-700 text-zinc-300 hover:text-white"
+                  : "bg-zinc-50 border-zinc-200 text-zinc-700 hover:text-white"
               }`}
               title="Lanterna"
             >
@@ -277,7 +277,7 @@ export const DualBarcodeScanner: React.FC<DualBarcodeScannerProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-lg bg-zinc-900 border border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white"
+            className="p-2 rounded-lg bg-zinc-50 border border-zinc-200 text-zinc-700 hover:bg-zinc-800 hover:text-white"
           >
             <X className="h-4 w-4" />
           </button>
@@ -286,7 +286,7 @@ export const DualBarcodeScanner: React.FC<DualBarcodeScannerProps> = ({
 
       {/* Mode Switcher */}
       <div className="w-full max-w-md my-2">
-        <div className="grid grid-cols-2 gap-2 bg-zinc-950 p-1.5 rounded-xl border border-zinc-800">
+        <div className="grid grid-cols-2 gap-2 bg-white p-1.5 rounded-xl border border-zinc-200">
           <button
             type="button"
             onClick={() => {
@@ -296,7 +296,7 @@ export const DualBarcodeScanner: React.FC<DualBarcodeScannerProps> = ({
             className={`flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               mode === "venda"
                 ? "bg-emerald-600 text-white shadow-lg shadow-emerald-950"
-                : "text-zinc-400 hover:text-zinc-200"
+                : "text-zinc-500 hover:text-zinc-800"
             }`}
           >
             <ShoppingCart className="w-3.5 h-3.5" />
@@ -312,7 +312,7 @@ export const DualBarcodeScanner: React.FC<DualBarcodeScannerProps> = ({
             className={`flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
               mode === "stock"
                 ? "bg-blue-600 text-white shadow-lg shadow-blue-950"
-                : "text-zinc-400 hover:text-zinc-200"
+                : "text-zinc-500 hover:text-zinc-800"
             }`}
           >
             <PackagePlus className="w-3.5 h-3.5" />
@@ -325,13 +325,13 @@ export const DualBarcodeScanner: React.FC<DualBarcodeScannerProps> = ({
       <div className="w-full max-w-md flex-1 flex flex-col items-center justify-center my-1 relative overflow-hidden">
         <div
           id={readerElementId}
-          className="w-full max-w-[320px] aspect-video rounded-2xl overflow-hidden border-2 border-emerald-500/70 shadow-2xl bg-zinc-950 relative"
+          className="w-full max-w-[320px] aspect-video rounded-2xl overflow-hidden border-2 border-emerald-500/70 shadow-2xl bg-white relative"
         />
 
         {/* Framing Guide */}
         <div className="absolute pointer-events-none w-64 h-32 border-2 border-dashed border-emerald-400 rounded-xl flex flex-col items-center justify-center bg-emerald-500/5">
           <div className="w-full h-0.5 bg-emerald-400/80 shadow-[0_0_10px_#10b981] animate-pulse mb-2" />
-          <span className="text-[10px] font-mono text-emerald-300 bg-black/80 px-2 py-0.5 rounded border border-emerald-500/30">
+          <span className="text-[10px] font-mono text-emerald-300 bg-zinc-950/40 px-2 py-0.5 rounded border border-emerald-500/30">
             Aponte ao Código de Barras / QR Code
           </span>
         </div>
@@ -354,10 +354,10 @@ export const DualBarcodeScanner: React.FC<DualBarcodeScannerProps> = ({
 
       {/* Stock Entry & Action Panel (when in Stock Mode or when a product is scanned) */}
       {mode === "stock" && lastScannedCode && (
-        <div className="w-full max-w-md bg-zinc-900/95 border border-zinc-800 rounded-2xl p-3.5 space-y-3 mb-2 animate-in fade-in">
-          <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
+        <div className="w-full max-w-md bg-zinc-50/95 border border-zinc-200 rounded-2xl p-3.5 space-y-3 mb-2 animate-in fade-in">
+          <div className="flex items-center justify-between border-b border-zinc-200 pb-2">
             <div>
-              <span className="text-[10px] text-zinc-400 uppercase">Código Lido:</span>
+              <span className="text-[10px] text-zinc-500 uppercase">Código Lido:</span>
               <p className="text-xs font-black text-emerald-400">{lastScannedCode}</p>
             </div>
             <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">
@@ -367,26 +367,26 @@ export const DualBarcodeScanner: React.FC<DualBarcodeScannerProps> = ({
 
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="text-[10px] text-zinc-400 uppercase">Qtd a Adicionar</label>
+              <label className="text-[10px] text-zinc-500 uppercase">Qtd a Adicionar</label>
               <div className="flex items-center gap-1 mt-1">
                 <Input
                   type="number"
                   min={1}
                   value={stockQty}
                   onChange={(e) => setStockQty(Math.max(1, parseInt(e.target.value) || 1))}
-                  className="h-8 text-xs font-bold bg-zinc-950 border-zinc-700 text-white"
+                  className="h-8 text-xs font-bold bg-white border-zinc-200 text-white"
                 />
               </div>
             </div>
 
             <div>
-              <label className="text-[10px] text-zinc-400 uppercase">Preço Venda (MT)</label>
+              <label className="text-[10px] text-zinc-500 uppercase">Preço Venda (MT)</label>
               <Input
                 type="number"
                 step="0.01"
                 value={newSellingPrice}
                 onChange={(e) => setNewSellingPrice(parseFloat(e.target.value) || 0)}
-                className="h-8 text-xs font-bold bg-zinc-950 border-zinc-700 text-emerald-400 mt-1"
+                className="h-8 text-xs font-bold bg-white border-zinc-200 text-emerald-400 mt-1"
               />
             </div>
           </div>
@@ -394,31 +394,31 @@ export const DualBarcodeScanner: React.FC<DualBarcodeScannerProps> = ({
           {!foundProduct && (
             <div className="space-y-2">
               <div>
-                <label className="text-[10px] text-zinc-400 uppercase">Nome do Produto</label>
+                <label className="text-[10px] text-zinc-500 uppercase">Nome do Produto</label>
                 <Input
                   value={newProductName}
                   onChange={(e) => setNewProductName(e.target.value)}
                   placeholder="Ex: Arroz 25kg / Óleo 5L"
-                  className="h-8 text-xs bg-zinc-950 border-zinc-700 text-white mt-1"
+                  className="h-8 text-xs bg-white border-zinc-200 text-white mt-1"
                 />
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-[10px] text-zinc-400 uppercase">Preço Custo (MT)</label>
+                  <label className="text-[10px] text-zinc-500 uppercase">Preço Custo (MT)</label>
                   <Input
                     type="number"
                     step="0.01"
                     value={newCostPrice}
                     onChange={(e) => setNewCostPrice(parseFloat(e.target.value) || 0)}
-                    className="h-8 text-xs bg-zinc-950 border-zinc-700 text-zinc-300 mt-1"
+                    className="h-8 text-xs bg-white border-zinc-200 text-zinc-700 mt-1"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] text-zinc-400 uppercase">Categoria</label>
+                  <label className="text-[10px] text-zinc-500 uppercase">Categoria</label>
                   <Input
                     value={newProductCategory}
                     onChange={(e) => setNewProductCategory(e.target.value)}
-                    className="h-8 text-xs bg-zinc-950 border-zinc-700 text-zinc-300 mt-1"
+                    className="h-8 text-xs bg-white border-zinc-200 text-zinc-700 mt-1"
                   />
                 </div>
               </div>
@@ -437,9 +437,9 @@ export const DualBarcodeScanner: React.FC<DualBarcodeScannerProps> = ({
       )}
 
       {/* Manual Fallback & Keyboard Entry */}
-      <div className="w-full max-w-md bg-zinc-900/90 border border-zinc-800 rounded-2xl p-2.5">
+      <div className="w-full max-w-md bg-white/90 border border-zinc-200 rounded-2xl p-2.5">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] text-zinc-400 flex items-center gap-1.5">
+          <span className="text-[11px] text-zinc-500 flex items-center gap-1.5">
             <Keyboard className="w-3.5 h-3.5 text-emerald-400" />
             Digitação Manual
           </span>
@@ -467,7 +467,7 @@ export const DualBarcodeScanner: React.FC<DualBarcodeScannerProps> = ({
               value={manualCode}
               onChange={(e) => setManualCode(e.target.value)}
               placeholder="Ex: 560123456789 ou SKU-CIM-01"
-              className="h-9 text-xs bg-zinc-950 border-zinc-700 text-white"
+              className="h-9 text-xs bg-white border-zinc-200 text-white"
               autoFocus
             />
             <Button

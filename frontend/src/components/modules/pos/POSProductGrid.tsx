@@ -75,7 +75,7 @@ export default function POSProductGrid({ products, onSelectProduct, isLoading }:
         ) : filteredProducts.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-center text-[#4a7a9b] border-2 border-dashed border-[#1c3150] rounded-xl p-4">
             <Package className="h-10 w-10 mb-2 stroke-1 text-[#2a466c]" />
-            <p className="text-xs font-bold uppercase tracking-wider text-zinc-300">NENHUM ARTIGO ENCONTRADO</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-zinc-700">NENHUM ARTIGO ENCONTRADO</p>
             <p className="text-[11px] text-[#4a7a9b] mt-1">Ajuste os filtros de pesquisa ou categoria.</p>
           </div>
         ) : (
@@ -106,7 +106,7 @@ export default function POSProductGrid({ products, onSelectProduct, isLoading }:
                         </span>
                       )}
                     </div>
-                    <h3 className="text-xs font-bold text-zinc-100 line-clamp-2 leading-tight uppercase group-hover:text-[#2dc4a0] transition-colors">
+                    <h3 className="text-xs font-bold text-zinc-900 line-clamp-2 leading-tight uppercase group-hover:text-[#2dc4a0] transition-colors">
                       {product.name}
                     </h3>
                   </div>
@@ -120,7 +120,7 @@ export default function POSProductGrid({ products, onSelectProduct, isLoading }:
                       </p>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] font-bold text-zinc-300">
+                      <span className="text-[10px] font-bold text-zinc-700">
                         Qtd: <b className="text-white">{product.quantity}</b>
                       </span>
                     </div>

@@ -73,26 +73,26 @@ export default function EmployeeForm({ onSubmit, onCancel }: EmployeeFormProps) 
       {/* Name Fields */}
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-zinc-300">
+          <label className="text-xs font-semibold text-zinc-700">
             Primeiro Nome <span className="text-emerald-400">*</span>
           </label>
           <Input
             placeholder="Ex: Manuel"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs"
+            className="bg-white border-zinc-200 text-xs"
           />
         </div>
 
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-zinc-300">
+          <label className="text-xs font-semibold text-zinc-700">
             Apelido / Sobrenome <span className="text-emerald-400">*</span>
           </label>
           <Input
             placeholder="Ex: Cossa"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs"
+            className="bg-white border-zinc-200 text-xs"
           />
         </div>
       </div>
@@ -100,23 +100,23 @@ export default function EmployeeForm({ onSubmit, onCancel }: EmployeeFormProps) 
       {/* Position & Department */}
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-zinc-300">
+          <label className="text-xs font-semibold text-zinc-700">
             Cargo / Função <span className="text-emerald-400">*</span>
           </label>
           <Input
             placeholder="Ex: Carpinteiro de Estruturas"
             value={position}
             onChange={(e) => setPosition(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs"
+            className="bg-white border-zinc-200 text-xs"
           />
         </div>
 
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-zinc-300">Departamento</label>
+          <label className="text-xs font-semibold text-zinc-700">Departamento</label>
           <select
             value={department}
             onChange={(e) => setDepartment(e.target.value)}
-            className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
           >
             <option value="Produção">Produção / Obra</option>
             <option value="Administração">Administração / Finanças</option>
@@ -129,7 +129,7 @@ export default function EmployeeForm({ onSubmit, onCancel }: EmployeeFormProps) 
       {/* Salary & Start Date */}
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-zinc-300">
+          <label className="text-xs font-semibold text-zinc-700">
             Salário Base (MZN) <span className="text-emerald-400">*</span>
           </label>
           <Input
@@ -138,17 +138,17 @@ export default function EmployeeForm({ onSubmit, onCancel }: EmployeeFormProps) 
             placeholder="35000"
             value={salary}
             onChange={(e) => setSalary(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs font-mono"
+            className="bg-white border-zinc-200 text-xs font-mono"
           />
         </div>
 
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-zinc-300">Data de Admissão</label>
+          <label className="text-xs font-semibold text-zinc-700">Data de Admissão</label>
           <Input
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs"
+            className="bg-white border-zinc-200 text-xs"
           />
         </div>
       </div>
@@ -156,22 +156,22 @@ export default function EmployeeForm({ onSubmit, onCancel }: EmployeeFormProps) 
       {/* INSS & NUIT */}
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-zinc-300">Número INSS (Segurança Social)</label>
+          <label className="text-xs font-semibold text-zinc-700">Número INSS (Segurança Social)</label>
           <Input
             placeholder="99887766"
             value={inssNumber}
             onChange={(e) => setInssNumber(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs font-mono"
+            className="bg-white border-zinc-200 text-xs font-mono"
           />
         </div>
 
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-zinc-300">NUIT Moçambique</label>
+          <label className="text-xs font-semibold text-zinc-700">NUIT Moçambique</label>
           <Input
             placeholder="400123456"
             value={nuit}
             onChange={(e) => setNuit(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs font-mono"
+            className="bg-white border-zinc-200 text-xs font-mono"
           />
         </div>
       </div>
@@ -179,33 +179,33 @@ export default function EmployeeForm({ onSubmit, onCancel }: EmployeeFormProps) 
       {/* Contacts */}
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-zinc-300">Telefone / Telemóvel</label>
+          <label className="text-xs font-semibold text-zinc-700">Telefone / Telemóvel</label>
           <Input
             placeholder="+258 84 123 4567"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs font-mono"
+            className="bg-white border-zinc-200 text-xs font-mono"
           />
         </div>
 
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-zinc-300">E-mail</label>
+          <label className="text-xs font-semibold text-zinc-700">E-mail</label>
           <Input
             type="email"
             placeholder="colaborador@empresa.co.mz"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs"
+            className="bg-white border-zinc-200 text-xs"
           />
         </div>
       </div>
 
-      <div className="flex justify-end gap-2 pt-3 border-t border-zinc-800">
+      <div className="flex justify-end gap-2 pt-3 border-t border-zinc-200">
         <Button
           type="button"
           variant="outline"
           onClick={onCancel}
-          className="border-zinc-800 bg-zinc-900 text-zinc-300 text-xs"
+          className="border-zinc-200 bg-zinc-50 text-zinc-700 text-xs"
         >
           Cancelar
         </Button>

@@ -78,19 +78,19 @@ export default function PayrollCalculator({
   };
 
   return (
-    <div className="space-y-5 rounded-2xl border border-zinc-800 bg-zinc-900/60 backdrop-blur p-5 font-sans">
+    <div className="space-y-5 rounded-2xl border border-zinc-200 bg-white backdrop-blur p-5 font-sans">
       {/* Top Controls Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200 pb-4">
         <div>
           <h3 className="text-base font-bold text-white">Processamento da Folha Salarial & INSS</h3>
-          <p className="text-xs text-zinc-400">
+          <p className="text-xs text-zinc-500">
             Deduções automáticas de 3% Segurança Social e Retenção na Fonte IRPS Moçambique
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-1.5 bg-zinc-950 px-2.5 py-1 rounded-lg border border-zinc-800">
-            <span className="text-[11px] font-semibold text-zinc-400">Período:</span>
+          <div className="flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-lg border border-zinc-200">
+            <span className="text-[11px] font-semibold text-zinc-500">Período:</span>
             <input
               type="month"
               value={period}
@@ -123,7 +123,7 @@ export default function PayrollCalculator({
               <span className="text-[10px] uppercase font-bold text-blue-400">Massa Salarial Bruta</span>
               <p className="text-xl font-black text-white mt-1">
                 {Number(payroll.total_gross).toLocaleString("pt-MZ")}{" "}
-                <span className="text-xs font-normal text-zinc-400">MZN</span>
+                <span className="text-xs font-normal text-zinc-500">MZN</span>
               </p>
             </div>
 
@@ -133,7 +133,7 @@ export default function PayrollCalculator({
               </span>
               <p className="text-xl font-black text-white mt-1">
                 {Number(payroll.total_inss_due).toLocaleString("pt-MZ")}{" "}
-                <span className="text-[10px] font-normal text-zinc-400">(3% + 4%)</span>
+                <span className="text-[10px] font-normal text-zinc-500">(3% + 4%)</span>
               </p>
             </div>
 
@@ -141,7 +141,7 @@ export default function PayrollCalculator({
               <span className="text-[10px] uppercase font-bold text-amber-400">Retenção IRPS / IRT</span>
               <p className="text-xl font-black text-white mt-1">
                 {Number(payroll.total_irps).toLocaleString("pt-MZ")}{" "}
-                <span className="text-xs font-normal text-zinc-400">MZN</span>
+                <span className="text-xs font-normal text-zinc-500">MZN</span>
               </p>
             </div>
 
@@ -149,14 +149,14 @@ export default function PayrollCalculator({
               <span className="text-[10px] uppercase font-bold text-emerald-400">Líquido a Pagar</span>
               <p className="text-xl font-black text-emerald-400 mt-1">
                 {Number(payroll.total_net_payable).toLocaleString("pt-MZ")}{" "}
-                <span className="text-xs font-normal text-zinc-400">MZN</span>
+                <span className="text-xs font-normal text-zinc-500">MZN</span>
               </p>
             </div>
           </div>
 
           {/* Action Export Buttons */}
           <div className="flex flex-wrap items-center justify-between gap-2 pt-2">
-            <div className="flex items-center gap-1 text-xs text-zinc-400">
+            <div className="flex items-center gap-1 text-xs text-zinc-500">
               <ShieldCheck className="h-4 w-4 text-emerald-400" />
               <span>Folha calculada para {payroll.total_employees} trabalhadores ativos.</span>
             </div>
@@ -166,7 +166,7 @@ export default function PayrollCalculator({
                 variant="outline"
                 size="sm"
                 onClick={handleExportCSV}
-                className="border-zinc-800 bg-zinc-900 text-zinc-300 text-xs h-8"
+                className="border-zinc-200 bg-zinc-50 text-zinc-700 text-xs h-8"
               >
                 <Download className="h-3.5 w-3.5 mr-1" />
                 Excel / CSV
@@ -175,7 +175,7 @@ export default function PayrollCalculator({
                 variant="outline"
                 size="sm"
                 onClick={() => printFinancialReport("Folha")}
-                className="border-zinc-800 bg-zinc-900 text-zinc-300 text-xs h-8"
+                className="border-zinc-200 bg-zinc-50 text-zinc-700 text-xs h-8"
               >
                 <FileText className="h-3.5 w-3.5 mr-1" />
                 Imprimir
@@ -193,9 +193,9 @@ export default function PayrollCalculator({
           </div>
 
           {/* Payroll Table Breakdown */}
-          <div className="overflow-x-auto rounded-xl border border-zinc-800">
-            <table className="w-full text-left font-sans text-xs text-zinc-300">
-              <thead className="bg-zinc-950/80 text-[11px] uppercase tracking-wider text-zinc-400 border-b border-zinc-800 font-mono">
+          <div className="overflow-x-auto rounded-xl border border-zinc-200">
+            <table className="w-full text-left font-sans text-xs text-zinc-700">
+              <thead className="bg-white/80 text-[11px] uppercase tracking-wider text-zinc-500 border-b border-zinc-200 font-mono">
                 <tr>
                   <th className="py-3 px-4">Funcionário</th>
                   <th className="py-3 px-4">Cargo</th>
@@ -208,14 +208,14 @@ export default function PayrollCalculator({
               </thead>
               <tbody className="divide-y divide-zinc-800/40">
                 {payroll.items.map((it) => (
-                  <tr key={it.id} className="hover:bg-zinc-900/50 transition-colors">
+                  <tr key={it.id} className="hover:bg-zinc-50/50 transition-colors">
                     <td className="py-3 px-4 font-bold text-white">
                       <div>{it.employee_name}</div>
                       <div className="text-[10px] font-normal text-zinc-500 font-mono">
                         INSS: {it.employee_inss || "N/A"}
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-zinc-300">{it.position}</td>
+                    <td className="py-3 px-4 text-zinc-700">{it.position}</td>
                     <td className="py-3 px-4 text-right font-mono font-semibold text-white">
                       {Number(it.gross_salary).toLocaleString("pt-MZ")}
                     </td>
@@ -238,7 +238,7 @@ export default function PayrollCalculator({
           </div>
         </>
       ) : (
-        <div className="flex h-40 flex-col items-center justify-center rounded-xl border border-dashed border-zinc-800 text-center p-6 text-xs text-zinc-500 space-y-2">
+        <div className="flex h-40 flex-col items-center justify-center rounded-xl border border-dashed border-zinc-200 text-center p-6 text-xs text-zinc-500 space-y-2">
           <AlertCircle className="h-6 w-6 text-zinc-600" />
           <span>Nenhuma folha salarial processada para o período {period}.</span>
           <Button size="sm" onClick={handleProcess} className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold">

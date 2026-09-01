@@ -123,7 +123,7 @@ export default function POSPayment({
       {/* Discount Tactile Keypad */}
       <div className="space-y-1.5 rounded-xl border border-[#162942] bg-[#09121f]/90 p-3">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-bold text-zinc-300 flex items-center gap-1 uppercase tracking-wider">
+          <span className="text-[11px] font-bold text-zinc-700 flex items-center gap-1 uppercase tracking-wider">
             <Percent className="h-3 w-3 text-amber-400" />
             DESCONTO DE BALCÃO
           </span>

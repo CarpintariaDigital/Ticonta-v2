@@ -36,15 +36,15 @@ export const HealthAlertsPanel: React.FC<HealthAlertsPanelProps> = ({
   onOpenNewHealth,
 }) => {
   return (
-    <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 md:p-5 shadow-xl backdrop-blur-md space-y-3">
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+    <div className="bg-white/80 border border-zinc-200 rounded-2xl p-4 md:p-5 shadow-xl backdrop-blur-md space-y-3">
+      <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
         <div className="flex items-center gap-2.5">
           <div className="p-2 rounded-xl bg-teal-500/20 text-teal-400 border border-teal-500/30">
             <HeartPulse className="w-5 h-5" />
           </div>
           <div>
             <h3 className="text-sm font-bold text-white">Histórico Sanitário & Vacinação</h3>
-            <p className="text-xs text-slate-400">Tratamentos preventivos e curativos</p>
+            <p className="text-xs text-zinc-500">Tratamentos preventivos e curativos</p>
           </div>
         </div>
 
@@ -60,12 +60,12 @@ export const HealthAlertsPanel: React.FC<HealthAlertsPanelProps> = ({
         {records.map((r, idx) => (
           <div
             key={idx}
-            className="p-3 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-between text-xs gap-2"
+            className="p-3 bg-white border border-zinc-200 rounded-xl flex items-center justify-between text-xs gap-2"
           >
             <div className="space-y-0.5">
               <span className="font-bold text-white block">{r.disease}</span>
-              <span className="text-slate-400 text-[11px] block">{r.treatment}</span>
-              <span className="text-[10px] text-slate-500 flex items-center gap-1">
+              <span className="text-zinc-500 text-[11px] block">{r.treatment}</span>
+              <span className="text-[10px] text-zinc-500 flex items-center gap-1">
                 <Calendar className="w-3 h-3" /> {r.date}
               </span>
             </div>

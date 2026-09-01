@@ -65,7 +65,7 @@ export default function CompanySettingsPage() {
   return (
     <div className="w-full space-y-6">
       {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-6 rounded-3xl backdrop-blur">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/80 border border-zinc-200 p-6 rounded-3xl backdrop-blur">
             <div className="flex items-center gap-3">
               <div className="p-3 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 text-emerald-400 border border-emerald-500/30">
                 <Building2 className="w-6 h-6" />
@@ -74,7 +74,7 @@ export default function CompanySettingsPage() {
                 <h1 className="text-2xl font-bold text-white tracking-tight">
                   Dados da Empresa & Logótipo
                 </h1>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-zinc-500">
                   Configure o logótipo oficial, NUIT e cabeçalhos para recibos, faturas e pró-formas.
                 </p>
               </div>
@@ -91,12 +91,12 @@ export default function CompanySettingsPage() {
           <form onSubmit={handleSave} className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Left Column: Logo & Visual Preview */}
             <div className="lg:col-span-4 space-y-6">
-              <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4 text-center">
-                <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
+              <div className="bg-white border border-zinc-200 rounded-3xl p-6 space-y-4 text-center">
+                <label className="text-xs font-bold text-zinc-700 uppercase tracking-wider block">
                   Logótipo para Recibos & Faturas
                 </label>
 
-                <div className="relative mx-auto w-36 h-36 rounded-2xl bg-slate-950 border-2 border-dashed border-slate-700 flex flex-col items-center justify-center p-2 overflow-hidden shadow-inner group">
+                <div className="relative mx-auto w-36 h-36 rounded-2xl bg-white border-2 border-dashed border-zinc-200 flex flex-col items-center justify-center p-2 overflow-hidden shadow-inner group">
                   {logoPreview ? (
                     <img
                       src={logoPreview}
@@ -104,13 +104,13 @@ export default function CompanySettingsPage() {
                       className="w-full h-full object-contain filter drop-shadow"
                     />
                   ) : (
-                    <div className="text-center text-slate-500">
+                    <div className="text-center text-zinc-500">
                       <ImageIcon className="w-8 h-8 mx-auto mb-1 opacity-50" />
                       <span className="text-[10px]">Sem logótipo</span>
                     </div>
                   )}
 
-                  <label className="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-emerald-400 font-bold text-xs cursor-pointer">
+                  <label className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-emerald-400 font-bold text-xs cursor-pointer">
                     <Upload className="w-5 h-5 mb-1" />
                     Alterar Logótipo
                     <input
@@ -122,12 +122,12 @@ export default function CompanySettingsPage() {
                   </label>
                 </div>
 
-                <p className="text-[11px] text-slate-500">
+                <p className="text-[11px] text-zinc-500">
                   Recomendado: PNG ou JPG com fundo transparente (quadrado ou retangular).
                 </p>
 
                 <label className="block">
-                  <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white cursor-pointer transition-colors border border-slate-700">
+                  <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white cursor-pointer transition-colors border border-zinc-200">
                     <Upload className="w-3.5 h-3.5" />
                     Carregar Imagem do Dispositivo
                   </span>
@@ -141,56 +141,56 @@ export default function CompanySettingsPage() {
               </div>
 
               {/* Receipt Visual Preview Mini Card */}
-              <div className="bg-slate-950 border border-slate-800 rounded-3xl p-4 text-xs space-y-2 text-zinc-400 font-mono shadow-inner">
-                <span className="text-[10px] uppercase font-bold text-emerald-400 block border-b border-zinc-800 pb-1 font-sans">
+              <div className="bg-white border border-zinc-200 rounded-3xl p-4 text-xs space-y-2 text-zinc-500 font-mono shadow-inner">
+                <span className="text-[10px] uppercase font-bold text-emerald-400 block border-b border-zinc-200 pb-1 font-sans">
                   Pré-visualização no Recibo Digital
                 </span>
                 <div className="text-center py-2 space-y-1">
-                  <div className="w-8 h-8 mx-auto rounded-lg overflow-hidden bg-zinc-900 border border-zinc-800 p-0.5">
+                  <div className="w-8 h-8 mx-auto rounded-lg overflow-hidden bg-zinc-50 border border-zinc-200 p-0.5">
                     {logoPreview && <img src={logoPreview} className="w-full h-full object-contain" />}
                   </div>
                   <div className="font-bold text-white text-[11px]">{profile.name}</div>
                   <div className="text-[9px]">NUIT: {profile.nuit} • {profile.city}</div>
                 </div>
-                <div className="border-t border-dashed border-zinc-800 pt-1 text-[9px] text-center text-zinc-500 font-sans">
+                <div className="border-t border-dashed border-zinc-200 pt-1 text-[9px] text-center text-zinc-500 font-sans">
                   {profile.receipt_footer_note}
                 </div>
               </div>
             </div>
 
             {/* Right Column: Company Form Inputs */}
-            <div className="lg:col-span-8 bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-5">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 border-b border-slate-800 pb-3">
+            <div className="lg:col-span-8 bg-white border border-zinc-200 rounded-3xl p-6 space-y-5">
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 border-b border-zinc-200 pb-3">
                 <Store className="w-4 h-4 text-emerald-400" />
                 Informações Fiscais & Comerciais
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1.5">
+                  <label className="block text-zinc-700 font-semibold mb-1.5">
                     Nome Comercial da Loja / Estabelecimento *
                   </label>
                   <Input
                     required
                     value={profile.name}
                     onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-                    className="bg-slate-950 border-slate-700 text-white font-bold"
+                    className="bg-white border-zinc-200 text-white font-bold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1.5">
+                  <label className="block text-zinc-700 font-semibold mb-1.5">
                     Razão Social / Denominação Legal
                   </label>
                   <Input
                     value={profile.legal_name}
                     onChange={(e) => setProfile({ ...profile, legal_name: e.target.value })}
-                    className="bg-slate-950 border-slate-700 text-white"
+                    className="bg-white border-zinc-200 text-white"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1.5">
+                  <label className="block text-zinc-700 font-semibold mb-1.5">
                     NUIT (Número Único de Identificação Tributária) *
                   </label>
                   <Input
@@ -198,73 +198,73 @@ export default function CompanySettingsPage() {
                     maxLength={9}
                     value={profile.nuit}
                     onChange={(e) => setProfile({ ...profile, nuit: e.target.value })}
-                    className="bg-slate-950 border-slate-700 text-white font-mono font-bold"
+                    className="bg-white border-zinc-200 text-white font-mono font-bold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1.5">
+                  <label className="block text-zinc-700 font-semibold mb-1.5">
                     Contacto Telefónico Principal *
                   </label>
                   <Input
                     required
                     value={profile.phone}
                     onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
-                    className="bg-slate-950 border-slate-700 text-white font-mono"
+                    className="bg-white border-zinc-200 text-white font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1.5">
+                  <label className="block text-zinc-700 font-semibold mb-1.5">
                     Número de WhatsApp Comercial
                   </label>
                   <Input
                     value={profile.whatsapp}
                     onChange={(e) => setProfile({ ...profile, whatsapp: e.target.value })}
-                    className="bg-slate-950 border-slate-700 text-white font-mono"
+                    className="bg-white border-zinc-200 text-white font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1.5">
+                  <label className="block text-zinc-700 font-semibold mb-1.5">
                     Email de Contacto / Faturação
                   </label>
                   <Input
                     type="email"
                     value={profile.email}
                     onChange={(e) => setProfile({ ...profile, email: e.target.value })}
-                    className="bg-slate-950 border-slate-700 text-white"
+                    className="bg-white border-zinc-200 text-white"
                   />
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-slate-300 font-semibold mb-1.5">
+                  <label className="block text-zinc-700 font-semibold mb-1.5">
                     Endereço Físico (Rua, Bairro, Nº) *
                   </label>
                   <Input
                     required
                     value={profile.address}
                     onChange={(e) => setProfile({ ...profile, address: e.target.value })}
-                    className="bg-slate-950 border-slate-700 text-white"
+                    className="bg-white border-zinc-200 text-white"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1.5">Cidade *</label>
+                  <label className="block text-zinc-700 font-semibold mb-1.5">Cidade *</label>
                   <Input
                     required
                     value={profile.city}
                     onChange={(e) => setProfile({ ...profile, city: e.target.value })}
-                    className="bg-slate-950 border-slate-700 text-white"
+                    className="bg-white border-zinc-200 text-white"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1.5">Província *</label>
+                  <label className="block text-zinc-700 font-semibold mb-1.5">Província *</label>
                   <select
                     value={profile.province}
                     onChange={(e) => setProfile({ ...profile, province: e.target.value })}
-                    className="w-full h-10 px-3 bg-slate-950 border border-slate-700 rounded-md text-white"
+                    className="w-full h-10 px-3 bg-white border border-zinc-200 rounded-md text-white"
                   >
                     <option value="Maputo Cidade">Maputo Cidade</option>
                     <option value="Maputo Província">Maputo Província</option>
@@ -281,36 +281,36 @@ export default function CompanySettingsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1.5">
+                  <label className="block text-zinc-700 font-semibold mb-1.5">
                     Taxa de IVA Padrão (%)
                   </label>
                   <Input
                     type="number"
                     value={profile.default_vat_rate}
                     onChange={(e) => setProfile({ ...profile, default_vat_rate: Number(e.target.value) })}
-                    className="bg-slate-950 border-slate-700 text-white font-mono"
+                    className="bg-white border-zinc-200 text-white font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1.5">
+                  <label className="block text-zinc-700 font-semibold mb-1.5">
                     Moeda Padrão
                   </label>
                   <Input
                     value={profile.currency}
                     onChange={(e) => setProfile({ ...profile, currency: e.target.value })}
-                    className="bg-slate-950 border-slate-700 text-white font-mono font-bold"
+                    className="bg-white border-zinc-200 text-white font-mono font-bold"
                   />
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-slate-300 font-semibold mb-1.5">
+                  <label className="block text-zinc-700 font-semibold mb-1.5">
                     Mensagem de Rodapé dos Recibos & Faturas
                   </label>
                   <Input
                     value={profile.receipt_footer_note}
                     onChange={(e) => setProfile({ ...profile, receipt_footer_note: e.target.value })}
-                    className="bg-slate-950 border-slate-700 text-white"
+                    className="bg-white border-zinc-200 text-white"
                   />
                 </div>
               </div>

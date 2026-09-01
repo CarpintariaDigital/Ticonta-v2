@@ -58,13 +58,12 @@ export default function BillSplitter({
 
   const handleRemoveCustomPerson = (index: number) => {
     if (customPeople.length <= 1) return;
-    const updated = customPeople.filter((_, idx) => idx !== index);
-    setCustomPeople(updated);
+    setCustomPeople(customPeople.filter((_, i) => i !== index));
   };
 
   const handleUpdateCustomPerson = (index: number, field: string, value: any) => {
     const updated = [...customPeople];
-    (updated[index] as any)[field] = value;
+    updated[index] = { ...updated[index], [field]: value };
     setCustomPeople(updated);
   };
 
@@ -84,46 +83,46 @@ export default function BillSplitter({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="w-full max-w-lg bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-2xl space-y-5 text-zinc-100 select-none">
+    <div className="fixed inset-0 z-50 bg-white/40 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="w-full max-w-lg bg-white border border-emerald-900/10 rounded-3xl p-6 shadow-2xl space-y-5 text-zinc-900 select-none">
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
+        <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
+            <div className="w-9 h-9 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700">
               <Split className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-black text-emerald-950 font-mono">
                 Dividir Conta • Comanda {order.order_number}
               </h3>
-              <p className="text-xs text-zinc-400">
-                Total da Comanda: <strong className="text-emerald-400 font-mono">{totalAmount.toFixed(2)} MZN</strong>
+              <p className="text-xs text-zinc-500">
+                Total da Comanda: <strong className="text-emerald-800 font-mono">{totalAmount.toFixed(2)} MZN</strong>
               </p>
             </div>
           </div>
-          <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0 text-zinc-400 hover:text-white">
+          <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0 text-zinc-500 hover:text-zinc-700 rounded-full">
             <X className="w-4 h-4" />
           </Button>
         </div>
 
         {/* Mode Selector */}
-        <div className="grid grid-cols-2 gap-2 p-1 bg-zinc-950 rounded-lg border border-zinc-800">
+        <div className="grid grid-cols-2 gap-2 p-1 bg-zinc-100 rounded-xl border border-zinc-200">
           <button
             onClick={() => setSplitMode("equal")}
-            className={`py-2 text-xs font-semibold rounded-md transition-all ${
+            className={`py-2 text-xs font-semibold rounded-lg transition-all ${
               splitMode === "equal"
-                ? "bg-zinc-800 text-white shadow-sm border border-zinc-700"
-                : "text-zinc-400 hover:text-zinc-200"
+                ? "bg-white text-emerald-950 shadow-xs border border-zinc-200 font-bold"
+                : "text-zinc-600 hover:text-zinc-900"
             }`}
           >
             Divisão Igualitária (N pessoas)
           </button>
           <button
             onClick={() => setSplitMode("custom")}
-            className={`py-2 text-xs font-semibold rounded-md transition-all ${
+            className={`py-2 text-xs font-semibold rounded-lg transition-all ${
               splitMode === "custom"
-                ? "bg-zinc-800 text-white shadow-sm border border-zinc-700"
-                : "text-zinc-400 hover:text-zinc-200"
+                ? "bg-white text-emerald-950 shadow-xs border border-zinc-200 font-bold"
+                : "text-zinc-600 hover:text-zinc-900"
             }`}
           >
             Valores Personalizados
@@ -133,25 +132,25 @@ export default function BillSplitter({
         {/* EQUAL MODE */}
         {splitMode === "equal" && (
           <div className="space-y-4 py-2">
-            <div className="flex items-center justify-between p-4 rounded-xl bg-zinc-950 border border-zinc-800">
+            <div className="flex items-center justify-between p-4 rounded-2xl bg-zinc-50 border border-zinc-200">
               <div className="flex items-center gap-3">
-                <Users className="w-6 h-6 text-blue-400" />
+                <Users className="w-6 h-6 text-blue-600" />
                 <div>
-                  <span className="text-xs font-medium text-zinc-300">Número de Pessoas</span>
-                  <div className="text-lg font-bold text-white">{numPeople} Clientes</div>
+                  <span className="text-xs font-semibold text-zinc-600">Número de Pessoas</span>
+                  <div className="text-lg font-black text-zinc-900 font-mono">{numPeople} Clientes</div>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setNumPeople(Math.max(1, numPeople - 1))}
-                  className="w-10 h-10 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-100 flex items-center justify-center font-bold"
+                  className="w-10 h-10 rounded-xl bg-white border border-zinc-300 hover:bg-zinc-100 text-zinc-900 flex items-center justify-center font-bold"
                 >
                   <Minus className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setNumPeople(numPeople + 1)}
-                  className="w-10 h-10 rounded-lg bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center font-bold"
+                  className="w-10 h-10 rounded-xl bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center font-bold shadow-xs"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
@@ -159,9 +158,9 @@ export default function BillSplitter({
             </div>
 
             {/* Live Per-person breakdown preview */}
-            <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/30 text-center space-y-1">
-              <span className="text-xs text-zinc-400">Valor a pagar por pessoa</span>
-              <div className="text-3xl font-black text-emerald-400 font-mono">
+            <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-1">
+              <span className="text-xs text-zinc-500 font-medium">Valor a pagar por pessoa</span>
+              <div className="text-3xl font-black text-emerald-800 font-mono">
                 {equalSplitAmount} MZN
               </div>
               <p className="text-[11px] text-zinc-500">
@@ -177,13 +176,13 @@ export default function BillSplitter({
             {customPeople.map((person, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-2 p-2.5 rounded-lg bg-zinc-950 border border-zinc-800"
+                className="flex items-center gap-2 p-2.5 rounded-xl bg-zinc-50 border border-zinc-200"
               >
                 <Input
                   value={person.guest_name}
                   onChange={(e) => handleUpdateCustomPerson(idx, "guest_name", e.target.value)}
                   placeholder="Nome"
-                  className="w-32 bg-zinc-900 border-zinc-700 text-xs h-8 text-zinc-100"
+                  className="w-32 bg-white border-zinc-300 text-xs h-8 text-zinc-900"
                 />
 
                 <div className="flex-1 relative">
@@ -192,7 +191,7 @@ export default function BillSplitter({
                     value={person.amount}
                     onChange={(e) => handleUpdateCustomPerson(idx, "amount", parseFloat(e.target.value) || 0)}
                     placeholder="Valor"
-                    className="pl-7 bg-zinc-900 border-zinc-700 text-xs h-8 text-zinc-100 font-mono"
+                    className="pl-7 bg-white border-zinc-300 text-xs h-8 text-zinc-900 font-mono"
                   />
                   <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[10px] text-zinc-500">
                     MZN
@@ -202,7 +201,7 @@ export default function BillSplitter({
                 <select
                   value={person.payment_method}
                   onChange={(e) => handleUpdateCustomPerson(idx, "payment_method", e.target.value)}
-                  className="bg-zinc-900 border border-zinc-700 rounded text-xs h-8 px-2 text-zinc-200"
+                  className="bg-white border border-zinc-300 rounded-lg text-xs h-8 px-2 text-zinc-900"
                 >
                   <option value="mpesa">M-Pesa</option>
                   <option value="emola">E-Mola</option>
@@ -212,7 +211,7 @@ export default function BillSplitter({
 
                 <button
                   onClick={() => handleRemoveCustomPerson(idx)}
-                  className="w-8 h-8 rounded text-zinc-500 hover:text-red-400 hover:bg-zinc-900 flex items-center justify-center"
+                  className="w-8 h-8 rounded-lg text-zinc-500 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
@@ -223,7 +222,7 @@ export default function BillSplitter({
               variant="outline"
               size="sm"
               onClick={handleAddCustomPerson}
-              className="w-full border-dashed border-zinc-700 text-zinc-300 text-xs h-8"
+              className="w-full border-dashed border-zinc-300 text-zinc-700 text-xs h-8 rounded-xl"
             >
               <Plus className="w-3.5 h-3.5 mr-1" />
               Adicionar Pessoa
@@ -231,8 +230,8 @@ export default function BillSplitter({
 
             {/* Custom Remaining Balance Warning */}
             <div className="flex justify-between items-center text-xs pt-1 px-1">
-              <span className="text-zinc-400">Total Alocado: <strong className="text-zinc-200">{customTotal.toFixed(2)} MZN</strong></span>
-              <span className={Math.abs(customRemaining) < 0.01 ? "text-emerald-400 font-semibold" : "text-amber-400 font-semibold"}>
+              <span className="text-zinc-500">Total Alocado: <strong className="text-zinc-900 font-mono">{customTotal.toFixed(2)} MZN</strong></span>
+              <span className={Math.abs(customRemaining) < 0.01 ? "text-emerald-700 font-semibold" : "text-amber-700 font-semibold"}>
                 Falta Alocar: {customRemaining.toFixed(2)} MZN
               </span>
             </div>
@@ -240,15 +239,15 @@ export default function BillSplitter({
         )}
 
         {/* Footer Actions */}
-        <div className="pt-3 border-t border-zinc-800 flex justify-end gap-2">
-          <Button variant="outline" size="sm" onClick={onClose} className="border-zinc-700 text-zinc-300">
+        <div className="pt-3 border-t border-zinc-200 flex justify-end gap-2">
+          <Button variant="outline" size="sm" onClick={onClose} className="border-zinc-300 text-zinc-700 rounded-xl">
             Cancelar
           </Button>
           <Button
             size="sm"
             disabled={isSubmitting}
             onClick={handleConfirmSplit}
-            className="bg-blue-600 hover:bg-blue-500 text-white font-bold"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-xs"
           >
             <Split className="w-4 h-4 mr-1.5" />
             {isSubmitting ? "Processando..." : "Confirmar Divisão"}

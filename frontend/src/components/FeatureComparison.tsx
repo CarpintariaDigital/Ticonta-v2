@@ -14,16 +14,16 @@ export const FeatureComparison: React.FC = () => {
         <X className="mx-auto h-4 w-4 text-zinc-600" />
       );
     }
-    return <span className="text-xs text-zinc-300 font-medium">{val}</span>;
+    return <span className="text-xs text-zinc-700 font-medium">{val}</span>;
   };
 
   return (
-    <Card className="border-zinc-800 bg-zinc-900/90 text-zinc-100 shadow-2xl backdrop-blur overflow-hidden">
-      <CardHeader className="border-b border-zinc-800 pb-6 text-center">
+    <Card className="border-zinc-200 bg-white/90 text-zinc-900 shadow-2xl backdrop-blur overflow-hidden">
+      <CardHeader className="border-b border-zinc-200 pb-6 text-center">
         <CardTitle className="text-2xl font-bold tracking-tight text-white">
           Comparação Detalhada de Funcionalidades
         </CardTitle>
-        <CardDescription className="text-zinc-400">
+        <CardDescription className="text-zinc-500">
           Descubra qual o plano que melhor responde às necessidades operacionais da sua empresa
         </CardDescription>
       </CardHeader>
@@ -32,7 +32,7 @@ export const FeatureComparison: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="border-b border-zinc-800 bg-zinc-950/60 text-xs font-semibold uppercase text-zinc-400">
+              <tr className="border-b border-zinc-200 bg-zinc-50/80 text-xs font-semibold uppercase text-zinc-500">
                 <th className="py-4 px-6 w-2/5">Funcionalidade</th>
                 <th className="py-4 px-4 text-center w-3/20">Básico</th>
                 <th className="py-4 px-4 text-center w-3/20 text-emerald-400">Profissional</th>
@@ -45,7 +45,7 @@ export const FeatureComparison: React.FC = () => {
               {FEATURE_COMPARISON_DATA.map((cat, catIdx) => (
                 <React.Fragment key={catIdx}>
                   {/* Category Row */}
-                  <tr className="bg-zinc-950/80">
+                  <tr className="bg-white/80">
                     <td
                       colSpan={5}
                       className="py-3 px-6 text-xs font-bold uppercase tracking-wider text-emerald-400"

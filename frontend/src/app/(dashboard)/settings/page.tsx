@@ -66,16 +66,16 @@ export default function SettingsHubPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-zinc-950 text-zinc-50 flex flex-col font-sans selection:bg-emerald-500 selection:text-white">
+      <div className="min-h-screen bg-white text-zinc-50 flex flex-col font-sans selection:bg-emerald-500 selection:text-white">
         <DashboardNavbar />
 
         <main className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
-          <div className="border-b border-zinc-800 pb-5">
+          <div className="border-b border-zinc-200 pb-5">
             <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2.5 font-mono">
               <Settings className="w-6 h-6 text-emerald-400" />
               Definições & Configuração do Terminal
             </h1>
-            <p className="text-xs text-zinc-400 mt-1 font-mono">
+            <p className="text-xs text-zinc-500 mt-1 font-mono">
               Central de personalização do TiConta v2 ERP para Moçambique.
             </p>
           </div>
@@ -96,7 +96,7 @@ export default function SettingsHubPage() {
                     <h2 className="text-sm font-bold text-white font-mono group-hover:text-emerald-400 transition-colors">
                       {sec.title}
                     </h2>
-                    <p className="text-xs text-zinc-400 leading-relaxed max-w-sm">
+                    <p className="text-xs text-zinc-500 leading-relaxed max-w-sm">
                       {sec.desc}
                     </p>
                   </div>

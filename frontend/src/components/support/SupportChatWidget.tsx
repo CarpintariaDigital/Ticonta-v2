@@ -150,7 +150,7 @@ export default function SupportChatWidget() {
 
       {/* Janela Modal do Copiloto */}
       {isOpen && (
-        <div className="fixed bottom-20 right-5 z-50 w-96 max-w-[calc(100vw-2.5rem)] h-[520px] max-h-[82vh] bg-zinc-900/95 backdrop-blur-md rounded-2xl shadow-2xl border border-zinc-800 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5">
+        <div className="fixed bottom-20 right-5 z-50 w-96 max-w-[calc(100vw-2.5rem)] h-[520px] max-h-[82vh] bg-zinc-50/95 backdrop-blur-md rounded-2xl shadow-2xl border border-zinc-200 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5">
           {/* Header */}
           <div className="bg-gradient-to-r from-emerald-900 to-zinc-900 p-3.5 border-b border-emerald-800/40 flex justify-between items-center text-white">
             <div className="flex items-center gap-2">
@@ -164,14 +164,14 @@ export default function SupportChatWidget() {
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-zinc-400 hover:text-white p-1 rounded-md transition-colors"
+              className="text-zinc-500 hover:text-white p-1 rounded-md transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
           {/* Área de Mensagens */}
-          <div className="flex-1 p-3.5 overflow-y-auto space-y-3 bg-zinc-950/50 text-xs">
+          <div className="flex-1 p-3.5 overflow-y-auto space-y-3 bg-zinc-50/70 text-xs">
             {messages.map((m, idx) => (
               <div
                 key={idx}
@@ -181,7 +181,7 @@ export default function SupportChatWidget() {
                   className={`max-w-[88%] p-3 rounded-xl leading-relaxed ${
                     m.role === "user"
                       ? "bg-emerald-600 text-white rounded-br-none"
-                      : "bg-zinc-800/90 text-zinc-100 border border-zinc-700/60 rounded-bl-none"
+                      : "bg-zinc-800/90 text-zinc-900 border border-zinc-200/60 rounded-bl-none"
                   }`}
                 >
                   {m.content}
@@ -209,7 +209,7 @@ export default function SupportChatWidget() {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-zinc-800/60 p-2.5 rounded-xl text-zinc-400 border border-zinc-700/40 text-[11px] animate-pulse">
+                <div className="bg-zinc-800/60 p-2.5 rounded-xl text-zinc-500 border border-zinc-200/40 text-[11px] animate-pulse">
                   A consultar regras fiscais e base do ERP...
                 </div>
               </div>
@@ -218,12 +218,12 @@ export default function SupportChatWidget() {
           </div>
 
           {/* Chips Sugeridos */}
-          <div className="p-2 bg-zinc-900 border-t border-zinc-800 flex gap-1.5 overflow-x-auto scrollbar-none">
+          <div className="p-2 bg-zinc-50 border-t border-zinc-200 flex gap-1.5 overflow-x-auto scrollbar-none">
             {CHIPS.map((chip, idx) => (
               <button
                 key={idx}
                 onClick={() => handleSend(chip)}
-                className="text-[11px] whitespace-nowrap bg-zinc-800 hover:bg-emerald-950/60 hover:text-emerald-300 text-zinc-300 px-2.5 py-1 rounded-lg border border-zinc-700/60 transition-colors"
+                className="text-[11px] whitespace-nowrap bg-zinc-800 hover:bg-emerald-950/60 hover:text-emerald-300 text-zinc-700 px-2.5 py-1 rounded-lg border border-zinc-200/60 transition-colors"
               >
                 {chip}
               </button>
@@ -236,14 +236,14 @@ export default function SupportChatWidget() {
               e.preventDefault();
               handleSend();
             }}
-            className="p-2.5 bg-zinc-900 border-t border-zinc-800 flex gap-2"
+            className="p-2.5 bg-zinc-50 border-t border-zinc-200 flex gap-2"
           >
             <input
               type="text"
               placeholder="Escreva a sua dúvida operacional..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 text-xs bg-zinc-950 text-zinc-100 placeholder-zinc-500 px-3 py-2 rounded-xl outline-none border border-zinc-800 focus:border-emerald-500 transition-colors"
+              className="flex-1 text-xs bg-white text-zinc-900 placeholder-zinc-500 px-3 py-2 rounded-xl outline-none border border-zinc-200 focus:border-emerald-500 transition-colors"
             />
             <button
               type="submit"

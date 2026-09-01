@@ -41,26 +41,26 @@ export const FeedConsumptionForm: React.FC<FeedConsumptionFormProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-      <div className="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-md shadow-2xl flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/40 backdrop-blur-sm animate-fade-in">
+      <div className="bg-white border border-zinc-200/80 rounded-2xl w-full max-w-md shadow-2xl flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-950/50">
+        <div className="flex items-center justify-between p-4 border-b border-zinc-200 bg-zinc-50/70">
           <div className="flex items-center gap-2">
             <Utensils className="w-5 h-5 text-indigo-400" />
             <div>
               <h3 className="text-sm font-bold text-white">Registar Consumo de Ração</h3>
-              <p className="text-[11px] text-slate-400">Lote #{flock.flock_number}</p>
+              <p className="text-[11px] text-zinc-500">Lote #{flock.flock_number}</p>
             </div>
           </div>
 
-          <button onClick={onClose} className="p-1 text-slate-400 hover:text-white rounded-lg">
+          <button onClick={onClose} className="p-1 text-zinc-500 hover:text-white rounded-lg">
             <X className="w-4 h-4" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
               Data do Consumo
             </label>
             <input
@@ -68,13 +68,13 @@ export const FeedConsumptionForm: React.FC<FeedConsumptionFormProps> = ({
               required
               value={consumptionDate}
               onChange={(e) => setConsumptionDate(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs focus:outline-none focus:border-indigo-500"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
                 Sacos Consumidos (50kg) *
               </label>
               <input
@@ -84,12 +84,12 @@ export const FeedConsumptionForm: React.FC<FeedConsumptionFormProps> = ({
                 required
                 value={bagsUsed}
                 onChange={(e) => setBagsUsed(parseFloat(e.target.value) || 0)}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-base font-bold focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-base font-bold focus:outline-none focus:border-indigo-500"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
                 Preço por Saco (MT)
               </label>
               <input
@@ -97,18 +97,18 @@ export const FeedConsumptionForm: React.FC<FeedConsumptionFormProps> = ({
                 min="100"
                 value={costPerBag}
                 onChange={(e) => setCostPerBag(parseFloat(e.target.value) || 0)}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-base font-bold focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-base font-bold focus:outline-none focus:border-indigo-500"
               />
             </div>
           </div>
 
           {/* Calculations Summary */}
-          <div className="p-3 bg-slate-950 border border-slate-800 rounded-xl space-y-1 text-xs text-slate-300">
+          <div className="p-3 bg-white border border-zinc-200 rounded-xl space-y-1 text-xs text-zinc-700">
             <div className="flex justify-between">
               <span>Peso Total em Ração:</span>
               <strong className="text-white">{totalKg} kg</strong>
             </div>
-            <div className="flex justify-between pt-1 border-t border-slate-800/80">
+            <div className="flex justify-between pt-1 border-t border-zinc-200/80">
               <span>Custo Total do Fornecimento:</span>
               <strong className="text-emerald-400 font-bold">{totalCost.toLocaleString("pt-MZ")} MT</strong>
             </div>
@@ -118,7 +118,7 @@ export const FeedConsumptionForm: React.FC<FeedConsumptionFormProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl"
+              className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl"
             >
               Cancelar
             </button>

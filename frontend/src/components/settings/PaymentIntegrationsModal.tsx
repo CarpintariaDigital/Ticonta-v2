@@ -56,24 +56,24 @@ export const PaymentIntegrationsModal: React.FC<PaymentIntegrationsModalProps> =
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in">
-      <div className="relative w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/40 backdrop-blur-sm animate-in fade-in">
+      <div className="relative w-full max-w-2xl bg-white border border-emerald-900/10 rounded-3xl p-6 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800 shrink-0">
+        <div className="flex items-center justify-between pb-4 border-b border-zinc-200 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+            <div className="p-2.5 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-200">
               <CreditCard className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+              <h2 className="text-lg font-bold text-emerald-950 flex items-center gap-2">
                 Integração de Pagamentos Moçambique
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-zinc-500">
                 M-Pesa (Vodacom), e-Mola (Movitel) e Terminais Bancários POS TPA (SIMOrede / Bancos)
               </p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-white rounded-full hover:bg-slate-800">
+          <button onClick={onClose} className="p-2 text-zinc-500 hover:text-zinc-700 rounded-full hover:bg-zinc-100">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -84,11 +84,11 @@ export const PaymentIntegrationsModal: React.FC<PaymentIntegrationsModalProps> =
             onClick={() => setActiveTab("mpesa")}
             className={`p-3 rounded-2xl border text-center transition-all flex flex-col items-center gap-1 ${
               activeTab === "mpesa"
-                ? "bg-red-500/10 border-red-500/50 text-red-400 font-bold shadow-md"
-                : "bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white"
+                ? "bg-red-50 border-red-300 text-red-700 font-bold shadow-xs"
+                : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:bg-zinc-100"
             }`}
           >
-            <Smartphone className="w-5 h-5 text-red-400" />
+            <Smartphone className="w-5 h-5 text-red-600" />
             <span className="text-xs">M-Pesa (Vodacom)</span>
           </button>
 
@@ -96,11 +96,11 @@ export const PaymentIntegrationsModal: React.FC<PaymentIntegrationsModalProps> =
             onClick={() => setActiveTab("emola")}
             className={`p-3 rounded-2xl border text-center transition-all flex flex-col items-center gap-1 ${
               activeTab === "emola"
-                ? "bg-amber-500/10 border-amber-500/50 text-amber-400 font-bold shadow-md"
-                : "bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white"
+                ? "bg-amber-50 border-amber-300 text-amber-700 font-bold shadow-xs"
+                : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:bg-zinc-100"
             }`}
           >
-            <Smartphone className="w-5 h-5 text-amber-400" />
+            <Smartphone className="w-5 h-5 text-amber-600" />
             <span className="text-xs">e-Mola (Movitel)</span>
           </button>
 
@@ -108,181 +108,187 @@ export const PaymentIntegrationsModal: React.FC<PaymentIntegrationsModalProps> =
             onClick={() => setActiveTab("pos")}
             className={`p-3 rounded-2xl border text-center transition-all flex flex-col items-center gap-1 ${
               activeTab === "pos"
-                ? "bg-blue-500/10 border-blue-500/50 text-blue-400 font-bold shadow-md"
-                : "bg-slate-950/60 border-slate-800 text-slate-400 hover:text-white"
+                ? "bg-blue-50 border-blue-300 text-blue-700 font-bold shadow-xs"
+                : "bg-zinc-50 border-zinc-200 text-zinc-600 hover:bg-zinc-100"
             }`}
           >
-            <CreditCard className="w-5 h-5 text-blue-400" />
-            <span className="text-xs">Terminais POS TPA</span>
+            <CreditCard className="w-5 h-5 text-blue-600" />
+            <span className="text-xs">POS TPA / Cartão</span>
           </button>
         </div>
 
-        {savedSuccess && (
-          <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-xs text-emerald-400 font-bold flex items-center gap-2 mb-2">
-            <CheckCircle2 className="w-4 h-4" />
-            Configurações de pagamento guardadas com sucesso!
-          </div>
-        )}
+        {/* Content Form */}
+        <form onSubmit={handleSave} className="flex-1 overflow-y-auto space-y-4 text-xs pr-1">
+          {savedSuccess && (
+            <div className="flex items-center gap-2 p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 font-medium animate-in fade-in">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <span>Configurações de pagamento atualizadas e validadas com sucesso!</span>
+            </div>
+          )}
 
-        {/* Content Body */}
-        <form onSubmit={handleSave} className="flex-1 overflow-y-auto space-y-4 text-xs">
-          {/* M-PESA TAB */}
           {activeTab === "mpesa" && (
-            <div className="space-y-4 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
-              <div className="p-3 rounded-xl bg-red-950/20 border border-red-500/30 text-red-200">
-                <span className="font-bold block text-sm">Como funciona o M-Pesa no TiConta:</span>
-                <p className="text-[11px] text-slate-300 mt-1">
-                  1. **STK Push Automático**: Ao selecionar M-Pesa no POS, o cliente recebe uma notificação instantânea no telemóvel para inserir o seu PIN M-Pesa.<br />
-                  2. **QR Code Estático**: O POS gera o QR Code no ecrã para o cliente ler com a App M-Pesa.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Shortcode / Número de Negócio *</label>
-                  <Input
-                    required
-                    value={mpesaShortcode}
-                    onChange={(e) => setMpesaShortcode(e.target.value)}
-                    placeholder="ex: 171717"
-                    className="bg-slate-900 border-slate-700 text-white font-mono"
-                  />
-                </div>
-                <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Nome do Iniciador *</label>
-                  <Input
-                    required
-                    value={mpesaInitiatorName}
-                    onChange={(e) => setMpesaInitiatorName(e.target.value)}
-                    placeholder="ex: TICONTA_MERCHANT"
-                    className="bg-slate-900 border-slate-700 text-white font-mono"
-                  />
-                </div>
+            <div className="space-y-3 bg-zinc-50 p-4 rounded-2xl border border-zinc-200">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-zinc-900">API C2B & STK Push M-Pesa Vodacom MZ</span>
+                <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-300">
+                  Ligação Ativa
+                </span>
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">API Key / Chave Secreta Vodacom Open API</label>
+                <label className="block text-zinc-600 font-semibold mb-1">Shortcode / Número de Negócio *</label>
+                <Input
+                  value={mpesaShortcode}
+                  onChange={(e) => setMpesaShortcode(e.target.value)}
+                  className="bg-white border-zinc-300 font-mono text-zinc-900"
+                  placeholder="ex: 171717"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-zinc-600 font-semibold mb-1">API Key / Consumer Secret</label>
                 <Input
                   type="password"
                   value={mpesaApiKey}
                   onChange={(e) => setMpesaApiKey(e.target.value)}
-                  className="bg-slate-900 border-slate-700 text-white font-mono"
+                  className="bg-white border-zinc-300 font-mono text-zinc-900"
+                  placeholder="live_sec_..."
                 />
               </div>
 
-              <label className="flex items-center gap-2 text-slate-300 font-medium cursor-pointer pt-1">
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-zinc-600 font-semibold mb-1">Nome do Iniciador</label>
+                  <Input
+                    value={mpesaInitiatorName}
+                    onChange={(e) => setMpesaInitiatorName(e.target.value)}
+                    className="bg-white border-zinc-300 font-mono text-zinc-900"
+                  />
+                </div>
+                <div>
+                  <label className="block text-zinc-600 font-semibold mb-1">Senha de Segurança</label>
+                  <Input
+                    type="password"
+                    value={mpesaSecurityCredential}
+                    onChange={(e) => setMpesaSecurityCredential(e.target.value)}
+                    className="bg-white border-zinc-300 font-mono text-zinc-900"
+                  />
+                </div>
+              </div>
+
+              <label className="flex items-center gap-2 cursor-pointer pt-2">
                 <input
                   type="checkbox"
                   checked={mpesaAutoPrompt}
                   onChange={(e) => setMpesaAutoPrompt(e.target.checked)}
-                  className="rounded border-slate-700 bg-slate-900 text-emerald-500"
+                  className="rounded border-zinc-300 text-emerald-600 focus:ring-emerald-500"
                 />
-                <span>Enviar Notificação Push USSD direta para o telemóvel do cliente ao fechar a venda</span>
+                <span className="text-zinc-700">
+                  Enviar notificação automática de PIN no telemóvel do cliente (STK Push) ao fechar venda
+                </span>
               </label>
             </div>
           )}
 
-          {/* E-MOLA TAB */}
           {activeTab === "emola" && (
-            <div className="space-y-4 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
-              <div className="p-3 rounded-xl bg-amber-950/20 border border-amber-500/30 text-amber-200">
-                <span className="font-bold block text-sm">Como funciona o e-Mola (Movitel):</span>
-                <p className="text-[11px] text-slate-300 mt-1">
-                  Permite pagamentos diretos da carteira móvel e-Mola através do Merchant Code da sua loja ou por push no telemóvel do comprador.
-                </p>
+            <div className="space-y-3 bg-zinc-50 p-4 rounded-2xl border border-zinc-200">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-zinc-900">Integração Direta e-Mola Movitel</span>
+                <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-300">
+                  Ligação Ativa
+                </span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Código de Comerciante / Telefone e-Mola *</label>
-                  <Input
-                    required
-                    value={emolaMerchantCode}
-                    onChange={(e) => setEmolaMerchantCode(e.target.value)}
-                    placeholder="ex: 861234567 ou 99012"
-                    className="bg-slate-900 border-slate-700 text-white font-mono"
-                  />
-                </div>
-                <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Token de API Movitel</label>
-                  <Input
-                    type="password"
-                    value={emolaApiToken}
-                    onChange={(e) => setEmolaApiToken(e.target.value)}
-                    placeholder="Token secreto"
-                    className="bg-slate-900 border-slate-700 text-white font-mono"
-                  />
-                </div>
+              <div>
+                <label className="block text-zinc-600 font-semibold mb-1">Código de Comerciante / Agente *</label>
+                <Input
+                  value={emolaMerchantCode}
+                  onChange={(e) => setEmolaMerchantCode(e.target.value)}
+                  className="bg-white border-zinc-300 font-mono text-zinc-900"
+                  placeholder="ex: 861234567"
+                  required
+                />
               </div>
 
-              <label className="flex items-center gap-2 text-slate-300 font-medium cursor-pointer pt-1">
+              <div>
+                <label className="block text-zinc-600 font-semibold mb-1">Token de Acesso / Bearer Key</label>
+                <Input
+                  type="password"
+                  value={emolaApiToken}
+                  onChange={(e) => setEmolaApiToken(e.target.value)}
+                  className="bg-white border-zinc-300 font-mono text-zinc-900"
+                  placeholder="emola_tok_..."
+                />
+              </div>
+
+              <label className="flex items-center gap-2 cursor-pointer pt-2">
                 <input
                   type="checkbox"
                   checked={emolaAutoPrompt}
                   onChange={(e) => setEmolaAutoPrompt(e.target.checked)}
-                  className="rounded border-slate-700 bg-slate-900 text-emerald-500"
+                  className="rounded border-zinc-300 text-emerald-600 focus:ring-emerald-500"
                 />
-                <span>Habilitar conciliação instantânea de pagamentos e-Mola</span>
+                <span className="text-zinc-700">
+                  Validar confirmação instantânea via webhook e-Mola
+                </span>
               </label>
             </div>
           )}
 
-          {/* POS TPA TAB */}
           {activeTab === "pos" && (
-            <div className="space-y-4 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
-              <div className="p-3 rounded-xl bg-blue-950/20 border border-blue-500/30 text-blue-200">
-                <span className="font-bold block text-sm">Terminais Físicos de Cartão (SIMO / Bancos):</span>
-                <p className="text-[11px] text-slate-300 mt-1">
-                  Ao cobrar com a maquineta do banco (BIM, BCI, Standard Bank, Moza, Absa), o operador pode introduzir o **Nº de Autorização / Referência do Talão** do TPA para a conciliação bancária no fecho de caixa.
-                </p>
+            <div className="space-y-3 bg-zinc-50 p-4 rounded-2xl border border-zinc-200">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-zinc-900">Terminais TPA / SIMOrede Moçambique</span>
+                <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-blue-300">
+                  Pronto
+                </span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Rede / Banco Provedor do TPA</label>
-                  <select
-                    value={bankProvider}
-                    onChange={(e) => setBankProvider(e.target.value)}
-                    className="w-full h-10 px-3 bg-slate-900 border border-slate-700 rounded-md text-white"
-                  >
-                    <option value="SIMOrede">SIMOrede (Multi-Banco Moçambique)</option>
-                    <option value="Millennium BIM">Millennium BIM</option>
-                    <option value="BCI">BCI</option>
-                    <option value="Standard Bank">Standard Bank MZ</option>
-                    <option value="Moza Banco">Moza Banco</option>
-                    <option value="Absa Bank">Absa Bank Moçambique</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Nº de Série do Terminal / TID</label>
-                  <Input
-                    value={terminalSerialNumber}
-                    onChange={(e) => setTerminalSerialNumber(e.target.value)}
-                    placeholder="ex: TID-BIM-88412"
-                    className="bg-slate-900 border-slate-700 text-white font-mono"
-                  />
-                </div>
+              <div>
+                <label className="block text-zinc-600 font-semibold mb-1">Rede Bancária / Fornecedor</label>
+                <select
+                  value={bankProvider}
+                  onChange={(e) => setBankProvider(e.target.value)}
+                  className="w-full h-10 px-3 bg-white border border-zinc-300 rounded-lg text-zinc-900 text-xs"
+                >
+                  <option value="SIMOrede">SIMOrede (BIM / Standard Bank / BCI / Moza)</option>
+                  <option value="Absa">Absa Bank POS Direct</option>
+                  <option value="FNB">FNB Speedpoint</option>
+                  <option value="Manual">Lançamento de TPA Offline</option>
+                </select>
               </div>
 
-              <label className="flex items-center gap-2 text-slate-300 font-medium cursor-pointer pt-1">
+              <div>
+                <label className="block text-zinc-600 font-semibold mb-1">Número de Série do Terminal</label>
+                <Input
+                  value={terminalSerialNumber}
+                  onChange={(e) => setTerminalSerialNumber(e.target.value)}
+                  className="bg-white border-zinc-300 font-mono text-zinc-900"
+                />
+              </div>
+
+              <label className="flex items-center gap-2 cursor-pointer pt-2">
                 <input
                   type="checkbox"
                   checked={requireAuthCode}
                   onChange={(e) => setRequireAuthCode(e.target.checked)}
-                  className="rounded border-slate-700 bg-slate-900 text-emerald-500"
+                  className="rounded border-zinc-300 text-emerald-600 focus:ring-emerald-500"
                 />
-                <span>Solicitar código de autorização do talão para conciliação no fecho de turno</span>
+                <span className="text-zinc-700">
+                  Exigir código de autorização do talão para conciliação no fecho de caixa
+                </span>
               </label>
             </div>
           )}
 
-          <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
-            <Button type="button" variant="outline" onClick={onClose} className="border-slate-700 text-slate-300">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-zinc-200">
+            <Button type="button" variant="outline" onClick={onClose} className="border-zinc-300">
               Fechar
             </Button>
-            <Button type="submit" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center gap-1.5 shadow-lg shadow-emerald-950">
+            <Button type="submit" className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold flex items-center gap-1.5 rounded-xl shadow-xs">
               <Save className="w-4 h-4" />
-              Guardar Configurações
+              <span>Guardar Configurações</span>
             </Button>
           </div>
         </form>

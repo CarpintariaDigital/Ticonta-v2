@@ -59,14 +59,14 @@ export default function InteractionTimeline({
       case "proposal":
         return <FileText className="h-3.5 w-3.5 text-emerald-400" />;
       default:
-        return <FileText className="h-3.5 w-3.5 text-zinc-400" />;
+        return <FileText className="h-3.5 w-3.5 text-zinc-500" />;
     }
   };
 
   return (
     <div className="space-y-4">
       {/* Quick Add Form */}
-      <form onSubmit={handleSubmit} className="rounded-xl border border-zinc-800 bg-zinc-950/80 p-3.5 space-y-3">
+      <form onSubmit={handleSubmit} className="rounded-xl border border-zinc-200 bg-white/80 p-3.5 space-y-3">
         <span className="text-xs font-bold text-white uppercase tracking-wider block">
           Registar Novo Contacto / Ação
         </span>
@@ -88,7 +88,7 @@ export default function InteractionTimeline({
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
                 type === item.id
                   ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
-                  : "bg-zinc-900 text-zinc-400 border-zinc-800 hover:bg-zinc-800 hover:text-white"
+                  : "bg-zinc-50 text-zinc-500 border-zinc-200 hover:bg-zinc-800 hover:text-white"
               }`}
             >
               <item.icon className="h-3 w-3" />
@@ -103,7 +103,7 @@ export default function InteractionTimeline({
             placeholder="Descreva o que foi tratado com o cliente..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="flex-1 rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-1.5 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="flex-1 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           />
           <Button
             type="submit"
@@ -125,14 +125,14 @@ export default function InteractionTimeline({
           interactions.map((interaction) => (
             <div key={interaction.id} className="relative space-y-1">
               {/* Dot Icon */}
-              <div className="absolute -left-6 top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-zinc-900 border border-zinc-700">
+              <div className="absolute -left-6 top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-zinc-50 border border-zinc-200">
                 {getTypeIcon(interaction.type)}
               </div>
 
               {/* Content Box */}
-              <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/60 p-3 text-xs space-y-1">
-                <div className="flex items-center justify-between text-[11px] text-zinc-400">
-                  <span className="font-semibold text-zinc-200">
+              <div className="rounded-xl border border-zinc-200/80 bg-white p-3 text-xs space-y-1">
+                <div className="flex items-center justify-between text-[11px] text-zinc-500">
+                  <span className="font-semibold text-zinc-800">
                     {interaction.user_name || "Operador Comercial"}
                   </span>
                   <div className="flex items-center gap-1 font-mono text-[10px]">
@@ -141,7 +141,7 @@ export default function InteractionTimeline({
                   </div>
                 </div>
 
-                <p className="text-zinc-300 font-sans">{interaction.description}</p>
+                <p className="text-zinc-700 font-sans">{interaction.description}</p>
               </div>
             </div>
           ))

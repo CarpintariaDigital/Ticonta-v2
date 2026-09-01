@@ -54,7 +54,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
       )}
 
       <div className="space-y-2">
-        <label className="text-xs font-medium uppercase tracking-wider text-zinc-400">
+        <label className="text-xs font-medium uppercase tracking-wider text-zinc-500">
           Utilizador
         </label>
         <div className="relative">
@@ -63,14 +63,14 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Ex: operador1"
-            className="bg-zinc-950 border-zinc-800 pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
+            className="bg-white border-zinc-200 pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
             autoComplete="username"
           />
         </div>
       </div>
 
       <div className="space-y-2">
-        <label className="text-xs font-medium uppercase tracking-wider text-zinc-400">
+        <label className="text-xs font-medium uppercase tracking-wider text-zinc-500">
           Código PIN
         </label>
         <div className="relative">
@@ -81,7 +81,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
             value={pin}
             onChange={(e) => setPin(e.target.value)}
             placeholder="••••"
-            className="bg-zinc-950 border-zinc-800 pl-9 tracking-widest text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
+            className="bg-white border-zinc-200 pl-9 tracking-widest text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
             autoComplete="current-password"
           />
         </div>

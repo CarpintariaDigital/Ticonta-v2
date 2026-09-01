@@ -90,12 +90,12 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-lg shadow-2xl flex flex-col overflow-hidden my-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/40 backdrop-blur-sm animate-fade-in overflow-y-auto">
+      <div className="bg-white border border-zinc-200/80 rounded-2xl w-full max-w-lg shadow-2xl flex flex-col overflow-hidden my-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-slate-800 bg-slate-950/50">
+        <div className="flex items-center justify-between p-5 border-b border-zinc-200 bg-zinc-50/70">
           <div>
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
+            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider block">
               Módulo {moduleSource.toUpperCase()} • Venda #{saleId}
             </span>
             <h3 className="text-base md:text-lg font-black text-white">Processar Pagamento</h3>
@@ -103,7 +103,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
 
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+            className="p-1.5 text-zinc-500 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -111,18 +111,18 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
 
         <form onSubmit={handleSubmit} className="p-5 space-y-4 overflow-y-auto max-h-[80vh]">
           {/* Customer & Total Strip */}
-          <div className="p-4 bg-gradient-to-br from-slate-950 to-slate-900 border border-slate-800 rounded-2xl flex items-center justify-between shadow-inner">
+          <div className="p-4 bg-gradient-to-br from-slate-950 to-slate-900 border border-zinc-200 rounded-2xl flex items-center justify-between shadow-inner">
             <div className="space-y-0.5">
-              <span className="text-xs text-slate-400 font-medium flex items-center gap-1">
+              <span className="text-xs text-zinc-500 font-medium flex items-center gap-1">
                 <User className="w-3.5 h-3.5 text-indigo-400" /> {customerName}
               </span>
               {customerPhone && (
-                <span className="text-[11px] text-slate-500 block">{customerPhone}</span>
+                <span className="text-[11px] text-zinc-500 block">{customerPhone}</span>
               )}
             </div>
 
             <div className="text-right">
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider block">
+              <span className="text-[10px] text-zinc-500 uppercase tracking-wider block">
                 Total da Conta
               </span>
               <span className="text-xl font-black text-emerald-400">
@@ -134,7 +134,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
           {/* Amount Input & Quick Percentages */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider">
                 Valor a Pagar Agora *
               </label>
               <div className="flex gap-1">
@@ -147,7 +147,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
                     key={p.label}
                     type="button"
                     onClick={() => handleQuickPercent(p.pct)}
-                    className="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-bold rounded-lg transition-colors"
+                    className="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-[10px] font-bold rounded-lg transition-colors"
                   >
                     {p.label}
                   </button>
@@ -164,9 +164,9 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
                 required
                 value={payingAmount}
                 onChange={(e) => setPayingAmount(Math.max(0, parseFloat(e.target.value) || 0))}
-                className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-white text-lg font-black focus:outline-none focus:border-indigo-500 shadow-inner"
+                className="w-full px-4 py-3 bg-white border border-zinc-200 rounded-xl text-white text-lg font-black focus:outline-none focus:border-indigo-500 shadow-inner"
               />
-              <span className="absolute right-4 top-3.5 text-slate-400 font-bold text-sm">MT</span>
+              <span className="absolute right-4 top-3.5 text-zinc-500 font-bold text-sm">MT</span>
             </div>
           </div>
 
@@ -184,7 +184,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
           {/* Payment Method Selector */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider">
                 Forma de Pagamento
               </label>
               <button
@@ -209,12 +209,12 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
                     className={`p-3 rounded-xl border text-left flex items-center gap-3 transition-all ${
                       isSelected
                         ? "bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-950/50 font-bold"
-                        : "bg-slate-950/80 border-slate-800 text-slate-300 hover:border-slate-700"
+                        : "bg-white border-zinc-200 text-zinc-700 hover:border-zinc-200"
                     }`}
                   >
                     <div
-                      className={`p-2 rounded-lg bg-slate-900 border border-slate-800 ${
-                        isSelected ? "text-white bg-indigo-700 border-indigo-400" : "text-slate-400"
+                      className={`p-2 rounded-lg bg-white border border-zinc-200 ${
+                        isSelected ? "text-white bg-indigo-700 border-indigo-400" : "text-zinc-500"
                       }`}
                     >
                       <Icon className="w-4 h-4" />
@@ -232,7 +232,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
             paymentMethod === "card" ||
             paymentMethod === "transfer") && (
             <div className="space-y-1 animate-fade-in">
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block">
                 Referência / ID da Transação ({paymentMethod.toUpperCase()})
               </label>
               <input
@@ -240,7 +240,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
                 value={transactionId}
                 onChange={(e) => setTransactionId(e.target.value)}
                 placeholder="Ex: MP260817001 ou código do POS..."
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
               />
             </div>
           )}
@@ -250,7 +250,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl transition-colors"
+              className="flex-1 py-3 px-4 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl transition-colors"
             >
               Cancelar
             </button>

@@ -102,7 +102,7 @@ export default function UpgradePrompt({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-6 md:p-10 text-center max-w-2xl mx-auto rounded-3xl border border-zinc-800/80 bg-zinc-900/90 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-200">
+    <div className="flex flex-col items-center justify-center p-6 md:p-10 text-center max-w-2xl mx-auto rounded-3xl border border-zinc-200/80 bg-white/90 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-200">
       <div className="h-16 w-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-6 shadow-lg shadow-amber-500/10">
         <Lock className="h-8 w-8" />
       </div>
@@ -116,15 +116,15 @@ export default function UpgradePrompt({
         {moduleName} requer o {planInfo.plan}
       </h2>
 
-      <p className="text-sm text-zinc-400 max-w-md mb-6 leading-relaxed">
+      <p className="text-sm text-zinc-500 max-w-md mb-6 leading-relaxed">
         Este recurso não está activo na sua licença actual. Faça o upgrade para expandir as
         capacidades do seu negócio com activação instantânea.
       </p>
 
       {/* Benefits Card */}
-      <div className="w-full text-left bg-zinc-950/80 border border-zinc-800 rounded-2xl p-5 mb-6 space-y-2.5">
-        <div className="flex justify-between items-center pb-2 border-b border-zinc-800/60 mb-3">
-          <span className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
+      <div className="w-full text-left bg-white/80 border border-zinc-200 rounded-2xl p-5 mb-6 space-y-2.5">
+        <div className="flex justify-between items-center pb-2 border-b border-zinc-200/60 mb-3">
+          <span className="text-xs font-bold text-zinc-700 uppercase tracking-wider">
             O que está incluído no {planInfo.plan}:
           </span>
           <span className="text-xs font-black text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
@@ -132,7 +132,7 @@ export default function UpgradePrompt({
           </span>
         </div>
         {planInfo.features.map((feature, idx) => (
-          <div key={idx} className="flex items-start gap-2.5 text-xs text-zinc-300">
+          <div key={idx} className="flex items-start gap-2.5 text-xs text-zinc-700">
             <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
             <span>{feature}</span>
           </div>
@@ -158,7 +158,7 @@ export default function UpgradePrompt({
         >
           <Button
             variant="outline"
-            className="w-full border-zinc-700 bg-zinc-800/80 hover:bg-zinc-700 text-zinc-200 h-11 px-6 rounded-xl font-semibold"
+            className="w-full border-zinc-200 bg-zinc-800/80 hover:bg-zinc-700 text-zinc-800 h-11 px-6 rounded-xl font-semibold"
           >
             Falar com Suporte (WhatsApp)
           </Button>
@@ -168,7 +168,7 @@ export default function UpgradePrompt({
           <Button
             variant="ghost"
             onClick={onClose}
-            className="w-full sm:w-auto text-zinc-400 hover:text-white text-xs h-11"
+            className="w-full sm:w-auto text-zinc-500 hover:text-white text-xs h-11"
           >
             Voltar
           </Button>

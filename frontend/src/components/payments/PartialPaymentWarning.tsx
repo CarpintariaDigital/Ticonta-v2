@@ -33,7 +33,7 @@ export const PartialPaymentWarning: React.FC<PartialPaymentWarningProps> = ({
               Fiado / A Dever
             </span>
           </div>
-          <p className="text-slate-300 mt-1">
+          <p className="text-zinc-700 mt-1">
             {customerName} pagará apenas <strong className="text-white">{payingAmount.toLocaleString("pt-MZ")} MT</strong> agora.
           </p>
           <p className="text-amber-200 font-bold text-sm mt-1">
@@ -44,7 +44,7 @@ export const PartialPaymentWarning: React.FC<PartialPaymentWarningProps> = ({
 
       {/* Due Date Selector */}
       <div className="pt-2 border-t border-amber-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-        <label className="text-slate-300 font-medium flex items-center gap-1.5">
+        <label className="text-zinc-700 font-medium flex items-center gap-1.5">
           <Calendar className="w-3.5 h-3.5 text-amber-400" />
           Data prometida para quitação:
         </label>
@@ -52,7 +52,7 @@ export const PartialPaymentWarning: React.FC<PartialPaymentWarningProps> = ({
           type="date"
           value={dueDate}
           onChange={(e) => onDueDateChange(e.target.value)}
-          className="px-3 py-1.5 bg-slate-950 border border-amber-500/40 rounded-xl text-white text-xs font-semibold focus:outline-none focus:border-amber-400"
+          className="px-3 py-1.5 bg-white border border-amber-500/40 rounded-xl text-white text-xs font-semibold focus:outline-none focus:border-amber-400"
         />
       </div>
     </div>

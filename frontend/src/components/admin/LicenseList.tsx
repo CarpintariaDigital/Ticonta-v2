@@ -105,7 +105,7 @@ export const LicenseList: React.FC<LicenseListProps> = ({
       return <span className="px-2.5 py-1 bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-semibold rounded-full">Revogada</span>;
     }
     if (daysRemaining <= 0 || status === 'expired') {
-      return <span className="px-2.5 py-1 bg-slate-700/50 text-slate-400 border border-slate-600 text-xs font-semibold rounded-full">Expirada</span>;
+      return <span className="px-2.5 py-1 bg-slate-700/50 text-zinc-500 border border-slate-600 text-xs font-semibold rounded-full">Expirada</span>;
     }
     if (daysRemaining <= 30) {
       return <span className="px-2.5 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-semibold rounded-full">Expira em {daysRemaining}d</span>;
@@ -114,11 +114,11 @@ export const LicenseList: React.FC<LicenseListProps> = ({
   };
 
   return (
-    <div className="bg-slate-900/80 backdrop-blur-md rounded-2xl border border-slate-800 shadow-xl overflow-hidden">
+    <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-zinc-200 shadow-xl overflow-hidden">
       {/* Barra de Filtros e Pesquisa */}
-      <div className="p-5 border-b border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="p-5 border-b border-zinc-200 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="relative w-full md:w-80">
-          <Search className="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3.5 top-3 w-4 h-4 text-zinc-500" />
           <input
             type="text"
             placeholder="Pesquisar por cliente, ID ou chave..."
@@ -127,7 +127,7 @@ export const LicenseList: React.FC<LicenseListProps> = ({
               setSearch(e.target.value);
               setPage(1);
             }}
-            className="w-full pl-10 pr-4 py-2 bg-slate-950/60 border border-slate-700/80 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-full pl-10 pr-4 py-2 bg-zinc-50/80 border border-zinc-200/80 rounded-xl text-sm text-zinc-900 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
 
@@ -139,7 +139,7 @@ export const LicenseList: React.FC<LicenseListProps> = ({
               setPlanFilter(e.target.value);
               setPage(1);
             }}
-            className="px-3 py-2 bg-slate-950/60 border border-slate-700/80 rounded-xl text-xs font-medium text-slate-200 focus:outline-none focus:border-blue-500 transition-colors"
+            className="px-3 py-2 bg-zinc-50/80 border border-zinc-200/80 rounded-xl text-xs font-medium text-zinc-800 focus:outline-none focus:border-blue-500 transition-colors"
           >
             <option value="">Todos os Planos</option>
             <option value="basic">Básico</option>
@@ -155,7 +155,7 @@ export const LicenseList: React.FC<LicenseListProps> = ({
               setStatusFilter(e.target.value);
               setPage(1);
             }}
-            className="px-3 py-2 bg-slate-950/60 border border-slate-700/80 rounded-xl text-xs font-medium text-slate-200 focus:outline-none focus:border-blue-500 transition-colors"
+            className="px-3 py-2 bg-zinc-50/80 border border-zinc-200/80 rounded-xl text-xs font-medium text-zinc-800 focus:outline-none focus:border-blue-500 transition-colors"
           >
             <option value="">Todos os Estados</option>
             <option value="active">Ativas</option>
@@ -167,12 +167,12 @@ export const LicenseList: React.FC<LicenseListProps> = ({
 
       {/* Tabela de Licenças */}
       <div className="overflow-x-auto">
-        <table className="w-full text-left text-sm text-slate-300">
-          <thead className="bg-slate-950/50 text-xs font-semibold text-slate-400 uppercase tracking-wider border-b border-slate-800">
+        <table className="w-full text-left text-sm text-zinc-700">
+          <thead className="bg-zinc-50/70 text-xs font-semibold text-zinc-500 uppercase tracking-wider border-b border-zinc-200">
             <tr>
               <th
                 onClick={() => handleSort('customer_name')}
-                className="py-3.5 px-5 cursor-pointer hover:text-slate-200 transition-colors"
+                className="py-3.5 px-5 cursor-pointer hover:text-zinc-800 transition-colors"
               >
                 <div className="flex items-center gap-1.5">
                   Cliente
@@ -181,7 +181,7 @@ export const LicenseList: React.FC<LicenseListProps> = ({
               </th>
               <th
                 onClick={() => handleSort('plan')}
-                className="py-3.5 px-4 cursor-pointer hover:text-slate-200 transition-colors"
+                className="py-3.5 px-4 cursor-pointer hover:text-zinc-800 transition-colors"
               >
                 <div className="flex items-center gap-1.5">
                   Plano
@@ -191,7 +191,7 @@ export const LicenseList: React.FC<LicenseListProps> = ({
               <th className="py-3.5 px-4">Chave de Ativação</th>
               <th
                 onClick={() => handleSort('expires_at')}
-                className="py-3.5 px-4 cursor-pointer hover:text-slate-200 transition-colors"
+                className="py-3.5 px-4 cursor-pointer hover:text-zinc-800 transition-colors"
               >
                 <div className="flex items-center gap-1.5">
                   Validade
@@ -205,7 +205,7 @@ export const LicenseList: React.FC<LicenseListProps> = ({
           <tbody className="divide-y divide-slate-800/60">
             {isLoading ? (
               <tr>
-                <td colSpan={6} className="py-12 text-center text-slate-500">
+                <td colSpan={6} className="py-12 text-center text-zinc-500">
                   <div className="flex items-center justify-center gap-2">
                     <RefreshCw className="w-4 h-4 animate-spin" />
                     A carregar licenças...
@@ -214,7 +214,7 @@ export const LicenseList: React.FC<LicenseListProps> = ({
               </tr>
             ) : licenses.length === 0 ? (
               <tr>
-                <td colSpan={6} className="py-12 text-center text-slate-500">
+                <td colSpan={6} className="py-12 text-center text-zinc-500">
                   Nenhuma licença encontrada para os filtros selecionados.
                 </td>
               </tr>
@@ -222,8 +222,8 @@ export const LicenseList: React.FC<LicenseListProps> = ({
               licenses.map((lic) => (
                 <tr key={lic.id} className="hover:bg-slate-800/30 transition-colors group">
                   <td className="py-4 px-5">
-                    <div className="font-semibold text-slate-100">{lic.customer_name}</div>
-                    <div className="text-xs text-slate-500 font-mono">
+                    <div className="font-semibold text-zinc-900">{lic.customer_name}</div>
+                    <div className="text-xs text-zinc-500 font-mono">
                       ID: {lic.customer_id} {lic.customer_email && `• ${lic.customer_email}`}
                     </div>
                   </td>
@@ -236,12 +236,12 @@ export const LicenseList: React.FC<LicenseListProps> = ({
 
                   <td className="py-4 px-4">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-xs text-slate-300 font-semibold bg-slate-950/60 px-2.5 py-1 rounded-lg border border-slate-800">
+                      <span className="font-mono text-xs text-zinc-700 font-semibold bg-zinc-50/80 px-2.5 py-1 rounded-lg border border-zinc-200">
                         {lic.license_key}
                       </span>
                       <button
                         onClick={() => handleCopy(lic.id, lic.license_key)}
-                        className="p-1.5 hover:bg-slate-800 text-slate-400 hover:text-slate-200 rounded-md transition-colors"
+                        className="p-1.5 hover:bg-slate-800 text-zinc-500 hover:text-zinc-800 rounded-md transition-colors"
                         title="Copiar Chave"
                       >
                         {copiedId === lic.id ? (
@@ -254,10 +254,10 @@ export const LicenseList: React.FC<LicenseListProps> = ({
                   </td>
 
                   <td className="py-4 px-4">
-                    <div className="text-xs text-slate-200 font-medium">
+                    <div className="text-xs text-zinc-800 font-medium">
                       {new Date(lic.expires_at).toLocaleDateString('pt-MZ')}
                     </div>
-                    <div className="text-[11px] text-slate-500">
+                    <div className="text-[11px] text-zinc-500">
                       Emitida: {new Date(lic.issued_at).toLocaleDateString('pt-MZ')}
                     </div>
                   </td>
@@ -308,27 +308,27 @@ export const LicenseList: React.FC<LicenseListProps> = ({
       </div>
 
       {/* Paginação */}
-      <div className="p-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+      <div className="p-4 border-t border-zinc-200 flex items-center justify-between text-xs text-zinc-500">
         <div>
-          A mostrar <span className="font-semibold text-slate-200">{licenses.length}</span> de{' '}
-          <span className="font-semibold text-slate-200">{total}</span> licenças registadas
+          A mostrar <span className="font-semibold text-zinc-800">{licenses.length}</span> de{' '}
+          <span className="font-semibold text-zinc-800">{total}</span> licenças registadas
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => setPage(Math.max(1, page - 1))}
             disabled={page <= 1}
-            className="p-2 bg-slate-950/60 border border-slate-800 hover:bg-slate-800 disabled:opacity-40 rounded-xl transition-colors text-slate-200"
+            className="p-2 bg-zinc-50/80 border border-zinc-200 hover:bg-slate-800 disabled:opacity-40 rounded-xl transition-colors text-zinc-800"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
-          <span className="px-3 py-1 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-200 font-semibold">
+          <span className="px-3 py-1 bg-zinc-50/80 border border-zinc-200 rounded-xl text-zinc-800 font-semibold">
             {page} / {totalPages}
           </span>
           <button
             onClick={() => setPage(Math.min(totalPages, page + 1))}
             disabled={page >= totalPages}
-            className="p-2 bg-slate-950/60 border border-slate-800 hover:bg-slate-800 disabled:opacity-40 rounded-xl transition-colors text-slate-200"
+            className="p-2 bg-zinc-50/80 border border-zinc-200 hover:bg-slate-800 disabled:opacity-40 rounded-xl transition-colors text-zinc-800"
           >
             <ChevronRight className="w-4 h-4" />
           </button>

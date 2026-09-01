@@ -47,12 +47,12 @@ export const QuickCustomerSearch: React.FC<QuickCustomerSearchProps> = ({
       {selectedCustomer ? (
         <div className="flex items-center justify-between p-3.5 bg-indigo-950/40 border border-indigo-500/40 rounded-xl shadow-lg backdrop-blur-md">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-white text-base shadow-md">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-zinc-900 text-base shadow-md">
               {selectedCustomer.name.slice(0, 2).toUpperCase()}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-white text-sm md:text-base">
+                <span className="font-semibold text-zinc-900 text-sm md:text-base">
                   {selectedCustomer.name}
                 </span>
                 {selectedCustomer.verified && (
@@ -61,15 +61,15 @@ export const QuickCustomerSearch: React.FC<QuickCustomerSearchProps> = ({
                   </span>
                 )}
               </div>
-              <div className="flex items-center gap-3 text-xs text-slate-400 mt-0.5">
+              <div className="flex items-center gap-3 text-xs text-zinc-500 mt-0.5">
                 {selectedCustomer.phone && (
                   <span className="flex items-center gap-1">
-                    <Phone className="w-3 h-3 text-slate-500" /> {selectedCustomer.phone}
+                    <Phone className="w-3 h-3 text-zinc-500" /> {selectedCustomer.phone}
                   </span>
                 )}
                 {selectedCustomer.location && (
                   <span className="flex items-center gap-1 hidden sm:flex">
-                    <MapPin className="w-3 h-3 text-slate-500" /> {selectedCustomer.location}
+                    <MapPin className="w-3 h-3 text-zinc-500" /> {selectedCustomer.location}
                   </span>
                 )}
                 <span className="flex items-center gap-1 text-amber-400 font-medium">
@@ -82,7 +82,7 @@ export const QuickCustomerSearch: React.FC<QuickCustomerSearchProps> = ({
 
           <div className="flex items-center gap-3">
             <div className="text-right">
-              <span className="text-[11px] text-slate-400 uppercase tracking-wider block">
+              <span className="text-[11px] text-zinc-500 uppercase tracking-wider block">
                 Saldo Devedor
               </span>
               <span
@@ -98,7 +98,7 @@ export const QuickCustomerSearch: React.FC<QuickCustomerSearchProps> = ({
 
             <button
               onClick={() => onSelectCustomer(null)}
-              className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+              className="p-1.5 text-zinc-500 hover:text-zinc-900 hover:bg-slate-800 rounded-lg transition-colors"
               title="Trocar cliente"
             >
               <X className="w-5 h-5" />
@@ -109,7 +109,7 @@ export const QuickCustomerSearch: React.FC<QuickCustomerSearchProps> = ({
         /* Search Input */
         <div className="relative">
           <div className="relative flex items-center">
-            <Search className="absolute left-3.5 w-4 h-4 text-slate-400 pointer-events-none" />
+            <Search className="absolute left-3.5 w-4 h-4 text-zinc-500 pointer-events-none" />
             <input
               type="text"
               value={search}
@@ -119,7 +119,7 @@ export const QuickCustomerSearch: React.FC<QuickCustomerSearchProps> = ({
               }}
               onFocus={() => setIsOpen(true)}
               placeholder="Pesquisar cliente por Nome, Telefone ou Bairro..."
-              className="w-full pl-10 pr-24 py-3 bg-slate-900/90 border border-slate-700/80 rounded-xl text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-inner"
+              className="w-full pl-10 pr-24 py-3 bg-white/90 border border-zinc-200/80 rounded-xl text-zinc-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-inner"
             />
             <button
               type="button"
@@ -135,10 +135,10 @@ export const QuickCustomerSearch: React.FC<QuickCustomerSearchProps> = ({
           {isOpen && (
             <>
               <div className="fixed inset-0 z-20" onClick={() => setIsOpen(false)} />
-              <div className="absolute left-0 right-0 top-full mt-2 bg-slate-900/95 border border-slate-700/80 rounded-xl shadow-2xl overflow-hidden z-30 max-h-72 overflow-y-auto backdrop-blur-xl divide-y divide-slate-800/80">
+              <div className="absolute left-0 right-0 top-full mt-2 bg-white/95 border border-zinc-200/80 rounded-xl shadow-2xl overflow-hidden z-30 max-h-72 overflow-y-auto backdrop-blur-xl divide-y divide-slate-800/80">
                 {filteredCustomers.length === 0 ? (
                   <div className="p-4 text-center">
-                    <p className="text-sm text-slate-400 mb-2">Nenhum cliente encontrado com "{search}"</p>
+                    <p className="text-sm text-zinc-500 mb-2">Nenhum cliente encontrado com "{search}"</p>
                     <button
                       type="button"
                       onClick={() => {
@@ -163,11 +163,11 @@ export const QuickCustomerSearch: React.FC<QuickCustomerSearchProps> = ({
                       className="w-full p-3 text-left hover:bg-slate-800/80 flex items-center justify-between transition-colors group"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-xs text-indigo-300 group-hover:border-indigo-500/50">
+                        <div className="w-8 h-8 rounded-full bg-slate-800 border border-zinc-200 flex items-center justify-center font-bold text-xs text-indigo-300 group-hover:border-indigo-500/50">
                           {customer.name.slice(0, 2).toUpperCase()}
                         </div>
                         <div>
-                          <div className="text-sm font-medium text-white group-hover:text-indigo-300 flex items-center gap-2">
+                          <div className="text-sm font-medium text-zinc-900 group-hover:text-indigo-300 flex items-center gap-2">
                             {customer.name}
                             {customer.verified && (
                               <span className="text-[10px] px-1 rounded bg-emerald-500/20 text-emerald-400">
@@ -175,7 +175,7 @@ export const QuickCustomerSearch: React.FC<QuickCustomerSearchProps> = ({
                               </span>
                             )}
                           </div>
-                          <div className="text-xs text-slate-400 flex items-center gap-2 mt-0.5">
+                          <div className="text-xs text-zinc-500 flex items-center gap-2 mt-0.5">
                             {customer.phone && <span>{customer.phone}</span>}
                             {customer.location && <span>• {customer.location}</span>}
                           </div>
@@ -192,7 +192,7 @@ export const QuickCustomerSearch: React.FC<QuickCustomerSearchProps> = ({
                             ? `Deve: ${customer.total_owed.toLocaleString("pt-MZ")} MT`
                             : "Em dia"}
                         </div>
-                        <div className="text-[11px] text-slate-500 flex items-center justify-end gap-1 mt-0.5">
+                        <div className="text-[11px] text-zinc-500 flex items-center justify-end gap-1 mt-0.5">
                           <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
                           <span>{customer.payment_reliability.toFixed(1)}/5</span>
                         </div>

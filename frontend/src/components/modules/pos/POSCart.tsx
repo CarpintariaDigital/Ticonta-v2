@@ -64,7 +64,7 @@ export default function POSCart({
         {cart.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-48 text-center text-[#4a7a9b] font-mono border-2 border-dashed border-[#1c3150] rounded-xl p-4">
             <ShoppingBag className="h-10 w-10 mb-2 stroke-1 text-[#2a466c]" />
-            <p className="text-xs font-bold uppercase tracking-wider text-zinc-300">BOBINA VAZIA</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-zinc-700">BOBINA VAZIA</p>
             <p className="text-[11px] text-[#4a7a9b] mt-1">Toque nos produtos ou use o teclado para registar.</p>
           </div>
         ) : (
@@ -85,7 +85,7 @@ export default function POSCart({
         
         <div className="flex justify-between text-[#4a7a9b] relative z-10">
           <span className="tracking-wider uppercase text-[10px]">SUBTOTAL (SEM IVA):</span>
-          <span className="font-bold text-zinc-200">{summary.subtotal.toFixed(2)} MZN</span>
+          <span className="font-bold text-zinc-800">{summary.subtotal.toFixed(2)} MZN</span>
         </div>
         
         <div className="flex justify-between text-[#4a7a9b] relative z-10">
@@ -101,7 +101,7 @@ export default function POSCart({
         )}
         
         <div className="flex justify-between items-baseline border-t border-[#162942] pt-2 relative z-10">
-          <span className="text-[11px] font-black text-zinc-300 uppercase tracking-widest">
+          <span className="text-[11px] font-black text-zinc-700 uppercase tracking-widest">
             TOTAL A LIQUIDAR:
           </span>
           <span className="text-xl font-black vfd-text tracking-wider">

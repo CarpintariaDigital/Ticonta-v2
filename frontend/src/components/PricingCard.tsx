@@ -21,9 +21,9 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, billingCycle }) 
     <Card
       className={`relative flex flex-col justify-between border transition-all duration-200 ${
         plan.popular
-          ? "border-emerald-500 bg-zinc-900 shadow-2xl shadow-emerald-950/40 lg:-translate-y-2"
-          : "border-zinc-800 bg-zinc-900/80 hover:border-zinc-700"
-      } text-zinc-100 backdrop-blur`}
+          ? "border-emerald-500 bg-zinc-50 shadow-2xl shadow-emerald-950/40 lg:-translate-y-2"
+          : "border-zinc-200 bg-white/80 hover:border-zinc-200"
+      } text-zinc-900 backdrop-blur`}
     >
       {plan.popular && (
         <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
@@ -39,7 +39,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, billingCycle }) 
           <CardTitle className="text-2xl font-bold tracking-tight text-white">
             {plan.name}
           </CardTitle>
-          <CardDescription className="text-zinc-400 text-xs min-h-[32px]">
+          <CardDescription className="text-zinc-500 text-xs min-h-[32px]">
             {plan.tagline}
           </CardDescription>
 
@@ -49,7 +49,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, billingCycle }) 
                 {pricing.monthlyEquivalent.toLocaleString("pt-MZ")}
               </span>
               <span className="text-sm font-semibold text-emerald-400">MT</span>
-              <span className="text-xs text-zinc-400">/mês</span>
+              <span className="text-xs text-zinc-500">/mês</span>
             </div>
             {billingCycle === "annual" && (
               <p className="text-xs text-emerald-400 font-medium mt-1">
@@ -60,10 +60,10 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, billingCycle }) 
         </CardHeader>
 
         <CardContent className="space-y-3 pt-2">
-          <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+          <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
             O que está incluído:
           </p>
-          <ul className="space-y-2.5 text-xs text-zinc-300">
+          <ul className="space-y-2.5 text-xs text-zinc-700">
             {plan.features.map((feature, idx) => (
               <li key={idx} className="flex items-start gap-2">
                 {feature.included ? (
@@ -71,7 +71,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, billingCycle }) 
                 ) : (
                   <X className="h-4 w-4 shrink-0 text-zinc-600 mt-0.5" />
                 )}
-                <span className={feature.included ? "text-zinc-200" : "text-zinc-500 line-through"}>
+                <span className={feature.included ? "text-zinc-800" : "text-zinc-500 line-through"}>
                   {feature.name}
                 </span>
               </li>
@@ -85,7 +85,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, billingCycle }) 
           <a href={plan.ctaHref} className="w-full">
             <Button
               variant="outline"
-              className="w-full border-zinc-700 bg-zinc-800/80 font-medium text-white hover:bg-zinc-700 hover:text-white"
+              className="w-full border-zinc-200 bg-zinc-800/80 font-medium text-white hover:bg-zinc-700 hover:text-white"
             >
               {plan.ctaText}
             </Button>

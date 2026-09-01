@@ -33,9 +33,9 @@ export default function TrialBalance({ data }: TrialBalanceProps) {
   };
 
   return (
-    <div className="space-y-4 rounded-2xl border border-zinc-800 bg-zinc-900/60 backdrop-blur p-5">
+    <div className="space-y-4 rounded-2xl border border-zinc-200 bg-white backdrop-blur p-5">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200 pb-4">
         <div>
           <div className="flex items-center gap-2">
             <h3 className="text-base font-bold text-white">Balancete de Verificação (Trial Balance)</h3>
@@ -51,7 +51,7 @@ export default function TrialBalance({ data }: TrialBalanceProps) {
               </span>
             )}
           </div>
-          <p className="text-xs text-zinc-400">Data de referência: {data.date}</p>
+          <p className="text-xs text-zinc-500">Data de referência: {data.date}</p>
         </div>
 
         <div className="flex gap-2">
@@ -59,7 +59,7 @@ export default function TrialBalance({ data }: TrialBalanceProps) {
             size="sm"
             variant="outline"
             onClick={handleExport}
-            className="border-zinc-800 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-xs h-8"
+            className="border-zinc-200 bg-zinc-50 hover:bg-zinc-800 text-zinc-700 text-xs h-8"
           >
             <Download className="h-3.5 w-3.5 mr-1.5" />
             Excel / CSV
@@ -77,8 +77,8 @@ export default function TrialBalance({ data }: TrialBalanceProps) {
 
       {/* Trial Balance Table */}
       <div className="overflow-x-auto">
-        <table className="w-full text-left font-mono text-xs text-zinc-300">
-          <thead className="bg-zinc-950/80 text-[11px] uppercase tracking-wider text-zinc-400 border-y border-zinc-800">
+        <table className="w-full text-left font-mono text-xs text-zinc-700">
+          <thead className="bg-white/80 text-[11px] uppercase tracking-wider text-zinc-500 border-y border-zinc-200">
             <tr>
               <th className="py-2.5 px-3">Código</th>
               <th className="py-2.5 px-3">Descrição da Conta</th>
@@ -90,21 +90,21 @@ export default function TrialBalance({ data }: TrialBalanceProps) {
           </thead>
           <tbody className="divide-y divide-zinc-800/40">
             {data.items.map((it) => (
-              <tr key={it.account_code} className="hover:bg-zinc-900/40 transition-colors">
+              <tr key={it.account_code} className="hover:bg-zinc-50/40 transition-colors">
                 <td className="py-2 px-3 font-semibold text-emerald-400">{it.account_code}</td>
-                <td className="py-2 px-3 text-zinc-200">{it.account_name}</td>
+                <td className="py-2 px-3 text-zinc-800">{it.account_name}</td>
                 <td className="py-2 px-3 text-right">{Number(it.total_debit).toFixed(2)}</td>
                 <td className="py-2 px-3 text-right">{Number(it.total_credit).toFixed(2)}</td>
-                <td className="py-2 px-3 text-right font-semibold text-zinc-100">
+                <td className="py-2 px-3 text-right font-semibold text-zinc-900">
                   {Number(it.debit_balance) > 0 ? Number(it.debit_balance).toFixed(2) : "-"}
                 </td>
-                <td className="py-2 px-3 text-right font-semibold text-zinc-100">
+                <td className="py-2 px-3 text-right font-semibold text-zinc-900">
                   {Number(it.credit_balance) > 0 ? Number(it.credit_balance).toFixed(2) : "-"}
                 </td>
               </tr>
             ))}
           </tbody>
-          <tfoot className="border-t-2 border-zinc-700 bg-zinc-950 font-bold text-white text-xs">
+          <tfoot className="border-t-2 border-zinc-200 bg-white font-bold text-white text-xs">
             <tr>
               <td colSpan={2} className="py-3 px-3 uppercase tracking-wider">
                 Totais Finais do Exercício:
@@ -115,7 +115,7 @@ export default function TrialBalance({ data }: TrialBalanceProps) {
               <td className="py-3 px-3 text-right text-blue-400">
                 {Number(data.sum_total_credits).toFixed(2)}
               </td>
-              <td colSpan={2} className="py-3 px-3 text-center text-zinc-400 font-sans text-[11px]">
+              <td colSpan={2} className="py-3 px-3 text-center text-zinc-500 font-sans text-[11px]">
                 {data.is_balanced ? "✓ Balancete Perfeito" : "⚠ Atenção: Diferença Detetada"}
               </td>
             </tr>

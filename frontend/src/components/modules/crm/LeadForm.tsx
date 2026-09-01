@@ -63,38 +63,38 @@ export default function LeadForm({ onSubmit, onCancel }: LeadFormProps) {
 
       {/* Name */}
       <div className="space-y-1.5">
-        <label className="text-xs font-semibold text-zinc-300">
+        <label className="text-xs font-semibold text-zinc-700">
           Nome da Empresa / Cliente <span className="text-emerald-400">*</span>
         </label>
         <Input
           placeholder="Ex: Armazéns e Logística Maputo Lda"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="bg-zinc-950 border-zinc-800 text-xs text-white"
+          className="bg-white border-zinc-200 text-xs text-white"
         />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Phone */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-zinc-300">Telefone / WhatsApp</label>
+          <label className="text-xs font-semibold text-zinc-700">Telefone / WhatsApp</label>
           <Input
             placeholder="+258 84 123 4567"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs text-white font-mono"
+            className="bg-white border-zinc-200 text-xs text-white font-mono"
           />
         </div>
 
         {/* Email */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-zinc-300">E-mail Comercial</label>
+          <label className="text-xs font-semibold text-zinc-700">E-mail Comercial</label>
           <Input
             type="email"
             placeholder="comercial@empresa.co.mz"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs text-white"
+            className="bg-white border-zinc-200 text-xs text-white"
           />
         </div>
       </div>
@@ -102,11 +102,11 @@ export default function LeadForm({ onSubmit, onCancel }: LeadFormProps) {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Source */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-zinc-300">Origem / Canal</label>
+          <label className="text-xs font-semibold text-zinc-700">Origem / Canal</label>
           <select
             value={source}
             onChange={(e) => setSource(e.target.value as LeadSource)}
-            className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
           >
             <option value="whatsapp">WhatsApp</option>
             <option value="website">Website / Formulário</option>
@@ -118,20 +118,20 @@ export default function LeadForm({ onSubmit, onCancel }: LeadFormProps) {
 
         {/* Value */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-zinc-300">Valor Estimado (MZN)</label>
+          <label className="text-xs font-semibold text-zinc-700">Valor Estimado (MZN)</label>
           <Input
             type="number"
             step="100"
             placeholder="50000"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs text-white font-mono"
+            className="bg-white border-zinc-200 text-xs text-white font-mono"
           />
         </div>
 
         {/* Probability */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-zinc-300">Probabilidade (%)</label>
+          <label className="text-xs font-semibold text-zinc-700">Probabilidade (%)</label>
           <Input
             type="number"
             min="0"
@@ -139,29 +139,29 @@ export default function LeadForm({ onSubmit, onCancel }: LeadFormProps) {
             placeholder="10"
             value={probability}
             onChange={(e) => setProbability(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs text-white font-mono"
+            className="bg-white border-zinc-200 text-xs text-white font-mono"
           />
         </div>
       </div>
 
       {/* Notes */}
       <div className="space-y-1.5">
-        <label className="text-xs font-semibold text-zinc-300">Observações / Requisitos</label>
+        <label className="text-xs font-semibold text-zinc-700">Observações / Requisitos</label>
         <textarea
           rows={3}
           placeholder="Descreva detalhes adicionais, produtos de interesse e urgência de fecho..."
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          className="w-full rounded-md border border-zinc-800 bg-zinc-950 p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+          className="w-full rounded-md border border-zinc-200 bg-white p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
         />
       </div>
 
-      <div className="flex justify-end gap-2 pt-2 border-t border-zinc-800">
+      <div className="flex justify-end gap-2 pt-2 border-t border-zinc-200">
         <Button
           type="button"
           variant="outline"
           onClick={onCancel}
-          className="border-zinc-800 bg-zinc-900 text-zinc-300 text-xs"
+          className="border-zinc-200 bg-zinc-50 text-zinc-700 text-xs"
         >
           Cancelar
         </Button>

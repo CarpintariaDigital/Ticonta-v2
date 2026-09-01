@@ -52,15 +52,15 @@ export default function HRPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans">
+      <div className="min-h-screen bg-white text-zinc-900 flex flex-col font-sans">
         {/* Top Header */}
-        <header className="border-b border-zinc-800 bg-zinc-900/60 backdrop-blur px-6 py-4 flex items-center justify-between">
+        <header className="border-b border-zinc-200 bg-white backdrop-blur px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/dashboard">
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 w-8 p-0 text-zinc-400 hover:text-white hover:bg-zinc-800"
+                className="h-8 w-8 p-0 text-zinc-500 hover:text-white hover:bg-zinc-800"
               >
                 <ArrowLeft className="h-4 w-4" />
               </Button>
@@ -70,7 +70,7 @@ export default function HRPage() {
             </div>
             <div>
               <h1 className="text-base font-bold text-white leading-tight">Recursos Humanos & Folha INSS</h1>
-              <p className="text-xs text-zinc-400">Salários, Deduções Legais e Guia SISSMO Moçambique</p>
+              <p className="text-xs text-zinc-500">Salários, Deduções Legais e Guia SISSMO Moçambique</p>
             </div>
           </div>
 
@@ -82,7 +82,7 @@ export default function HRPage() {
                 fetchEmployees();
                 fetchPayroll(selectedPeriod);
               }}
-              className="border-zinc-800 bg-zinc-900 text-zinc-300 hover:bg-zinc-800 text-xs"
+              className="border-zinc-200 bg-zinc-50 text-zinc-700 hover:bg-zinc-800 text-xs"
             >
               <RefreshCw className={`h-3.5 w-3.5 mr-1.5 ${isLoading ? "animate-spin" : ""}`} />
               Atualizar
@@ -99,14 +99,14 @@ export default function HRPage() {
         </header>
 
         {/* Tab Navigation */}
-        <div className="border-b border-zinc-800 bg-zinc-900/40 px-6 py-2">
+        <div className="border-b border-zinc-200 bg-zinc-50/40 px-6 py-2">
           <div className="flex gap-2">
             <button
               onClick={() => setActiveTab("payroll")}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                 activeTab === "payroll"
                   ? "bg-emerald-600 text-white shadow-lg shadow-emerald-950/40"
-                  : "bg-zinc-900 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200 border border-zinc-800"
+                  : "bg-zinc-50 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-800 border border-zinc-200"
               }`}
             >
               <DollarSign className="h-4 w-4" />
@@ -118,7 +118,7 @@ export default function HRPage() {
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                 activeTab === "employees"
                   ? "bg-emerald-600 text-white shadow-lg shadow-emerald-950/40"
-                  : "bg-zinc-900 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200 border border-zinc-800"
+                  : "bg-zinc-50 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-800 border border-zinc-200"
               }`}
             >
               <Users className="h-4 w-4" />
@@ -131,8 +131,8 @@ export default function HRPage() {
         <main className="flex-1 max-w-7xl w-full mx-auto p-6 space-y-6">
           {/* Top KPI Cards */}
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-4">
-              <span className="text-[11px] text-zinc-400 font-medium uppercase tracking-wider">
+            <div className="rounded-2xl border border-zinc-200 bg-zinc-50/50 p-4">
+              <span className="text-[11px] text-zinc-500 font-medium uppercase tracking-wider">
                 Total de Colaboradores
               </span>
               <p className="text-xl font-black text-white mt-1 flex items-center gap-1.5">
@@ -141,8 +141,8 @@ export default function HRPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-4">
-              <span className="text-[11px] text-zinc-400 font-medium uppercase tracking-wider">
+            <div className="rounded-2xl border border-zinc-200 bg-zinc-50/50 p-4">
+              <span className="text-[11px] text-zinc-500 font-medium uppercase tracking-wider">
                 Massa Salarial Mensal
               </span>
               <p className="text-xl font-black text-white mt-1">
@@ -151,7 +151,7 @@ export default function HRPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-4">
+            <div className="rounded-2xl border border-zinc-200 bg-zinc-50/50 p-4">
               <span className="text-[11px] text-emerald-400 font-medium uppercase tracking-wider">
                 Salário Médio
               </span>
@@ -161,7 +161,7 @@ export default function HRPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-4">
+            <div className="rounded-2xl border border-zinc-200 bg-zinc-50/50 p-4">
               <span className="text-[11px] text-purple-400 font-medium uppercase tracking-wider">
                 Submissão INSS (Prazo)
               </span>
@@ -198,9 +198,9 @@ export default function HRPage() {
 
         {/* Modal Novo Funcionário */}
         {showCreateModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-            <div className="w-full max-w-lg rounded-2xl border border-zinc-800 bg-zinc-900 p-6 shadow-2xl space-y-4">
-              <h3 className="text-base font-bold text-white border-b border-zinc-800 pb-3">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/40 backdrop-blur-sm p-4">
+            <div className="w-full max-w-lg rounded-2xl border border-zinc-200 bg-zinc-50 p-6 shadow-2xl space-y-4">
+              <h3 className="text-base font-bold text-white border-b border-zinc-200 pb-3">
                 Registar Novo Colaborador
               </h3>
               <EmployeeForm onSubmit={handleCreateEmployee} onCancel={() => setShowCreateModal(false)} />

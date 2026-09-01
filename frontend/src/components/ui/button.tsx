@@ -14,10 +14,10 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
-          "border border-zinc-800 bg-zinc-900/80 shadow-sm hover:bg-zinc-800 hover:text-white text-zinc-200",
+          "border border-zinc-200 bg-white/80 shadow-sm hover:bg-zinc-800 hover:text-white text-zinc-800",
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-zinc-800/80 hover:text-white text-zinc-300",
+        ghost: "hover:bg-zinc-800/80 hover:text-white text-zinc-700",
         link: "text-emerald-400 underline-offset-4 hover:underline",
         
         /* 3D Mechanical Tactile Keycap Variants */

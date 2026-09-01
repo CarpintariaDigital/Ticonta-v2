@@ -47,26 +47,26 @@ export const MortalityForm: React.FC<MortalityFormProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-      <div className="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-md shadow-2xl flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/40 backdrop-blur-sm animate-fade-in">
+      <div className="bg-white border border-zinc-200/80 rounded-2xl w-full max-w-md shadow-2xl flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-950/50">
+        <div className="flex items-center justify-between p-4 border-b border-zinc-200 bg-zinc-50/70">
           <div className="flex items-center gap-2">
             <AlertTriangle className="w-5 h-5 text-rose-400" />
             <div>
               <h3 className="text-sm font-bold text-white">Registo de Mortalidade / Baixas</h3>
-              <p className="text-[11px] text-slate-400">Lote #{flock.flock_number}</p>
+              <p className="text-[11px] text-zinc-500">Lote #{flock.flock_number}</p>
             </div>
           </div>
 
-          <button onClick={onClose} className="p-1 text-slate-400 hover:text-white rounded-lg">
+          <button onClick={onClose} className="p-1 text-zinc-500 hover:text-white rounded-lg">
             <X className="w-4 h-4" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
               Data da Ocorrência
             </label>
             <input
@@ -74,12 +74,12 @@ export const MortalityForm: React.FC<MortalityFormProps> = ({
               required
               value={recordDate}
               onChange={(e) => setRecordDate(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs focus:outline-none focus:border-rose-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs focus:outline-none focus:border-rose-500"
             />
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
               Quantidade de Aves Mortas *
             </label>
             <input
@@ -89,17 +89,17 @@ export const MortalityForm: React.FC<MortalityFormProps> = ({
               required
               value={quantity}
               onChange={(e) => setQuantity(parseInt(e.target.value, 10) || 0)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-base font-black focus:outline-none focus:border-rose-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-base font-black focus:outline-none focus:border-rose-500"
             />
           </div>
 
           {/* Current vs After Indicator */}
-          <div className="p-3 bg-slate-950 border border-slate-800 rounded-xl text-xs space-y-1 text-slate-300">
+          <div className="p-3 bg-white border border-zinc-200 rounded-xl text-xs space-y-1 text-zinc-700">
             <div className="flex justify-between">
               <span>Efetivo Atual:</span>
               <strong className="text-white">{flock.quantity_current} aves</strong>
             </div>
-            <div className="flex justify-between pt-1 border-t border-slate-800 text-rose-300 font-bold">
+            <div className="flex justify-between pt-1 border-t border-zinc-200 text-rose-300 font-bold">
               <span>Novo Efetivo Vivo após registo:</span>
               <span>{newQuantityAfter} aves</span>
             </div>
@@ -107,13 +107,13 @@ export const MortalityForm: React.FC<MortalityFormProps> = ({
 
           {/* Cause Selector */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1">
+            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1">
               Causa Provável
             </label>
             <select
               value={cause}
               onChange={(e) => setCause(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-xs focus:outline-none focus:border-rose-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs focus:outline-none focus:border-rose-500"
             >
               {CAUSE_OPTIONS.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -127,7 +127,7 @@ export const MortalityForm: React.FC<MortalityFormProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl"
+              className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl"
             >
               Cancelar
             </button>

@@ -62,24 +62,24 @@ export default function RestaurantSettingsModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="w-full max-w-lg bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-2xl text-zinc-100 space-y-4 select-none">
+    <div className="fixed inset-0 z-50 bg-white/40 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="w-full max-w-lg bg-white border border-emerald-900/10 rounded-3xl p-6 shadow-2xl text-zinc-900 space-y-4 select-none">
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
+        <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+            <div className="w-9 h-9 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700">
               <Settings className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-black text-emerald-950 font-mono">
                 Configurações do Restaurante
               </h3>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-zinc-500">
                 Taxas de serviço, fiscalidade e parâmetros do KDS
               </p>
             </div>
           </div>
-          <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0 text-zinc-400 hover:text-white">
+          <Button variant="ghost" size="sm" onClick={onClose} className="h-8 w-8 p-0 text-zinc-500 hover:text-zinc-700 rounded-full">
             <X className="w-4 h-4" />
           </Button>
         </div>
@@ -88,7 +88,7 @@ export default function RestaurantSettingsModal({
         <form onSubmit={handleSave} className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-zinc-300 block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 block mb-1">
                 Taxa de Serviço Padrão (%)
               </label>
               <Input
@@ -98,13 +98,13 @@ export default function RestaurantSettingsModal({
                 step="0.5"
                 value={serviceCharge}
                 onChange={(e) => setServiceCharge(parseFloat(e.target.value) || 0)}
-                className="bg-zinc-950 border-zinc-800 text-xs h-9 font-mono text-zinc-100"
+                className="bg-white border-zinc-300 text-xs h-9 font-mono text-zinc-900 rounded-xl"
               />
               <span className="text-[10px] text-zinc-500">Calculada sobre o subtotal</span>
             </div>
 
             <div>
-              <label className="text-xs font-medium text-zinc-300 block mb-1">
+              <label className="text-xs font-semibold text-zinc-700 block mb-1">
                 Taxa de IVA Padrão (%)
               </label>
               <Input
@@ -114,14 +114,14 @@ export default function RestaurantSettingsModal({
                 step="0.5"
                 value={taxPercent}
                 onChange={(e) => setTaxPercent(parseFloat(e.target.value) || 0)}
-                className="bg-zinc-950 border-zinc-800 text-xs h-9 font-mono text-zinc-100"
+                className="bg-white border-zinc-300 text-xs h-9 font-mono text-zinc-900 rounded-xl"
               />
               <span className="text-[10px] text-zinc-500">16% IVA em Moçambique</span>
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-medium text-zinc-300 block mb-1">
+            <label className="text-xs font-semibold text-zinc-700 block mb-1">
               Alerta de Urgência no KDS (Minutos)
             </label>
             <Input
@@ -130,18 +130,18 @@ export default function RestaurantSettingsModal({
               max={60}
               value={urgentPrepTime}
               onChange={(e) => setUrgentPrepTime(parseInt(e.target.value) || 10)}
-              className="bg-zinc-950 border-zinc-800 text-xs h-9 font-mono text-zinc-100"
+              className="bg-white border-zinc-300 text-xs h-9 font-mono text-zinc-900 rounded-xl"
             />
             <span className="text-[10px] text-zinc-500">
               Pedidos com tempo de preparo superior ficam em destaque vermelho
             </span>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-zinc-950 border border-zinc-800 space-y-2">
+          <div className="p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-2">
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="text-xs font-semibold text-zinc-200">Limpeza Automática de Mesas</h4>
-                <p className="text-[11px] text-zinc-400">
+                <h4 className="text-xs font-bold text-zinc-900">Limpeza Automática de Mesas</h4>
+                <p className="text-[11px] text-zinc-500">
                   Liberar mesa diretamente como disponível ao pagar a comanda
                 </p>
               </div>
@@ -149,27 +149,27 @@ export default function RestaurantSettingsModal({
                 type="checkbox"
                 checked={autoClean}
                 onChange={(e) => setAutoClean(e.target.checked)}
-                className="rounded bg-zinc-900 border-zinc-700 text-emerald-600 focus:ring-emerald-500 h-5 w-5"
+                className="rounded border-zinc-300 text-emerald-600 focus:ring-emerald-500 h-5 w-5"
               />
             </div>
           </div>
 
           {savedSuccess && (
-            <div className="p-2.5 rounded-lg bg-emerald-950/40 border border-emerald-500/40 text-emerald-400 text-xs flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4" />
+            <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
               <span>Configurações salvas com sucesso!</span>
             </div>
           )}
 
-          <div className="pt-3 border-t border-zinc-800 flex justify-end gap-2">
-            <Button type="button" variant="outline" size="sm" onClick={onClose} className="border-zinc-700 text-zinc-300">
+          <div className="pt-3 border-t border-zinc-200 flex justify-end gap-2">
+            <Button type="button" variant="outline" size="sm" onClick={onClose} className="border-zinc-300 text-zinc-700 rounded-xl">
               Cancelar
             </Button>
             <Button
               type="submit"
               size="sm"
               disabled={isSaving}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold"
+              className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl shadow-xs"
             >
               <Save className="w-4 h-4 mr-1.5" />
               {isSaving ? "Gravando..." : "Gravar Configurações"}

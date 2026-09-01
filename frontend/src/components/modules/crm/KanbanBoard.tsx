@@ -84,7 +84,7 @@ export default function KanbanBoard({
             key={col.id}
             onDragOver={handleDragOver}
             onDrop={(e) => handleDrop(e, col.id)}
-            className={`rounded-2xl border ${col.border} bg-zinc-950/70 p-3.5 flex flex-col min-h-[550px] transition-all`}
+            className={`rounded-2xl border ${col.border} bg-white/70 p-3.5 flex flex-col min-h-[550px] transition-all`}
           >
             {/* Column Header */}
             <div className={`rounded-xl ${col.bg} p-3 border ${col.border} mb-3`}>
@@ -92,20 +92,20 @@ export default function KanbanBoard({
                 <span className={`text-xs font-bold ${col.color} uppercase tracking-wider`}>
                   {col.title}
                 </span>
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-900 text-[10px] font-bold text-white border border-zinc-800">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-50 text-[10px] font-bold text-white border border-zinc-200">
                   {colLeads.length}
                 </span>
               </div>
               <div className="mt-1.5 text-xs font-mono font-bold text-white">
                 {totalValue.toLocaleString("pt-MZ")}{" "}
-                <span className="text-[10px] font-normal text-zinc-400">MZN</span>
+                <span className="text-[10px] font-normal text-zinc-500">MZN</span>
               </div>
             </div>
 
             {/* Leads Cards Container */}
             <div className="flex-1 space-y-2.5 overflow-y-auto max-h-[650px] pr-1">
               {colLeads.length === 0 ? (
-                <div className="flex h-32 flex-col items-center justify-center rounded-xl border border-dashed border-zinc-800 text-center p-4 text-[11px] text-zinc-600">
+                <div className="flex h-32 flex-col items-center justify-center rounded-xl border border-dashed border-zinc-200 text-center p-4 text-[11px] text-zinc-600">
                   <span>Nenhum lead nesta etapa</span>
                 </div>
               ) : (
@@ -132,7 +132,7 @@ export default function KanbanBoard({
                 variant="ghost"
                 size="sm"
                 onClick={onOpenNewLeadModal}
-                className="mt-3 w-full border border-dashed border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white text-xs h-9"
+                className="mt-3 w-full border border-dashed border-zinc-200 hover:border-zinc-200 text-zinc-500 hover:text-white text-xs h-9"
               >
                 <Plus className="h-3.5 w-3.5 mr-1.5 text-emerald-400" />
                 Adicionar Lead Rápido

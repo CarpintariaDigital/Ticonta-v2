@@ -124,16 +124,16 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
   };
 
   return (
-    <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 md:p-6 shadow-2xl backdrop-blur-xl flex flex-col h-full">
+    <div className="bg-white/80 border border-zinc-200 rounded-2xl p-4 md:p-6 shadow-2xl backdrop-blur-xl flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+      <div className="flex items-center justify-between pb-4 border-b border-zinc-200">
         <div className="flex items-center gap-2.5">
           <div className="p-2 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">
             <ShoppingCart className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-base md:text-lg font-bold text-white">Registo de Venda Rápida</h2>
-            <p className="text-xs text-slate-400">Checkout simplificado com opção de fiado imediato</p>
+            <h2 className="text-base md:text-lg font-bold text-zinc-900">Registo de Venda Rápida</h2>
+            <p className="text-xs text-zinc-500">Checkout simplificado com opção de fiado imediato</p>
           </div>
         </div>
 
@@ -151,7 +151,7 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
         {/* Left Column: Product Presets & Custom Adder */}
         <div className="lg:col-span-6 flex flex-col gap-4">
           <div>
-            <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-2">
+            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-2">
               Itens Frequentes (1-Toque)
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -160,9 +160,9 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                   key={idx}
                   type="button"
                   onClick={() => onAddItem({ name: p.name, unit_price: p.price, quantity: 1 })}
-                  className="p-2.5 bg-slate-800/80 hover:bg-indigo-950/60 active:scale-95 border border-slate-700/80 hover:border-indigo-500/50 rounded-xl text-left transition-all group flex flex-col justify-between"
+                  className="p-2.5 bg-slate-800/80 hover:bg-indigo-950/60 active:scale-95 border border-zinc-200/80 hover:border-indigo-500/50 rounded-xl text-left transition-all group flex flex-col justify-between"
                 >
-                  <span className="text-xs font-medium text-slate-200 group-hover:text-white line-clamp-2">
+                  <span className="text-xs font-medium text-zinc-800 group-hover:text-zinc-900 line-clamp-2">
                     {p.name}
                   </span>
                   <span className="text-xs font-bold text-emerald-400 mt-2 block">
@@ -174,22 +174,22 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
           </div>
 
           {/* Custom Item Form */}
-          <form onSubmit={handleAddCustom} className="p-3 bg-slate-800/40 border border-slate-800 rounded-xl">
-            <span className="text-xs font-semibold text-slate-400 block mb-2">Item Personalizado / Avulso</span>
+          <form onSubmit={handleAddCustom} className="p-3 bg-slate-800/40 border border-zinc-200 rounded-xl">
+            <span className="text-xs font-semibold text-zinc-500 block mb-2">Item Personalizado / Avulso</span>
             <div className="flex gap-2">
               <input
                 type="text"
                 value={customName}
                 onChange={(e) => setCustomName(e.target.value)}
                 placeholder="Nome do produto..."
-                className="flex-1 px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="flex-1 px-3 py-2 bg-white border border-zinc-200 rounded-lg text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
               />
               <input
                 type="number"
                 value={customPrice}
                 onChange={(e) => setCustomPrice(e.target.value)}
                 placeholder="Preço (MT)"
-                className="w-24 px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="w-24 px-3 py-2 bg-white border border-zinc-200 rounded-lg text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
               />
               <button
                 type="submit"
@@ -201,9 +201,9 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
           </form>
 
           {/* Cart Items Table */}
-          <div className="flex-1 bg-slate-950/50 border border-slate-800/80 rounded-xl p-3 overflow-y-auto max-h-52 md:max-h-60">
+          <div className="flex-1 bg-zinc-50/70 border border-zinc-200/80 rounded-xl p-3 overflow-y-auto max-h-52 md:max-h-60">
             {cartItems.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-slate-500 py-6">
+              <div className="h-full flex flex-col items-center justify-center text-zinc-500 py-6">
                 <ShoppingCart className="w-8 h-8 stroke-1 mb-2 opacity-50" />
                 <p className="text-xs">Nenhum item adicionado ao carrinho</p>
               </div>
@@ -212,11 +212,11 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                 {cartItems.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center justify-between p-2.5 bg-slate-900/80 border border-slate-800 rounded-lg"
+                    className="flex items-center justify-between p-2.5 bg-white/80 border border-zinc-200 rounded-lg"
                   >
                     <div className="min-w-0 flex-1 pr-2">
-                      <div className="text-xs font-medium text-white truncate">{item.name}</div>
-                      <div className="text-[11px] text-slate-400">
+                      <div className="text-xs font-medium text-zinc-900 truncate">{item.name}</div>
+                      <div className="text-[11px] text-zinc-500">
                         {item.unit_price.toLocaleString("pt-MZ")} MT x {item.quantity} ={" "}
                         <span className="font-semibold text-emerald-400">
                           {(item.unit_price * item.quantity).toLocaleString("pt-MZ")} MT
@@ -227,20 +227,20 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                     <div className="flex items-center gap-1.5">
                       <button
                         onClick={() => onUpdateQuantity(item.id, -1)}
-                        className="w-7 h-7 bg-slate-800 hover:bg-slate-700 active:scale-90 rounded flex items-center justify-center text-slate-300 text-xs"
+                        className="w-7 h-7 bg-slate-800 hover:bg-slate-700 active:scale-90 rounded flex items-center justify-center text-zinc-700 text-xs"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
-                      <span className="w-6 text-center text-xs font-bold text-white">{item.quantity}</span>
+                      <span className="w-6 text-center text-xs font-bold text-zinc-900">{item.quantity}</span>
                       <button
                         onClick={() => onUpdateQuantity(item.id, 1)}
-                        className="w-7 h-7 bg-slate-800 hover:bg-slate-700 active:scale-90 rounded flex items-center justify-center text-slate-300 text-xs"
+                        className="w-7 h-7 bg-slate-800 hover:bg-slate-700 active:scale-90 rounded flex items-center justify-center text-zinc-700 text-xs"
                       >
                         <Plus className="w-3 h-3" />
                       </button>
                       <button
                         onClick={() => onRemoveItem(item.id)}
-                        className="p-1.5 text-slate-500 hover:text-rose-400 rounded transition-colors ml-1"
+                        className="p-1.5 text-zinc-500 hover:text-rose-400 rounded transition-colors ml-1"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -253,16 +253,16 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
         </div>
 
         {/* Right Column: Financial Breakdown & Fiado Payment Config */}
-        <div className="lg:col-span-6 flex flex-col justify-between bg-slate-950/40 border border-slate-800/80 rounded-xl p-4 md:p-5">
+        <div className="lg:col-span-6 flex flex-col justify-between bg-zinc-50/60 border border-zinc-200/80 rounded-xl p-4 md:p-5">
           <div className="space-y-4">
             {/* Totals Box */}
-            <div className="p-3.5 bg-slate-900/90 rounded-xl border border-slate-800 space-y-2">
-              <div className="flex justify-between text-xs text-slate-400">
+            <div className="p-3.5 bg-white/90 rounded-xl border border-zinc-200 space-y-2">
+              <div className="flex justify-between text-xs text-zinc-500">
                 <span>Subtotal ({cartItems.reduce((a, b) => a + b.quantity, 0)} itens)</span>
-                <span className="font-semibold text-slate-200">{cartSubtotal.toLocaleString("pt-MZ")} MT</span>
+                <span className="font-semibold text-zinc-800">{cartSubtotal.toLocaleString("pt-MZ")} MT</span>
               </div>
-              <div className="flex justify-between items-baseline pt-2 border-t border-slate-800">
-                <span className="text-sm font-bold text-white">Total a Pagar</span>
+              <div className="flex justify-between items-baseline pt-2 border-t border-zinc-200">
+                <span className="text-sm font-bold text-zinc-900">Total a Pagar</span>
                 <span className="text-xl font-extrabold text-emerald-400">
                   {cartSubtotal.toLocaleString("pt-MZ")} MT
                 </span>
@@ -271,18 +271,18 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
 
             {/* Payment Section */}
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-2">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-2">
                 Valor Pago no Ato (Entrada)
               </label>
 
               <div className="relative mb-2">
-                <span className="absolute left-3 top-2.5 text-xs text-slate-500 font-bold">MZN</span>
+                <span className="absolute left-3 top-2.5 text-xs text-zinc-500 font-bold">MZN</span>
                 <input
                   type="number"
                   value={amountPaidNow || ""}
                   onChange={(e) => onSetAmountPaidNow(Math.max(0, parseFloat(e.target.value) || 0))}
                   placeholder="0.00"
-                  className="w-full pl-12 pr-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white font-bold text-base focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full pl-12 pr-4 py-2.5 bg-white border border-zinc-200 rounded-xl text-white font-bold text-base focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
@@ -293,8 +293,8 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                   onClick={() => handleQuickPayOption("full")}
                   className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition-all ${
                     amountPaidNow === cartSubtotal && cartSubtotal > 0
-                      ? "bg-emerald-600 text-white border-emerald-500 shadow-md"
-                      : "bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700"
+                      ? "bg-emerald-600 text-zinc-900 border-emerald-500 shadow-md"
+                      : "bg-slate-800 text-zinc-700 border-zinc-200 hover:bg-slate-700"
                   }`}
                 >
                   Tudo ({cartSubtotal} MT)
@@ -302,21 +302,21 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                 <button
                   type="button"
                   onClick={() => handleQuickPayOption("half")}
-                  className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700"
+                  className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-800 text-zinc-700 border border-zinc-200 hover:bg-slate-700"
                 >
                   50%
                 </button>
                 <button
                   type="button"
                   onClick={() => handleQuickPayOption("500")}
-                  className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700"
+                  className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-800 text-zinc-700 border border-zinc-200 hover:bg-slate-700"
                 >
                   500 MT
                 </button>
                 <button
                   type="button"
                   onClick={() => handleQuickPayOption("1000")}
-                  className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700"
+                  className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-800 text-zinc-700 border border-zinc-200 hover:bg-slate-700"
                 >
                   1.000 MT
                 </button>
@@ -325,8 +325,8 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                   onClick={() => handleQuickPayOption("zero")}
                   className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition-all ${
                     amountPaidNow === 0
-                      ? "bg-rose-600 text-white border-rose-500 shadow-md"
-                      : "bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700"
+                      ? "bg-rose-600 text-zinc-900 border-rose-500 shadow-md"
+                      : "bg-slate-800 text-zinc-700 border-zinc-200 hover:bg-slate-700"
                   }`}
                 >
                   Fiado Total (0 MT)
@@ -357,27 +357,27 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                   <div>
-                    <label className="text-[11px] text-slate-400 block mb-1 flex items-center gap-1">
-                      <Calendar className="w-3 h-3 text-slate-500" /> Promete Pagar Até:
+                    <label className="text-[11px] text-zinc-500 block mb-1 flex items-center gap-1">
+                      <Calendar className="w-3 h-3 text-zinc-500" /> Promete Pagar Até:
                     </label>
                     <input
                       type="date"
                       value={dueDate || ""}
                       onChange={(e) => onSetDueDate(e.target.value || null)}
-                      className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-indigo-500"
+                      className="w-full px-2.5 py-1.5 bg-white border border-zinc-200 rounded-lg text-white text-xs focus:outline-none focus:border-indigo-500"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[11px] text-slate-400 block mb-1 flex items-center gap-1">
-                      <FileText className="w-3 h-3 text-slate-500" /> Observações do Acordo:
+                    <label className="text-[11px] text-zinc-500 block mb-1 flex items-center gap-1">
+                      <FileText className="w-3 h-3 text-zinc-500" /> Observações do Acordo:
                     </label>
                     <input
                       type="text"
                       value={saleNotes}
                       onChange={(e) => onSetSaleNotes(e.target.value)}
                       placeholder="Ex: Paga na sexta..."
-                      className="w-full px-2.5 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs focus:outline-none focus:border-indigo-500"
+                      className="w-full px-2.5 py-1.5 bg-white border border-zinc-200 rounded-lg text-white text-xs focus:outline-none focus:border-indigo-500"
                     />
                   </div>
                 </div>
@@ -386,7 +386,7 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
 
             {/* Payment Method Selector */}
             <div>
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
+              <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block mb-1.5">
                 Forma de Entrada
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -404,8 +404,8 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                       onClick={() => onSetPaymentMethod(m.id)}
                       className={`p-2 rounded-xl text-xs font-medium border flex items-center justify-center gap-1.5 transition-all ${
                         isSelected
-                          ? "bg-indigo-600 text-white border-indigo-500 shadow-md font-bold"
-                          : "bg-slate-900 text-slate-400 border-slate-800 hover:text-slate-200"
+                          ? "bg-indigo-600 text-zinc-900 border-indigo-500 shadow-md font-bold"
+                          : "bg-white text-zinc-500 border-zinc-200 hover:text-zinc-800"
                       }`}
                     >
                       <Icon className="w-3.5 h-3.5" />
@@ -418,14 +418,14 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
           </div>
 
           {/* Action Buttons */}
-          <div className="pt-4 border-t border-slate-800 mt-4">
+          <div className="pt-4 border-t border-zinc-200 mt-4">
             <button
               type="button"
               disabled={isLoading || cartItems.length === 0 || !selectedCustomer}
               onClick={handleSubmit}
               className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm md:text-base flex items-center justify-center gap-2 shadow-xl transition-all active:scale-[0.98] ${
                 cartItems.length === 0 || !selectedCustomer
-                  ? "bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700"
+                  ? "bg-slate-800 text-zinc-500 cursor-not-allowed border border-zinc-200"
                   : amountOwed === 0
                   ? "bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-emerald-900/30"
                   : "bg-gradient-to-r from-amber-600 to-rose-600 hover:from-amber-500 hover:to-rose-500 text-white shadow-amber-900/30"

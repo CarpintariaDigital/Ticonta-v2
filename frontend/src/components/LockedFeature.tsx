@@ -20,7 +20,7 @@ export const LockedFeature: React.FC<LockedFeatureProps> = ({
 }) => {
   return (
     <div className="flex min-h-[400px] w-full items-center justify-center p-6">
-      <Card className="w-full max-w-md border-zinc-800 bg-zinc-900/90 text-center text-zinc-100 shadow-2xl backdrop-blur">
+      <Card className="w-full max-w-md border-zinc-200 bg-white/90 text-center text-zinc-900 shadow-2xl backdrop-blur">
         <CardHeader className="space-y-3">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-400">
             <Lock className="h-7 w-7" />
@@ -33,18 +33,18 @@ export const LockedFeature: React.FC<LockedFeatureProps> = ({
           <CardTitle className="text-xl font-bold tracking-tight text-white">
             {featureName} Bloqueado
           </CardTitle>
-          <CardDescription className="text-zinc-400 text-sm">
+          <CardDescription className="text-zinc-500 text-sm">
             {description}
           </CardDescription>
         </CardHeader>
 
-        <CardContent className="space-y-4 text-xs text-zinc-400">
-          <div className="rounded-lg border border-zinc-800 bg-zinc-950/60 p-3 text-left space-y-2">
-            <div className="flex items-center gap-2 text-zinc-200 font-medium">
+        <CardContent className="space-y-4 text-xs text-zinc-500">
+          <div className="rounded-lg border border-zinc-200 bg-zinc-50/80 p-3 text-left space-y-2">
+            <div className="flex items-center gap-2 text-zinc-800 font-medium">
               <Sparkles className="h-4 w-4 text-emerald-400" />
               <span>Desbloqueie com o upgrade:</span>
             </div>
-            <ul className="list-disc list-inside space-y-1 text-zinc-400 text-[11px]">
+            <ul className="list-disc list-inside space-y-1 text-zinc-500 text-[11px]">
               <li>Acesso completo e ilimitado ao módulo {featureName}</li>
               <li>Sincronização em tempo real e relatórios automáticos</li>
               <li>Suporte técnico prioritário TiConta</li>

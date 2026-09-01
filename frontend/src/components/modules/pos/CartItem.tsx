@@ -16,7 +16,7 @@ export default function CartItemRow({ item, onUpdateQuantity, onRemove }: CartIt
   return (
     <div className="flex items-center justify-between gap-3 rounded-lg border border-[#1c3150] bg-[#0c1626]/90 p-2.5 transition-all hover:border-[#2dc4a0]/50 shadow-sm font-mono">
       <div className="min-w-0 flex-1">
-        <h4 className="truncate text-xs font-bold text-zinc-100 uppercase tracking-tight">{item.product.name}</h4>
+        <h4 className="truncate text-xs font-bold text-zinc-900 uppercase tracking-tight">{item.product.name}</h4>
         <div className="flex items-center gap-1.5 text-[10px] text-[#4a7a9b] mt-0.5">
           <span>{item.unit_price.toFixed(2)} MZN</span>
           <span>•</span>

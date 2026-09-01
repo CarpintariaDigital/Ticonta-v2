@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Plus, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { CreateProjectInput } from "@/types/projects";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +15,7 @@ export default function ProjectForm({ onSubmit, onCancel }: ProjectFormProps) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [budget, setBudget] = useState("");
-  const [startDate, setStartDate] = useState(new Date().toISOString().split("T")[0]);
+  const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -48,31 +48,31 @@ export default function ProjectForm({ onSubmit, onCancel }: ProjectFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 font-sans">
+    <form onSubmit={handleSubmit} className="space-y-4 font-sans text-zinc-900">
       {error && (
-        <div className="flex items-center gap-2 rounded-lg border border-red-500/20 bg-red-500/10 p-3 text-xs text-red-400">
-          <AlertCircle className="h-4 w-4 shrink-0" />
+        <div className="flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 p-3 text-xs text-rose-800">
+          <AlertCircle className="h-4 w-4 shrink-0 text-rose-600" />
           <span>{error}</span>
         </div>
       )}
 
       {/* Project Name */}
       <div className="space-y-1">
-        <label className="text-xs font-semibold text-zinc-300">
-          Nome do Projeto / Obra <span className="text-emerald-400">*</span>
+        <label className="text-xs font-semibold text-zinc-700">
+          Nome do Projeto / Obra <span className="text-emerald-600">*</span>
         </label>
         <Input
           placeholder="Ex: Reforma Pavilhão Fabril e Montagem de Silos"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="bg-zinc-950 border-zinc-800 text-xs"
+          className="bg-white border-zinc-300 text-xs text-zinc-900 rounded-xl"
         />
       </div>
 
       {/* Budget */}
       <div className="space-y-1">
-        <label className="text-xs font-semibold text-zinc-300">
-          Orçamento Total Aprovado (MZN) <span className="text-emerald-400">*</span>
+        <label className="text-xs font-semibold text-zinc-700">
+          Orçamento Total Aprovado (MZN) <span className="text-emerald-600">*</span>
         </label>
         <Input
           type="number"
@@ -80,58 +80,58 @@ export default function ProjectForm({ onSubmit, onCancel }: ProjectFormProps) {
           placeholder="500000"
           value={budget}
           onChange={(e) => setBudget(e.target.value)}
-          className="bg-zinc-950 border-zinc-800 text-xs font-mono"
+          className="bg-white border-zinc-300 text-xs font-mono text-zinc-900 rounded-xl"
         />
       </div>
 
       {/* Dates */}
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-zinc-300">Data de Início</label>
+          <label className="text-xs font-semibold text-zinc-700">Data de Início</label>
           <Input
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs"
+            className="bg-white border-zinc-300 text-xs text-zinc-900 rounded-xl"
           />
         </div>
 
         <div className="space-y-1">
-          <label className="text-xs font-semibold text-zinc-300">Previsão de Conclusão</label>
+          <label className="text-xs font-semibold text-zinc-700">Previsão de Conclusão</label>
           <Input
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="bg-zinc-950 border-zinc-800 text-xs"
+            className="bg-white border-zinc-300 text-xs text-zinc-900 rounded-xl"
           />
         </div>
       </div>
 
       {/* Description */}
       <div className="space-y-1">
-        <label className="text-xs font-semibold text-zinc-300">Escopo dos Trabalhos / Descrição</label>
+        <label className="text-xs font-semibold text-zinc-700">Escopo dos Trabalhos / Descrição</label>
         <textarea
           rows={3}
           placeholder="Detalhamento técnico, materiais principais e cláusulas contratuais..."
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full rounded-md border border-zinc-800 bg-zinc-950 p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+          className="w-full rounded-xl border border-zinc-300 bg-white p-2.5 text-xs text-zinc-900 focus:outline-none focus:ring-1 focus:ring-emerald-600"
         />
       </div>
 
-      <div className="flex justify-end gap-2 pt-3 border-t border-zinc-800">
+      <div className="flex justify-end gap-2 pt-3 border-t border-zinc-200">
         <Button
           type="button"
           variant="outline"
           onClick={onCancel}
-          className="border-zinc-800 bg-zinc-900 text-zinc-300 text-xs"
+          className="border-zinc-300 text-zinc-700 text-xs rounded-xl"
         >
           Cancelar
         </Button>
         <Button
           type="submit"
           disabled={isLoading || !name.trim()}
-          className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold"
+          className="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl font-mono shadow-xs"
         >
           {isLoading ? (
             <>

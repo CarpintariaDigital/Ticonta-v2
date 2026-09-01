@@ -148,3 +148,14 @@ export interface TakeawayStatsResponse {
   total_revenue_today: number;
   average_prep_time_minutes: number;
 }
+
+
+export interface TrackingInfo {
+  order_number: string;
+  order_status: string;
+  estimated_delivery_time?: string;
+  courier_name?: string;
+  courier_phone?: string;
+  delivery_address?: string;
+  updated_at: string;
+}

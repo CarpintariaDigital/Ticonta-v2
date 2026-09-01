@@ -41,10 +41,10 @@ export const CreditScoreCard: React.FC<CreditScoreCardProps> = ({ customer }) =>
   const Icon = badge.icon;
 
   return (
-    <div className="p-4 bg-slate-900/90 border border-slate-800 rounded-2xl shadow-lg space-y-3">
+    <div className="p-4 bg-white/90 border border-zinc-200 rounded-2xl shadow-lg space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+          <span className="text-xs font-bold text-zinc-700 uppercase tracking-wider">
             Score de Confiabilidade
           </span>
           <span className={`px-2 py-0.5 rounded text-[10px] font-bold border flex items-center gap-1 ${badge.color}`}>
@@ -61,19 +61,19 @@ export const CreditScoreCard: React.FC<CreditScoreCardProps> = ({ customer }) =>
               }`}
             />
           ))}
-          <span className="text-sm font-extrabold text-white ml-1">{score.toFixed(1)}/5.0</span>
+          <span className="text-sm font-extrabold text-zinc-900 ml-1">{score.toFixed(1)}/5.0</span>
         </div>
       </div>
 
-      <p className="text-xs text-slate-400">{badge.desc}</p>
+      <p className="text-xs text-zinc-500">{badge.desc}</p>
 
-      <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800 text-xs">
-        <div className="p-2 bg-slate-950/60 rounded-lg">
-          <span className="text-[10px] text-slate-500 block">Total Comprado</span>
-          <span className="font-bold text-slate-200">{customer.total_purchases.toLocaleString("pt-MZ")} MT</span>
+      <div className="grid grid-cols-2 gap-2 pt-2 border-t border-zinc-200 text-xs">
+        <div className="p-2 bg-zinc-50/80 rounded-lg">
+          <span className="text-[10px] text-zinc-500 block">Total Comprado</span>
+          <span className="font-bold text-zinc-800">{customer.total_purchases.toLocaleString("pt-MZ")} MT</span>
         </div>
-        <div className="p-2 bg-slate-950/60 rounded-lg">
-          <span className="text-[10px] text-slate-500 block">Limite de Fiado Autorizado</span>
+        <div className="p-2 bg-zinc-50/80 rounded-lg">
+          <span className="text-[10px] text-zinc-500 block">Limite de Fiado Autorizado</span>
           <span className="font-bold text-indigo-300">{customer.trusted_credit_limit.toLocaleString("pt-MZ")} MT</span>
         </div>
       </div>

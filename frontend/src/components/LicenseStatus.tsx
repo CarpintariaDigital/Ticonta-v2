@@ -68,7 +68,7 @@ export const LicenseStatusCard: React.FC<LicenseStatusProps> = ({ companyId = 1,
           size="sm"
           onClick={() => fetchLicenseStatus(companyId)}
           disabled={isLoading}
-          className="border-zinc-200 bg-white text-zinc-700 hover:text-white hover:bg-zinc-800"
+          className="border-zinc-200 bg-white text-zinc-700 hover:text-zinc-900 hover:bg-zinc-800"
         >
           <RefreshCw className={`h-4 w-4 mr-1 ${isLoading ? "animate-spin" : ""}`} />
           Atualizar

@@ -154,7 +154,7 @@ export const DocumentDeliveryModal: React.FC<DocumentDeliveryModalProps> = ({
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+258 84 123 4567"
-                  className="bg-white border-zinc-200 text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
+                  className="bg-white border-zinc-200 text-zinc-900 placeholder:text-zinc-600 focus-visible:ring-emerald-500"
                   disabled={isLoading}
                 />
               </div>
@@ -169,7 +169,7 @@ export const DocumentDeliveryModal: React.FC<DocumentDeliveryModalProps> = ({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="cliente@empresa.co.mz"
-                  className="bg-white border-zinc-200 text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
+                  className="bg-white border-zinc-200 text-zinc-900 placeholder:text-zinc-600 focus-visible:ring-emerald-500"
                   disabled={isLoading}
                 />
               </div>
@@ -210,7 +210,7 @@ export const DocumentDeliveryModal: React.FC<DocumentDeliveryModalProps> = ({
               type="button"
               variant="outline"
               onClick={onClose}
-              className="border-zinc-200 bg-white text-zinc-700 hover:text-white"
+              className="border-zinc-200 bg-white text-zinc-700 hover:text-zinc-900"
             >
               Agora Não
             </Button>

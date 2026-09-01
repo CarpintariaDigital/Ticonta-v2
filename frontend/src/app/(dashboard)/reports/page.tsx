@@ -69,7 +69,7 @@ export default function ReportsPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-white text-zinc-900 flex flex-col font-sans">
+      <div className="min-h-screen bg-[#FAF8F5] text-zinc-900 flex flex-col font-sans">
         {/* Top Header */}
         <header className="border-b border-zinc-200 bg-white backdrop-blur px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">

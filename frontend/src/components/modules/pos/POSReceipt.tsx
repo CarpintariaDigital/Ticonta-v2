@@ -262,7 +262,7 @@ ${itemsText}
                 placeholder="Ex: 841234567 ou 861234567"
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
-                className="h-10 text-xs bg-zinc-50 border-zinc-200 text-white placeholder:text-zinc-600 font-bold focus:border-emerald-500"
+                className="h-10 text-xs bg-white border-zinc-300 text-zinc-900 placeholder:text-zinc-400 font-bold focus:border-emerald-500"
               />
               <Button
                 type="submit"

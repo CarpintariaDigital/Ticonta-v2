@@ -103,7 +103,7 @@ export default function InteractionTimeline({
             placeholder="Descreva o que foi tratado com o cliente..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="flex-1 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="flex-1 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           />
           <Button
             type="submit"

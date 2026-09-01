@@ -119,15 +119,15 @@ export default function POSPage() {
 
   return (
     <ProtectedRoute>
-      <div className="flex flex-col h-screen overflow-hidden select-none bg-zinc-950 text-zinc-100 font-mono selection:bg-emerald-500 selection:text-black">
+      <div className="flex flex-col h-screen overflow-hidden select-none bg-[#FAF8F5] text-zinc-900 font-sans selection:bg-emerald-600 selection:text-white">
         {/* Streamlined Top Navigation Bar */}
-        <header className="flex h-14 shrink-0 items-center justify-between border-b border-zinc-800/80 bg-zinc-950/90 px-4 backdrop-blur-xl z-20">
+        <header className="flex h-14 shrink-0 items-center justify-between border-b border-zinc-200 bg-white/95 px-4 backdrop-blur-xl shadow-sm z-20">
           <div className="flex items-center gap-3">
             <Link href="/dashboard">
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 w-8 p-0 border-zinc-700 bg-zinc-900 text-zinc-300 hover:text-white"
+                className="h-8 w-8 p-0 border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 shadow-sm"
                 title="Voltar ao Painel"
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -135,7 +135,7 @@ export default function POSPage() {
             </Link>
 
             <div className="flex items-center gap-2.5">
-              <div className="relative h-8 w-8 overflow-hidden rounded-xl bg-slate-900 border border-emerald-500/40 p-1 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+              <div className="relative h-8 w-8 overflow-hidden rounded-xl bg-white border border-emerald-500/30 p-1 flex items-center justify-center shadow-sm">
                 <img
                   src="/logo-ticonta.png"
                   alt="TiConta Logo"
@@ -144,14 +144,14 @@ export default function POSPage() {
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
-                  <h1 className="text-xs font-black text-white leading-none uppercase tracking-widest">
+                  <h1 className="text-xs font-black text-zinc-900 leading-none uppercase tracking-widest">
                     TICONTA POS
                   </h1>
-                  <span className="text-[8px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded border border-emerald-500/30">
+                  <span className="text-[8px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 px-1.5 py-0.5 rounded border border-emerald-200">
                     DIGITAL & WHATSAPP
                   </span>
                 </div>
-                <p className="text-[9px] text-zinc-400 leading-tight uppercase mt-0.5">
+                <p className="text-[9px] text-zinc-500 leading-tight uppercase mt-0.5">
                   Terminal de Venda Rápida • Sem Impressora
                 </p>
               </div>
@@ -162,7 +162,7 @@ export default function POSPage() {
           <div className="flex items-center gap-2">
             <Button
               onClick={() => handleOpenScanner("venda")}
-              className="h-8 px-3 text-xs font-bold uppercase tracking-wider bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl shadow-lg shadow-emerald-950 flex items-center gap-1.5"
+              className="h-8 px-3 text-xs font-bold uppercase tracking-wider bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-sm flex items-center gap-1.5"
             >
               <QrCode className="h-3.5 w-3.5" />
               <span>Ler Código / QR (Venda)</span>
@@ -171,7 +171,7 @@ export default function POSPage() {
             <Button
               onClick={() => handleOpenScanner("stock")}
               variant="outline"
-              className="h-8 px-3 text-xs font-bold uppercase tracking-wider border-blue-500/40 bg-blue-950/30 hover:bg-blue-900/50 text-blue-300 rounded-xl hidden sm:flex items-center gap-1.5"
+              className="h-8 px-3 text-xs font-bold uppercase tracking-wider border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl hidden sm:flex items-center gap-1.5"
             >
               <PackagePlus className="h-3.5 w-3.5" />
               <span>Entrada de Stock</span>
@@ -180,9 +180,9 @@ export default function POSPage() {
             <Button
               onClick={() => setShowQuickItemModal(true)}
               variant="outline"
-              className="h-8 px-2.5 text-xs font-bold border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 rounded-xl hidden md:flex items-center gap-1"
+              className="h-8 px-2.5 text-xs font-bold border-zinc-200 bg-white hover:bg-zinc-100 text-zinc-800 shadow-sm rounded-xl hidden md:flex items-center gap-1"
             >
-              <Plus className="h-3.5 w-3.5 text-emerald-400" />
+              <Plus className="h-3.5 w-3.5 text-emerald-700" />
               <span>+ Artigo Rápido</span>
             </Button>
 
@@ -199,7 +199,7 @@ export default function POSPage() {
             <div
               className={`flex items-center gap-1.5 rounded-xl px-2.5 py-1 text-[10px] font-bold border ${
                 isOnline
-                  ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.1)]"
+                  ? "bg-emerald-500/10 text-emerald-700 border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.1)]"
                   : "bg-amber-500/10 text-amber-400 border-amber-500/30"
               }`}
             >
@@ -222,7 +222,7 @@ export default function POSPage() {
         {/* Main 2-Column POS Workspace */}
         <main className="flex-1 p-3 overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-3">
           {/* Left Column: Product Catalog Grid */}
-          <div className="h-full overflow-hidden lg:col-span-7 xl:col-span-8 bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-3.5 backdrop-blur flex flex-col">
+          <div className="h-full overflow-hidden lg:col-span-7 xl:col-span-8 bg-white border border-zinc-200/90 rounded-2xl p-3.5 shadow-sm flex flex-col">
             <POSProductGrid
               products={products}
               onSelectProduct={addItem}
@@ -231,15 +231,15 @@ export default function POSPage() {
           </div>
 
           {/* Right Column: Clean Cart, Customer WhatsApp & Checkout */}
-          <div className="h-full overflow-hidden lg:col-span-5 xl:col-span-4 bg-zinc-900/90 border border-zinc-800 rounded-2xl p-3.5 flex flex-col justify-between shadow-2xl backdrop-blur">
+          <div className="h-full overflow-hidden lg:col-span-5 xl:col-span-4 bg-white border border-zinc-200/90 rounded-2xl p-3.5 flex flex-col justify-between shadow-md">
             {/* Cart Header */}
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-2.5">
+            <div className="flex items-center justify-between border-b border-zinc-200 pb-2.5">
               <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-emerald-400">
+                <div className="p-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-emerald-700">
                   <Zap className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-xs font-black text-white uppercase tracking-wider">
+                  <h3 className="text-xs font-black text-zinc-900 uppercase tracking-wider">
                     Venda Atual ({summary.itemCount} un.)
                   </h3>
                   <p className="text-[10px] text-zinc-400">Checkout Rápido</p>
@@ -264,7 +264,7 @@ export default function POSPage() {
               {cart.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-44 text-center text-zinc-500 border-2 border-dashed border-zinc-800 rounded-xl p-4">
                   <QrCode className="h-8 w-8 mb-2 stroke-1 text-zinc-600" />
-                  <p className="text-xs font-bold text-zinc-300 uppercase tracking-wider">CARRINHO VAZIO</p>
+                  <p className="text-xs font-bold text-zinc-700 uppercase tracking-wider">CARRINHO VAZIO</p>
                   <p className="text-[11px] text-zinc-500 mt-1">
                     Toque nos artigos ao lado ou use o Leitor Barcode/QR para adicionar.
                   </p>
@@ -273,18 +273,18 @@ export default function POSPage() {
                 cart.map((item) => (
                   <div
                     key={item.product.id}
-                    className="flex items-center justify-between p-2.5 rounded-xl border border-zinc-800/80 bg-zinc-950/60 text-xs"
+                    className="flex items-center justify-between p-2.5 rounded-xl border border-zinc-200 bg-zinc-50/80 text-xs"
                   >
                     <div className="flex-1 min-w-0 pr-2">
                       <h4 className="font-bold text-zinc-100 truncate text-xs uppercase">{item.product.name}</h4>
-                      <p className="text-[10px] text-emerald-400 font-semibold">
+                      <p className="text-[10px] text-emerald-700 font-semibold">
                         {item.unit_price.toFixed(2)} MT{" "}
                         <span className="text-zinc-500 font-normal">/ un</span>
                       </p>
                     </div>
 
                     {/* Quantity Controls */}
-                    <div className="flex items-center gap-1 bg-zinc-900 border border-zinc-800 rounded-lg p-0.5">
+                    <div className="flex items-center gap-1 bg-white border border-zinc-200 rounded-lg p-0.5 shadow-sm">
                       <button
                         type="button"
                         onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
@@ -313,7 +313,7 @@ export default function POSPage() {
             {/* Customer WhatsApp Field */}
             <div className="border-t border-zinc-800 pt-2.5 space-y-2">
               <div className="space-y-1">
-                <label className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1">
+                <label className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1">
                   <Smartphone className="w-3 h-3" />
                   WhatsApp do Cliente (Para envio imediato da Fatura)
                 </label>
@@ -322,7 +322,7 @@ export default function POSPage() {
                   placeholder="Ex: 841234567 ou 861234567"
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
-                  className="h-8 text-xs bg-zinc-950 border-zinc-700 text-white placeholder:text-zinc-600 focus:border-emerald-500 font-bold"
+                  className="h-8 text-xs bg-white border-zinc-300 text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-600 font-bold"
                 />
               </div>
 
@@ -340,8 +340,8 @@ export default function POSPage() {
                     }}
                     className={`p-1.5 rounded-xl border text-center transition-all ${
                       paymentMethod === "cash"
-                        ? "bg-emerald-600 text-white border-emerald-400 font-black shadow-md shadow-emerald-950"
-                        : "bg-zinc-950 border-zinc-800 text-zinc-300 hover:bg-zinc-900 text-xs"
+                        ? "bg-emerald-600 text-white border-emerald-400 font-black shadow-md shadow-emerald-900/10"
+                        : "bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100 text-xs"
                     }`}
                   >
                     <Banknote className="h-3.5 w-3.5 mx-auto mb-0.5" />
@@ -354,7 +354,7 @@ export default function POSPage() {
                     className={`p-1.5 rounded-xl border text-center transition-all ${
                       paymentMethod === "mpesa"
                         ? "bg-red-600 text-white border-red-400 font-black shadow-md shadow-red-950"
-                        : "bg-zinc-950 border-zinc-800 text-zinc-300 hover:bg-zinc-900 text-xs"
+                        : "bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100 text-xs"
                     }`}
                   >
                     <Smartphone className="h-3.5 w-3.5 mx-auto mb-0.5" />
@@ -367,7 +367,7 @@ export default function POSPage() {
                     className={`p-1.5 rounded-xl border text-center transition-all ${
                       paymentMethod === "emola"
                         ? "bg-amber-600 text-white border-amber-400 font-black shadow-md shadow-amber-950"
-                        : "bg-zinc-950 border-zinc-800 text-zinc-300 hover:bg-zinc-900 text-xs"
+                        : "bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100 text-xs"
                     }`}
                   >
                     <Smartphone className="h-3.5 w-3.5 mx-auto mb-0.5" />
@@ -380,7 +380,7 @@ export default function POSPage() {
                     className={`p-1.5 rounded-xl border text-center transition-all ${
                       paymentMethod === "card"
                         ? "bg-blue-600 text-white border-blue-400 font-black shadow-md shadow-blue-950"
-                        : "bg-zinc-950 border-zinc-800 text-zinc-300 hover:bg-zinc-900 text-xs"
+                        : "bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100 text-xs"
                     }`}
                   >
                     <CreditCard className="h-3.5 w-3.5 mx-auto mb-0.5" />
@@ -391,14 +391,14 @@ export default function POSPage() {
 
               {/* Cash Change Calculator Panel (Active when Dinheiro is selected) */}
               {paymentMethod === "cash" && summary.netTotal > 0 && (
-                <div className="p-2.5 rounded-xl bg-zinc-950 border border-emerald-500/30 space-y-2 animate-in fade-in">
+                <div className="p-2.5 rounded-xl bg-emerald-50/50 border border-emerald-200 rounded-xl p-2.5 space-y-2 animate-in fade-in">
                   <div className="flex items-center justify-between">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1">
                       <Banknote className="w-3 h-3" />
                       Valor Entregue pelo Cliente (MT)
                     </label>
                     {Number(cashReceived || 0) >= summary.netTotal && (
-                      <span className="text-[11px] font-black text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
+                      <span className="text-[11px] font-black text-emerald-700 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30">
                         Troco: {(Number(cashReceived || 0) - summary.netTotal).toFixed(2)} MT
                       </span>
                     )}
@@ -410,7 +410,7 @@ export default function POSPage() {
                     placeholder={`Ex: ${summary.netTotal.toFixed(2)}`}
                     value={cashReceived}
                     onChange={(e) => setCashReceived(e.target.value === "" ? "" : Number(e.target.value))}
-                    className="h-8 text-xs bg-zinc-900 border-zinc-700 text-white font-mono font-bold focus:border-emerald-500"
+                    className="h-8 text-xs bg-white border-zinc-300 text-zinc-900 font-mono font-bold focus:border-emerald-600"
                   />
 
                   {/* Quick Cash Buttons (Mozambique Meticais Bills) */}
@@ -418,7 +418,7 @@ export default function POSPage() {
                     <button
                       type="button"
                       onClick={() => setCashReceived(summary.netTotal)}
-                      className="px-2 py-1 rounded-md bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-bold whitespace-nowrap"
+                      className="px-2 py-1 rounded-md bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-200 font-bold whitespace-nowrap"
                     >
                       Exato
                     </button>
@@ -432,7 +432,7 @@ export default function POSPage() {
                           className={`px-2 py-1 rounded-md font-mono font-bold whitespace-nowrap transition-colors ${
                             cashReceived === bill
                               ? "bg-emerald-600 text-white"
-                              : "bg-zinc-900 border border-zinc-800 text-zinc-300 hover:bg-zinc-800"
+                              : "bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-100 shadow-sm"
                           }`}
                         >
                           {bill} MT
@@ -450,14 +450,14 @@ export default function POSPage() {
               )}
 
               {/* Totals & Primary Action */}
-              <div className="bg-zinc-950 border border-zinc-800 rounded-xl p-3 space-y-1 text-xs">
+              <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-3 space-y-1 text-xs">
                 <div className="flex justify-between text-zinc-400 text-[11px]">
                   <span>Subtotal:</span>
                   <span>{summary.subtotal.toFixed(2)} MT</span>
                 </div>
                 <div className="flex justify-between text-zinc-400 text-[11px]">
                   <span>IVA 16% (incluído):</span>
-                  <span className="text-emerald-400">{summary.taxAmount.toFixed(2)} MT</span>
+                  <span className="text-emerald-700">{summary.taxAmount.toFixed(2)} MT</span>
                 </div>
                 {summary.discountAmount > 0 && (
                   <div className="flex justify-between text-amber-400 text-[11px]">
@@ -465,9 +465,9 @@ export default function POSPage() {
                     <span>-{summary.discountAmount.toFixed(2)} MT</span>
                   </div>
                 )}
-                <div className="flex justify-between items-baseline border-t border-zinc-800 pt-1.5 text-white">
-                  <span className="text-xs font-bold text-zinc-300">TOTAL A PAGAR:</span>
-                  <span className="text-lg font-black text-emerald-400">
+                <div className="flex justify-between items-baseline border-t border-zinc-200 pt-1.5 text-zinc-900">
+                  <span className="text-xs font-bold text-zinc-700">TOTAL A PAGAR:</span>
+                  <span className="text-lg font-black text-emerald-700">
                     {summary.netTotal.toFixed(2)} <span className="text-xs font-normal text-zinc-400">MT</span>
                   </span>
                 </div>
@@ -478,7 +478,7 @@ export default function POSPage() {
                 type="button"
                 disabled={cart.length === 0 || isProcessing}
                 onClick={() => handleFinishSale()}
-                className="w-full h-12 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase tracking-widest rounded-xl shadow-xl shadow-emerald-950 flex items-center justify-center gap-2"
+                className="w-full h-12 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase tracking-widest rounded-xl shadow-xl shadow-emerald-900/10 flex items-center justify-center gap-2"
               >
                 {isProcessing ? (
                   "A PROCESSAR VENDA..."
@@ -509,8 +509,8 @@ export default function POSPage() {
         {/* Quick Item Modal */}
         {showQuickItemModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-            <div className="w-full max-w-sm bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-3">
-              <h3 className="text-xs font-black text-white uppercase tracking-wider">
+            <div className="w-full max-w-sm bg-white border border-zinc-200 rounded-2xl p-4 space-y-3 shadow-2xl">
+              <h3 className="text-xs font-black text-zinc-900 uppercase tracking-wider">
                 Adicionar Artigo Rápido / Avulso
               </h3>
               <form onSubmit={handleAddQuickCustomItem} className="space-y-3">
@@ -520,7 +520,7 @@ export default function POSPage() {
                     placeholder="Ex: Serviço de Frete / Artigo Avulso"
                     value={quickItemName}
                     onChange={(e) => setQuickItemName(e.target.value)}
-                    className="h-9 text-xs bg-zinc-950 border-zinc-700 text-white mt-1"
+                    className="h-9 text-xs bg-white border-zinc-300 text-zinc-900 mt-1"
                     autoFocus
                   />
                 </div>
@@ -532,7 +532,7 @@ export default function POSPage() {
                     placeholder="0.00"
                     value={quickItemPrice}
                     onChange={(e) => setQuickItemPrice(e.target.value)}
-                    className="h-9 text-xs bg-zinc-950 border-zinc-700 text-emerald-400 font-bold mt-1"
+                    className="h-9 text-xs bg-zinc-950 border-zinc-700 text-emerald-700 font-bold mt-1"
                     required
                   />
                 </div>
@@ -541,7 +541,7 @@ export default function POSPage() {
                     type="button"
                     variant="outline"
                     onClick={() => setShowQuickItemModal(false)}
-                    className="flex-1 h-9 text-xs border-zinc-700 text-zinc-300"
+                    className="flex-1 h-9 text-xs border-zinc-300 text-zinc-700"
                   >
                     Cancelar
                   </Button>

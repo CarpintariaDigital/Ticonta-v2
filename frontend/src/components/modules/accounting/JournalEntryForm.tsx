@@ -87,7 +87,7 @@ export default function JournalEntryForm({
           <select
             value={debitAccountId}
             onChange={(e) => setDebitAccountId(Number(e.target.value))}
-            className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-xs text-zinc-900 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           >
             <option value={0}>Selecione a conta de débito...</option>
             {postableAccounts.map((acc) => (
@@ -106,7 +106,7 @@ export default function JournalEntryForm({
           <select
             value={creditAccountId}
             onChange={(e) => setCreditAccountId(Number(e.target.value))}
-            className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-xs text-zinc-900 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           >
             <option value={0}>Selecione a conta de crédito...</option>
             {postableAccounts.map((acc) => (

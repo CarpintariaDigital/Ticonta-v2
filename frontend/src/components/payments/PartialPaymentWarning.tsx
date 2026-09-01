@@ -52,7 +52,7 @@ export const PartialPaymentWarning: React.FC<PartialPaymentWarningProps> = ({
           type="date"
           value={dueDate}
           onChange={(e) => onDueDateChange(e.target.value)}
-          className="px-3 py-1.5 bg-white border border-amber-500/40 rounded-xl text-white text-xs font-semibold focus:outline-none focus:border-amber-400"
+          className="px-3 py-1.5 bg-white border border-amber-500/40 rounded-xl text-zinc-900 text-xs font-semibold focus:outline-none focus:border-amber-400"
         />
       </div>
     </div>

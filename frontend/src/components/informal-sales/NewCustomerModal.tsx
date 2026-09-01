@@ -76,7 +76,7 @@ export const NewCustomerModal: React.FC<NewCustomerModalProps> = ({
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Ex: Dona Maria Machava"
-              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
             />
           </div>
 
@@ -91,7 +91,7 @@ export const NewCustomerModal: React.FC<NewCustomerModalProps> = ({
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+258 84 123 4567"
-                className="w-full pl-9 pr-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="w-full pl-9 pr-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
               />
             </div>
           </div>
@@ -107,7 +107,7 @@ export const NewCustomerModal: React.FC<NewCustomerModalProps> = ({
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="Ex: Chamanculo C, próximo à escola"
-                className="w-full pl-9 pr-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="w-full pl-9 pr-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
               />
             </div>
           </div>
@@ -122,7 +122,7 @@ export const NewCustomerModal: React.FC<NewCustomerModalProps> = ({
                 type="number"
                 value={creditLimit}
                 onChange={(e) => setCreditLimit(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs font-bold focus:outline-none focus:border-indigo-500"
+                className="w-full pl-9 pr-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs font-bold focus:outline-none focus:border-indigo-500"
               />
             </div>
           </div>
@@ -136,7 +136,7 @@ export const NewCustomerModal: React.FC<NewCustomerModalProps> = ({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Ex: Paga sempre à sexta-feira após fecho do mercado..."
-              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500 resize-none"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500 resize-none"
             />
           </div>
 
@@ -145,7 +145,7 @@ export const NewCustomerModal: React.FC<NewCustomerModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl transition-colors"
+              className="flex-1 py-2.5 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 text-xs font-semibold rounded-xl transition-colors"
             >
               Cancelar
             </button>

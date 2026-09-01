@@ -138,14 +138,14 @@ export const CustomerDebitList: React.FC<CustomerDebitListProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Pesquisar por nome, telefone ou bairro..."
-              className="w-full pl-9 pr-3 py-2 bg-white/70 border border-zinc-200/80 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+              className="w-full pl-9 pr-3 py-2 bg-white/70 border border-zinc-200/80 rounded-xl text-zinc-900 text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
             />
           </div>
 
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as any)}
-            className="px-2.5 py-2 bg-white/70 border border-zinc-200/80 rounded-xl text-white text-xs focus:outline-none focus:border-indigo-500"
+            className="px-2.5 py-2 bg-white/70 border border-zinc-200/80 rounded-xl text-zinc-900 text-xs focus:outline-none focus:border-indigo-500"
           >
             <option value="owed_desc">Maior Dívida</option>
             <option value="name_asc">Nome (A-Z)</option>

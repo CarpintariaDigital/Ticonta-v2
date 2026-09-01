@@ -122,7 +122,7 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({
                 className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition-all ${
                   amount === targetOwed
                     ? "bg-emerald-600 text-zinc-900 border-emerald-500"
-                    : "bg-slate-800 text-zinc-700 border-zinc-200 hover:bg-slate-700"
+                    : "bg-zinc-100 text-zinc-800 border-zinc-300 hover:bg-zinc-200 transition-colors"
                 }`}
               >
                 Quitar Tudo ({targetOwed} MT)
@@ -130,21 +130,21 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({
               <button
                 type="button"
                 onClick={() => handleQuickAmount(Math.floor(targetOwed / 2))}
-                className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-800 text-zinc-700 border border-zinc-200 hover:bg-slate-700"
+                className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-zinc-100 text-zinc-800 border border-zinc-300 hover:bg-zinc-200 transition-colors"
               >
                 50%
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickAmount(500)}
-                className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-800 text-zinc-700 border border-zinc-200 hover:bg-slate-700"
+                className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-zinc-100 text-zinc-800 border border-zinc-300 hover:bg-zinc-200 transition-colors"
               >
                 500 MT
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickAmount(1000)}
-                className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-800 text-zinc-700 border border-zinc-200 hover:bg-slate-700"
+                className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-zinc-100 text-zinc-800 border border-zinc-300 hover:bg-zinc-200 transition-colors"
               >
                 1.000 MT
               </button>
@@ -205,7 +205,7 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Ex: TxID M-Pesa ou nota de promessa..."
-              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs placeholder-slate-500 focus:outline-none focus:border-emerald-500"
             />
           </div>
 
@@ -228,7 +228,7 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl transition-colors"
+              className="flex-1 py-2.5 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 text-xs font-semibold rounded-xl transition-colors"
             >
               Cancelar
             </button>

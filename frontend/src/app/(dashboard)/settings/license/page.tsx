@@ -175,7 +175,7 @@ export default function LicenseSettingsPage() {
                 size="sm"
                 onClick={loadAdminData}
                 disabled={isLoadingAdmin}
-                className="border-zinc-200 bg-white text-zinc-700 hover:text-white"
+                className="border-zinc-200 bg-white text-zinc-700 hover:text-zinc-900"
               >
                 <RefreshCw className={`h-4 w-4 mr-1 ${isLoadingAdmin ? "animate-spin" : ""}`} />
                 Atualizar
@@ -219,7 +219,7 @@ export default function LicenseSettingsPage() {
                               variant="outline"
                               onClick={() => handleRenew(lic.id)}
                               disabled={renewingId === lic.id}
-                              className="border-zinc-200 bg-white text-xs hover:bg-emerald-600 hover:text-white"
+                              className="border-zinc-200 bg-white text-xs hover:bg-emerald-600 hover:text-zinc-900"
                             >
                               {renewingId === lic.id ? "A renovar..." : "Renovar +1 Ano"}
                             </Button>

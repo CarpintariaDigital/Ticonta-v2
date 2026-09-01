@@ -131,7 +131,7 @@ export const DeliveryHistoryTable: React.FC = () => {
             variant="outline"
             onClick={() => fetchHistory({ delivery_method: methodFilter || undefined, status: statusFilter || undefined })}
             disabled={isLoading}
-            className="border-zinc-200 bg-white text-zinc-700 hover:text-white"
+            className="border-zinc-200 bg-white text-zinc-700 hover:text-zinc-900"
           >
             <RefreshCw className={`h-3.5 w-3.5 mr-1 ${isLoading ? "animate-spin" : ""}`} />
             Atualizar
@@ -142,7 +142,7 @@ export const DeliveryHistoryTable: React.FC = () => {
             variant="outline"
             onClick={exportCSV}
             disabled={!history.length}
-            className="border-zinc-200 bg-white text-zinc-700 hover:text-white"
+            className="border-zinc-200 bg-white text-zinc-700 hover:text-zinc-900"
           >
             <Download className="h-3.5 w-3.5 mr-1" />
             CSV
@@ -198,7 +198,7 @@ export const DeliveryHistoryTable: React.FC = () => {
                           variant="outline"
                           onClick={() => handleResend(item.id)}
                           disabled={resendingId === item.id}
-                          className="border-zinc-200 bg-white text-[11px] h-7 px-2 hover:bg-emerald-600 hover:text-white"
+                          className="border-zinc-200 bg-white text-[11px] h-7 px-2 hover:bg-emerald-600 hover:text-zinc-900"
                         >
                           {resendingId === item.id ? "A reenviar..." : "Reenviar"}
                         </Button>

@@ -92,7 +92,7 @@ export default function KanbanBoard({
                 <span className={`text-xs font-bold ${col.color} uppercase tracking-wider`}>
                   {col.title}
                 </span>
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-50 text-[10px] font-bold text-white border border-zinc-200">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-100 text-[10px] font-bold text-zinc-700 border border-zinc-200">
                   {colLeads.length}
                 </span>
               </div>

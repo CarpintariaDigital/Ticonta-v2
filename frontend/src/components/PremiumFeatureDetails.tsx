@@ -105,7 +105,7 @@ export const PremiumFeatureDetails: React.FC<PremiumFeatureDetailsProps> = ({
           <Button
             variant="outline"
             onClick={onClose}
-            className="border-zinc-200 bg-white text-zinc-700 hover:text-white text-xs"
+            className="border-zinc-200 bg-white text-zinc-700 hover:text-zinc-900 text-xs"
           >
             Fechar
           </Button>

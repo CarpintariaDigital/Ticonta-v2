@@ -116,7 +116,7 @@ export default function EmployeeForm({ onSubmit, onCancel }: EmployeeFormProps) 
           <select
             value={department}
             onChange={(e) => setDepartment(e.target.value)}
-            className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-xs text-zinc-900 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           >
             <option value="Produção">Produção / Obra</option>
             <option value="Administração">Administração / Finanças</option>

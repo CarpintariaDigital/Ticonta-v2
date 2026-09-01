@@ -104,7 +104,7 @@ export default function TrialBalance({ data }: TrialBalanceProps) {
               </tr>
             ))}
           </tbody>
-          <tfoot className="border-t-2 border-zinc-200 bg-white font-bold text-white text-xs">
+          <tfoot className="border-t-2 border-zinc-200 bg-white font-bold text-zinc-900 text-xs">
             <tr>
               <td colSpan={2} className="py-3 px-3 uppercase tracking-wider">
                 Totais Finais do Exercício:

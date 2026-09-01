@@ -147,7 +147,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
                     key={p.label}
                     type="button"
                     onClick={() => handleQuickPercent(p.pct)}
-                    className="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-[10px] font-bold rounded-lg transition-colors"
+                    className="px-2 py-0.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 text-[10px] font-bold rounded-lg transition-colors"
                   >
                     {p.label}
                   </button>
@@ -164,7 +164,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
                 required
                 value={payingAmount}
                 onChange={(e) => setPayingAmount(Math.max(0, parseFloat(e.target.value) || 0))}
-                className="w-full px-4 py-3 bg-white border border-zinc-200 rounded-xl text-white text-lg font-black focus:outline-none focus:border-indigo-500 shadow-inner"
+                className="w-full px-4 py-3 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-lg font-black focus:outline-none focus:border-indigo-500 shadow-inner"
               />
               <span className="absolute right-4 top-3.5 text-zinc-500 font-bold text-sm">MT</span>
             </div>
@@ -240,7 +240,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
                 value={transactionId}
                 onChange={(e) => setTransactionId(e.target.value)}
                 placeholder="Ex: MP260817001 ou código do POS..."
-                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
               />
             </div>
           )}
@@ -250,7 +250,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3 px-4 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl transition-colors"
+              className="flex-1 py-3 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 text-xs font-semibold rounded-xl transition-colors"
             >
               Cancelar
             </button>

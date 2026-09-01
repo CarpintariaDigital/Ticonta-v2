@@ -200,7 +200,7 @@ export default function BrandingSettingsPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-white text-zinc-900 flex flex-col">
+      <div className="min-h-screen bg-[#FAF8F5] text-zinc-900 flex flex-col">
         <DashboardNavbar />
 
         <main className="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
@@ -349,7 +349,7 @@ export default function BrandingSettingsPage() {
                         type="text"
                         value={primaryColor}
                         onChange={(e) => setPrimaryColor(e.target.value)}
-                        className="flex-1 bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm font-mono text-white focus:outline-none focus:border-amber-400 uppercase"
+                        className="flex-1 bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm font-mono text-zinc-900 focus:outline-none focus:border-amber-400 uppercase"
                       />
                     </div>
                   </div>
@@ -370,7 +370,7 @@ export default function BrandingSettingsPage() {
                         type="text"
                         value={secondaryColor}
                         onChange={(e) => setSecondaryColor(e.target.value)}
-                        className="flex-1 bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm font-mono text-white focus:outline-none focus:border-amber-400 uppercase"
+                        className="flex-1 bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm font-mono text-zinc-900 focus:outline-none focus:border-amber-400 uppercase"
                       />
                     </div>
                   </div>
@@ -393,7 +393,7 @@ export default function BrandingSettingsPage() {
                       type="text"
                       value={companyName}
                       onChange={(e) => setCompanyName(e.target.value)}
-                      className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-400"
+                      className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:border-amber-400"
                     />
                   </div>
 
@@ -405,7 +405,7 @@ export default function BrandingSettingsPage() {
                       type="text"
                       value={nuit}
                       onChange={(e) => setNuit(e.target.value)}
-                      className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-400 font-mono"
+                      className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:border-amber-400 font-mono"
                     />
                   </div>
 
@@ -417,7 +417,7 @@ export default function BrandingSettingsPage() {
                       type="text"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-400"
+                      className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:border-amber-400"
                     />
                   </div>
 
@@ -429,7 +429,7 @@ export default function BrandingSettingsPage() {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-400"
+                      className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:border-amber-400"
                     />
                   </div>
 
@@ -441,7 +441,7 @@ export default function BrandingSettingsPage() {
                       type="text"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-400"
+                      className="w-full bg-white border border-zinc-200 rounded-lg px-3 py-2 text-sm text-zinc-900 focus:outline-none focus:border-amber-400"
                     />
                   </div>
                 </div>

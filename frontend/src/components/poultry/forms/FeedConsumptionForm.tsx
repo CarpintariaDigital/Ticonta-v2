@@ -68,7 +68,7 @@ export const FeedConsumptionForm: React.FC<FeedConsumptionFormProps> = ({
               required
               value={consumptionDate}
               onChange={(e) => setConsumptionDate(e.target.value)}
-              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs focus:outline-none focus:border-indigo-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs focus:outline-none focus:border-indigo-500"
             />
           </div>
 
@@ -84,7 +84,7 @@ export const FeedConsumptionForm: React.FC<FeedConsumptionFormProps> = ({
                 required
                 value={bagsUsed}
                 onChange={(e) => setBagsUsed(parseFloat(e.target.value) || 0)}
-                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-base font-bold focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-base font-bold focus:outline-none focus:border-indigo-500"
               />
             </div>
 
@@ -97,7 +97,7 @@ export const FeedConsumptionForm: React.FC<FeedConsumptionFormProps> = ({
                 min="100"
                 value={costPerBag}
                 onChange={(e) => setCostPerBag(parseFloat(e.target.value) || 0)}
-                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-base font-bold focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-base font-bold focus:outline-none focus:border-indigo-500"
               />
             </div>
           </div>
@@ -118,7 +118,7 @@ export const FeedConsumptionForm: React.FC<FeedConsumptionFormProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl"
+              className="flex-1 py-2.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 text-xs font-semibold rounded-xl"
             >
               Cancelar
             </button>

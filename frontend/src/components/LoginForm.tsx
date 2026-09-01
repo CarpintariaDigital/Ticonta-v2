@@ -63,7 +63,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Ex: operador1"
-            className="bg-white border-zinc-200 pl-9 text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
+            className="bg-white border-zinc-200 pl-9 text-zinc-900 placeholder:text-zinc-600 focus-visible:ring-emerald-500"
             autoComplete="username"
           />
         </div>
@@ -81,7 +81,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
             value={pin}
             onChange={(e) => setPin(e.target.value)}
             placeholder="••••"
-            className="bg-white border-zinc-200 pl-9 tracking-widest text-white placeholder:text-zinc-600 focus-visible:ring-emerald-500"
+            className="bg-white border-zinc-200 pl-9 tracking-widest text-zinc-900 placeholder:text-zinc-600 focus-visible:ring-emerald-500"
             autoComplete="current-password"
           />
         </div>

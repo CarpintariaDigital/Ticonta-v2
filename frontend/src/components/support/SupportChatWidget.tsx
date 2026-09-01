@@ -181,7 +181,7 @@ export default function SupportChatWidget() {
                   className={`max-w-[88%] p-3 rounded-xl leading-relaxed ${
                     m.role === "user"
                       ? "bg-emerald-600 text-white rounded-br-none"
-                      : "bg-zinc-800/90 text-zinc-900 border border-zinc-200/60 rounded-bl-none"
+                      : "bg-white text-zinc-800 border border-zinc-200 shadow-sm rounded-bl-none"
                   }`}
                 >
                   {m.content}
@@ -189,8 +189,8 @@ export default function SupportChatWidget() {
 
                 {/* Card de Encaminhamento Direto para WhatsApp quando a IA não tem resposta */}
                 {m.isFallback && m.unresolvedQuery && (
-                  <div className="mt-2 max-w-[88%] bg-emerald-950/80 border border-emerald-500/40 rounded-xl p-2.5 flex flex-col gap-2">
-                    <div className="flex items-center gap-1.5 text-emerald-300 text-[11px] font-medium">
+                  <div className="mt-2 max-w-[88%] bg-emerald-50 border border-emerald-200 rounded-xl p-2.5 flex flex-col gap-2 shadow-sm">
+                    <div className="flex items-center gap-1.5 text-emerald-900 text-[11px] font-semibold">
                       <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
                       <span>Falar com especialista humano no WhatsApp</span>
                     </div>
@@ -209,7 +209,7 @@ export default function SupportChatWidget() {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-zinc-800/60 p-2.5 rounded-xl text-zinc-500 border border-zinc-200/40 text-[11px] animate-pulse">
+                <div className="bg-white p-2.5 rounded-xl text-zinc-600 border border-zinc-200 text-[11px] shadow-sm animate-pulse">
                   A consultar regras fiscais e base do ERP...
                 </div>
               </div>
@@ -223,7 +223,7 @@ export default function SupportChatWidget() {
               <button
                 key={idx}
                 onClick={() => handleSend(chip)}
-                className="text-[11px] whitespace-nowrap bg-zinc-800 hover:bg-emerald-950/60 hover:text-emerald-300 text-zinc-700 px-2.5 py-1 rounded-lg border border-zinc-200/60 transition-colors"
+                className="text-[11px] whitespace-nowrap bg-white hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 text-zinc-700 px-2.5 py-1 rounded-lg border border-zinc-200 shadow-sm transition-colors font-medium"
               >
                 {chip}
               </button>

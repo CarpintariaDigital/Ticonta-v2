@@ -182,14 +182,14 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                 value={customName}
                 onChange={(e) => setCustomName(e.target.value)}
                 placeholder="Nome do produto..."
-                className="flex-1 px-3 py-2 bg-white border border-zinc-200 rounded-lg text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="flex-1 px-3 py-2 bg-white border border-zinc-200 rounded-lg text-zinc-900 text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
               />
               <input
                 type="number"
                 value={customPrice}
                 onChange={(e) => setCustomPrice(e.target.value)}
                 placeholder="Preço (MT)"
-                className="w-24 px-3 py-2 bg-white border border-zinc-200 rounded-lg text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="w-24 px-3 py-2 bg-white border border-zinc-200 rounded-lg text-zinc-900 text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
               />
               <button
                 type="submit"
@@ -282,7 +282,7 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                   value={amountPaidNow || ""}
                   onChange={(e) => onSetAmountPaidNow(Math.max(0, parseFloat(e.target.value) || 0))}
                   placeholder="0.00"
-                  className="w-full pl-12 pr-4 py-2.5 bg-white border border-zinc-200 rounded-xl text-white font-bold text-base focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full pl-12 pr-4 py-2.5 bg-white border border-zinc-200 rounded-xl text-zinc-900 font-bold text-base focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
@@ -294,7 +294,7 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                   className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition-all ${
                     amountPaidNow === cartSubtotal && cartSubtotal > 0
                       ? "bg-emerald-600 text-zinc-900 border-emerald-500 shadow-md"
-                      : "bg-slate-800 text-zinc-700 border-zinc-200 hover:bg-slate-700"
+                      : "bg-zinc-100 text-zinc-800 border-zinc-300 hover:bg-zinc-200 transition-colors"
                   }`}
                 >
                   Tudo ({cartSubtotal} MT)
@@ -302,21 +302,21 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                 <button
                   type="button"
                   onClick={() => handleQuickPayOption("half")}
-                  className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-800 text-zinc-700 border border-zinc-200 hover:bg-slate-700"
+                  className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-zinc-100 text-zinc-800 border border-zinc-300 hover:bg-zinc-200 transition-colors"
                 >
                   50%
                 </button>
                 <button
                   type="button"
                   onClick={() => handleQuickPayOption("500")}
-                  className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-800 text-zinc-700 border border-zinc-200 hover:bg-slate-700"
+                  className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-zinc-100 text-zinc-800 border border-zinc-300 hover:bg-zinc-200 transition-colors"
                 >
                   500 MT
                 </button>
                 <button
                   type="button"
                   onClick={() => handleQuickPayOption("1000")}
-                  className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-slate-800 text-zinc-700 border border-zinc-200 hover:bg-slate-700"
+                  className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-zinc-100 text-zinc-800 border border-zinc-300 hover:bg-zinc-200 transition-colors"
                 >
                   1.000 MT
                 </button>
@@ -325,8 +325,8 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                   onClick={() => handleQuickPayOption("zero")}
                   className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition-all ${
                     amountPaidNow === 0
-                      ? "bg-rose-600 text-zinc-900 border-rose-500 shadow-md"
-                      : "bg-slate-800 text-zinc-700 border-zinc-200 hover:bg-slate-700"
+                      ? "bg-rose-600 text-white border-rose-600 shadow-md"
+                      : "bg-zinc-100 text-zinc-800 border-zinc-300 hover:bg-zinc-200 transition-colors"
                   }`}
                 >
                   Fiado Total (0 MT)
@@ -364,7 +364,7 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                       type="date"
                       value={dueDate || ""}
                       onChange={(e) => onSetDueDate(e.target.value || null)}
-                      className="w-full px-2.5 py-1.5 bg-white border border-zinc-200 rounded-lg text-white text-xs focus:outline-none focus:border-indigo-500"
+                      className="w-full px-2.5 py-1.5 bg-white border border-zinc-200 rounded-lg text-zinc-900 text-xs focus:outline-none focus:border-indigo-500"
                     />
                   </div>
 
@@ -377,7 +377,7 @@ export const FastCheckout: React.FC<FastCheckoutProps> = ({
                       value={saleNotes}
                       onChange={(e) => onSetSaleNotes(e.target.value)}
                       placeholder="Ex: Paga na sexta..."
-                      className="w-full px-2.5 py-1.5 bg-white border border-zinc-200 rounded-lg text-white text-xs focus:outline-none focus:border-indigo-500"
+                      className="w-full px-2.5 py-1.5 bg-white border border-zinc-200 rounded-lg text-zinc-900 text-xs focus:outline-none focus:border-indigo-500"
                     />
                   </div>
                 </div>

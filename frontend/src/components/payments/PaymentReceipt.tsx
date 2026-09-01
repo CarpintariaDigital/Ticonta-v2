@@ -173,7 +173,7 @@ export const PaymentReceipt: React.FC<PaymentReceiptProps> = ({ receipt, onClose
 
           <button
             onClick={onClose}
-            className="py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl transition-colors"
+            className="py-2.5 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 text-xs font-semibold rounded-xl transition-colors"
           >
             Fechar
           </button>

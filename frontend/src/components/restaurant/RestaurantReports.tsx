@@ -158,7 +158,7 @@ export default function RestaurantReports({
                 className="flex-1 flex flex-col items-center group relative h-full justify-end"
               >
                 {/* Tooltip on hover */}
-                <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-opacity bg-zinc-50 text-white text-[10px] p-1.5 rounded-lg pointer-events-none whitespace-nowrap z-20 shadow-md">
+                <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-opacity bg-zinc-900 text-white text-[10px] p-1.5 rounded-lg pointer-events-none whitespace-nowrap z-20 shadow-md">
                   <strong>{hour.hour_label}</strong>
                   <br />
                   {Number(hour.revenue).toFixed(2)} MZN ({hour.order_count} pedidos)

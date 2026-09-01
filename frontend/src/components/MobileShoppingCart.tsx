@@ -45,7 +45,7 @@ export const MobileShoppingCart: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-full max-w-md mx-auto bg-white text-white min-h-screen">
+    <div className="flex flex-col h-full max-w-md mx-auto bg-white text-zinc-900 min-h-screen">
       {/* 1. Barcode Activation Zone (Large Centered) */}
       <div className="p-4">
         <button

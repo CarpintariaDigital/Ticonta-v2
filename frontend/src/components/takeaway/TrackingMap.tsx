@@ -113,7 +113,7 @@ export const TrackingMap: React.FC<TrackingMapProps> = ({
                 <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 border-2 border-zinc-900 rounded-full animate-ping" />
               </div>
 
-              <div className="text-[10px] font-bold text-white bg-zinc-50/95 border border-sky-500/40 px-1.5 py-0.5 rounded shadow mt-1 whitespace-nowrap font-mono">
+              <div className="text-[10px] font-bold text-zinc-900 bg-white/95 border border-sky-500/40 px-1.5 py-0.5 rounded shadow mt-1 whitespace-nowrap font-mono">
                 #{del.order_number} • {del.delivery?.delivery_person_name?.split(" ")[0] || "Estafeta"}
               </div>
             </div>

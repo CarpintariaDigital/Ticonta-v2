@@ -49,7 +49,7 @@ export default function CRMPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-white text-zinc-900 flex flex-col font-sans">
+      <div className="min-h-screen bg-[#FAF8F5] text-zinc-900 flex flex-col font-sans">
         {/* Header */}
         <header className="border-b border-zinc-200 bg-white backdrop-blur px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -156,7 +156,7 @@ export default function CRMPage() {
               <select
                 value={filters.source || "all"}
                 onChange={(e) => setFilters({ source: e.target.value as LeadSource | "all" })}
-                className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs text-zinc-900 focus:outline-none focus:ring-1 focus:ring-emerald-500"
               >
                 <option value="all">Todos os canais</option>
                 <option value="whatsapp">WhatsApp</option>

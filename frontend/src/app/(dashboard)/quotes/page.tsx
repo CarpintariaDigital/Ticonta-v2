@@ -301,7 +301,7 @@ ${itemsList}
                 placeholder="Pesquisar por nº de documento, cliente ou NUIT..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-white border-zinc-200 text-white text-xs h-11 rounded-2xl"
+                className="pl-10 bg-white border-zinc-200 text-zinc-900 text-xs h-11 rounded-2xl"
               />
             </div>
             <div className="bg-white border border-zinc-200 rounded-2xl px-4 py-2 flex items-center justify-between">
@@ -455,7 +455,7 @@ ${itemsList}
                           placeholder="ex: Moza Empreendimentos Lda"
                           value={customerName}
                           onChange={(e) => setCustomerName(e.target.value)}
-                          className="bg-white border-zinc-200 text-white"
+                          className="bg-white border-zinc-200 text-zinc-900"
                         />
                       </div>
                       <div>
@@ -464,7 +464,7 @@ ${itemsList}
                           placeholder="ex: 400123456"
                           value={customerNuit}
                           onChange={(e) => setCustomerNuit(e.target.value)}
-                          className="bg-white border-zinc-200 text-white font-mono"
+                          className="bg-white border-zinc-200 text-zinc-900 font-mono"
                         />
                       </div>
                       <div>
@@ -474,7 +474,7 @@ ${itemsList}
                           placeholder="ex: 841234567"
                           value={customerPhone}
                           onChange={(e) => setCustomerPhone(e.target.value)}
-                          className="bg-white border-zinc-200 text-white font-mono"
+                          className="bg-white border-zinc-200 text-zinc-900 font-mono"
                         />
                       </div>
                       <div>
@@ -484,7 +484,7 @@ ${itemsList}
                           placeholder="compras@empresa.co.mz"
                           value={customerEmail}
                           onChange={(e) => setCustomerEmail(e.target.value)}
-                          className="bg-white border-zinc-200 text-white"
+                          className="bg-white border-zinc-200 text-zinc-900"
                         />
                       </div>
                     </div>
@@ -517,7 +517,7 @@ ${itemsList}
                               placeholder="Designação do artigo ou serviço"
                               value={item.description}
                               onChange={(e) => handleItemChange(item.id, "description", e.target.value)}
-                              className="bg-white border-zinc-200 text-white h-8 text-xs"
+                              className="bg-white border-zinc-200 text-zinc-900 h-8 text-xs"
                             />
                           </div>
                           <div className="col-span-2">
@@ -527,7 +527,7 @@ ${itemsList}
                               placeholder="Qtd"
                               value={item.quantity}
                               onChange={(e) => handleItemChange(item.id, "quantity", Number(e.target.value))}
-                              className="bg-white border-zinc-200 text-white h-8 text-xs font-mono"
+                              className="bg-white border-zinc-200 text-zinc-900 h-8 text-xs font-mono"
                             />
                           </div>
                           <div className="col-span-2">
@@ -537,7 +537,7 @@ ${itemsList}
                               placeholder="Preço (MT)"
                               value={item.unit_price || ""}
                               onChange={(e) => handleItemChange(item.id, "unit_price", Number(e.target.value))}
-                              className="bg-white border-zinc-200 text-white h-8 text-xs font-mono"
+                              className="bg-white border-zinc-200 text-zinc-900 h-8 text-xs font-mono"
                             />
                           </div>
                           <div className="col-span-1">
@@ -546,7 +546,7 @@ ${itemsList}
                               placeholder="Desc %"
                               value={item.discount || ""}
                               onChange={(e) => handleItemChange(item.id, "discount", Number(e.target.value))}
-                              className="bg-white border-zinc-200 text-white h-8 text-xs font-mono"
+                              className="bg-white border-zinc-200 text-zinc-900 h-8 text-xs font-mono"
                             />
                           </div>
                           <div className="col-span-1 text-center">
@@ -572,7 +572,7 @@ ${itemsList}
                           type="number"
                           value={validityDays}
                           onChange={(e) => setValidityDays(Number(e.target.value))}
-                          className="bg-white border-zinc-200 text-white font-mono"
+                          className="bg-white border-zinc-200 text-zinc-900 font-mono"
                         />
                       </div>
                       <div>
@@ -580,7 +580,7 @@ ${itemsList}
                         <Input
                           value={paymentTerms}
                           onChange={(e) => setPaymentTerms(e.target.value)}
-                          className="bg-white border-zinc-200 text-white"
+                          className="bg-white border-zinc-200 text-zinc-900"
                         />
                       </div>
                     </div>

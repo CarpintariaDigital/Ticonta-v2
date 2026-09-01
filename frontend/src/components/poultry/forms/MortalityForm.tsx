@@ -74,7 +74,7 @@ export const MortalityForm: React.FC<MortalityFormProps> = ({
               required
               value={recordDate}
               onChange={(e) => setRecordDate(e.target.value)}
-              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs focus:outline-none focus:border-rose-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs focus:outline-none focus:border-rose-500"
             />
           </div>
 
@@ -89,7 +89,7 @@ export const MortalityForm: React.FC<MortalityFormProps> = ({
               required
               value={quantity}
               onChange={(e) => setQuantity(parseInt(e.target.value, 10) || 0)}
-              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-base font-black focus:outline-none focus:border-rose-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-base font-black focus:outline-none focus:border-rose-500"
             />
           </div>
 
@@ -113,7 +113,7 @@ export const MortalityForm: React.FC<MortalityFormProps> = ({
             <select
               value={cause}
               onChange={(e) => setCause(e.target.value)}
-              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs focus:outline-none focus:border-rose-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs focus:outline-none focus:border-rose-500"
             >
               {CAUSE_OPTIONS.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -127,7 +127,7 @@ export const MortalityForm: React.FC<MortalityFormProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl"
+              className="flex-1 py-2.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 text-xs font-semibold rounded-xl"
             >
               Cancelar
             </button>

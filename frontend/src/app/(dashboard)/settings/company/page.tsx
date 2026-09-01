@@ -174,7 +174,7 @@ export default function CompanySettingsPage() {
                     required
                     value={profile.name}
                     onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-                    className="bg-white border-zinc-200 text-white font-bold"
+                    className="bg-white border-zinc-200 text-zinc-900 font-bold"
                   />
                 </div>
 
@@ -185,7 +185,7 @@ export default function CompanySettingsPage() {
                   <Input
                     value={profile.legal_name}
                     onChange={(e) => setProfile({ ...profile, legal_name: e.target.value })}
-                    className="bg-white border-zinc-200 text-white"
+                    className="bg-white border-zinc-200 text-zinc-900"
                   />
                 </div>
 
@@ -198,7 +198,7 @@ export default function CompanySettingsPage() {
                     maxLength={9}
                     value={profile.nuit}
                     onChange={(e) => setProfile({ ...profile, nuit: e.target.value })}
-                    className="bg-white border-zinc-200 text-white font-mono font-bold"
+                    className="bg-white border-zinc-200 text-zinc-900 font-mono font-bold"
                   />
                 </div>
 
@@ -210,7 +210,7 @@ export default function CompanySettingsPage() {
                     required
                     value={profile.phone}
                     onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
-                    className="bg-white border-zinc-200 text-white font-mono"
+                    className="bg-white border-zinc-200 text-zinc-900 font-mono"
                   />
                 </div>
 
@@ -221,7 +221,7 @@ export default function CompanySettingsPage() {
                   <Input
                     value={profile.whatsapp}
                     onChange={(e) => setProfile({ ...profile, whatsapp: e.target.value })}
-                    className="bg-white border-zinc-200 text-white font-mono"
+                    className="bg-white border-zinc-200 text-zinc-900 font-mono"
                   />
                 </div>
 
@@ -233,7 +233,7 @@ export default function CompanySettingsPage() {
                     type="email"
                     value={profile.email}
                     onChange={(e) => setProfile({ ...profile, email: e.target.value })}
-                    className="bg-white border-zinc-200 text-white"
+                    className="bg-white border-zinc-200 text-zinc-900"
                   />
                 </div>
 
@@ -245,7 +245,7 @@ export default function CompanySettingsPage() {
                     required
                     value={profile.address}
                     onChange={(e) => setProfile({ ...profile, address: e.target.value })}
-                    className="bg-white border-zinc-200 text-white"
+                    className="bg-white border-zinc-200 text-zinc-900"
                   />
                 </div>
 
@@ -255,7 +255,7 @@ export default function CompanySettingsPage() {
                     required
                     value={profile.city}
                     onChange={(e) => setProfile({ ...profile, city: e.target.value })}
-                    className="bg-white border-zinc-200 text-white"
+                    className="bg-white border-zinc-200 text-zinc-900"
                   />
                 </div>
 
@@ -264,7 +264,7 @@ export default function CompanySettingsPage() {
                   <select
                     value={profile.province}
                     onChange={(e) => setProfile({ ...profile, province: e.target.value })}
-                    className="w-full h-10 px-3 bg-white border border-zinc-200 rounded-md text-white"
+                    className="w-full h-10 px-3 bg-white border border-zinc-200 rounded-md text-zinc-900"
                   >
                     <option value="Maputo Cidade">Maputo Cidade</option>
                     <option value="Maputo Província">Maputo Província</option>
@@ -288,7 +288,7 @@ export default function CompanySettingsPage() {
                     type="number"
                     value={profile.default_vat_rate}
                     onChange={(e) => setProfile({ ...profile, default_vat_rate: Number(e.target.value) })}
-                    className="bg-white border-zinc-200 text-white font-mono"
+                    className="bg-white border-zinc-200 text-zinc-900 font-mono"
                   />
                 </div>
 
@@ -299,7 +299,7 @@ export default function CompanySettingsPage() {
                   <Input
                     value={profile.currency}
                     onChange={(e) => setProfile({ ...profile, currency: e.target.value })}
-                    className="bg-white border-zinc-200 text-white font-mono font-bold"
+                    className="bg-white border-zinc-200 text-zinc-900 font-mono font-bold"
                   />
                 </div>
 
@@ -310,7 +310,7 @@ export default function CompanySettingsPage() {
                   <Input
                     value={profile.receipt_footer_note}
                     onChange={(e) => setProfile({ ...profile, receipt_footer_note: e.target.value })}
-                    className="bg-white border-zinc-200 text-white"
+                    className="bg-white border-zinc-200 text-zinc-900"
                   />
                 </div>
               </div>

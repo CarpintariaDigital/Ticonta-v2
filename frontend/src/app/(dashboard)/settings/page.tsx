@@ -66,7 +66,7 @@ export default function SettingsHubPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-white text-zinc-50 flex flex-col font-sans selection:bg-emerald-500 selection:text-white">
+      <div className="min-h-screen bg-[#FAF8F5] text-zinc-900 flex flex-col font-sans selection:bg-emerald-500 selection:text-zinc-900">
         <DashboardNavbar />
 
         <main className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8">

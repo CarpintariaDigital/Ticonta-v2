@@ -394,7 +394,7 @@ Suporte Carpintaria Digital: +258 84 000 0000`;
                               value={modulePrices[mod.id] || 0}
                               onChange={(e) => handleModulePriceChange(mod.id, Number(e.target.value))}
                               disabled={!isSelected}
-                              className="w-full px-1.5 py-1 text-[11px] bg-white border border-zinc-200 rounded text-right text-white font-mono disabled:opacity-30"
+                              className="w-full px-1.5 py-1 text-[11px] bg-white border border-zinc-200 rounded text-right text-zinc-900 font-mono disabled:opacity-30"
                               title="Preço mensal em MT"
                             />
                           </div>
@@ -409,7 +409,7 @@ Suporte Carpintaria Digital: +258 84 000 0000`;
                       <select
                         value={days}
                         onChange={(e) => setDays(Number(e.target.value))}
-                        className="px-2 py-1 bg-white border border-zinc-200 rounded-lg text-white text-xs"
+                        className="px-2 py-1 bg-white border border-zinc-200 rounded-lg text-zinc-900 text-xs"
                       >
                         <option value={30}>1 Mês (30 dias)</option>
                         <option value={90}>3 Meses (90 dias)</option>
@@ -474,7 +474,7 @@ Suporte Carpintaria Digital: +258 84 000 0000`;
                   <button
                     type="button"
                     onClick={handleCopy}
-                    className="p-2.5 bg-slate-800 hover:bg-slate-700 text-zinc-800 border border-zinc-200 rounded-xl shrink-0"
+                    className="p-2.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 border border-zinc-200 rounded-xl shrink-0"
                     title="Copiar Chave"
                   >
                     {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
@@ -503,7 +503,7 @@ Suporte Carpintaria Digital: +258 84 000 0000`;
                   <button
                     type="button"
                     onClick={resetForm}
-                    className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-zinc-800 font-bold rounded-xl"
+                    className="px-4 py-2.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 font-bold rounded-xl"
                   >
                     Concluir
                   </button>

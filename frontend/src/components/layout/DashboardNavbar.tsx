@@ -143,7 +143,7 @@ export default function DashboardNavbar() {
           <div className="relative hidden md:block">
             <button
               onClick={() => setModulesDropdownOpen(!modulesDropdownOpen)}
-              className="flex items-center gap-2 rounded-lg border border-emerald-900/15 bg-white/90 shadow-xs px-3 py-1.5 text-xs font-semibold text-zinc-800 hover:border-[#2dc4a0]/60 hover:text-white transition-all shadow-inner"
+              className="flex items-center gap-2 rounded-lg border border-emerald-900/15 bg-white/90 shadow-xs px-3 py-1.5 text-xs font-semibold text-zinc-800 hover:border-[#2dc4a0]/60 hover:text-zinc-900 transition-all shadow-inner"
             >
               <div className="w-2 h-2 rounded-full bg-[#2dc4a0] shadow-[0_0_6px_#2dc4a0]" />
               <CurrentIcon className={`h-4 w-4 ${currentModule.color}`} />

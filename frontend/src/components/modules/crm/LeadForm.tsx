@@ -70,7 +70,7 @@ export default function LeadForm({ onSubmit, onCancel }: LeadFormProps) {
           placeholder="Ex: Armazéns e Logística Maputo Lda"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="bg-white border-zinc-200 text-xs text-white"
+          className="bg-white border-zinc-200 text-xs text-zinc-900"
         />
       </div>
 
@@ -82,7 +82,7 @@ export default function LeadForm({ onSubmit, onCancel }: LeadFormProps) {
             placeholder="+258 84 123 4567"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="bg-white border-zinc-200 text-xs text-white font-mono"
+            className="bg-white border-zinc-200 text-xs text-zinc-900 font-mono"
           />
         </div>
 
@@ -94,7 +94,7 @@ export default function LeadForm({ onSubmit, onCancel }: LeadFormProps) {
             placeholder="comercial@empresa.co.mz"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-white border-zinc-200 text-xs text-white"
+            className="bg-white border-zinc-200 text-xs text-zinc-900"
           />
         </div>
       </div>
@@ -106,7 +106,7 @@ export default function LeadForm({ onSubmit, onCancel }: LeadFormProps) {
           <select
             value={source}
             onChange={(e) => setSource(e.target.value as LeadSource)}
-            className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-xs text-zinc-900 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           >
             <option value="whatsapp">WhatsApp</option>
             <option value="website">Website / Formulário</option>
@@ -125,7 +125,7 @@ export default function LeadForm({ onSubmit, onCancel }: LeadFormProps) {
             placeholder="50000"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="bg-white border-zinc-200 text-xs text-white font-mono"
+            className="bg-white border-zinc-200 text-xs text-zinc-900 font-mono"
           />
         </div>
 
@@ -139,7 +139,7 @@ export default function LeadForm({ onSubmit, onCancel }: LeadFormProps) {
             placeholder="10"
             value={probability}
             onChange={(e) => setProbability(e.target.value)}
-            className="bg-white border-zinc-200 text-xs text-white font-mono"
+            className="bg-white border-zinc-200 text-xs text-zinc-900 font-mono"
           />
         </div>
       </div>
@@ -152,7 +152,7 @@ export default function LeadForm({ onSubmit, onCancel }: LeadFormProps) {
           placeholder="Descreva detalhes adicionais, produtos de interesse e urgência de fecho..."
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          className="w-full rounded-md border border-zinc-200 bg-white p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+          className="w-full rounded-md border border-zinc-200 bg-white p-2.5 text-xs text-zinc-900 focus:outline-none focus:ring-1 focus:ring-emerald-500"
         />
       </div>
 

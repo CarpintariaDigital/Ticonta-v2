@@ -165,7 +165,7 @@ export const SplitPaymentForm: React.FC<SplitPaymentFormProps> = ({
                     onChange={(e) =>
                       handleUpdateRow(idx, "payment_method", e.target.value as PaymentMethod)
                     }
-                    className="flex-1 px-3 py-2 bg-white border border-zinc-200 rounded-lg text-white font-semibold focus:outline-none focus:border-indigo-500 text-xs"
+                    className="flex-1 px-3 py-2 bg-white border border-zinc-200 rounded-lg text-zinc-900 font-semibold focus:outline-none focus:border-indigo-500 text-xs"
                   >
                     {AVAILABLE_METHODS.map((m) => (
                       <option key={m.id} value={m.id}>
@@ -184,7 +184,7 @@ export const SplitPaymentForm: React.FC<SplitPaymentFormProps> = ({
                       onChange={(e) =>
                         handleUpdateRow(idx, "amount", parseFloat(e.target.value) || 0)
                       }
-                      className="w-full pl-3 pr-7 py-2 bg-white border border-zinc-200 rounded-lg text-white font-bold text-xs focus:outline-none focus:border-indigo-500"
+                      className="w-full pl-3 pr-7 py-2 bg-white border border-zinc-200 rounded-lg text-zinc-900 font-bold text-xs focus:outline-none focus:border-indigo-500"
                     />
                     <span className="absolute right-2 top-2 text-[10px] text-zinc-500 font-bold">
                       MT
@@ -219,7 +219,7 @@ export const SplitPaymentForm: React.FC<SplitPaymentFormProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3 px-4 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl transition-colors"
+              className="flex-1 py-3 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 text-xs font-semibold rounded-xl transition-colors"
             >
               Cancelar
             </button>

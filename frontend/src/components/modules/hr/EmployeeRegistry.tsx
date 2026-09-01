@@ -68,7 +68,7 @@ export default function EmployeeRegistry({
           <select
             value={departmentFilter}
             onChange={(e) => setDepartmentFilter(e.target.value)}
-            className="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs text-zinc-900 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           >
             <option value="all">Todos os departamentos</option>
             {departments.map((d) => (

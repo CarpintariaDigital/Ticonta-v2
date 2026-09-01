@@ -126,7 +126,7 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
                 required
                 value={quantity}
                 onChange={(e) => setQuantity(parseInt(e.target.value, 10) || 0)}
-                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-sm font-bold focus:outline-none focus:border-emerald-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-sm font-bold focus:outline-none focus:border-emerald-500"
               />
             </div>
 
@@ -141,7 +141,7 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
                 required
                 value={costPerBird}
                 onChange={(e) => setCostPerBird(parseFloat(e.target.value) || 0)}
-                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-sm font-bold focus:outline-none focus:border-emerald-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-sm font-bold focus:outline-none focus:border-emerald-500"
               />
             </div>
           </div>
@@ -165,7 +165,7 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
                 required
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs focus:outline-none focus:border-emerald-500"
               />
             </div>
 
@@ -178,7 +178,7 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
                 value={feedType}
                 onChange={(e) => setFeedType(e.target.value)}
                 placeholder="Ex: Ração Inicial 50kg"
-                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs placeholder-slate-500 focus:outline-none focus:border-emerald-500"
               />
             </div>
           </div>
@@ -193,7 +193,7 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
               value={flockNumber}
               onChange={(e) => setFlockNumber(e.target.value)}
               placeholder="Ex: LOTE-2026-003 (Gerado auto se vazio)"
-              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-white text-xs placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+              className="w-full px-3 py-2 bg-white border border-zinc-200 rounded-xl text-zinc-900 text-xs placeholder-slate-500 focus:outline-none focus:border-emerald-500"
             />
           </div>
 
@@ -202,7 +202,7 @@ export const NewFlockForm: React.FC<NewFlockFormProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3 px-4 bg-slate-800 hover:bg-slate-700 text-zinc-700 text-xs font-semibold rounded-xl transition-colors"
+              className="flex-1 py-3 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 text-xs font-semibold rounded-xl transition-colors"
             >
               Cancelar
             </button>

@@ -51,7 +51,7 @@ export default function PremiumMarketplacePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-white p-6 space-y-8 max-w-7xl mx-auto">
+    <div className="min-h-screen bg-[#FAF8F5] text-zinc-900 p-6 space-y-8 max-w-7xl mx-auto">
       {/* 1. Hero Section */}
       <div className="relative overflow-hidden rounded-3xl border border-zinc-200 bg-gradient-to-br from-emerald-950/40 via-zinc-900 to-zinc-950 p-8 shadow-2xl">
         <div className="relative z-10 max-w-2xl space-y-3">

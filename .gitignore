@@ -26,3 +26,10 @@ logs/
 Thumbs.db
 .vscode/
 .idea/
+backend/venv/
+backend/.venv/
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]

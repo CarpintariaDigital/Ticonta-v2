@@ -1,104 +1,28 @@
-# ==============================================================================
-# TiConta v2 - Git Ignore Configuration
-# ==============================================================================
-
-# Python & Backend
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-/lib/
-/lib64/
-!frontend/src/lib/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-venv/
-ENV/
-env/
-.venv/
-.pytest_cache/
-coverage/
-.coverage
-htmlcov/
-*.cover
-*.log
-coverage.xml
-
-# Node.js & Frontend
-node_modules/
-.next/
-out/
-build/
-dist/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-.pnpm-debug.log*
-.turbo/
-.vercel/
-
-# Testing & E2E
-playwright-report/
-test-results/
-blob-report/
-playwright/.cache/
-
-# IDE & Editor files
-.vscode/
-!.vscode/extensions.json
-.idea/
-*.swp
-*.swo
-*~
-*.sublime-project
-*.sublime-workspace
-.project
-.settings/
-
-# Operating System Files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-[Dd]esktop.ini
-
-# Database & SQLite files
-*.db
-*.db-journal
-*.sqlite
-*.sqlite3
-*.sql.gz
-*.sql.dump
-
-# Environment Variables & Secrets (NEVER COMMIT)
+# .gitignore — Carpintaria Digital (Projeto Ativo)
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
 .env.*.local
-*.key
+.env.production
+!.env.example
 *.pem
-*.crt
+*.key
 *.cert
-*.pfx
-*.p12
-LICENSE_KEY_*.txt
-secrets/
-private_keys/
-credentials.json
-google-credentials.json
+
+node_modules/
+dist/
+build/
+.next/
+out/
+.wrangler/
+
+__pycache__/
+*.py[cod]
+.venv/
+env/
+
+logs/
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

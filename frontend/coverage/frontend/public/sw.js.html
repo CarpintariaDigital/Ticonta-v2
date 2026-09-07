@@ -1,0 +1,88 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for frontend/public/sw.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">frontend/public</a> sw.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/34</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/27</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/12</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >if(!self.define){let e,s=<span class="cstat-no" title="statement not covered" >{};</span>const a=<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(a</span>,n)=&gt;(<span class="cstat-no" title="statement not covered" >a=new URL(a+".js",n).href,s[a]||new Promise(<span class="fstat-no" title="function not covered" >s=</span>&gt;{<span class="cstat-no" title="statement not covered" >if("document"in self){const e=<span class="cstat-no" title="statement not covered" >document.createElement("script");<span class="cstat-no" title="statement not covered" ></span>e.src=a,e.onload=s,document.head.appendChild(e)}</span>else <span class="cstat-no" title="statement not covered" >e=a,importScripts(a),s()}</span></span>).then(<span class="fstat-no" title="function not covered" >()</span>=&gt;{let e=<span class="cstat-no" title="statement not covered" >s[a];<span class="cstat-no" title="statement not covered" ></span>if(!e)<span class="cstat-no" title="statement not covered" >throw new Error(`Module ${a} didn’t register its module`);<span class="cstat-no" title="statement not covered" >r</span></span>eturn e}</span>))</span>;<span class="cstat-no" title="statement not covered" ></span>self.define=<span class="fstat-no" title="function not covered" >(n</span>,c)=&gt;{const t=<span class="cstat-no" title="statement not covered" >e||("document"in self?document.currentScript.src:"")||location.href;<span class="cstat-no" title="statement not covered" ></span>if(s[t])<span class="cstat-no" title="statement not covered" >return;l</span></span>et i=<span class="cstat-no" title="statement not covered" >{};</span>const r=<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >e=</span>&gt;<span class="cstat-no" title="statement not covered" >a(e,t),</span></span>u=<span class="cstat-no" title="statement not covered" >{module:{uri:t},exports:i,require:r};<span class="cstat-no" title="statement not covered" ></span>s[t]=Promise.all(n.map(<span class="fstat-no" title="function not covered" >e=</span>&gt;<span class="cstat-no" title="statement not covered" >u[e]||r(e))</span>).then(<span class="fstat-no" title="function not covered" >e=</span>&gt;(<span class="cstat-no" title="statement not covered" >c(...e),i)</span>)}</span>}<span class="cstat-no" title="statement not covered" ></span>d</span>efine(["./workbox-4754cb34"],<span class="fstat-no" title="function not covered" >function(</span>e){"use strict";<span class="cstat-no" title="statement not covered" >importScripts(),self.skipWaiting(),e.clientsClaim(),e.precacheAndRoute([{url:"/_next/app-build-manifest.json",revision:"06ccef32fa1daed46dc4c9846a2a7ebf"},{url:"/_next/static/chunks/290-d554efd3b189a993.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/396-62d0de6de1501beb.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/472-4a67c484cb971c11.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/581-c88f0fd55840e603.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/921-35f1101ae1a6aa0f.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/935-110c9c10ec1950ef.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/973-cdcfcb8fb2b5c89e.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/(auth)/login/page-83dd3a5780c61291.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/(auth)/register/page-c4ffcdbf0405fc66.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/(dashboard)/accounting/chart-of-accounts/page-d87d707322f0edb9.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/(dashboard)/accounting/journal-entries/page-9abb984ad3c1ed48.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/(dashboard)/accounting/page-edc3e176b346aa22.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/(dashboard)/accounting/reports/page-66f1b1647d5be4ee.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/(dashboard)/crm/page-7cbdd51b31046f8b.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/(dashboard)/hr/page-78d7bced1b6bf696.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/(dashboard)/manufacturing/page-e596da5b2a3a066b.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/(dashboard)/pos/page-9efc2d57c0e83109.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/(dashboard)/projects/page-6c11901520a7a565.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/(dashboard)/reports/page-e4c14761b20ce9dd.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/_not-found-b7e29a07cc7183bc.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/dashboard/page-036660049c30c59e.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/layout-cb85aabae8ccb5eb.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/app/page-16ff2ab1176605dd.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/fd9d1056-83ac93cfb0c09825.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/framework-8883d1e9be70c3da.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/main-6e4da7f17be7e509.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/main-app-31fc2465d8bf14fd.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/pages/_app-1534f180665c857f.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/pages/_error-a6e4a9a733fdfb2c.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js",revision:"837c0df77fd5009c9e46d446188ecfd0"},{url:"/_next/static/chunks/webpack-dae2fd7a3d820478.js",revision:"u86jMx6r78ARcwE12a6OY"},{url:"/_next/static/css/2066dea7e06def2f.css",revision:"2066dea7e06def2f"},{url:"/_next/static/u86jMx6r78ARcwE12a6OY/_buildManifest.js",revision:"3e8f808956618c698946e160e88e820f"},{url:"/_next/static/u86jMx6r78ARcwE12a6OY/_ssgManifest.js",revision:"b6652df95db52feb4daf4eca35380933"},{url:"/manifest.json",revision:"d8533f17690b52c11e30fa8cef76c535"}],{ignoreURLParametersMatching:[]}),e.cleanupOutdatedCaches(),e.registerRoute("/",new e.NetworkFirst({cacheName:"start-url",plugins:[{cacheWillUpdate:<span class="fstat-no" title="function not covered" >async(</span>{request:e,response:s,event:a,state:n})=&gt;<span class="cstat-no" title="statement not covered" >s&amp;&amp;"opaqueredirect"===s.type?new Response(s.body,{status:200,statusText:"OK",headers:s.headers}):s}</span>]}),"GET"),e.registerRoute(/^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,new e.CacheFirst({cacheName:"google-fonts-webfonts",plugins:[new e.ExpirationPlugin({maxEntries:4,maxAgeSeconds:31536e3})]}),"GET"),e.registerRoute(/^https:\/\/fonts\.(?:googleapis)\.com\/.*/i,new e.StaleWhileRevalidate({cacheName:"google-fonts-stylesheets",plugins:[new e.ExpirationPlugin({maxEntries:4,maxAgeSeconds:604800})]}),"GET"),e.registerRoute(/\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,new e.StaleWhileRevalidate({cacheName:"static-font-assets",plugins:[new e.ExpirationPlugin({maxEntries:4,maxAgeSeconds:604800})]}),"GET"),e.registerRoute(/\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,new e.StaleWhileRevalidate({cacheName:"static-image-assets",plugins:[new e.ExpirationPlugin({maxEntries:64,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\/_next\/image\?url=.+$/i,new e.StaleWhileRevalidate({cacheName:"next-image",plugins:[new e.ExpirationPlugin({maxEntries:64,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:mp3|wav|ogg)$/i,new e.CacheFirst({cacheName:"static-audio-assets",plugins:[new e.RangeRequestsPlugin,new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:mp4)$/i,new e.CacheFirst({cacheName:"static-video-assets",plugins:[new e.RangeRequestsPlugin,new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:js)$/i,new e.StaleWhileRevalidate({cacheName:"static-js-assets",plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:css|less)$/i,new e.StaleWhileRevalidate({cacheName:"static-style-assets",plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\/_next\/data\/.+\/.+\.json$/i,new e.StaleWhileRevalidate({cacheName:"next-data",plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/\.(?:json|xml|csv)$/i,new e.NetworkFirst({cacheName:"static-data-assets",plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(<span class="fstat-no" title="function not covered" >({</span>url:e})=&gt;{<span class="cstat-no" title="statement not covered" >if(!(self.origin===e.origin))<span class="cstat-no" title="statement not covered" >return!1;c</span></span>onst s=<span class="cstat-no" title="statement not covered" >e.pathname;<span class="cstat-no" title="statement not covered" ></span>return!s.startsWith("/api/auth/")&amp;&amp;!!s.startsWith("/api/")}</span>,new e.NetworkFirst({cacheName:"apis",networkTimeoutSeconds:10,plugins:[new e.ExpirationPlugin({maxEntries:16,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(<span class="fstat-no" title="function not covered" >({</span>url:e})=&gt;{<span class="cstat-no" title="statement not covered" >if(!(self.origin===e.origin))<span class="cstat-no" title="statement not covered" >return!1;<span class="cstat-no" title="statement not covered" >r</span></span>eturn!e.pathname.startsWith("/api/")}</span>,new e.NetworkFirst({cacheName:"others",networkTimeoutSeconds:10,plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(<span class="fstat-no" title="function not covered" >({</span>url:e})=&gt;<span class="cstat-no" title="statement not covered" >!(self.origin===e.origin),</span>new e.NetworkFirst({cacheName:"cross-origin",networkTimeoutSeconds:10,plugins:[new e.ExpirationPlugin({maxEntries:32,maxAgeSeconds:3600})]}),"GET")}</span>);</span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-08-15T12:06:25.239Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

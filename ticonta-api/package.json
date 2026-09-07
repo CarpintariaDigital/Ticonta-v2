@@ -1,0 +1,27 @@
+{
+  "name": "ticonta-api",
+  "version": "2.0.0",
+  "description": "Cloudflare Worker Backend com D1, KV e R2 para TiConta ERP Moçambique",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "d1:init": "wrangler d1 execute ticonta-db --local --file=./src/schema.sql",
+    "d1:init:prod": "wrangler d1 execute ticonta-db --remote --file=./src/schema.sql"
+  },
+  "keywords": [
+    "cloudflare-workers",
+    "d1",
+    "ticonta",
+    "erp",
+    "mozambique",
+    "pgc-nirf",
+    "pos"
+  ],
+  "author": "Carpintaria Digital",
+  "license": "Proprietary",
+  "devDependencies": {
+    "wrangler": "^3.109.2"
+  }
+}

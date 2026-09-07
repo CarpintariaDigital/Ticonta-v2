@@ -1,0 +1,13 @@
+{
+  "currency": "MZN",
+  "rates": {
+    "standard": 16.0,
+    "reduced": 7.0,
+    "exempt": 0.0
+  },
+  "categories": [
+    { "code": "STD_16", "name": "Taxa Geral (16%)", "rate": 16.0, "description": "Maioria dos bens e serviços de comércio e indústria" },
+    { "code": "RED_7", "name": "Taxa Reduzida (7%)", "rate": 7.0, "description": "Serviços de hotelaria, restauração e eletricidade de consumo moderado" },
+    { "code": "EXE_0", "name": "Isenção Artigo 9º/10º CIVA", "rate": 0.0, "description": "Produtos de primeira necessidade (arroz, farinha de milho, medicamentos, pão, combustível)" }
+  ]
+}

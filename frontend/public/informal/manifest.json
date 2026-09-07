@@ -1,0 +1,25 @@
+{
+  "name": "Caderno de Fiado",
+  "short_name": "Fiado",
+  "description": "Vendas a crédito, gestão de devedores e cobranças por WhatsApp para comércio moçambicano.",
+  "start_url": "/informal-sales",
+  "scope": "/informal-sales/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#eab308",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}

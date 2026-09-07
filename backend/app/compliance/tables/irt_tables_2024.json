@@ -1,0 +1,11 @@
+{
+  "currency": "MZN",
+  "year": 2024,
+  "brackets": [
+    { "min": 0, "max": 20249.99, "rate": 0.00, "deduction": 0.00 },
+    { "min": 20250.00, "max": 32750.00, "rate": 0.10, "deduction": 2025.00 },
+    { "min": 32750.01, "max": 60000.00, "rate": 0.15, "deduction": 3662.50 },
+    { "min": 60000.01, "max": 144250.00, "rate": 0.20, "deduction": 6662.50 },
+    { "min": 144250.01, "max": null, "rate": 0.25, "deduction": 13875.00 }
+  ]
+}

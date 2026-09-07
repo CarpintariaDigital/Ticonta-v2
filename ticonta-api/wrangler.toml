@@ -1,0 +1,16 @@
+name = "ticonta-api"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ticonta-db"
+database_id = "SUBSTITUIR_APOS_CRIAR_NO_CLOUDFLARE"
+
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "SUBSTITUIR_APOS_CRIAR_NO_CLOUDFLARE"
+
+[[r2_buckets]]
+binding = "STORAGE"
+bucket_name = "ticonta-storage"

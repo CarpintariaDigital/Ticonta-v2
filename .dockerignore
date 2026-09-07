@@ -1,0 +1,63 @@
+# ==============================================================================
+# TiConta v2 - Docker Ignore Configuration
+# ==============================================================================
+
+# Git & VCS
+.git
+.gitignore
+.github
+
+# Environment Variables & Sensitive Keys (NEVER BUNDLE IN IMAGES)
+.env
+.env.*
+*.key
+*.pem
+*.cert
+*.crt
+LICENSE_KEY_*.txt
+secrets/
+
+# Python & Backend Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+coverage.xml
+
+# Node.js & Frontend Build Outputs
+node_modules/
+.next/
+out/
+build/
+dist/
+npm-debug.log*
+yarn-debug.log*
+.turbo/
+.vercel/
+
+# Testing & E2E Artifacts
+playwright-report/
+test-results/
+blob-report/
+
+# OS & IDE Files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local Databases
+*.sqlite
+*.sqlite3
+*.db
+storage/backups/*.sql.gz

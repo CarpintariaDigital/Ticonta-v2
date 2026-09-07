@@ -1,0 +1,166 @@
+# Carpintaria Digital — Regras de Trabalho para Cline
+# Este ficheiro é lido automaticamente pelo Cline em cada sessão.
+# Não editar sem autorização do Arquitecto (Ildino).
+
+## IDENTIDADE DO PROJECTO
+
+Estás a trabalhar nos produtos digitais da Carpintaria Digital,
+uma empresa de soluções digitais baseada em Maputo, Moçambique.
+
+Produtos em desenvolvimento:
+- Txiling: gestão de eventos, convites digitais, bilhetes QR, check-in
+- Dondza: plataforma de aprendizagem e cursos animados
+- TiContA: CRM/ERP leve para pequenas empresas
+
+Stack padrão de todos os produtos:
+- Frontend: HTML + CSS + JavaScript puro (sem frameworks)
+- PWA: manifest.json + service worker
+- Backend: Supabase (auth, PostgreSQL, storage, realtime)
+- Hosting: Cloudflare Pages
+- Controlo de versão: GitHub (auto-deploy para Cloudflare)
+
+Design system (aplicar a todos os produtos):
+- Fundo base: #1A1208
+- Cor primária / dourado: #C9922A
+- Dourado claro (hover): #E8B84B
+- Texto principal: #F5F0E8
+- Texto secundário: #A89880
+- Superfície card: #2A1F10
+- Sucesso: #4CAF82
+- Erro: #E05252
+- Tipografia display: Cormorant Garamond (Google Fonts)
+- Tipografia corpo: Inter (Google Fonts)
+- Border-radius cards: 12px, botões: 8px, inputs: 8px
+- Mobile-first absoluto (base 375px, breakpoint desktop 768px)
+
+---
+
+## REGRAS DE QUALIDADE — OBRIGATÓRIAS
+
+### Antes de escrever qualquer código:
+1. Lê TODOS os ficheiros relevantes para a tarefa antes de começar
+2. Mapeia as dependências: o que este ficheiro precisa de outros
+3. Verifica o que já existe para não duplicar nem contradizer
+4. Se tiveres dúvidas sobre a intenção, pergunta antes de agir
+
+### Ao criar ou editar cada ficheiro:
+1. Relê o ficheiro após escrever
+2. Verifica se todas as funções JS referenciadas existem nos ficheiros de dependência
+3. Verifica se todos os IDs HTML referenciados no JS existem no HTML
+4. Verifica se os scripts estão importados na ordem correcta no HTML
+5. Todos os event listeners devem estar dentro de DOMContentLoaded
+6. Nunca uses aspas curvas "" '' — só aspas direitas "" ou ''
+
+### Ordem correcta de scripts em qualquer página HTML:
+1. Supabase CDN
+2. Bibliotecas externas (qrcode.js, chart.js, etc.)
+3. auth.js
+4. events.js
+5. guests.js
+6. Outros módulos
+7. Scripts inline (sempre dentro de DOMContentLoaded)
+
+### Objectos globais obrigatórios:
+Cada módulo JS exporta as suas funções como objecto global window.*:
+- window.TxilingAuth      → auth.js
+- window.TxilingEvents    → events.js
+- window.TxilingGuests    → guests.js
+Antes de usar qualquer destes objectos, confirma que o script
+correspondente foi importado antes do ponto de uso.
+
+---
+
+## REGRAS DE TESTE — OBRIGATÓRIAS
+
+### Após completar cada funcionalidade:
+1. Cria ou actualiza o ficheiro TEST-REPORT.md na raiz do projecto
+2. Estrutura do TEST-REPORT.md:
+
+```
+# TEST REPORT — [Data] — [Funcionalidade]
+
+## O que foi implementado
+- [lista do que foi criado/editado]
+
+## Dependências verificadas
+- [ficheiro A] usa funções de [ficheiro B]: OK / PROBLEMA
+- [ID html] existe em [ficheiro]: OK / PROBLEMA
+
+## Problemas encontrados e corrigidos
+- [problema] → [solução aplicada]
+
+## Problemas conhecidos (ainda por resolver)
+- [problema] → [impacto] → [sugestão]
+
+## Estado actual
+PRONTO / PRONTO COM RESSALVAS / BLOQUEADO
+
+## Próximo passo recomendado
+[descrição do próximo passo]
+```
+
+### Regra dos 2 tentativas:
+Se encontrares um erro que não consegues resolver em 2 tentativas,
+PARA imediatamente. Escreve o problema em detalhe no TEST-REPORT.md
+e aguarda instrução. Nunca continues a construir sobre uma base com
+erro activo não resolvido.
+
+---
+
+## REGRAS DE CÓDIGO
+
+### JavaScript:
+- Usa async/await, nunca .then().catch() encadeados
+- Trata sempre os erros: devolve {data, error} em funções de BD
+- Logs com prefixo do módulo: console.log('[Auth] mensagem')
+- Sem hardcode de URLs — usa window.location.origin para URLs dinâmicas
+- Variáveis de ambiente (SUPABASE_URL, SUPABASE_ANON_KEY) declaradas
+  no topo do auth.js com comentário // [CONFIGURAR]
+
+### CSS:
+- Usa sempre variáveis CSS do design system (--color-gold, etc.)
+- Nunca uses sombras brancas — só sombras douradas
+- Nunca uses px fixos para fontes — usa rem ou as variáveis --text-*
+- Estados hover e focus sempre visíveis
+
+### HTML:
+- Sem frameworks — HTML semântico puro
+- aria-label em todos os botões que só têm ícone
+- Imagens sempre com alt descritivo
+- Fragmentos SPA (em /pages/) não têm html/head/body — só o conteúdo
+
+### Supabase:
+- RLS activo em todas as tabelas
+- Nunca expões a service_role key no frontend
+- Usa sempre a anon key no cliente
+- Realtime só para funcionalidades que realmente precisam (check-in)
+
+---
+
+## REGRAS DE ENTREGA
+
+Quando terminares uma tarefa:
+1. Lista os ficheiros criados e editados
+2. Indica o que o utilizador deve testar manualmente
+3. Actualiza o TEST-REPORT.md
+4. Sugere o próximo passo lógico
+
+Quando não consegues completar algo:
+1. Explica exactamente o que falhou e porquê
+2. Indica o que foi feito até ao momento do bloqueio
+3. Sugere como o problema pode ser resolvido
+4. Nunca simules sucesso quando houve falha
+
+---
+
+## CONTEXTO CULTURAL E DE MERCADO
+
+Os produtos da Carpintaria Digital servem o mercado moçambicano
+e africano de língua portuguesa. Tens em conta:
+- Conectividade móvel variável — a app deve funcionar offline quando possível
+- Predominância de acesso via telemóvel — mobile-first não é opcional
+- Contexto de eventos locais: casamentos com lobolo, festas tradicionais,
+  shows de música afro, eventos corporativos em Maputo
+- Moeda padrão: MZN (Metical moçambicano)
+- Idioma da interface: Português europeu
+- Datas e horas no formato português: "Sábado, 14 de Setembro de 2026 às 18h00"

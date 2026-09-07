@@ -39,15 +39,22 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-200 flex flex-col justify-center items-center p-4 workstation-grid selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen bg-slate-200 flex flex-col justify-center items-center p-4 workstation-grid selection:bg-emerald-600 selection:text-white">
       {/* Console Frame */}
       <div className="w-full max-w-md space-y-4">
-        {/* Terminal Brand Header */}
-        <div className="text-center space-y-1">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 text-emerald-400 font-mono text-xl font-bold shadow-md">
-            TC
+        {/* Terminal Brand Header com Logotipo */}
+        <div className="text-center space-y-2">
+          <div className="inline-flex items-center justify-center p-2 rounded-xl bg-white border border-slate-300 shadow-md">
+            <img
+              src="/logo-ticonta.png"
+              alt="TiConta v2"
+              className="h-10 w-auto object-contain"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).src = '/icon.png';
+              }}
+            />
           </div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">
+          <h1 className="text-xl font-bold text-slate-900 tracking-tight font-mono">
             TiConta v2 Industrial Terminal
           </h1>
           <p className="text-xs font-mono text-slate-500">

@@ -3,15 +3,38 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --bg-main: #f1f5f9;
+  :root,
+  .light {
+    --background: 210 40% 98%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 158 84% 33%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 220 13% 85%;
+    --input: 220 13% 85%;
+    --ring: 158 84% 33%;
+    --radius: 0.5rem;
+
+    /* Tokens Industriais Workstation */
+    --bg-main: #f8fafc;
     --bg-surface: #ffffff;
-    --bg-panel: #f8fafc;
+    --bg-panel: #f1f5f9;
     --bg-steel: #e2e8f0;
     --border-technical: #cbd5e1;
     --border-chanfer: #94a3b8;
     --text-primary: #0f172a;
-    --text-secondary: #475569;
+    --text-secondary: #334155;
     --text-muted: #64748b;
     --telemetry-emerald: #059669;
     --telemetry-emerald-glow: #10b981;
@@ -34,16 +57,17 @@
 .workstation-grid {
   background-size: 24px 24px;
   background-image: 
-    linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+    linear-gradient(to right, rgba(148, 163, 184, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.15) 1px, transparent 1px);
 }
 
 .brushed-steel {
-  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 60%, #e2e8f0 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #e2e8f0 100%);
+  border: 1px solid #cbd5e1;
 }
 
 .brushed-steel-header {
-  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
   border-bottom: 1px solid #cbd5e1;
 }
 
@@ -60,7 +84,7 @@
 }
 
 .tactile-keypad-btn {
-  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   border: 1px solid #cbd5e1;
   box-shadow: 0 2px 0 0 #94a3b8, 0 3px 4px rgba(15, 23, 42, 0.08);
   transition: all 0.08s ease;
@@ -105,7 +129,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #f8fafc;
 }
 
 ::-webkit-scrollbar-thumb {

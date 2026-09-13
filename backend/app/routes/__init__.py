@@ -7,6 +7,7 @@ from app.routes.projects import router as projects_router
 from app.routes.hr import router as hr_router
 from app.routes.reports import router as reports_router
 from app.routes.manufacturing import router as manufacturing_router
+from app.routes.invoice_ocr import router as invoice_ocr_router
 
 __all__ = [
     "auth_router",
@@ -18,4 +19,5 @@ __all__ = [
     "hr_router",
     "reports_router",
     "manufacturing_router",
+    "invoice_ocr_router",
 ]

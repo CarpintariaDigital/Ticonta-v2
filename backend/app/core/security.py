@@ -102,3 +102,39 @@ def get_current_user(
         return {"sub": subject, "payload": payload}
     except jwt.PyJWTError:
         raise credentials_exception
+
+
+def hash_pin(pin: str) -> str:
+    """Hashes a PIN using bcrypt."""
+    return hash_password(str(pin))
+
+
+def verify_pin(plain_pin: str, hashed_pin: str) -> bool:
+    """Verifies a plain PIN against its bcrypt hash."""
+    return verify_password(str(plain_pin), hashed_pin)
+
+
+def get_current_user_token_data(
+    db: Session = Depends(get_db),
+    token: HTTPAuthorizationCredentials = Depends(reusable_oauth2)
+) -> Dict[str, Any]:
+    """Alias for getting current user token payload data."""
+    return get_current_user(db, token)
+
+
+def require_role(roles: Any):
+    """Dependency that checks if the authenticated user has one of the required roles."""
+    if isinstance(roles, str):
+        roles_list = [roles]
+    else:
+        roles_list = list(roles)
+
+    def role_checker(token_data: Dict[str, Any] = Depends(get_current_user_token_data)):
+        user_role = token_data.get("payload", {}).get("role", "admin")
+        if user_role not in roles_list and "admin" not in user_role:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Operação não autorizada para o seu nível de acesso."
+            )
+        return token_data
+    return role_checker

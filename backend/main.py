@@ -6,7 +6,7 @@ from fastapi import FastAPI, HTTPException, Request, Response, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from fastapi.responses import JSONResult
+from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.core.config import settings
@@ -15,7 +15,7 @@ from app.core.config import settings
 structlog.configure(
     processors=[
         structlog.stdlib.add_log_level,
-        structlog.processors.TimeStamps(fmt="iso"),
+        structlog.processors.TimeStamper(fmt="iso"),
         structlog.processors.JSONRenderer()
     ]
 )
@@ -148,3 +148,28 @@ async def health_check():
         "environment": settings.ENVIRONMENT,
         "timestamp": time.time()
     }
+
+# Include Application Routers
+from app.routes import (
+    auth_router,
+    sales_router,
+    accounting_router,
+    sync_router,
+    crm_router,
+    projects_router,
+    hr_router,
+    reports_router,
+    manufacturing_router,
+    invoice_ocr_router,
+)
+
+app.include_router(auth_router)
+app.include_router(sales_router)
+app.include_router(accounting_router)
+app.include_router(sync_router)
+app.include_router(crm_router)
+app.include_router(projects_router)
+app.include_router(hr_router)
+app.include_router(reports_router)
+app.include_router(manufacturing_router)
+app.include_router(invoice_ocr_router)

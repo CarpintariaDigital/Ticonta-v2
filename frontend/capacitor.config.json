@@ -1,0 +1,11 @@
+{
+  "appId": "com.carpintariadigital.ticonta",
+  "appName": "TiConta ERP",
+  "webDir": "out",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}

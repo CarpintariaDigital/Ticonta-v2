@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TiConta ERP</string>
+    <string name="title_activity_main">TiConta ERP</string>
+    <string name="package_name">com.carpintariadigital.ticonta</string>
+    <string name="custom_url_scheme">com.carpintariadigital.ticonta</string>
+</resources>

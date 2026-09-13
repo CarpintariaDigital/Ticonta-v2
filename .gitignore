@@ -47,3 +47,10 @@ dist/
 *.log
 .sqlite3
 .db
+
+# Android Capacitor
+.gradle/
+frontend/android/app/build/
+frontend/android/build/
+*.apk
+*.aab

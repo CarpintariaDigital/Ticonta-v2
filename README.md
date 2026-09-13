@@ -42,3 +42,5 @@ cd frontend
 npm run dev
 # Servidor web local em: http://localhost:3000
 ```
+
+<!-- Project root: /mnt/carpintaria_os/ticonta-v2 -->

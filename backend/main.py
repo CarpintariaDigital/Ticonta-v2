@@ -213,6 +213,9 @@ from app.routes import (
     licensing,
     xitique,
     savings,
+    quotes,
+    inventory,
+    suppliers,
 )
 from app.routes.admin import licensing as admin_licensing
 
@@ -234,3 +237,7 @@ app.include_router(auto_services.router)
 app.include_router(licensing.router)
 app.include_router(xitique.router,           prefix="/api/v1/xitique",         tags=["Xitique"])
 app.include_router(savings.router,           prefix="/api/v1/savings",         tags=["Savings"])
+app.include_router(quotes.router)
+app.include_router(inventory.router)
+app.include_router(suppliers.router)
+

@@ -11,25 +11,32 @@ import {
   UtensilsCrossed, 
   Wrench, 
   Bike, 
-  Factory,
-  Egg,
-  FolderKanban,
-  Users2,
-  PiggyBank,
-  BarChart3,
+  Factory, 
+  Egg, 
+  FolderKanban, 
+  Users2, 
+  PiggyBank, 
+  BarChart3, 
   Calculator, 
-  KeyRound,
-  ShieldCheck,
+  KeyRound, 
+  ShieldCheck, 
+  FileText, 
+  Package, 
+  Building2,
+  Lock,
   ChevronRight
 } from 'lucide-react';
 import { useLicenseStore } from '@/store/licenseStore';
 
 const navigationItems = [
   {
-    category: 'OPERAÇÕES PRINCIPAIS',
+    category: 'OPERAÇÕES PRINCIPAIS (NATIVO & COMÉRCIO)',
     items: [
-      { name: 'Dashboard Geral', href: '/dashboard', icon: LayoutDashboard, badge: 'Live' },
+      { name: 'Dashboard Geral', href: '/dashboard', icon: LayoutDashboard, badge: 'Nativo' },
       { name: 'Terminal POS (PDV)', href: '/dashboard/pos', icon: ShoppingCart, badge: 'Zero Papel' },
+      { name: 'Cotações & Proformas', href: '/dashboard/quotes', icon: FileText, badge: '16% IVA' },
+      { name: 'Stock & Inventário', href: '/dashboard/inventory', icon: Package, badge: 'Aprovisionamento' },
+      { name: 'Fornecedores & Compras', href: '/dashboard/suppliers', icon: Building2, badge: 'Contas a Pagar' },
       { name: 'Caderno de Fiado', href: '/dashboard/informal-sales', icon: BookOpen, badge: 'Score AI' },
       { name: 'CRM & Clientes', href: '/dashboard/crm', icon: Users, badge: 'WhatsApp' },
     ],
@@ -59,7 +66,7 @@ const navigationItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { license } = useLicenseStore();
+  const { license, isModuleAllowed } = useLicenseStore();
 
   return (
     <aside className="w-64 bg-slate-900 text-slate-300 flex flex-col border-r border-slate-800 select-none">
@@ -94,7 +101,9 @@ export function Sidebar() {
             <nav className="space-y-0.5 pt-1">
               {section.items.map((item) => {
                 const isActive = pathname === item.href;
+                const isAllowed = isModuleAllowed(item.href);
                 const Icon = item.icon;
+
                 return (
                   <Link
                     key={item.href}
@@ -102,27 +111,45 @@ export function Sidebar() {
                     className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-all group ${
                       isActive
                         ? 'bg-emerald-600 text-white font-semibold shadow-xs'
-                        : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                        : isAllowed
+                        ? 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                        : 'text-slate-500 hover:bg-slate-800/60 hover:text-slate-400'
                     }`}
                   >
                     <div className="flex items-center gap-2.5 truncate">
                       <Icon
                         size={15}
-                        className={isActive ? 'text-white' : 'text-slate-400 group-hover:text-emerald-400'}
+                        className={
+                          isActive 
+                            ? 'text-white' 
+                            : isAllowed 
+                            ? 'text-slate-400 group-hover:text-emerald-400' 
+                            : 'text-slate-600'
+                        }
                       />
                       <span className="truncate">{item.name}</span>
                     </div>
-                    {item.badge && (
-                      <span
-                        className={`text-[9px] font-mono px-1.5 py-0.2 rounded truncate ${
-                          isActive
-                            ? 'bg-emerald-700 text-emerald-100'
-                            : 'bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-slate-200'
-                        }`}
-                      >
-                        {item.badge}
-                      </span>
-                    )}
+
+                    <div className="flex items-center gap-1">
+                      {!isAllowed && (
+                        <span title="Módulo não contratado" className="inline-flex items-center">
+                          <Lock size={12} className="text-amber-500/80 shrink-0" />
+                        </span>
+                      )}
+                      {item.badge && (
+                        <span
+                          className={`text-[9px] font-mono px-1.5 py-0.2 rounded truncate ${
+                            isActive
+                              ? 'bg-emerald-700 text-emerald-100'
+                              : isAllowed
+                              ? 'bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-slate-200'
+                              : 'bg-slate-850 text-slate-600'
+                          }`}
+                        >
+                          {item.badge}
+                        </span>
+                      )}
+                    </div>
                   </Link>
                 );
               })}
@@ -138,15 +165,15 @@ export function Sidebar() {
           className="p-2 bg-slate-900 border border-slate-800 rounded-md block hover:border-emerald-500 transition group"
         >
           <div className="flex items-center justify-between text-[11px] mb-1">
-            <div className="flex items-center gap-1.5 text-emerald-400 font-bold">
-              <ShieldCheck size={13} />
-              <span>PLANO {license.plan.toUpperCase()}</span>
-            </div>
-            <span className="text-[10px] text-slate-400">{license.daysRemaining}d</span>
+            <span className="text-slate-400 font-semibold uppercase">Licença {license.plan}</span>
+            <span className="text-emerald-400 font-bold flex items-center gap-1">
+              <ShieldCheck size={12} />
+              <span>{license.status}</span>
+            </span>
           </div>
-          <div className="text-[10px] text-slate-400 flex items-center justify-between">
-            <span>Licença Criptográfica</span>
-            <span className="text-emerald-400 group-hover:translate-x-0.5 transition">→</span>
+          <div className="text-[10px] text-slate-500 flex justify-between">
+            <span>Validade:</span>
+            <span className="text-slate-300">{license.daysRemaining} dias</span>
           </div>
         </Link>
       </div>

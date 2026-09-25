@@ -94,3 +94,5 @@ def route_get_licenses_by_nuit(
         }
         for r in records
     ]
+
+

@@ -219,7 +219,7 @@ from app.routes.admin import licensing as admin_licensing
 app.include_router(poultry.router,           prefix="/api/v1/poultry",         tags=["Poultry"])
 app.include_router(payment.router,           prefix="/api/v1/payment",          tags=["Payment"])
 app.include_router(payment.router,           prefix="/api/v1/payments",         tags=["Payment"])
-app.include_router(license_server.router,    prefix="/api/v1/admin/licenses",   tags=["Licenses"])
+app.include_router(license_server.router,    prefix="/api/v1/license-server",   tags=["Licenses Server"])
 app.include_router(admin_licensing.router)
 app.include_router(pricing.router,           prefix="/api/v1/pricing",          tags=["Pricing"])
 app.include_router(pricing.router)

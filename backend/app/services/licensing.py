@@ -50,7 +50,8 @@ class LicensingService:
     }
 
     def __init__(self, master_key: Optional[str] = None):
-        self.master_key = (master_key or settings.LICENSE_MASTER_KEY).encode("utf-8")
+        key = master_key or settings.LICENSE_MASTER_KEY or "change-me-in-production-min-32-chars-master-key"
+        self.master_key = key.encode("utf-8")
 
     def _generate_signature(self, payload_str: str) -> str:
         """Gera assinatura HMAC-SHA256 truncada em 8 caracteres maiúsculos hexadecimais."""

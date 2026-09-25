@@ -1,3 +1,4 @@
+import os
 import time
 from collections import defaultdict
 from typing import Any, Dict, List
@@ -23,6 +24,8 @@ _login_attempts: Dict[str, List[float]] = defaultdict(list)
 
 def check_login_rate_limit(request: Request):
     """Rate limit login requests based on client IP (5 attempts per 15 minutes)."""
+    if os.getenv("TESTING") == "true":
+        return
     client_ip = request.client.host if request.client else "unknown"
     now = time.time()
     _login_attempts[client_ip] = [

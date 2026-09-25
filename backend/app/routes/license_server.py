@@ -8,7 +8,7 @@ from app.core.security import require_role
 from app.models.license_record import LicenseRecord
 from app.services.license_server import issue_license, revoke_license, validate_license
 
-router = APIRouter(prefix="/api/v1/admin/licenses", tags=["Central License Server"])
+router = APIRouter(tags=["Central License Server"])
 
 
 class IssueLicenseInput(BaseModel):

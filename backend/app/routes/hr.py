@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user_token_data
+from app.dependencies.tenant import get_tenant_id
 from app.schemas.hr import (
     AttendanceCreate,
     AttendanceResponse,
@@ -22,14 +23,14 @@ router = APIRouter(prefix="/api/v1/hr", tags=["Recursos Humanos & Folha INSS"])
 
 @router.get("/employees", response_model=List[EmployeeResponse])
 def list_employees(
-    company_id: int = Query(1),
     active_only: bool = Query(True),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Listar colaboradores e pessoal da empresa."""
     service = HRService(db)
-    employees = service.get_employees(company_id=company_id, active_only=active_only)
+    employees = service.get_employees(company_id=tenant_id, active_only=active_only)
     return [
         EmployeeResponse(
             id=e.id,
@@ -55,6 +56,7 @@ def list_employees(
 @router.post("/employees", response_model=EmployeeResponse, status_code=status.HTTP_201_CREATED)
 def create_employee(
     data: EmployeeCreate,
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
@@ -84,13 +86,13 @@ def create_employee(
 @router.get("/employees/{employee_id}", response_model=EmployeeResponse)
 def get_employee(
     employee_id: int,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Obter detalhes do trabalhador."""
     service = HRService(db)
-    e = service.get_employee_by_id(employee_id=employee_id, company_id=company_id)
+    e = service.get_employee_by_id(employee_id=employee_id, company_id=tenant_id)
     return EmployeeResponse(
         id=e.id,
         company_id=e.company_id,
@@ -114,14 +116,14 @@ def get_employee(
 def update_employee(
     employee_id: int,
     data: EmployeeUpdate,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Atualizar dados do funcionário."""
     user_id = int(token_data.get("user_id") or token_data.get("sub"))
     service = HRService(db)
-    e = service.update_employee(employee_id=employee_id, data=data, user_id=user_id, company_id=company_id)
+    e = service.update_employee(employee_id=employee_id, data=data, user_id=user_id, company_id=tenant_id)
     return EmployeeResponse(
         id=e.id,
         company_id=e.company_id,
@@ -144,14 +146,14 @@ def update_employee(
 @router.post("/attendance", response_model=AttendanceResponse, status_code=status.HTTP_201_CREATED)
 def record_attendance(
     data: AttendanceCreate,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Registar presença / ponto diário."""
     user_id = int(token_data.get("user_id") or token_data.get("sub"))
     service = HRService(db)
-    att = service.record_attendance(data=data, user_id=user_id, company_id=company_id)
+    att = service.record_attendance(data=data, user_id=user_id, company_id=tenant_id)
     return AttendanceResponse(
         id=att.id,
         employee_id=att.employee_id,
@@ -167,34 +169,36 @@ def record_attendance(
 @router.post("/payroll/generate", response_model=MonthlyPayrollSummaryResponse)
 def generate_payroll(
     data: PayrollGenerateRequest,
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Gerar e calcular folha de pagamento do mês com descontos automáticos de INSS (3% + 4%) e IRPS."""
     user_id = int(token_data.get("user_id") or token_data.get("sub"))
     service = HRService(db)
-    return service.generate_monthly_payroll(company_id=data.company_id, period=data.period, user_id=user_id)
+    company_id = data.company_id or tenant_id
+    return service.generate_monthly_payroll(company_id=company_id, period=data.period, user_id=user_id)
 
 
 @router.get("/payroll/{period}", response_model=MonthlyPayrollSummaryResponse)
 def get_payroll_by_period(
     period: str,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Consultar folha de pagamento de um período específico."""
     service = HRService(db)
-    return service.get_monthly_payroll(company_id=company_id, period=period)
+    return service.get_monthly_payroll(company_id=tenant_id, period=period)
 
 
 @router.get("/payroll/{period}/export-xml", response_model=INSSDeclarationXMLResponse)
 def export_inss_xml(
     period: str,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Gerar ficheiro XML para submissão oficial no portal SISSMO do INSS de Moçambique."""
     service = HRService(db)
-    return service.generate_inss_declaration_xml(company_id=company_id, period=period)
+    return service.generate_inss_declaration_xml(company_id=tenant_id, period=period)

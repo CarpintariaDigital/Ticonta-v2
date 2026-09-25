@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
+from app.dependencies.tenant import get_tenant_id
 from app.models.entities import Product
 
 router = APIRouter(prefix="/api/v1/products", tags=["Products & Inventory"])
@@ -39,13 +40,13 @@ DEFAULT_PRODUCTS = [
 
 @router.get("", response_model=List[ProductResponse])
 def list_products(
-    company_id: int = Query(1),
     search: Optional[str] = Query(None),
     category: Optional[str] = Query(None),
+    tenant_id: int = Depends(get_tenant_id),
     db: Session = Depends(get_db),
 ):
     try:
-        query = db.query(Product).filter(Product.company_id == company_id, Product.active == True)
+        query = db.query(Product).filter(Product.company_id == tenant_id, Product.active == True)
         if search:
             query = query.filter(Product.name.ilike(f"%{search}%") | Product.sku.ilike(f"%{search}%") | Product.barcode.ilike(f"%{search}%"))
         if category:

@@ -1,4 +1,5 @@
 import os
+os.environ["TESTING"] = "true"
 from decimal import Decimal
 import pytest
 from fastapi.testclient import TestClient
@@ -150,11 +151,11 @@ def client(db_session):
 
 @pytest.fixture(scope="function")
 def admin_token_headers():
-    token = create_access_token(user_id=1, username="admin_user", roles=["admin"])
+    token = create_access_token(subject=1)
     return {"Authorization": f"Bearer {token}"}
 
 
 @pytest.fixture(scope="function")
 def operator_token_headers():
-    token = create_access_token(user_id=2, username="operador_pos", roles=["operator"])
+    token = create_access_token(subject=2)
     return {"Authorization": f"Bearer {token}"}

@@ -68,7 +68,7 @@ def client(db):
 
 @pytest.fixture(scope="function")
 def auth_headers():
-    token = create_access_token(user_id=1, username="operador_pos", roles=["operator"])
+    token = create_access_token(subject="operador_pos")
     return {"Authorization": f"Bearer {token}"}
 
 

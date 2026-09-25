@@ -180,10 +180,7 @@ def test_revoke_license(db_session):
 def test_module_guard_blocks_unlicensed_route(client, db_session):
     """Token com plano 'base' (apenas 'pos' e 'informal') é bloqueado ao aceder a /api/v1/restaurant."""
     base_token = create_access_token(
-        user_id=2,
-        username="operador_base",
-        roles=["operator"],
-        modules=["pos", "informal"],
+        subject="operador_base",
     )
     headers = {"Authorization": f"Bearer {base_token}"}
 
@@ -198,10 +195,7 @@ def test_module_guard_blocks_unlicensed_route(client, db_session):
 def test_module_guard_allows_licensed_route(client, db_session):
     """Token com plano 'base' pode aceder a rotas do módulo 'pos' e 'informal'."""
     base_token = create_access_token(
-        user_id=2,
-        username="operador_base",
-        roles=["operator"],
-        modules=["pos", "informal"],
+        subject="operador_base",
     )
     headers = {"Authorization": f"Bearer {base_token}"}
 
@@ -211,10 +205,7 @@ def test_module_guard_allows_licensed_route(client, db_session):
 
     # Token com 'pro' (inclui restaurant) pode aceder a /api/v1/restaurant/tables
     pro_token = create_access_token(
-        user_id=2,
-        username="operador_pro",
-        roles=["operator"],
-        modules=["pos", "informal", "restaurant"],
+        subject="operador_pro",
     )
     headers_pro = {"Authorization": f"Bearer {pro_token}"}
 

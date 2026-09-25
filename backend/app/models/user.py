@@ -6,6 +6,7 @@ from sqlalchemy import (
     String,
     Boolean,
     DateTime,
+    ForeignKey,
     func
 )
 from sqlalchemy.orm import relationship
@@ -17,7 +18,9 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
+    company_id = Column(Integer, ForeignKey("companies.id", ondelete="CASCADE"), nullable=False, default=1, index=True)
     username = Column(String(50), unique=True, nullable=False, index=True)
+
     email = Column(String(255), unique=True, nullable=True, index=True)
     pin_hash = Column(String(255), nullable=False)
     role = Column(String(50), nullable=False, default="operator")

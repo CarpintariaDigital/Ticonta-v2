@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
+from app.dependencies.tenant import get_tenant_id
 from app.schemas.pricing import (
     MarketPriceCreate,
     MarketPriceResponse,
@@ -54,23 +55,23 @@ def record_market_price(
 
 @router.get("/api/v1/producer/prices", response_model=List[ProducerPriceResponse])
 def get_producer_prices(
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     db: Session = Depends(get_db),
 ):
     """Listar tabela de preços praticada pela quinta / produtor."""
     service = PricingService(db)
-    return service.get_producer_prices(company_id=company_id)
+    return service.get_producer_prices(company_id=tenant_id)
 
 
 @router.post("/api/v1/producer/prices", response_model=ProducerPriceResponse, status_code=status.HTTP_201_CREATED)
 def set_producer_price(
     data: ProducerPriceCreate,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     db: Session = Depends(get_db),
 ):
     """Definir ou atualizar tabela de preços do produtor."""
     service = PricingService(db)
-    return service.set_producer_price(company_id=company_id, data=data)
+    return service.set_producer_price(company_id=tenant_id, data=data)
 
 
 @router.get("/api/v1/production/{flock_id}/profitability", response_model=FlockProfitabilityResponse)

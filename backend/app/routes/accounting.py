@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user_token_data, require_role
+from app.dependencies.tenant import get_tenant_id
 from app.schemas.accounting import (
     AccountCreate,
     AccountResponse,
@@ -21,18 +22,19 @@ router = APIRouter(prefix="/api/v1/accounting", tags=["Contabilidade (PGC-NIRF)"
 
 @router.get("/chart-of-accounts", response_model=List[AccountResponse])
 def get_chart_of_accounts(
-    company_id: int = Query(1, description="ID da empresa"),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Listar plano geral de contas da empresa (PGC Moçambique)."""
     service = AccountingService(db)
-    return service.get_chart_of_accounts(company_id=company_id)
+    return service.get_chart_of_accounts(company_id=tenant_id)
 
 
 @router.post("/accounts", response_model=AccountResponse, status_code=status.HTTP_201_CREATED)
 def create_account(
     data: AccountCreate,
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
@@ -45,30 +47,30 @@ def create_account(
 @router.get("/accounts/{account_id}", response_model=AccountResponse)
 def get_account_details(
     account_id: int,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Buscar detalhes e saldo de uma conta específica."""
     service = AccountingService(db)
-    return service.get_account_by_id(account_id=account_id, company_id=company_id)
+    return service.get_account_by_id(account_id=account_id, company_id=tenant_id)
 
 
 @router.get("/journal-entries", response_model=List[JournalEntryResponse])
 def list_journal_entries(
-    company_id: int = Query(1),
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=200),
     account_id: Optional[int] = Query(None),
     start_date: Optional[datetime] = Query(None),
     end_date: Optional[datetime] = Query(None),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Listar lançamentos do diário/razão contábil."""
     service = AccountingService(db)
     entries = service.get_journal_entries(
-        company_id=company_id,
+        company_id=tenant_id,
         skip=skip,
         limit=limit,
         account_id=account_id,
@@ -104,6 +106,7 @@ def list_journal_entries(
 def create_journal_entry(
     data: JournalEntryCreate,
     request: Request,
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
@@ -141,28 +144,28 @@ def create_journal_entry(
 
 @router.get("/trial-balance", response_model=TrialBalanceResponse)
 def get_trial_balance(
-    company_id: int = Query(1),
     as_of_date: Optional[date] = Query(None),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Gerar Balancete de Verificação (Trial Balance)."""
     service = AccountingService(db)
-    return service.get_trial_balance(company_id=company_id, as_of_date=as_of_date)
+    return service.get_trial_balance(company_id=tenant_id, as_of_date=as_of_date)
 
 
 @router.get("/income-statement", response_model=IncomeStatementResponse)
 def get_income_statement(
-    company_id: int = Query(1),
     date_from: Optional[date] = Query(None),
     date_to: Optional[date] = Query(None),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Gerar Demonstração de Resultados do Exercício (DRE / Income Statement)."""
     service = AccountingService(db)
     return service.get_income_statement(
-        company_id=company_id,
+        company_id=tenant_id,
         date_from=date_from,
         date_to=date_to,
     )
@@ -170,11 +173,11 @@ def get_income_statement(
 
 @router.get("/balance-sheet", response_model=BalanceSheetResponse)
 def get_balance_sheet(
-    company_id: int = Query(1),
     as_of_date: Optional[date] = Query(None),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Gerar Balanço Patrimonial (Balance Sheet)."""
     service = AccountingService(db)
-    return service.get_balance_sheet(company_id=company_id, as_of_date=as_of_date)
+    return service.get_balance_sheet(company_id=tenant_id, as_of_date=as_of_date)

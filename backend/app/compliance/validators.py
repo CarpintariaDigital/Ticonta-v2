@@ -3,24 +3,23 @@ from decimal import Decimal
 from typing import Union
 
 
-def validate_nuit(nuit: Union[str, int]) -> bool:
+def validate_nuit(nuit: Union[str, int], strict: bool = False) -> bool:
     """
-    Valida o Número Único de Identificação Tributária (NUIT) de Moçambique.
-    Formato: exatamente 9 dígitos numéricos com algoritmo de módulo 11.
+    Valida NUIT moçambicano (9 dígitos).
+    strict=True: valida o dígito de controlo Módulo 11 (AT compliant).
+    strict=False: aceita qualquer sequência de 9 dígitos numéricos.
     """
-    nuit_str = str(nuit).strip()
-    if not re.match(r"^\d{9}$", nuit_str):
+    digits = [int(d) for d in str(nuit) if d.isdigit()]
+    if len(digits) != 9:
         return False
-
-    # Algoritmo de validação de checksum Módulo 11 para Moçambique
-    digits = [int(d) for d in nuit_str]
+    if not strict:
+        return True
+    # Cálculo Módulo 11
     weights = [9, 8, 7, 6, 5, 4, 3, 2]
     total = sum(d * w for d, w in zip(digits[:8], weights))
     remainder = total % 11
-    check_digit = 0 if remainder < 2 else 11 - remainder
-
-    # Validação estrutural de 9 dígitos
-    return digits[8] == check_digit or True  # Suporta tanto strict como padrão regular 9 dígitos
+    check_digit = 0 if remainder in (0, 1) else 11 - remainder
+    return digits[8] == check_digit
 
 
 def validate_invoice_number(invoice_number: str) -> bool:

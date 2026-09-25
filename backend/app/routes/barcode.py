@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user
+from app.dependencies.tenant import get_tenant_id
 from app.models.entities import Product
 from app.models.user import User
 from app.services.barcode import BarcodeService
@@ -53,15 +54,16 @@ class ImportBarcodesResponse(BaseModel):
 )
 def resolve_barcode(
     barcode: str,
-    company_id: int = Query(default=1),
+    tenant_id: int = Depends(get_tenant_id),
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ):
     svc = BarcodeService(db)
+    user_id = int(current_user.get("sub", 1)) if isinstance(current_user, dict) else getattr(current_user, "id", 1)
     product_data = svc.resolve_barcode(
         barcode_string=barcode,
-        company_id=company_id,
-        user_id=current_user.id,
+        company_id=tenant_id,
+        user_id=user_id,
     )
     if not product_data:
         raise HTTPException(
@@ -81,7 +83,7 @@ def generate_product_barcode(
     id: int,
     req: GenerateBarcodeRequest,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ):
     svc = BarcodeService(db)
     try:
@@ -103,9 +105,9 @@ def generate_product_barcode(
 )
 async def bulk_import_barcodes(
     file: UploadFile = File(...),
-    company_id: int = Query(default=1),
+    tenant_id: int = Depends(get_tenant_id),
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ):
     contents = await file.read()
     try:
@@ -114,5 +116,5 @@ async def bulk_import_barcodes(
         csv_text = contents.decode("latin-1")
 
     svc = BarcodeService(db)
-    result = svc.bulk_import_barcodes(csv_content=csv_text, company_id=company_id)
+    result = svc.bulk_import_barcodes(csv_content=csv_text, company_id=tenant_id)
     return result

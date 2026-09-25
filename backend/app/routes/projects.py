@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user_token_data
+from app.dependencies.tenant import get_tenant_id
 from app.models.project import ProjectStatus
 from app.schemas.project import (
     ExpenseCreate,
@@ -23,15 +24,15 @@ router = APIRouter(prefix="/api/v1/projects", tags=["Projetos, Obras & Serviços
 
 @router.get("", response_model=List[ProjectResponse])
 def list_projects(
-    company_id: int = Query(1),
     status: Optional[ProjectStatus] = Query(None),
     search: Optional[str] = Query(None),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Listar projetos e obras da empresa."""
     service = ProjectService(db)
-    projects = service.get_projects(company_id=company_id, status=status, search=search)
+    projects = service.get_projects(company_id=tenant_id, status=status, search=search)
     return [
         ProjectResponse(
             id=p.id,
@@ -80,6 +81,7 @@ def list_projects(
 @router.post("", response_model=ProjectResponse, status_code=status.HTTP_201_CREATED)
 def create_project(
     data: ProjectCreate,
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
@@ -108,13 +110,13 @@ def create_project(
 @router.get("/{project_id}", response_model=ProjectResponse)
 def get_project(
     project_id: int,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Obter detalhes do projeto com tarefas e despesas."""
     service = ProjectService(db)
-    p = service.get_project_by_id(project_id=project_id, company_id=company_id)
+    p = service.get_project_by_id(project_id=project_id, company_id=tenant_id)
     return ProjectResponse(
         id=p.id,
         company_id=p.company_id,
@@ -161,14 +163,14 @@ def get_project(
 def update_project(
     project_id: int,
     data: ProjectUpdate,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Atualizar projeto / orçamento."""
     user_id = int(token_data.get("user_id") or token_data.get("sub"))
     service = ProjectService(db)
-    p = service.update_project(project_id=project_id, data=data, user_id=user_id, company_id=company_id)
+    p = service.update_project(project_id=project_id, data=data, user_id=user_id, company_id=tenant_id)
     return ProjectResponse(
         id=p.id,
         company_id=p.company_id,
@@ -190,27 +192,27 @@ def update_project(
 @router.delete("/{project_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_project(
     project_id: int,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Excluir projeto."""
     user_id = int(token_data.get("user_id") or token_data.get("sub"))
     service = ProjectService(db)
-    service.delete_project(project_id=project_id, user_id=user_id, company_id=company_id)
+    service.delete_project(project_id=project_id, user_id=user_id, company_id=tenant_id)
     return None
 
 
 @router.get("/{project_id}/summary", response_model=ProjectSummaryResponse)
 def get_project_summary(
     project_id: int,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Resumo de orçamento, despesas reais, lucro e alertas."""
     service = ProjectService(db)
-    return service.get_project_summary(project_id=project_id, company_id=company_id)
+    return service.get_project_summary(project_id=project_id, company_id=tenant_id)
 
 
 # --- TASKS ENDPOINTS ---
@@ -218,14 +220,14 @@ def get_project_summary(
 def add_project_task(
     project_id: int,
     data: TaskCreate,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Adicionar tarefa ao cronograma da obra."""
     user_id = int(token_data.get("user_id") or token_data.get("sub"))
     service = ProjectService(db)
-    t = service.add_task(project_id=project_id, data=data, user_id=user_id, company_id=company_id)
+    t = service.add_task(project_id=project_id, data=data, user_id=user_id, company_id=tenant_id)
     return TaskResponse(
         id=t.id,
         project_id=t.project_id,
@@ -244,14 +246,14 @@ def update_project_task(
     project_id: int,
     task_id: int,
     data: TaskUpdate,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Atualizar tarefa / estado de conclusão."""
     user_id = int(token_data.get("user_id") or token_data.get("sub"))
     service = ProjectService(db)
-    t = service.update_task(task_id=task_id, data=data, user_id=user_id, company_id=company_id)
+    t = service.update_task(task_id=task_id, data=data, user_id=user_id, company_id=tenant_id)
     return TaskResponse(
         id=t.id,
         project_id=t.project_id,
@@ -269,14 +271,14 @@ def update_project_task(
 def delete_project_task(
     project_id: int,
     task_id: int,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Remover tarefa da obra."""
     user_id = int(token_data.get("user_id") or token_data.get("sub"))
     service = ProjectService(db)
-    service.delete_task(task_id=task_id, user_id=user_id, company_id=company_id)
+    service.delete_task(task_id=task_id, user_id=user_id, company_id=tenant_id)
     return None
 
 
@@ -285,14 +287,14 @@ def delete_project_task(
 def add_project_expense(
     project_id: int,
     data: ExpenseCreate,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Lançar despesa no projeto."""
     user_id = int(token_data.get("user_id") or token_data.get("sub"))
     service = ProjectService(db)
-    e = service.add_expense(project_id=project_id, data=data, user_id=user_id, company_id=company_id)
+    e = service.add_expense(project_id=project_id, data=data, user_id=user_id, company_id=tenant_id)
     return ExpenseResponse(
         id=e.id,
         project_id=e.project_id,
@@ -307,13 +309,13 @@ def add_project_expense(
 @router.get("/{project_id}/expenses", response_model=List[ExpenseResponse])
 def list_project_expenses(
     project_id: int,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Listar despesas do projeto."""
     service = ProjectService(db)
-    expenses = service.get_project_expenses(project_id=project_id, company_id=company_id)
+    expenses = service.get_project_expenses(project_id=project_id, company_id=tenant_id)
     return [
         ExpenseResponse(
             id=e.id,

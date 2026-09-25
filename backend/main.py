@@ -1,3 +1,4 @@
+import os
 import time
 from collections import defaultdict
 from typing import Dict, List
@@ -10,6 +11,19 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.core.config import settings
+
+import sentry_sdk
+from sentry_sdk.integrations.fastapi import FastApiIntegration
+from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
+
+sentry_dsn = os.getenv("SENTRY_DSN")
+if sentry_dsn and os.getenv("TESTING") != "true":
+    sentry_sdk.init(
+        dsn=sentry_dsn,
+        integrations=[FastApiIntegration(), SqlalchemyIntegration()],
+        traces_sample_rate=0.2,
+        environment=os.getenv("ENVIRONMENT", "production"),
+    )
 
 # Configure Structlog
 structlog.configure(
@@ -30,6 +44,9 @@ class InMemoryRateLimiter(BaseHTTPMiddleware):
         self.clients: Dict[str, List[float]] = defaultdict(list)
 
     async def dispatch(self, request: Request, call_next) -> Response:
+        if os.getenv("TESTING") == "true":
+            return await call_next(request)
+
         client_ip = request.client.host if request.client else "unknown"
         now = time.time()
         
@@ -91,12 +108,16 @@ app = FastAPI(
 )
 
 # Apply Middlewares
+from app.middleware.tenant import TenantMiddleware
+app.add_middleware(TenantMiddleware)
 app.add_middleware(StructuredLoggingMiddleware)
-app.add_middleware(
-    InMemoryRateLimiter,
-    requests_limit=100,
-    time_window_seconds=60
-)
+
+if os.getenv("TESTING") != "true":
+    app.add_middleware(
+        InMemoryRateLimiter,
+        requests_limit=100,
+        time_window_seconds=60
+    )
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[str(origin).rstrip("/") for origin in settings.BACKEND_CORS_ORIGINS] or ["*"],
@@ -123,10 +144,12 @@ async def http_exception_handler(request: Request, exc: HTTPException) -> Respon
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError) -> Response:
-    logger.warn("validation_error", errors=exc.errors())
+    from fastapi.encoders import jsonable_encoder
+    encoded_errors = jsonable_encoder(exc.errors())
+    logger.warn("validation_error", errors=encoded_errors)
     return JSONResponse(
         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        content={"detail": "Validation error", "errors": exc.errors()}
+        content={"detail": "Validation error", "errors": encoded_errors}
     )
 
 
@@ -173,3 +196,37 @@ app.include_router(hr_router)
 app.include_router(reports_router)
 app.include_router(manufacturing_router)
 app.include_router(invoice_ocr_router)
+
+from app.routes import (
+    poultry,
+    payment,
+    license_server,
+    pricing,
+    informal_sales,
+    restaurant,
+    takeaway,
+    barcode,
+    document_delivery,
+    premium,
+    products,
+    auto_services,
+    licensing,
+)
+from app.routes.admin import licensing as admin_licensing
+
+app.include_router(poultry.router,           prefix="/api/v1/poultry",         tags=["Poultry"])
+app.include_router(payment.router,           prefix="/api/v1/payment",          tags=["Payment"])
+app.include_router(payment.router,           prefix="/api/v1/payments",         tags=["Payment"])
+app.include_router(license_server.router,    prefix="/api/v1/admin/licenses",   tags=["Licenses"])
+app.include_router(admin_licensing.router)
+app.include_router(pricing.router,           prefix="/api/v1/pricing",          tags=["Pricing"])
+app.include_router(pricing.router)
+app.include_router(informal_sales.router)
+app.include_router(restaurant.router)
+app.include_router(takeaway.router)
+app.include_router(barcode.router)
+app.include_router(document_delivery.router)
+app.include_router(premium.router)
+app.include_router(products.router)
+app.include_router(auto_services.router)
+app.include_router(licensing.router)

@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user_token_data
+from app.dependencies.tenant import get_tenant_id
 from app.models.manufacturing import WorkOrderStatus
 from app.schemas.manufacturing import (
     BudgetCalculationInput,
@@ -44,14 +45,14 @@ def calculate_cutting_plan(
 
 @router.get("/work-orders", response_model=List[WorkOrderResponse])
 def list_work_orders(
-    company_id: int = Query(1),
     status: Optional[WorkOrderStatus] = Query(None),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Listar Ordens de Produção (OP) em fábrica."""
     service = ManufacturingService(db)
-    orders = service.get_work_orders(company_id=company_id, status=status)
+    orders = service.get_work_orders(company_id=tenant_id, status=status)
     return [
         WorkOrderResponse(
             id=w.id,
@@ -86,6 +87,7 @@ def list_work_orders(
 @router.post("/work-orders", response_model=WorkOrderResponse, status_code=status.HTTP_201_CREATED)
 def create_work_order(
     data: WorkOrderCreate,
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
@@ -124,13 +126,13 @@ def create_work_order(
 @router.get("/work-orders/{work_order_id}", response_model=WorkOrderResponse)
 def get_work_order(
     work_order_id: int,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Obter detalhes da Ordem de Produção."""
     service = ManufacturingService(db)
-    w = service.get_work_order_by_id(work_order_id=work_order_id, company_id=company_id)
+    w = service.get_work_order_by_id(work_order_id=work_order_id, company_id=tenant_id)
     return WorkOrderResponse(
         id=w.id,
         company_id=w.company_id,
@@ -163,14 +165,14 @@ def get_work_order(
 def update_work_order(
     work_order_id: int,
     data: WorkOrderUpdate,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Atualizar status ou custos da Ordem de Produção."""
     user_id = int(token_data.get("user_id") or token_data.get("sub"))
     service = ManufacturingService(db)
-    w = service.update_work_order(work_order_id=work_order_id, data=data, user_id=user_id, company_id=company_id)
+    w = service.update_work_order(work_order_id=work_order_id, data=data, user_id=user_id, company_id=tenant_id)
     return WorkOrderResponse(
         id=w.id,
         company_id=w.company_id,

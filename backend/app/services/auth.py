@@ -136,12 +136,9 @@ class AuthService:
             modules = self.get_active_modules_for_user(user) if user else ["pos", "informal"]
 
         access_token = create_access_token(
-            user_id=user_id,
-            username=username,
-            roles=roles,
-            modules=modules
+            subject=user_id
         )
-        refresh_token = create_refresh_token(user_id=user_id, username=username)
+        refresh_token = create_refresh_token(subject=user_id)
         expires_in = settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
 
         return {

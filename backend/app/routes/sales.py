@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user_token_data
+from app.dependencies.tenant import get_tenant_id
 from app.schemas.sale import (
     DailyRevenueResponse,
     SaleCreate,
@@ -29,6 +30,7 @@ class EmailReceiptRequest(BaseModel):
 def create_sale(
     data: SaleCreate,
     request: Request,
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
@@ -49,19 +51,18 @@ def create_sale(
 
 @router.get("/today/total", response_model=DailyRevenueResponse)
 def get_today_total(
-    company_id: int = Query(1, description="ID da empresa"),
     target_date: Optional[date] = Query(None, description="Data alvo (padrão: hoje)"),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Obter receita total do dia e divisão por método de pagamento."""
     sales_service = SalesService(db)
-    return sales_service.get_daily_revenue(target_date=target_date, company_id=company_id)
+    return sales_service.get_daily_revenue(target_date=target_date, company_id=tenant_id)
 
 
 @router.get("", response_model=SaleListResponse)
 def list_sales(
-    company_id: int = Query(1, description="ID da empresa"),
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=200),
     customer_id: Optional[int] = Query(None),
@@ -69,13 +70,14 @@ def list_sales(
     payment_status: Optional[str] = Query(None),
     start_date: Optional[datetime] = Query(None),
     end_date: Optional[datetime] = Query(None),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Listar vendas com filtros e paginação."""
     sales_service = SalesService(db)
     return sales_service.get_sales(
-        company_id=company_id,
+        company_id=tenant_id,
         skip=skip,
         limit=limit,
         customer_id=customer_id,
@@ -89,20 +91,20 @@ def list_sales(
 @router.get("/{sale_id}", response_model=SaleResponse)
 def get_sale(
     sale_id: int,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Buscar detalhes de uma venda por ID."""
     sales_service = SalesService(db)
-    return sales_service.get_sale(sale_id=sale_id, company_id=company_id)
+    return sales_service.get_sale(sale_id=sale_id, company_id=tenant_id)
 
 
 @router.put("/{sale_id}", response_model=SaleResponse)
 def update_sale(
     sale_id: int,
     data: UpdateSaleStatusRequest,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
@@ -113,14 +115,14 @@ def update_sale(
         sale_id=sale_id,
         data=data.model_dump(),
         user_id=user_id,
-        company_id=company_id,
+        company_id=tenant_id,
     )
 
 
 @router.delete("/{sale_id}")
 def delete_sale(
     sale_id: int,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
@@ -130,20 +132,20 @@ def delete_sale(
     return sales_service.delete_sale(
         sale_id=sale_id,
         user_id=user_id,
-        company_id=company_id,
+        company_id=tenant_id,
     )
 
 
 @router.post("/{sale_id}/print")
 def print_receipt(
     sale_id: int,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Gerar representação para impressão de recibo térmico / PDF (58mm/80mm)."""
     sales_service = SalesService(db)
-    sale = sales_service.get_sale(sale_id=sale_id, company_id=company_id)
+    sale = sales_service.get_sale(sale_id=sale_id, company_id=tenant_id)
 
     receipt_text = f"""
 ========================================
@@ -178,13 +180,13 @@ TOTAL LÍQUIDO: {sale.net_amount} MZN
 def email_receipt(
     sale_id: int,
     data: EmailReceiptRequest,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
     """Enviar comprovativo de venda para o email do cliente."""
     sales_service = SalesService(db)
-    sale = sales_service.get_sale(sale_id=sale_id, company_id=company_id)
+    sale = sales_service.get_sale(sale_id=sale_id, company_id=tenant_id)
 
     return {
         "status": "sent",

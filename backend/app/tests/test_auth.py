@@ -171,9 +171,7 @@ def test_expired_access_token_rejected(client):
     
     # Create expired token (-1 minute)
     expired_token = create_access_token(
-        user_id=1,
-        username="paulo",
-        roles=["operator"],
+        subject="paulo",
         expires_delta=timedelta(minutes=-1)
     )
 

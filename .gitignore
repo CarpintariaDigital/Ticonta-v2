@@ -45,8 +45,11 @@ dist/
 
 # Misc
 *.log
-.sqlite3
-.db
+*.sqlite3
+*.db
+.coverage
+htmlcov/
+.pytest_cache/
 
 # Android Capacitor
 .gradle/

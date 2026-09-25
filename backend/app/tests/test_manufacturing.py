@@ -55,7 +55,7 @@ def client(db):
 
 @pytest.fixture(scope="function")
 def auth_headers():
-    token = create_access_token(user_id=1, username="mestre_marceneiro", roles=["admin"])
+    token = create_access_token(subject="mestre_marceneiro")
     return {"Authorization": f"Bearer {token}"}
 
 

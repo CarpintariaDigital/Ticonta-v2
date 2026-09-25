@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
+from app.dependencies.tenant import get_tenant_id
 from app.schemas.poultry import (
     FarmCreate,
     FarmResponse,
@@ -23,39 +24,39 @@ from app.schemas.poultry import (
 )
 from app.services.poultry import PoultryService
 
-router = APIRouter(prefix="/api/v1/poultry", tags=["Poultry & Egg Farm Management"])
+router = APIRouter(tags=["Poultry & Egg Farm Management"])
 
 
 @router.post("/farms", response_model=FarmResponse, status_code=status.HTTP_201_CREATED)
 def create_farm(
     data: FarmCreate,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     db: Session = Depends(get_db),
 ):
     """Registar nova quinta / exploração avícola."""
     service = PoultryService(db)
-    return service.create_farm(data=data, company_id=company_id)
+    return service.create_farm(data=data, company_id=tenant_id)
 
 
 @router.get("/farms", response_model=List[FarmResponse])
 def list_farms(
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     db: Session = Depends(get_db),
 ):
     """Listar todas as quintas avícolas registadas."""
     service = PoultryService(db)
-    return service.list_farms(company_id=company_id)
+    return service.list_farms(company_id=tenant_id)
 
 
 @router.post("/flocks", response_model=FlockResponse, status_code=status.HTTP_201_CREATED)
 def create_flock(
     data: FlockCreate,
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     db: Session = Depends(get_db),
 ):
     """Criar novo lote de aves (frango de corte, poedeiras, codornas, patos)."""
     service = PoultryService(db)
-    return service.create_flock(data=data, company_id=company_id)
+    return service.create_flock(data=data, company_id=tenant_id)
 
 
 @router.get("/flocks", response_model=List[FlockResponse])
@@ -63,7 +64,7 @@ def list_flocks(
     farm_id: Optional[int] = Query(None),
     species: Optional[str] = Query(None, description="chicken_broiler, chicken_layer, quail, duck"),
     status: Optional[str] = Query(None, description="growing, producing, sold, culled, closed"),
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     db: Session = Depends(get_db),
 ):
     """Listar lotes com filtros por quinta, espécie e estado."""
@@ -72,7 +73,7 @@ def list_flocks(
         farm_id=farm_id,
         species=species,
         status_filter=status,
-        company_id=company_id
+        company_id=tenant_id
     )
 
 
@@ -155,7 +156,7 @@ def generate_production_report(
     farm_id: int = Query(..., description="ID da quinta"),
     start_date: Optional[date] = Query(None),
     end_date: Optional[date] = Query(None),
-    company_id: int = Query(1),
+    tenant_id: int = Depends(get_tenant_id),
     db: Session = Depends(get_db),
 ):
     """Relatório completo de produção avícola (vivos vs mortes, ovos, ração, custos e lucro líquido)."""
@@ -164,5 +165,5 @@ def generate_production_report(
         farm_id=farm_id,
         start_date=start_date,
         end_date=end_date,
-        company_id=company_id
+        company_id=tenant_id
     )

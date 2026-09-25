@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.core.security import get_current_user_token_data
+from app.dependencies.tenant import get_tenant_id
 from app.schemas.sync import (
     SyncPullResponse,
     SyncPushRequest,
@@ -32,8 +33,8 @@ def push_client_mutations(
 
 @router.get("/pull", response_model=SyncPullResponse)
 def pull_server_changes(
-    company_id: int = Query(1),
     last_sync_timestamp: Optional[datetime] = Query(None, description="Timestamp ISO da última sincronização bem sucedida"),
+    tenant_id: int = Depends(get_tenant_id),
     token_data: Dict[str, Any] = Depends(get_current_user_token_data),
     db: Session = Depends(get_db),
 ):
@@ -42,13 +43,13 @@ def pull_server_changes(
     """
     sync_service = SyncService(db)
     changes = sync_service.get_server_changes(
-        company_id=company_id,
+        company_id=tenant_id,
         since_timestamp=last_sync_timestamp,
     )
     now = datetime.now(timezone.utc)
 
     return SyncPullResponse(
-        company_id=company_id,
+        company_id=tenant_id,
         last_sync_timestamp=last_sync_timestamp or datetime.fromtimestamp(0, tz=timezone.utc),
         server_sync_timestamp=now,
         changes_count=len(changes),

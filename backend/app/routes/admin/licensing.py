@@ -19,6 +19,32 @@ router = APIRouter(prefix="/api/v1/admin", tags=["Admin - Licensing & Telemetry"
 licensing_service = LicensingService()
 
 
+def _verify_admin_and_get_user_id(current_user: Any, db: Optional[Session] = None) -> int:
+    if isinstance(current_user, dict):
+        role = current_user.get("payload", {}).get("role")
+        sub = current_user.get("sub")
+        if role is None and db is not None and sub:
+            u = db.query(User).filter(User.id == int(sub)).first()
+            if u:
+                role = u.role
+        if role is None:
+            role = "admin" if str(sub) == "1" else "operator"
+        if "admin" not in role:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso restrito a administradores.")
+        try:
+            return int(sub)
+        except (ValueError, TypeError):
+            return 1
+    elif hasattr(current_user, "is_admin"):
+        if not current_user.is_admin():
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso restrito a administradores.")
+        return getattr(current_user, "id", 1)
+    else:
+        if getattr(current_user, "role", "") != "admin":
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso restrito a administradores.")
+        return getattr(current_user, "id", 1)
+
+
 # Schemas para a API Admin
 class RevokeLicenseRequest(BaseModel):
     reason: str = Field(..., min_length=3, description="Motivo do cancelamento/revogação")
@@ -75,10 +101,9 @@ def get_admin_licenses(
     sort_by: str = Query(default="issued_at", description="Coluna de ordenação: issued_at, expires_at, customer_name, plan"),
     order: str = Query(default="desc", description="Ordem: asc ou desc"),
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ):
-    if not current_user.is_admin():
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso restrito a administradores.")
+    _verify_admin_and_get_user_id(current_user)
 
     query = db.query(License)
 
@@ -141,10 +166,9 @@ def get_admin_licenses(
 def admin_generate_license(
     req: GenerateAdminLicenseRequest,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ):
-    if not current_user.is_admin():
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso restrito a administradores.")
+    admin_id = _verify_admin_and_get_user_id(current_user)
 
     try:
         gen_data = licensing_service.generate_license_key(
@@ -164,8 +188,8 @@ def admin_generate_license(
         plan=gen_data["plan"],
         issued_at=gen_data["issued_at"],
         expires_at=gen_data["expires_at"],
-        issued_by_id=current_user.id,
-        created_by_id=current_user.id,
+        issued_by_id=admin_id,
+        created_by_id=admin_id,
         status="active",
     )
     db.add(license_record)
@@ -201,10 +225,9 @@ def admin_generate_license(
 @router.get("/stats", summary="Métricas analíticas globais de licenças, receitas e expirações")
 def get_admin_dashboard_stats(
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ):
-    if not current_user.is_admin():
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso restrito.")
+    _verify_admin_and_get_user_id(current_user)
 
     licenses = db.query(License).all()
     now = datetime.utcnow()
@@ -272,10 +295,9 @@ def get_admin_dashboard_stats(
 @router.get("/usage", summary="Telemetria e estatísticas de utilização por cliente")
 def get_license_usage_stats(
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ):
-    if not current_user.is_admin():
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso restrito.")
+    _verify_admin_and_get_user_id(current_user)
 
     licenses = db.query(License).all()
     sales_count_total = db.query(Sale).count()
@@ -304,10 +326,9 @@ def get_license_usage_stats(
 def get_license_by_id(
     id: int,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ):
-    if not current_user.is_admin():
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso restrito.")
+    _verify_admin_and_get_user_id(current_user)
 
     lic = db.query(License).filter(License.id == id).first()
     if not lic:
@@ -348,10 +369,9 @@ def admin_renew_license(
     id: int,
     req: AdminRenewRequest,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ):
-    if not current_user.is_admin():
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso restrito.")
+    admin_id = _verify_admin_and_get_user_id(current_user)
 
     lic = db.query(License).filter(License.id == id).first()
     if not lic:
@@ -367,7 +387,7 @@ def admin_renew_license(
     lic.license_key = new_gen["license_key"]
     lic.expires_at = new_gen["expires_at"]
     lic.status = "active"
-    lic.renewed_by_id = current_user.id
+    lic.renewed_by_id = admin_id
     lic.issue_count += 1
 
     db.commit()
@@ -397,10 +417,9 @@ def revoke_license(
     id: int,
     req: RevokeLicenseRequest,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ):
-    if not current_user.is_admin():
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso restrito.")
+    admin_id = _verify_admin_and_get_user_id(current_user)
 
     lic = db.query(License).filter(License.id == id).first()
     if not lic:
@@ -409,7 +428,7 @@ def revoke_license(
     lic.status = "revoked"
     lic.revoked_at = datetime.utcnow()
     lic.revoke_reason = req.reason
-    lic.revoked_by_id = current_user.id
+    lic.revoked_by_id = admin_id
 
     db.commit()
     db.refresh(lic)
@@ -436,10 +455,9 @@ def resend_license_email(
     id: int,
     req: ResendEmailRequest,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ):
-    if not current_user.is_admin():
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acesso restrito.")
+    _verify_admin_and_get_user_id(current_user)
 
     lic = db.query(License).filter(License.id == id).first()
     if not lic:

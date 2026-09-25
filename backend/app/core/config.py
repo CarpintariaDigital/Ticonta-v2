@@ -1,5 +1,5 @@
 import json
-from typing import Any, List, Union
+from typing import Any, List, Optional, Union
 from pydantic import AnyHttpUrl, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -33,6 +33,19 @@ class Settings(BaseSettings):
 
     # Database
     DATABASE_URL: str
+
+    # Twilio / Comunicações
+    TWILIO_ACCOUNT_SID: Optional[str] = None
+    TWILIO_AUTH_TOKEN: Optional[str] = None
+    TWILIO_WHATSAPP_NUMBER: Optional[str] = None
+    TWILIO_SMS_NUMBER: Optional[str] = None
+
+    # Licenciamento
+    LICENSE_MASTER_KEY: Optional[str] = None
+
+    # Armazenamento
+    STORAGE_PROVIDER: Optional[str] = None
+    STORAGE_PUBLIC_BASE_URL: Optional[str] = None
 
     model_config = SettingsConfigDict(
         env_file=".env",

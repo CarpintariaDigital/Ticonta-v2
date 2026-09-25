@@ -10,6 +10,9 @@ from app.schemas.payment import (
     SplitPaymentRequest,
     PaymentStatusResponse,
     OutstandingPaymentsResponse,
+    MobileManualPaymentRequest,
+    BankTerminalTransactionRequest,
+    BankTerminalInfo,
 )
 from app.services.payment import PaymentService
 
@@ -83,3 +86,50 @@ def get_tax_payment_report(
         start_date=start_date,
         end_date=end_date
     )
+
+
+# =============================================================================
+# Pagamentos Móveis Manuais (M-Pesa e e-Mola)
+# =============================================================================
+
+@router.post("/mobile/manual-confirm", response_model=PaymentStatusResponse, status_code=status.HTTP_200_OK)
+def confirm_manual_mobile_payment(
+    data: MobileManualPaymentRequest,
+    tenant_id: int = Depends(get_tenant_id),
+    db: Session = Depends(get_db),
+):
+    """
+    Confirmação manual imediata de recebimentos via M-Pesa / e-Mola pelo operador
+    (com inserção de Código de Transação SMS) enquanto a API direta estiver em integração.
+    """
+    service = PaymentService(db)
+    return service.confirm_manual_mobile_payment(data=data, company_id=tenant_id)
+
+
+# =============================================================================
+# Conector / Terminal Bancário (POS Card SIMO / Bancos Moz)
+# =============================================================================
+
+@router.post("/terminal/charge", response_model=PaymentStatusResponse, status_code=status.HTTP_200_OK)
+def process_card_terminal_transaction(
+    data: BankTerminalTransactionRequest,
+    tenant_id: int = Depends(get_tenant_id),
+    db: Session = Depends(get_db),
+):
+    """
+    Processar ou confirmar transação de pagamento por cartão via Terminal POS Bancário
+    (Rede SIMO, Millennium BIM, BCI, Standard Bank, Moza).
+    """
+    service = PaymentService(db)
+    return service.process_card_terminal_transaction(data=data, company_id=tenant_id)
+
+
+@router.get("/terminal/terminals", response_model=List[BankTerminalInfo])
+def list_bank_terminals(
+    tenant_id: int = Depends(get_tenant_id),
+    db: Session = Depends(get_db),
+):
+    """Listar terminais POS bancários disponíveis no estabelecimento."""
+    service = PaymentService(db)
+    return service.get_available_terminals(company_id=tenant_id)
+

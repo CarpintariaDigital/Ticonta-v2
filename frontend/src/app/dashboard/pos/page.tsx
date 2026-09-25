@@ -26,6 +26,8 @@ import { Input } from '@/components/ui/Input';
 import { Badge } from '@/components/ui/Badge';
 import { Modal } from '@/components/ui/Modal';
 import { DigitalReceiptModal } from '@/components/digital-receipt/DigitalReceiptModal';
+import { ManualMobilePaymentConfirm } from '@/components/payment/ManualMobilePaymentConfirm';
+import { BankCardTerminalConnector } from '@/components/payment/BankCardTerminalConnector';
 
 export default function PosPage() {
   const { company } = useAuthStore();
@@ -359,7 +361,7 @@ export default function PosPage() {
             </div>
           </div>
 
-          {/* Payment Details & Cash Calculator */}
+          {/* Payment Details by Method */}
           {paymentMethod === 'Numerário' ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
               <div>
@@ -396,6 +398,26 @@ export default function PosPage() {
                 ))}
               </div>
             </div>
+          ) : paymentMethod === 'M-Pesa' || paymentMethod === 'e-Mola' ? (
+            <ManualMobilePaymentConfirm
+              amount={total}
+              provider={paymentMethod}
+              companyPhone={company?.phone}
+              companyName={company?.name}
+              clientPhone={activeClientPhone}
+              onConfirm={(txId) => {
+                setPaymentReference(txId);
+                handleFinishSale();
+              }}
+            />
+          ) : paymentMethod === 'POS/Cartão' ? (
+            <BankCardTerminalConnector
+              amount={total}
+              onConfirm={(data) => {
+                setPaymentReference(`${data.terminalId}:${data.authCode}`);
+                handleFinishSale();
+              }}
+            />
           ) : (
             <Input
               label={`Referência / Código da Transação (${paymentMethod})`}

@@ -1,5 +1,12 @@
 import { apiClient } from "@/services/auth";
-import { PaymentStatusData, MpesaTransaction, PaymentStatus } from "@/types/payment";
+import {
+  PaymentStatusData,
+  MpesaTransaction,
+  PaymentStatus,
+  MobileManualPaymentRequest,
+  BankTerminalTransactionRequest,
+  BankTerminalInfo
+} from "@/types/payment";
 
 export interface PriceCalculationResult {
   total: number;
@@ -28,6 +35,21 @@ export const paymentService = {
     return res.data;
   },
 
+  async confirmManualMobilePayment(data: MobileManualPaymentRequest): Promise<PaymentStatusData> {
+    const res = await apiClient.post<PaymentStatusData>("/payment/mobile/manual-confirm", data);
+    return res.data;
+  },
+
+  async processCardTerminal(data: BankTerminalTransactionRequest): Promise<PaymentStatusData> {
+    const res = await apiClient.post<PaymentStatusData>("/payment/terminal/charge", data);
+    return res.data;
+  },
+
+  async getTerminals(): Promise<BankTerminalInfo[]> {
+    const res = await apiClient.get<BankTerminalInfo[]>("/payment/terminal/terminals");
+    return res.data;
+  },
+
   async initiateMpesa(phone: string, amount: number): Promise<MpesaTransaction> {
     const res = await apiClient.post<MpesaTransaction>("/payment/mpesa/initiate", { phone, amount });
     return res.data;
@@ -42,3 +64,4 @@ export const paymentService = {
     await apiClient.post(`/payment/${paymentId}/refund`);
   },
 };
+

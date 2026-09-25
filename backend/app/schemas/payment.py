@@ -95,3 +95,41 @@ class OutstandingPaymentsResponse(BaseModel):
     total_outstanding_amount: Decimal
     total_unpaid_count: int
     items: List[OutstandingPaymentItem]
+
+
+# =============================================================================
+# Mobile Manual Payment (M-Pesa / e-Mola) & Bank Card Terminal Schemas
+# =============================================================================
+
+class MobileManualPaymentRequest(BaseModel):
+    sale_id: int = Field(..., description="ID da venda ou ordem a liquidar")
+    amount: Decimal = Field(..., gt=0, description="Valor pago pelo cliente em MZN")
+    provider: str = Field("mpesa", description="mpesa ou emola")
+    customer_phone: Optional[str] = Field(None, description="Número de telemóvel do cliente que enviou")
+    transaction_id: str = Field(..., min_length=4, description="Código de transação SMS do M-Pesa ou e-Mola (ex: MP260925.1432.A8129B)")
+    receiver_account: Optional[str] = Field(None, description="Conta, Agente ou Número de destino da empresa")
+    module_source: Optional[str] = Field("pos", description="pos, restaurant, takeaway, informal, etc.")
+    notes: Optional[str] = Field(None, description="Notas adicionais")
+
+
+class BankTerminalTransactionRequest(BaseModel):
+    sale_id: int = Field(..., description="ID da venda ou ordem")
+    amount: Decimal = Field(..., gt=0, description="Valor da transação em MZN")
+    terminal_id: str = Field("POS-SIMO-01", description="Identificador do terminal POS Bancário")
+    card_scheme: str = Field("VISA", description="VISA, MASTERCARD, SIMO_DEBITO, AMEX")
+    card_last_four: Optional[str] = Field(None, description="Últimos 4 dígitos do cartão")
+    auth_code: Optional[str] = Field(None, description="Código de Autorização emitido pelo POS/Banco (ex: AUTH-90182)")
+    batch_number: Optional[str] = Field(None, description="Número de Lote / Batch do terminal")
+    module_source: Optional[str] = Field("pos", description="pos, restaurant, takeaway, informal, etc.")
+    notes: Optional[str] = Field(None, description="Notas da transação")
+
+
+class BankTerminalInfo(BaseModel):
+    terminal_id: str
+    bank_name: str
+    location: str
+    status: str  # online, ready, busy, offline
+    protocol: str  # SIMO_CONNECT, STANDALONE_POS, EMV_USB
+    serial_number: Optional[str] = None
+    is_active: bool = True
+

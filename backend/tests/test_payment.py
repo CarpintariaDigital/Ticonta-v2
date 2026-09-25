@@ -136,3 +136,56 @@ def test_tax_payment_report(client: TestClient, db_session):
     assert "breakdown_by_method" in data
     assert "tax_information" in data
     assert data["tax_information"]["vat_base_rate"] == "16%"
+
+
+def test_manual_mobile_payment_confirmation(client: TestClient, db_session):
+    """Test manual M-Pesa / e-Mola payment confirmation with transaction SMS reference."""
+    sale_id = 905
+    res = client.post("/api/v1/payments/mobile/manual-confirm", json={
+        "sale_id": sale_id,
+        "amount": 2500.00,
+        "provider": "mpesa",
+        "customer_phone": "+258841234567",
+        "transaction_id": "MP260925.1630.B9182C",
+        "receiver_account": "840001122 (Conta TiConta)",
+        "module_source": "pos",
+        "notes": "Cliente confirmou envio via SMS"
+    })
+    assert res.status_code == 200
+    data = res.json()
+    assert data["sale_id"] == sale_id
+    assert data["status"] == "paid"
+    assert float(data["amount_paid"]) == 2500.00
+    assert float(data["amount_owed"]) == 0.00
+    assert "M-Pesa confirmado manualmente" in data["message"]
+    assert len(data["transactions"]) >= 1
+    assert data["transactions"][0]["transaction_id"] == "MP260925.1630.B9182C"
+
+
+def test_bank_card_terminal_transaction(client: TestClient, db_session):
+    """Test processing and listing bank card POS terminals (SIMO/BIM/BCI)."""
+    # 1. List available terminals
+    t_res = client.get("/api/v1/payments/terminal/terminals")
+    assert t_res.status_code == 200
+    terminals = t_res.json()
+    assert len(terminals) >= 3
+    assert any(t["terminal_id"] == "POS-SIMO-01" for t in terminals)
+
+    # 2. Charge via card terminal
+    sale_id = 906
+    c_res = client.post("/api/v1/payments/terminal/charge", json={
+        "sale_id": sale_id,
+        "amount": 4800.00,
+        "terminal_id": "POS-SIMO-01",
+        "card_scheme": "VISA",
+        "card_last_four": "9812",
+        "auth_code": "AUTH-892104",
+        "batch_number": "LOTE-0012",
+        "module_source": "pos"
+    })
+    assert c_res.status_code == 200
+    c_data = c_res.json()
+    assert c_data["status"] == "paid"
+    assert float(c_data["amount_paid"]) == 4800.00
+    assert "Terminal POS-SIMO-01" in c_data["message"]
+

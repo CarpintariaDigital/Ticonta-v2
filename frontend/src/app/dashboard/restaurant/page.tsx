@@ -25,6 +25,8 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Modal } from '@/components/ui/Modal';
 import { Input } from '@/components/ui/Input';
+import { ManualMobilePaymentConfirm } from '@/components/payment/ManualMobilePaymentConfirm';
+import { BankCardTerminalConnector } from '@/components/payment/BankCardTerminalConnector';
 
 interface RestaurantTableItem {
   id: number;
@@ -696,26 +698,52 @@ export default function RestaurantPage() {
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold mb-1">Método de Pagamento</label>
-                    <select
-                      className="w-full border border-neutral-300 dark:border-neutral-700 rounded-md p-2 bg-transparent text-sm"
-                      value={payMethod}
-                      onChange={(e) => setPayMethod(e.target.value)}
-                    >
-                      <option value="CASH">Dinheiro Físico (MZN)</option>
-                      <option value="MPESA">M-Pesa / Emola</option>
-                      <option value="POS">Cartão / POS Bancário</option>
-                    </select>
-                  </div>
+                  <div className="space-y-3 pt-2">
+                    <label className="block text-xs font-semibold uppercase font-mono text-neutral-700 dark:text-neutral-300">
+                      Forma de Liquidação
+                    </label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {[
+                        { id: 'CASH', label: '💵 Numerário' },
+                        { id: 'MPESA', label: '📱 M-Pesa / e-Mola' },
+                        { id: 'POS', label: '💳 POS Cartão' },
+                      ].map((m) => (
+                        <button
+                          key={m.id}
+                          type="button"
+                          onClick={() => setPayMethod(m.id)}
+                          className={`py-2 px-2 rounded-md border text-xs font-mono font-bold transition ${
+                            payMethod === m.id
+                              ? 'bg-cyan-600 text-white border-cyan-700 shadow-sm'
+                              : 'bg-white dark:bg-neutral-800 border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300'
+                          }`}
+                        >
+                          {m.label}
+                        </button>
+                      ))}
+                    </div>
 
-                  <div className="flex justify-between gap-2 pt-4">
-                    <Button variant="outline" onClick={() => setIsBillModalOpen(false)}>
-                      Voltar
-                    </Button>
-                    <Button onClick={handleCloseBill} className="bg-emerald-600 hover:bg-emerald-700 text-white">
-                      Confirmar Pagamento & Libertar Mesa
-                    </Button>
+                    {payMethod === 'MPESA' ? (
+                      <ManualMobilePaymentConfirm
+                        amount={total}
+                        provider="M-Pesa"
+                        onConfirm={handleCloseBill}
+                      />
+                    ) : payMethod === 'POS' ? (
+                      <BankCardTerminalConnector
+                        amount={total}
+                        onConfirm={handleCloseBill}
+                      />
+                    ) : (
+                      <div className="flex justify-between gap-2 pt-2">
+                        <Button variant="outline" onClick={() => setIsBillModalOpen(false)}>
+                          Voltar
+                        </Button>
+                        <Button onClick={handleCloseBill} className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                          Confirmar em Numerário & Libertar Mesa
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </>
               );

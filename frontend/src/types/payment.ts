@@ -50,3 +50,37 @@ export interface OutstandingPaymentsResponse {
   count: number;
   items: PaymentStatusData[];
 }
+
+export interface MobileManualPaymentRequest {
+  sale_id: number;
+  amount: number;
+  provider: "mpesa" | "emola";
+  customer_phone?: string;
+  transaction_id: string;
+  receiver_account?: string;
+  module_source?: string;
+  notes?: string;
+}
+
+export interface BankTerminalTransactionRequest {
+  sale_id: number;
+  amount: number;
+  terminal_id: string;
+  card_scheme: string;
+  card_last_four?: string;
+  auth_code?: string;
+  batch_number?: string;
+  module_source?: string;
+  notes?: string;
+}
+
+export interface BankTerminalInfo {
+  terminal_id: string;
+  bank_name: string;
+  location: string;
+  status: "online" | "ready" | "busy" | "offline";
+  protocol: string;
+  serial_number?: string;
+  is_active: boolean;
+}
+

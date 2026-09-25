@@ -36,6 +36,7 @@ import {
 import { useAuthStore } from '@/store/authStore';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
+import { PricingCalculatorSection } from '@/components/pricing/PricingCalculatorSection';
 
 export default function LandingPage() {
   const { isAuthenticated } = useAuthStore();
@@ -488,6 +489,9 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* SEÇÃO OFICIAL DE PREÇOS E DESCONTOS (A PARTIR DE 300 MT) */}
+      <PricingCalculatorSection />
 
       {/* Technical Footer com Logotipo */}
       <footer className="mt-auto border-t border-slate-300 bg-white py-6 px-6 text-xs text-slate-600 font-mono select-none">

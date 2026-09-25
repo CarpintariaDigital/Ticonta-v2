@@ -133,3 +133,88 @@ class MarketComparisonResponse(BaseModel):
     difference_percentage: float
     positioning: str  # below_market, at_market, above_market, premium
     analysis: str
+
+
+# ==========================================
+# GESTOR DE PREÇOS, DESCONTOS E MÓDULOS ERP
+# ==========================================
+
+class ModulePriceItem(BaseModel):
+    module_id: str = Field(..., description="Identificador único do módulo (ex: pos, restaurant, accounting)")
+    name: str = Field(..., description="Nome de apresentação do módulo")
+    category: str = Field("core", description="Categoria: core, retail, operations, finance, agro")
+    base_price_mzn: Decimal = Field(default=Decimal("300.00"), description="Preço base mensal em Meticais (MT)")
+    discount_percent: Decimal = Field(default=Decimal("0.00"), description="Desconto promocional (%)")
+    is_active: bool = Field(default=True, description="Módulo disponível para contratação")
+    description: str = Field("", description="Descrição breve do que o módulo oferece")
+    icon: str = Field("Layers", description="Nome do ícone Lucide")
+
+
+class PlanTierItem(BaseModel):
+    plan_id: str
+    name: str
+    monthly_price_mzn: Decimal
+    included_modules: List[str]
+    discount_annual_percent: Decimal = Decimal("20.00")
+    badge: str = ""
+    description: str = ""
+
+
+class DiscountRuleItem(BaseModel):
+    rule_id: str
+    name: str
+    code: Optional[str] = None
+    discount_percent: Decimal = Decimal("0.00")
+    discount_fixed_mzn: Decimal = Decimal("0.00")
+    min_modules_count: int = 1
+    billing_cycle: Optional[str] = None  # monthly, semiannual, annual
+    is_active: bool = True
+
+
+class ModulePricingCatalogResponse(BaseModel):
+    currency: str = "MZN"
+    starting_price_mzn: Decimal = Field(default=Decimal("300.00"), description="Preço de partida mínimo (300 MT)")
+    modules: List[ModulePriceItem]
+    plans: List[PlanTierItem]
+    discount_rules: List[DiscountRuleItem]
+
+
+class UpdateModulePriceItem(BaseModel):
+    module_id: str
+    base_price_mzn: Decimal
+    discount_percent: Optional[Decimal] = Decimal("0.00")
+    is_active: Optional[bool] = True
+
+
+class UpdateModulePricingRequest(BaseModel):
+    modules: List[UpdateModulePriceItem]
+    starting_price_mzn: Optional[Decimal] = None
+
+
+class CalculateCustomPlanRequest(BaseModel):
+    selected_modules: List[str] = Field(..., description="Lista de IDs dos módulos escolhidos")
+    billing_cycle: str = Field("monthly", description="Ciclo: monthly, semiannual, annual")
+    coupon_code: Optional[str] = Field(None, description="Código de cupão promocional opcional")
+
+
+class CustomPlanItemBreakdown(BaseModel):
+    module_id: str
+    name: str
+    base_price_mzn: Decimal
+    discount_mzn: Decimal
+    net_price_mzn: Decimal
+
+
+class CalculateCustomPlanResponse(BaseModel):
+    selected_modules_count: int
+    billing_cycle: str
+    billing_months: int
+    monthly_subtotal_mzn: Decimal
+    cycle_subtotal_mzn: Decimal
+    cycle_discount_mzn: Decimal
+    cycle_total_mzn: Decimal
+    effective_monthly_mzn: Decimal
+    applied_discounts: List[str]
+    breakdown: List[CustomPlanItemBreakdown]
+    currency: str = "MZN"
+

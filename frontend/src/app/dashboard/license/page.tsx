@@ -32,13 +32,14 @@ import { Badge } from '@/components/ui/Badge';
 import { Input } from '@/components/ui/Input';
 import { Modal } from '@/components/ui/Modal';
 import { formatMZN } from '@/lib/currency';
+import { AdminModulePricingManager } from '@/components/pricing/AdminModulePricingManager';
 
 export default function LicenseManagementPage() {
   const { licenses, stats, generateLicense, revokeLicense, renewLicense, fetchLicenses } = useAdminLicenseStore();
   const { license: localLicense, activateLicense: activateLocalLicense } = useLicenseStore();
   const { company } = useAuthStore();
 
-  const [activeTab, setActiveTab] = useState<'admin' | 'local'>('admin');
+  const [activeTab, setActiveTab] = useState<'admin' | 'pricing' | 'local'>('admin');
   const [searchQuery, setSearchQuery] = useState('');
   const [planFilter, setPlanFilter] = useState('ALL');
   const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
@@ -175,6 +176,16 @@ export default function LicenseManagementPage() {
             👑 Painel do Criador & Licenciador
           </button>
           <button
+            onClick={() => setActiveTab('pricing')}
+            className={`py-1.5 px-3 rounded-md font-bold text-xs transition ${
+              activeTab === 'pricing'
+                ? 'bg-slate-900 text-white shadow-sm'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            ⚙️ Preços & Descontos dos Módulos
+          </button>
+          <button
             onClick={() => setActiveTab('local')}
             className={`py-1.5 px-3 rounded-md font-bold text-xs transition ${
               activeTab === 'local'
@@ -187,7 +198,9 @@ export default function LicenseManagementPage() {
         </div>
       </div>
 
-      {activeTab === 'admin' ? (
+      {activeTab === 'pricing' ? (
+        <AdminModulePricingManager />
+      ) : activeTab === 'admin' ? (
         <div className="space-y-6">
           {/* Admin Stats Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

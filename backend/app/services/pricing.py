@@ -1,6 +1,6 @@
 from datetime import date, datetime, timedelta
 from decimal import Decimal
-from typing import List, Optional, Tuple, Dict
+from typing import List, Optional, Tuple, Dict, Any
 from sqlalchemy.orm import Session
 from sqlalchemy import func, desc
 
@@ -477,3 +477,373 @@ class PricingService:
             positioning=pos,
             analysis=analysis,
         )
+
+    # ========================================================
+    # GESTOR DE PREÇOS, DESCONTOS E MÓDULOS ERP (A PARTIR DE 300 MT)
+    # ========================================================
+
+    _default_modules = [
+        {
+            "module_id": "pos",
+            "name": "POS Vendas Rápidas",
+            "category": "retail",
+            "base_price_mzn": Decimal("300.00"),
+            "discount_percent": Decimal("0.00"),
+            "is_active": True,
+            "description": "Faturação rápida 100% digital, fecho de caixa e recibos por WhatsApp/SMS.",
+            "icon": "Terminal",
+        },
+        {
+            "module_id": "informal_sales",
+            "name": "Vendas Informais & Mercearia",
+            "category": "retail",
+            "base_price_mzn": Decimal("300.00"),
+            "discount_percent": Decimal("0.00"),
+            "is_active": True,
+            "description": "Controlo diário simplificado para bancas, mercearias e retalhistas moçambicanos.",
+            "icon": "Store",
+        },
+        {
+            "module_id": "fiado",
+            "name": "Caderno de Fiado Digital",
+            "category": "retail",
+            "base_price_mzn": Decimal("300.00"),
+            "discount_percent": Decimal("0.00"),
+            "is_active": True,
+            "description": "Registo de dívidas de clientes com lembretes automáticos amigáveis via WhatsApp.",
+            "icon": "BookOpen",
+        },
+        {
+            "module_id": "document_delivery",
+            "name": "Faturação WhatsApp & SMS (Sem Papel)",
+            "category": "core",
+            "base_price_mzn": Decimal("300.00"),
+            "discount_percent": Decimal("0.00"),
+            "is_active": True,
+            "description": "Envio instantâneo de faturas fiscais (FR/FT) diretamente ao telemóvel do cliente.",
+            "icon": "Send",
+        },
+        {
+            "module_id": "xitique_savings",
+            "name": "Xitique & Poupança Comunitária",
+            "category": "finance",
+            "base_price_mzn": Decimal("300.00"),
+            "discount_percent": Decimal("0.00"),
+            "is_active": True,
+            "description": "Grupos rotativos comunitários de Xitique com calendário de rodadas e registo de quotas.",
+            "icon": "PiggyBank",
+        },
+        {
+            "module_id": "restaurant",
+            "name": "Restaurante & Cozinha KDS",
+            "category": "operations",
+            "base_price_mzn": Decimal("500.00"),
+            "discount_percent": Decimal("0.00"),
+            "is_active": True,
+            "description": "Mapa de mesas em tempo real, pedidos com adicionais e painel visual de pedidos para a cozinha.",
+            "icon": "UtensilsCrossed",
+        },
+        {
+            "module_id": "takeaway",
+            "name": "Takeaway & Entregas Rápidas",
+            "category": "operations",
+            "base_price_mzn": Decimal("300.00"),
+            "discount_percent": Decimal("0.00"),
+            "is_active": True,
+            "description": "Gestão de pedidos para levar, atribuição a estafetas/motoristas e confirmação por SMS.",
+            "icon": "Bike",
+        },
+        {
+            "module_id": "auto_services",
+            "name": "Oficina & Serviços Automotivos",
+            "category": "operations",
+            "base_price_mzn": Decimal("400.00"),
+            "discount_percent": Decimal("0.00"),
+            "is_active": True,
+            "description": "Ordens de serviço para viaturas, acompanhamento mecânico e histórico de matrículas.",
+            "icon": "Wrench",
+        },
+        {
+            "module_id": "hr",
+            "name": "Recursos Humanos & Salários MZ",
+            "category": "operations",
+            "base_price_mzn": Decimal("450.00"),
+            "discount_percent": Decimal("0.00"),
+            "is_active": True,
+            "description": "Folha de salários conforme Lei do Trabalho de MZ, cálculo de INSS (3%+4%) e IRPS.",
+            "icon": "Users2",
+        },
+        {
+            "module_id": "accounting",
+            "name": "Contabilidade PGC-NIRF & IVA 16%",
+            "category": "finance",
+            "base_price_mzn": Decimal("600.00"),
+            "discount_percent": Decimal("0.00"),
+            "is_active": True,
+            "description": "Balancete analítico, apuramento automático do IVA (4.4.5) e modelo M/20 da Autoridade Tributária.",
+            "icon": "Calculator",
+        },
+        {
+            "module_id": "poultry",
+            "name": "Avicultura & Agropecuária",
+            "category": "agro",
+            "base_price_mzn": Decimal("400.00"),
+            "discount_percent": Decimal("0.00"),
+            "is_active": True,
+            "description": "Controlo de lotes de frangos e poedeiras, taxa de mortalidade, ração e análise de rentabilidade.",
+            "icon": "Egg",
+        },
+        {
+            "module_id": "projects",
+            "name": "Projetos & Obras",
+            "category": "operations",
+            "base_price_mzn": Decimal("450.00"),
+            "discount_percent": Decimal("0.00"),
+            "is_active": True,
+            "description": "Orçamento previsto vs real por obra, marcos contratuais e acompanhamento de custos de materiais.",
+            "icon": "FolderKanban",
+        },
+        {
+            "module_id": "manufacturing",
+            "name": "Produção & Manufatura",
+            "category": "operations",
+            "base_price_mzn": Decimal("450.00"),
+            "discount_percent": Decimal("0.00"),
+            "is_active": True,
+            "description": "Fichas técnicas de composição (BOM), ordens de fabrico e apuramento do custo unitário do produto.",
+            "icon": "Factory",
+        },
+    ]
+
+    _default_plans = [
+        {
+            "plan_id": "starter",
+            "name": "Starter Micro",
+            "monthly_price_mzn": Decimal("300.00"),
+            "included_modules": ["pos", "informal_sales", "fiado", "document_delivery"],
+            "discount_annual_percent": Decimal("20.00"),
+            "badge": "A Partir de 300 MT",
+            "description": "Ideal para micro-negócios, quiosques, bancas e pequenos retalhistas.",
+        },
+        {
+            "plan_id": "basic",
+            "name": "Básico Comercial",
+            "monthly_price_mzn": Decimal("500.00"),
+            "included_modules": ["pos", "informal_sales", "fiado", "document_delivery", "xitique_savings", "takeaway"],
+            "discount_annual_percent": Decimal("20.00"),
+            "badge": "Mais Popular",
+            "description": "Para lojas, farmácias, mercadinhos e pequenas empresas em crescimento.",
+        },
+        {
+            "plan_id": "pro",
+            "name": "Profissional PME",
+            "monthly_price_mzn": Decimal("1500.00"),
+            "included_modules": ["pos", "restaurant", "auto_services", "hr", "poultry", "document_delivery"],
+            "discount_annual_percent": Decimal("20.00"),
+            "badge": "Multi-Setorial",
+            "description": "Restaurantes, oficinas, pequenas agro-indústrias e empresas de serviços.",
+        },
+        {
+            "plan_id": "complete",
+            "name": "Completo Fiscal PGC-NIRF",
+            "monthly_price_mzn": Decimal("3500.00"),
+            "included_modules": ["pos", "restaurant", "hr", "accounting", "projects", "manufacturing", "poultry", "auto_services", "document_delivery"],
+            "discount_annual_percent": Decimal("20.00"),
+            "badge": "Total Compliance",
+            "description": "Contabilidade oficial AT, IVA 16%, recursos humanos e controlo fabril completo.",
+        },
+        {
+            "plan_id": "enterprise",
+            "name": "Enterprise Ilimitado",
+            "monthly_price_mzn": Decimal("7500.00"),
+            "included_modules": ["*"],
+            "discount_annual_percent": Decimal("25.00"),
+            "badge": "Tudo Incluído",
+            "description": "Todos os módulos liberados, multi-lojas, suporte prioritário 24/7 e consultoria técnica.",
+        },
+    ]
+
+    _default_discount_rules = [
+        {
+            "rule_id": "combo_3",
+            "name": "Desconto Combo 3+ Módulos",
+            "code": None,
+            "discount_percent": Decimal("10.00"),
+            "discount_fixed_mzn": Decimal("0.00"),
+            "min_modules_count": 3,
+            "billing_cycle": None,
+            "is_active": True,
+        },
+        {
+            "rule_id": "combo_5",
+            "name": "Desconto Combo 5+ Módulos",
+            "code": None,
+            "discount_percent": Decimal("20.00"),
+            "discount_fixed_mzn": Decimal("0.00"),
+            "min_modules_count": 5,
+            "billing_cycle": None,
+            "is_active": True,
+        },
+        {
+            "rule_id": "semiannual_cycle",
+            "name": "Desconto Pagamento Semestral",
+            "code": None,
+            "discount_percent": Decimal("10.00"),
+            "discount_fixed_mzn": Decimal("0.00"),
+            "min_modules_count": 1,
+            "billing_cycle": "semiannual",
+            "is_active": True,
+        },
+        {
+            "rule_id": "annual_cycle",
+            "name": "Desconto Pagamento Anual (2 Meses Grátis)",
+            "code": None,
+            "discount_percent": Decimal("20.00"),
+            "discount_fixed_mzn": Decimal("0.00"),
+            "min_modules_count": 1,
+            "billing_cycle": "annual",
+            "is_active": True,
+        },
+        {
+            "rule_id": "coupon_carpintaria300",
+            "name": "Cupão Especial de Lançamento Carpintaria Digital",
+            "code": "CARPINTARIA300",
+            "discount_percent": Decimal("15.00"),
+            "discount_fixed_mzn": Decimal("0.00"),
+            "min_modules_count": 1,
+            "billing_cycle": None,
+            "is_active": True,
+        },
+    ]
+
+    # Armazenamento em memória / cache de sessão para alterações em runtime pelo Criador
+    _custom_module_overrides: Dict[str, Dict[str, Any]] = {}
+    _custom_starting_price: Optional[Decimal] = None
+
+    def get_module_pricing_catalog(self) -> Dict[str, Any]:
+        """Obter catálogo completo de módulos, planos predefinidos e regras de desconto."""
+        modules = []
+        for m in self._default_modules:
+            mod_id = m["module_id"]
+            if mod_id in self._custom_module_overrides:
+                override = self._custom_module_overrides[mod_id]
+                modules.append({
+                    **m,
+                    "base_price_mzn": override.get("base_price_mzn", m["base_price_mzn"]),
+                    "discount_percent": override.get("discount_percent", m["discount_percent"]),
+                    "is_active": override.get("is_active", m["is_active"]),
+                })
+            else:
+                modules.append(m)
+
+        starting_price = self._custom_starting_price or Decimal("300.00")
+
+        return {
+            "currency": "MZN",
+            "starting_price_mzn": starting_price,
+            "modules": modules,
+            "plans": self._default_plans,
+            "discount_rules": self._default_discount_rules,
+        }
+
+    def update_module_pricing(self, modules_update: List[Dict[str, Any]], starting_price: Optional[Decimal] = None) -> Dict[str, Any]:
+        """Atualizar preços e descontos dos módulos pelo Criador/Admin."""
+        for item in modules_update:
+            mod_id = item["module_id"]
+            self._custom_module_overrides[mod_id] = {
+                "base_price_mzn": Decimal(str(item["base_price_mzn"])),
+                "discount_percent": Decimal(str(item.get("discount_percent", 0))),
+                "is_active": item.get("is_active", True),
+            }
+
+        if starting_price is not None:
+            self._custom_starting_price = Decimal(str(starting_price))
+
+        return self.get_module_pricing_catalog()
+
+    def calculate_custom_plan(
+        self, selected_modules: List[str], billing_cycle: str = "monthly", coupon_code: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Calcula o valor mensal, descontos por quantidade de módulos e descontos de ciclo anual/semestral."""
+        catalog = self.get_module_pricing_catalog()
+        modules_map = {m["module_id"]: m for m in catalog["modules"]}
+
+        selected_items = []
+        monthly_subtotal = Decimal("0.00")
+
+        # Selecionou todos
+        if "*" in selected_modules:
+            chosen_keys = list(modules_map.keys())
+        else:
+            chosen_keys = [k for k in selected_modules if k in modules_map]
+
+        if not chosen_keys:
+            chosen_keys = ["pos"]
+
+        for mod_id in chosen_keys:
+            m = modules_map[mod_id]
+            base_p = m["base_price_mzn"]
+            disc_p = m["discount_percent"]
+            disc_val = base_p * (disc_p / Decimal("100.00"))
+            net_p = max(Decimal("0.00"), base_p - disc_val)
+            monthly_subtotal += net_p
+            selected_items.append({
+                "module_id": mod_id,
+                "name": m["name"],
+                "base_price_mzn": base_p,
+                "discount_mzn": round(disc_val, 2),
+                "net_price_mzn": round(net_p, 2),
+            })
+
+        months = 1
+        cycle_discount_rate = Decimal("0.00")
+        applied_discounts = []
+
+        # 1. Desconto por quantidade de módulos
+        mod_count = len(chosen_keys)
+        if mod_count >= 5:
+            applied_discounts.append("Desconto Combo 5+ Módulos (-20%)")
+            monthly_subtotal = monthly_subtotal * Decimal("0.80")
+        elif mod_count >= 3:
+            applied_discounts.append("Desconto Combo 3+ Módulos (-10%)")
+            monthly_subtotal = monthly_subtotal * Decimal("0.90")
+
+        # Garantir piso mínimo de 300 MT por mês para qualquer pacote contratado
+        if monthly_subtotal < Decimal("300.00"):
+            monthly_subtotal = Decimal("300.00")
+
+        if billing_cycle == "annual":
+            months = 12
+            cycle_discount_rate = Decimal("0.20")  # 20% desconto anual (2 meses grátis)
+            applied_discounts.append("Desconto Plano Anual (-20% / 2 meses grátis)")
+        elif billing_cycle == "semiannual":
+            months = 6
+            cycle_discount_rate = Decimal("0.10")  # 10% desconto semestral
+            applied_discounts.append("Desconto Plano Semestral (-10%)")
+
+        cycle_subtotal = monthly_subtotal * Decimal(str(months))
+        cycle_discount = cycle_subtotal * cycle_discount_rate
+
+        # 2. Cupão promocional
+        if coupon_code and coupon_code.strip().upper() == "CARPINTARIA300":
+            coupon_disc = (cycle_subtotal - cycle_discount) * Decimal("0.15")
+            cycle_discount += coupon_disc
+            applied_discounts.append("Cupão CARPINTARIA300 (-15% Adicional)")
+
+        cycle_total = max(Decimal("300.00"), cycle_subtotal - cycle_discount)
+        effective_monthly = cycle_total / Decimal(str(months))
+
+        return {
+            "selected_modules_count": mod_count,
+            "billing_cycle": billing_cycle,
+            "billing_months": months,
+            "monthly_subtotal_mzn": round(monthly_subtotal, 2),
+            "cycle_subtotal_mzn": round(cycle_subtotal, 2),
+            "cycle_discount_mzn": round(cycle_discount, 2),
+            "cycle_total_mzn": round(cycle_total, 2),
+            "effective_monthly_mzn": round(effective_monthly, 2),
+            "applied_discounts": applied_discounts,
+            "breakdown": selected_items,
+            "currency": "MZN",
+        }
+

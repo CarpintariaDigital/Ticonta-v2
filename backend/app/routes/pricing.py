@@ -113,3 +113,47 @@ def compare_price_with_market(
         my_price=data.my_price,
         region=data.region or "Maputo/Matola"
     )
+
+
+# ========================================================
+# ROTAS DO GESTOR DE PREÇOS, DESCONTOS E MÓDULOS ERP
+# ========================================================
+
+@router.get("/modules-catalog", summary="Catálogo de Preços dos Módulos e Planos (A partir de 300 MT)")
+@router.get("/api/v1/pricing/modules-catalog", summary="Catálogo de Preços dos Módulos e Planos (Alias)")
+def get_module_pricing_catalog(db: Session = Depends(get_db)):
+    """Retorna a lista oficial de módulos, preços em MT e descontos configurados."""
+    service = PricingService(db)
+    return service.get_module_pricing_catalog()
+
+
+@router.put("/modules-catalog", summary="Atualizar Preços e Descontos dos Módulos (Admin/Criador)")
+@router.put("/api/v1/pricing/modules-catalog", summary="Atualizar Preços e Descontos dos Módulos (Alias)")
+def update_module_pricing(
+    payload: dict,
+    db: Session = Depends(get_db),
+):
+    """Permite ao criador da app ajustar o preço de cada módulo e descontos."""
+    service = PricingService(db)
+    modules_list = payload.get("modules", [])
+    starting_price = payload.get("starting_price_mzn")
+    return service.update_module_pricing(modules_update=modules_list, starting_price=starting_price)
+
+
+@router.post("/calculate-custom-plan", summary="Calcular Preço Personalizado de Módulos Escolhidos")
+@router.post("/api/v1/pricing/calculate-custom-plan", summary="Calcular Preço Personalizado de Módulos Escolhidos (Alias)")
+def calculate_custom_plan(
+    payload: dict,
+    db: Session = Depends(get_db),
+):
+    """Calcula o valor mensal, desconto semestral/anual e combo de módulos."""
+    service = PricingService(db)
+    selected_modules = payload.get("selected_modules", ["pos"])
+    billing_cycle = payload.get("billing_cycle", "monthly")
+    coupon_code = payload.get("coupon_code")
+    return service.calculate_custom_plan(
+        selected_modules=selected_modules,
+        billing_cycle=billing_cycle,
+        coupon_code=coupon_code,
+    )
+

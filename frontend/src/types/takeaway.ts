@@ -42,6 +42,9 @@ export interface TakeawayOrder {
   payment_status: "pending" | "partial" | "paid";
   estimated_prep_minutes?: number;
   estimated_delivery_minutes?: number;
+  ready_at?: string;
+  pickup_at?: string;
+  delivered_at?: string;
   items?: TakeawayItem[];
   delivery?: TakeawayDelivery | null;
   created_at?: string;

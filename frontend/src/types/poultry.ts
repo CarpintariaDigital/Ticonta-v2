@@ -29,6 +29,7 @@ export interface DailyRecord {
   date: string;
   eggs_collected?: number;
   mortality_count?: number;
+  mortality_rate?: number;
   feed_consumed_kg?: number;
   notes?: string;
 }
@@ -51,15 +52,23 @@ export interface FCRRecord {
 export interface MortalityAlert {
   flock_id: number;
   date: string;
-  mortality_percentage: number;
-  threshold_percentage: number;
+  mortality_percentage?: number;
+  mortality_rate?: number;
+  threshold_percentage?: number;
+  threshold?: number;
   message: string;
 }
 
 export interface PoultryReport {
-  farm_id: number;
-  flock_count: number;
-  total_birds: number;
-  egg_production_today: number;
-  feed_consumed_today_kg: number;
+  flock_id?: number;
+  farm_id?: number;
+  flock_count?: number;
+  total_birds?: number;
+  surviving_birds?: number;
+  egg_production_today?: number;
+  feed_consumed_today_kg?: number;
+  total_feed_consumed?: number;
+  total_eggs?: number;
+  mortality_total?: number;
+  fcr?: number;
 }

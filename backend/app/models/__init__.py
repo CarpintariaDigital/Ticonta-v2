@@ -78,6 +78,31 @@ from app.models.auto_services import (
     DiagnosticReport,
     PaintTuningSpec,
 )
+from app.models.xitique import (
+    XitiqueGroup,
+    XitiqueMember,
+    XitiqueContribution,
+    XitiqueDelivery,
+    XitiqueType,
+    XitiquePeriod,
+    XitiqueOrderType,
+    XitiqueStatus,
+    MemberStatus,
+    ContributionStatus,
+    PaymentMethod as XitiquePaymentMethod,
+    DeliveryStatus as XitiqueDeliveryStatus,
+)
+from app.models.savings import (
+    SavingsGroup,
+    SavingsMember,
+    SavingsDeposit,
+    SavingsLoan,
+    SavingsRepayment,
+    SavingsGroupStatus,
+    SavingsMemberStatus,
+    SavingsPaymentMethod,
+    SavingsLoanStatus,
+)
 
 __all__ = [
     "Base",

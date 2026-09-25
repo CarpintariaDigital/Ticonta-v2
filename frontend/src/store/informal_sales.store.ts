@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { api } from '../lib/api';
 import {
   InformalCustomer,
   Debit,
@@ -59,6 +60,28 @@ export interface InformalSalesState {
   setCashFlowForecast: (forecast: any) => void;
   setRevenueBreakdown: (breakdown: any) => void;
   setCreditRiskReport: (report: any) => void;
+
+  // Async actions
+  fetchCustomers: (search?: string) => Promise<void>;
+  fetchCustomerDebits: (customerId: number | string) => Promise<void>;
+  fetchOverdueDebits: () => Promise<void>;
+  fetchCashFlowForecast: () => Promise<void>;
+  fetchCreditRiskReport: () => Promise<void>;
+  fetchRevenueBreakdown: () => Promise<void>;
+  createSaleWithDebit: (data: {
+    customer_id?: number | string | null;
+    customer_name?: string;
+    customer_phone?: string;
+    items: Array<{ name: string; unit_price: number; quantity: number }>;
+    total_amount: number;
+    initial_paid: number;
+    payment_method: string;
+    due_date?: string | null;
+    notes?: string;
+  }) => Promise<any>;
+  quickCreateCustomer: (data: { name: string; phone: string; location?: string; trusted_credit_limit?: number; notes?: string }) => Promise<InformalCustomer>;
+  recordPartialPayment: (debitId: number | string, amount: number, paymentMethod: string, notes?: string) => Promise<any>;
+  sendPaymentReminder: (debitId: number | string, channel: 'WHATSAPP' | 'SMS' | 'whatsapp' | 'sms', customMessage?: string) => Promise<any>;
 
   createSale: (sale: Partial<InformalSale>) => Promise<void>;
   addFiado: (customerId: string | number, amount: number) => Promise<void>;
@@ -190,6 +213,127 @@ export const useInformalSalesStore = create<InformalSalesState>((set, get) => ({
   setCashFlowForecast: (forecast) => set({ cashFlowForecast: forecast }),
   setRevenueBreakdown: (breakdown) => set({ revenueBreakdown: breakdown }),
   setCreditRiskReport: (report) => set({ creditRiskReport: report }),
+
+  fetchCustomers: async (search) => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await api.get('/api/v1/informal/customers', {
+        params: { search: search || undefined },
+      });
+      set({ customers: res.data, isLoading: false });
+    } catch (err: any) {
+      set({ error: err.response?.data?.detail || 'Erro ao carregar clientes', isLoading: false });
+    }
+  },
+
+  fetchCustomerDebits: async (customerId) => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await api.get(`/api/v1/informal/customers/${customerId}/debit`);
+      set({ customerDebits: res.data.debits || [], isLoading: false });
+    } catch (err: any) {
+      set({ error: err.response?.data?.detail || 'Erro ao carregar fiados do cliente', isLoading: false });
+    }
+  },
+
+  fetchOverdueDebits: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await api.get('/api/v1/informal/debits/overdue');
+      set({ overdueDebits: res.data, isLoading: false });
+    } catch (err: any) {
+      set({ error: err.response?.data?.detail || 'Erro ao carregar débitos vencidos', isLoading: false });
+    }
+  },
+
+  fetchCashFlowForecast: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await api.get('/api/v1/informal/reports/cash-flow');
+      set({ cashFlowForecast: res.data, isLoading: false });
+    } catch (err: any) {
+      set({ error: err.response?.data?.detail || 'Erro ao carregar previsão de caixa', isLoading: false });
+    }
+  },
+
+  fetchCreditRiskReport: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await api.get('/api/v1/informal/reports/credit-risk');
+      set({ creditRiskReport: res.data, isLoading: false });
+    } catch (err: any) {
+      set({ error: err.response?.data?.detail || 'Erro ao carregar relatório de risco', isLoading: false });
+    }
+  },
+
+  fetchRevenueBreakdown: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await api.get('/api/v1/informal/reports/revenue-breakdown');
+      set({ revenueBreakdown: res.data, isLoading: false });
+    } catch (err: any) {
+      set({ error: err.response?.data?.detail || 'Erro ao carregar divisão de receita', isLoading: false });
+    }
+  },
+
+  createSaleWithDebit: async (data) => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await api.post('/api/v1/informal/sales/with-debit', data);
+      await get().fetchCustomers();
+      set({ isLoading: false });
+      return res.data;
+    } catch (err: any) {
+      set({ error: err.response?.data?.detail || 'Erro ao criar venda com débito', isLoading: false });
+      throw err;
+    }
+  },
+
+  quickCreateCustomer: async (data) => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await api.post('/api/v1/informal/customers/quick', data);
+      get().addCustomerToState(res.data);
+      set({ isLoading: false });
+      return res.data;
+    } catch (err: any) {
+      set({ error: err.response?.data?.detail || 'Erro ao registar cliente', isLoading: false });
+      throw err;
+    }
+  },
+
+  recordPartialPayment: async (debitId, amount, paymentMethod, notes) => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await api.post(`/api/v1/informal/debits/${debitId}/pay`, {
+        amount,
+        payment_method: paymentMethod,
+        notes,
+      });
+      get().applyPartialPaymentToState(debitId, amount, res.data.remaining_balance || 0);
+      await get().fetchCustomers();
+      set({ isLoading: false });
+      return res.data;
+    } catch (err: any) {
+      set({ error: err.response?.data?.detail || 'Erro ao amortizar débito', isLoading: false });
+      throw err;
+    }
+  },
+
+  sendPaymentReminder: async (debitId, channel, customMessage) => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await api.post(`/api/v1/informal/debits/${debitId}/send-reminder`, {
+        channel: channel.toUpperCase(),
+        custom_message: customMessage,
+      });
+      set({ isLoading: false });
+      return res.data;
+    } catch (err: any) {
+      set({ error: err.response?.data?.detail || 'Erro ao enviar lembrete', isLoading: false });
+      throw err;
+    }
+  },
 
   createSale: async (sale) => {
     set({ isLoading: true });

@@ -139,7 +139,11 @@ export const useRestaurantStore = create<RestaurantState>((set, get) => ({
       };
     }),
 
-  setOrders: (orders) => set({ orders, activeOrders: orders.filter((o) => o.status !== 'PAID') }),
+  setOrders: (orders) =>
+    set({
+      orders,
+      activeOrders: orders.filter((o) => o.status !== 'paid' && o.status !== 'cancelled'),
+    }),
   setKdsItems: (kdsItems) => set({ kdsItems }),
   setKDSItems: (kdsItems) => set({ kdsItems }),
   updateKDSItemInState: (id, partial) =>

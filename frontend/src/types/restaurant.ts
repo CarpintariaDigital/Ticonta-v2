@@ -3,7 +3,8 @@ export interface Table {
   company_id: number;
   table_number: string;
   capacity: number;
-  status: "available" | "occupied" | "reserved" | "billing";
+  current_guests?: number;
+  status: "available" | "occupied" | "reserved" | "billing" | "free";
   location?: "indoor" | "outdoor" | "terrace" | "vip" | string;
   active?: boolean;
   created_at?: string;
@@ -45,6 +46,7 @@ export interface RestaurantOrder {
   items: OrderItem[];
   subtotal: number;
   tax: number;
+  service_charge?: number;
   total: number;
   status: OrderStatus;
   waiter_name?: string;

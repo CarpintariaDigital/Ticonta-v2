@@ -64,7 +64,7 @@ export const usePremiumStore = create<PremiumState>((set, get) => ({
     set({ isLoading: true, error: null });
     try {
       const plan = get().currentPlan || PRICING_PLANS[0];
-      const enabledFeatures = plan ? plan.features : [];
+      const enabledFeatures = plan?.features ?? [];
       const features: PremiumFeatureItem[] = enabledFeatures.map((name) => ({
         name,
         enabled: true,
@@ -84,10 +84,11 @@ export const usePremiumStore = create<PremiumState>((set, get) => ({
     try {
       const plan = getPlanByCode(planCode);
       if (plan) {
+        const feat = plan.features ?? [];
         set({
           currentPlan: plan,
-          enabledFeatures: plan.features,
-          features: plan.features.map((name) => ({ name, enabled: true })),
+          enabledFeatures: feat,
+          features: feat.map((name) => ({ name, enabled: true })),
           isLoading: false,
         });
         return true;

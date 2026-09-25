@@ -8,6 +8,8 @@ export interface PricingPlan {
   description?: string;
 }
 
+export type Plan = PricingPlan;
+
 export const PRICING_PLANS: PricingPlan[] = [
   {
     id: "base",

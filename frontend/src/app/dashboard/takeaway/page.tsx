@@ -132,11 +132,11 @@ export default function TakeawayPage() {
       </div>
 
       {/* Mode Filter Bar */}
-      <div className="flex items-center justify-between bg-slate-200/80 p-1.5 rounded-lg border border-slate-300">
-        <div className="flex items-center gap-1">
+      <div className="flex items-center justify-between bg-slate-200/80 p-1.5 rounded-lg border border-slate-300 overflow-x-auto no-scrollbar">
+        <div className="flex items-center gap-1 shrink-0">
           <button
             onClick={() => setFilterType('all')}
-            className={`px-3 py-1.5 rounded-md font-bold transition ${
+            className={`px-3 py-1.5 rounded-md font-bold transition whitespace-nowrap text-xs ${
               filterType === 'all'
                 ? 'bg-white text-slate-900 shadow-xs'
                 : 'text-slate-600 hover:text-slate-900'
@@ -147,30 +147,30 @@ export default function TakeawayPage() {
 
           <button
             onClick={() => setFilterType('delivery')}
-            className={`px-3 py-1.5 rounded-md font-bold transition flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-md font-bold transition flex items-center gap-1.5 whitespace-nowrap text-xs ${
               filterType === 'delivery'
                 ? 'bg-purple-600 text-white shadow-xs'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Bike size={13} />
+            <Bike size={13} className="shrink-0" />
             <span>Entrega ao Domicílio ({orders.filter((o) => o.type === 'delivery').length})</span>
           </button>
 
           <button
             onClick={() => setFilterType('pickup')}
-            className={`px-3 py-1.5 rounded-md font-bold transition flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-md font-bold transition flex items-center gap-1.5 whitespace-nowrap text-xs ${
               filterType === 'pickup'
                 ? 'bg-emerald-600 text-white shadow-xs'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Store size={13} />
+            <Store size={13} className="shrink-0" />
             <span>Levantamento no Balcão ({orders.filter((o) => o.type === 'pickup').length})</span>
           </button>
         </div>
 
-        <span className="text-[11px] text-slate-500 hidden md:inline">
+        <span className="text-[11px] text-slate-500 hidden lg:inline shrink-0 ml-2">
           Modo Operacional Ativo
         </span>
       </div>

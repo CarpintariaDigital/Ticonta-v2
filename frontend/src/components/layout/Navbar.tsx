@@ -8,12 +8,17 @@ import {
   UserCircle, 
   Power, 
   Clock, 
-  KeyRound
+  KeyRound,
+  Menu
 } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 import { useLicenseStore } from '@/store/licenseStore';
 
-export function Navbar() {
+interface NavbarProps {
+  onToggleSidebar?: () => void;
+}
+
+export function Navbar({ onToggleSidebar }: NavbarProps) {
   const pathname = usePathname();
   const { user, company, toggleShift, logout } = useAuthStore();
   const { license } = useLicenseStore();
@@ -49,50 +54,62 @@ export function Navbar() {
   };
 
   return (
-    <header className="h-14 bg-white border-b border-slate-300 px-4 flex items-center justify-between shadow-xs select-none">
-      {/* Page Context / Title */}
-      <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-3.5 bg-emerald-600 rounded-xs"></div>
-          <h1 className="text-xs sm:text-sm font-bold text-slate-800 tracking-tight font-mono">
+    <header className="h-14 bg-white border-b border-slate-300 px-3 sm:px-4 flex items-center justify-between shadow-xs select-none gap-2">
+      {/* Page Context / Title + Mobile Menu Trigger */}
+      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+        {/* Mobile Hamburger Trigger */}
+        <button
+          type="button"
+          onClick={onToggleSidebar}
+          className="md:hidden p-1.5 -ml-1 text-slate-700 hover:text-slate-950 hover:bg-slate-100 rounded-md transition focus:outline-none"
+          aria-label="Abrir Menu Lateral"
+        >
+          <Menu size={20} />
+        </button>
+
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="w-1.5 sm:w-2 h-3.5 bg-emerald-600 rounded-xs shrink-0"></div>
+          <h1 className="text-xs sm:text-sm font-bold text-slate-800 tracking-tight font-mono truncate max-w-[150px] sm:max-w-xs md:max-w-md lg:max-w-none">
             {getPageTitle(pathname)}
           </h1>
         </div>
-        <span className="hidden lg:inline-block px-2 py-0.5 bg-slate-100 border border-slate-200 text-slate-600 text-[10px] font-mono rounded">
+        <span className="hidden xl:inline-block px-2 py-0.5 bg-slate-100 border border-slate-200 text-slate-600 text-[10px] font-mono rounded">
           MODO: INDUSTRIAL v2.4
         </span>
       </div>
 
       {/* Operator & System Status */}
-      <div className="flex items-center gap-3 font-mono text-xs">
+      <div className="flex items-center gap-1.5 sm:gap-3 font-mono text-xs shrink-0">
         {/* Clock */}
-        <div className="hidden md:flex items-center gap-1 text-slate-600 bg-slate-50 px-2 py-0.5 rounded border border-slate-200">
+        <div className="hidden lg:flex items-center gap-1 text-slate-600 bg-slate-50 px-2 py-0.5 rounded border border-slate-200">
           <Clock size={12} className="text-slate-500" />
           <span className="font-semibold text-[11px]">{time || '00:00:00'}</span>
         </div>
 
         {/* Company Badge */}
-        <div className="hidden sm:flex items-center gap-1.5 text-slate-700 bg-slate-50 px-2 py-0.5 rounded border border-slate-200 text-[11px]">
+        <div className="hidden md:flex items-center gap-1.5 text-slate-700 bg-slate-50 px-2 py-0.5 rounded border border-slate-200 text-[11px]">
           <Building2 size={12} className="text-slate-500" />
-          <span className="truncate max-w-[130px] font-medium">{company.name}</span>
+          <span className="truncate max-w-[110px] lg:max-w-[140px] font-medium">{company.name}</span>
           <span className="text-[10px] text-slate-400">({company.nuit})</span>
         </div>
 
         {/* User / Shift Button */}
         {user && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             <button
               onClick={toggleShift}
-              className={`flex items-center gap-1.5 px-2 py-0.5 rounded border transition ${
+              className={`flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 rounded border transition ${
                 user.shiftActive
                   ? 'bg-emerald-50 border-emerald-300 text-emerald-800'
                   : 'bg-red-50 border-red-300 text-red-800'
               }`}
               title="Alternar Turno"
             >
-              <UserCircle size={13} />
-              <span className="font-semibold text-[10px]">{user.operatorCode}: {user.name}</span>
-              <span className={`w-1.5 h-1.5 rounded-full ${user.shiftActive ? 'bg-emerald-500' : 'bg-red-500'}`} />
+              <UserCircle size={13} className="shrink-0" />
+              <span className="font-semibold text-[10px] max-w-[80px] sm:max-w-[120px] truncate">
+                {user.operatorCode}
+              </span>
+              <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${user.shiftActive ? 'bg-emerald-500' : 'bg-red-500'}`} />
             </button>
 
             <button

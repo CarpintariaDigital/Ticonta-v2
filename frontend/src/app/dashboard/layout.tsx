@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Navbar } from '@/components/layout/Navbar';
 import { TelemetryBar } from '@/components/layout/TelemetryBar';
@@ -10,16 +10,18 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
     <div className="flex h-screen bg-slate-100 overflow-hidden font-sans">
-      {/* Sidebar */}
-      <Sidebar />
+      {/* Sidebar: Desktop Static + Mobile Drawer */}
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       {/* Main Workstation Canvas */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <TelemetryBar />
-        <Navbar />
-        <main className="flex-1 overflow-y-auto p-4 md:p-6 bg-slate-100">
+        <Navbar onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)} />
+        <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 bg-slate-100">
           {children}
         </main>
       </div>

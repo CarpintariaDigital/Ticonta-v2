@@ -24,7 +24,8 @@ import {
   Package, 
   Building2,
   Lock,
-  ChevronRight
+  ChevronRight,
+  X
 } from 'lucide-react';
 import { useLicenseStore } from '@/store/licenseStore';
 
@@ -64,119 +65,160 @@ const navigationItems = [
   },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { license, isModuleAllowed } = useLicenseStore();
 
+  const handleLinkClick = () => {
+    if (onClose) {
+      onClose();
+    }
+  };
+
   return (
-    <aside className="w-64 bg-slate-900 text-slate-300 flex flex-col border-r border-slate-800 select-none">
-      {/* Brand Header com Logotipo Oficial */}
-      <div className="h-16 px-4 flex items-center justify-between border-b border-slate-800 bg-slate-950">
-        <Link href="/" className="flex items-center gap-2.5">
-          <img
-            src="/logo-ticonta.png"
-            alt="TiConta v2"
-            className="h-8 w-8 object-contain rounded bg-white p-0.5"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).src = '/icon.png';
-            }}
-          />
-          <div>
-            <div className="font-bold text-sm tracking-wide text-white flex items-center gap-1 font-mono">
-              <span>TiConta</span>
-              <span className="text-emerald-400 text-xs">v2</span>
+    <>
+      {/* Mobile Backdrop Overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs z-40 md:hidden transition-opacity duration-300"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Sidebar Container: Fixed Drawer on Mobile, Static column on Desktop */}
+      <aside
+        className={`
+          fixed inset-y-0 left-0 z-50 w-72 md:w-64 bg-slate-900 text-slate-300 flex flex-col border-r border-slate-800 select-none transition-transform duration-300 ease-in-out shrink-0
+          md:static md:translate-x-0
+          ${isOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full md:translate-x-0'}
+        `}
+      >
+        {/* Brand Header com Logotipo Oficial e Botão Fechar no Mobile */}
+        <div className="h-16 px-4 flex items-center justify-between border-b border-slate-800 bg-slate-950">
+          <Link href="/" onClick={handleLinkClick} className="flex items-center gap-2.5">
+            <img
+              src="/logo-ticonta.png"
+              alt="TiConta v2"
+              className="h-8 w-8 object-contain rounded bg-white p-0.5"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).src = '/icon.png';
+              }}
+            />
+            <div>
+              <div className="font-bold text-sm tracking-wide text-white flex items-center gap-1 font-mono">
+                <span>TiConta</span>
+                <span className="text-emerald-400 text-xs">v2</span>
+              </div>
+              <p className="text-[10px] text-slate-400 font-mono">CARPINTARIA DIGITAL</p>
             </div>
-            <p className="text-[10px] text-slate-400 font-mono">CARPINTARIA DIGITAL</p>
-          </div>
-        </Link>
-      </div>
+          </Link>
 
-      {/* Nav Menu Items */}
-      <div className="flex-1 overflow-y-auto py-3 px-3 space-y-5">
-        {navigationItems.map((section, idx) => (
-          <div key={idx} className="space-y-1">
-            <h3 className="px-3 text-[10px] font-mono font-semibold tracking-wider text-slate-500 uppercase">
-              {section.category}
-            </h3>
-            <nav className="space-y-0.5 pt-1">
-              {section.items.map((item) => {
-                const isActive = pathname === item.href;
-                const isAllowed = isModuleAllowed(item.href);
-                const Icon = item.icon;
+          {/* Botão fechar visível apenas em Mobile */}
+          <button
+            type="button"
+            onClick={onClose}
+            className="md:hidden p-1.5 text-slate-400 hover:text-white rounded-md hover:bg-slate-800 transition"
+            aria-label="Fechar Menu"
+          >
+            <X size={20} />
+          </button>
+        </div>
 
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-all group ${
-                      isActive
-                        ? 'bg-emerald-600 text-white font-semibold shadow-xs'
-                        : isAllowed
-                        ? 'text-slate-300 hover:bg-slate-800 hover:text-white'
-                        : 'text-slate-500 hover:bg-slate-800/60 hover:text-slate-400'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5 truncate">
-                      <Icon
-                        size={15}
-                        className={
-                          isActive 
-                            ? 'text-white' 
-                            : isAllowed 
-                            ? 'text-slate-400 group-hover:text-emerald-400' 
-                            : 'text-slate-600'
-                        }
-                      />
-                      <span className="truncate">{item.name}</span>
-                    </div>
+        {/* Nav Menu Items */}
+        <div className="flex-1 overflow-y-auto py-3 px-3 space-y-5">
+          {navigationItems.map((section, idx) => (
+            <div key={idx} className="space-y-1">
+              <h3 className="px-3 text-[10px] font-mono font-semibold tracking-wider text-slate-500 uppercase">
+                {section.category}
+              </h3>
+              <nav className="space-y-0.5 pt-1">
+                {section.items.map((item) => {
+                  const isActive = pathname === item.href;
+                  const isAllowed = isModuleAllowed(item.href);
+                  const Icon = item.icon;
 
-                    <div className="flex items-center gap-1">
-                      {!isAllowed && (
-                        <span title="Módulo não contratado" className="inline-flex items-center">
-                          <Lock size={12} className="text-amber-500/80 shrink-0" />
-                        </span>
-                      )}
-                      {item.badge && (
-                        <span
-                          className={`text-[9px] font-mono px-1.5 py-0.2 rounded truncate ${
-                            isActive
-                              ? 'bg-emerald-700 text-emerald-100'
-                              : isAllowed
-                              ? 'bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-slate-200'
-                              : 'bg-slate-850 text-slate-600'
-                          }`}
-                        >
-                          {item.badge}
-                        </span>
-                      )}
-                    </div>
-                  </Link>
-                );
-              })}
-            </nav>
-          </div>
-        ))}
-      </div>
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={handleLinkClick}
+                      className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-all group ${
+                        isActive
+                          ? 'bg-emerald-600 text-white font-semibold shadow-xs'
+                          : isAllowed
+                          ? 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                          : 'text-slate-500 hover:bg-slate-800/60 hover:text-slate-400'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5 truncate">
+                        <Icon
+                          size={15}
+                          className={
+                            isActive 
+                              ? 'text-white' 
+                              : isAllowed 
+                              ? 'text-slate-400 group-hover:text-emerald-400' 
+                              : 'text-slate-600'
+                          }
+                        />
+                        <span className="truncate">{item.name}</span>
+                      </div>
 
-      {/* Bottom License & Compliance Box */}
-      <div className="p-3 border-t border-slate-800 bg-slate-950 font-mono text-xs">
-        <Link
-          href="/dashboard/license"
-          className="p-2 bg-slate-900 border border-slate-800 rounded-md block hover:border-emerald-500 transition group"
-        >
-          <div className="flex items-center justify-between text-[11px] mb-1">
-            <span className="text-slate-400 font-semibold uppercase">Licença {license.plan}</span>
-            <span className="text-emerald-400 font-bold flex items-center gap-1">
-              <ShieldCheck size={12} />
-              <span>{license.status}</span>
-            </span>
-          </div>
-          <div className="text-[10px] text-slate-500 flex justify-between">
-            <span>Validade:</span>
-            <span className="text-slate-300">{license.daysRemaining} dias</span>
-          </div>
-        </Link>
-      </div>
-    </aside>
+                      <div className="flex items-center gap-1">
+                        {!isAllowed && (
+                          <span title="Módulo não contratado" className="inline-flex items-center">
+                            <Lock size={12} className="text-amber-500/80 shrink-0" />
+                          </span>
+                        )}
+                        {item.badge && (
+                          <span
+                            className={`text-[9px] font-mono px-1.5 py-0.2 rounded truncate ${
+                              isActive
+                                ? 'bg-emerald-700 text-emerald-100'
+                                : isAllowed
+                                ? 'bg-slate-800 text-slate-400 group-hover:bg-slate-700 group-hover:text-slate-200'
+                                : 'bg-slate-850 text-slate-600'
+                            }`}
+                          >
+                            {item.badge}
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom License & Compliance Box */}
+        <div className="p-3 border-t border-slate-800 bg-slate-950 font-mono text-xs">
+          <Link
+            href="/dashboard/license"
+            onClick={handleLinkClick}
+            className="p-2 bg-slate-900 border border-slate-800 rounded-md block hover:border-emerald-500 transition group"
+          >
+            <div className="flex items-center justify-between text-[11px] mb-1">
+              <span className="text-slate-400 font-semibold uppercase">Licença {license.plan}</span>
+              <span className="text-emerald-400 font-bold flex items-center gap-1">
+                <ShieldCheck size={12} />
+                <span>{license.status}</span>
+              </span>
+            </div>
+            <div className="text-[10px] text-slate-500 flex justify-between">
+              <span>Validade:</span>
+              <span className="text-slate-300">{license.daysRemaining} dias</span>
+            </div>
+          </Link>
+        </div>
+      </aside>
+    </>
   );
 }

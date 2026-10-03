@@ -164,7 +164,7 @@ export default function AutoServicesPage() {
               </div>
 
               {/* Financial Totals */}
-              <div className="p-2.5 bg-slate-100 border border-slate-200 rounded flex items-center justify-between text-xs">
+              <div className="p-2.5 bg-slate-100 border border-slate-200 rounded flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
                 <div>
                   <div className="text-[10px] text-slate-500">Peças: {formatMZN(os.partsTotal)} | MDO: {formatMZN(os.laborTotal)}</div>
                   <div className="text-slate-900 font-bold text-sm">TOTAL: {formatMZN(os.total)}</div>
@@ -173,7 +173,7 @@ export default function AutoServicesPage() {
                   variant="primary"
                   size="sm"
                   onClick={() => handleSendWhatsAppOS(os)}
-                  className="text-[11px] h-8 px-2.5 flex items-center gap-1.5"
+                  className="text-[11px] min-h-8 py-1.5 px-3 flex items-center justify-center gap-1.5 w-full sm:w-auto whitespace-nowrap"
                 >
                   <MessageSquare size={13} />
                   <span>Enviar Diagnóstico</span>

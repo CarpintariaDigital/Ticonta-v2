@@ -44,53 +44,53 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900 selection:bg-emerald-600 selection:text-white">
       {/* Top Industrial Telemetry Strip */}
-      <div className="brushed-steel-header px-4 py-1.5 border-b border-slate-300 text-xs font-mono text-slate-700 flex flex-wrap items-center justify-between select-none">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-emerald-800 font-bold">
+      <div className="brushed-steel-header px-3 sm:px-6 py-1.5 border-b border-slate-300 text-xs font-mono text-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-2 select-none">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 text-emerald-800 font-bold text-[11px] sm:text-xs">
             <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
             <span>TICONTA v2 KERNEL INDUSTRIAL</span>
           </div>
-          <span className="text-slate-300 hidden sm:inline">|</span>
-          <span className="text-slate-600 hidden sm:inline text-[11px]">
+          <span className="text-slate-300 hidden md:inline">|</span>
+          <span className="text-slate-600 hidden md:inline text-[11px]">
             AUTORIDADE TRIBUTÁRIA MZ: DEC-LEI 1/2018 (IVA 16%)
           </span>
         </div>
 
-        <div className="flex items-center gap-3 text-[11px]">
-          <span className="text-slate-600 font-medium">MODO: WORKSTATION LOCAL</span>
-          <span className="text-slate-300">|</span>
-          <span className="text-emerald-800 font-bold">100% DIGITAL • WHATSAPP & SMS • ZERO PAPEL</span>
+        <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-slate-600">
+          <span className="hidden xs:inline font-medium">WORKSTATION LOCAL</span>
+          <span className="text-slate-300 hidden xs:inline">•</span>
+          <span className="text-emerald-800 font-bold">100% DIGITAL • WHATSAPP & SMS</span>
         </div>
       </div>
 
       {/* Main Technical Navigation Bar com Logotipo Oficial */}
-      <header className="h-16 bg-white border-b border-slate-300 px-6 flex items-center justify-between sticky top-0 z-50 shadow-xs">
-        <div className="flex items-center gap-3">
+      <header className="h-16 bg-white border-b border-slate-300 px-3 sm:px-6 flex items-center justify-between shadow-xs sticky top-0 z-40">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <img
             src="/logo-ticonta.png"
             alt="TiConta v2 ERP"
-            className="h-9 w-auto object-contain"
+            className="h-8 sm:h-9 w-auto object-contain shrink-0"
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).src = '/icon.png';
             }}
           />
-          <div>
-            <div className="font-bold text-base text-slate-900 tracking-tight flex items-center gap-1.5 font-mono">
+          <div className="min-w-0">
+            <div className="font-bold text-sm sm:text-base text-slate-900 tracking-tight flex items-center gap-1 sm:gap-1.5 font-mono">
               <span>TiConta</span>
-              <span className="text-emerald-700 text-xs bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">v2 ERP</span>
+              <span className="text-emerald-700 text-[10px] sm:text-xs bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">v2 ERP</span>
             </div>
-            <p className="text-[10px] text-slate-500 font-mono tracking-wider">CARPINTARIA DIGITAL WORKSTATION</p>
+            <p className="text-[9px] sm:text-[10px] text-slate-500 font-mono tracking-wider truncate max-w-[150px] sm:max-w-none">CARPINTARIA DIGITAL</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Link href="/login">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          <Link href="/login" className="hidden sm:inline-flex">
             <Button variant="outline" size="sm" className="font-mono text-xs">
               Terminal Operador
             </Button>
           </Link>
           <Link href="/dashboard">
-            <Button variant="primary" size="sm" className="font-mono text-xs flex items-center gap-1.5">
+            <Button variant="primary" size="sm" className="font-mono text-xs flex items-center gap-1 sm:gap-1.5 whitespace-nowrap">
               <span>{isAuthenticated ? 'Abrir Console' : 'Aceder Workstation'}</span>
               <ArrowRight size={13} />
             </Button>

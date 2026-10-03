@@ -112,12 +112,12 @@ export default function PosPage() {
             />
           </div>
 
-          <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
+          <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0 no-scrollbar">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setCategory(cat)}
-                className={`px-3 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition ${
+                className={`px-3 py-1.5 rounded-md text-xs font-medium whitespace-nowrap shrink-0 transition ${
                   selectedCategory === cat
                     ? 'bg-slate-900 text-white font-semibold shadow-xs'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -130,7 +130,7 @@ export default function PosPage() {
         </div>
 
         {/* Products Grid */}
-        <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3 overflow-y-auto pr-1">
+        <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3 overflow-y-auto pr-1 min-h-[220px]">
           {filteredProducts.map((p) => (
             <button
               key={p.id}
@@ -161,7 +161,7 @@ export default function PosPage() {
       </div>
 
       {/* Right Area: Industrial Order Panel & Cart */}
-      <div className="w-full lg:w-96 panel-bevel rounded-lg flex flex-col bg-white overflow-hidden shadow-xs">
+      <div className="w-full lg:w-96 panel-bevel rounded-lg flex flex-col bg-white overflow-hidden shadow-xs shrink-0">
         {/* Cart Header */}
         <div className="brushed-steel-header p-3 border-b border-slate-300 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -184,12 +184,12 @@ export default function PosPage() {
         </div>
 
         {/* Cart Items List */}
-        <div className="flex-1 overflow-y-auto p-3 space-y-2 max-h-[300px] lg:max-h-none">
+        <div className="flex-1 overflow-y-auto p-3 space-y-2 min-h-[140px] max-h-[250px] lg:max-h-none">
           {cart.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-slate-400 py-8 space-y-2 font-mono text-xs">
-              <FileText size={28} className="text-slate-300" />
+            <div className="h-full flex flex-col items-center justify-center text-slate-400 py-6 space-y-1.5 font-mono text-xs">
+              <FileText size={24} className="text-slate-300" />
               <span>Nenhum item adicionado</span>
-              <span className="text-[10px] text-slate-400">Clique nos produtos à esquerda</span>
+              <span className="text-[10px] text-slate-400">Toque num produto acima</span>
             </div>
           ) : (
             cart.map((item) => (
@@ -234,11 +234,11 @@ export default function PosPage() {
 
         {/* Calculation Summary Sheet */}
         <div className="p-3 bg-slate-100 border-t border-slate-300 space-y-1.5 font-mono text-xs">
-          <div className="flex justify-between text-slate-600">
+          <div className="flex justify-between text-slate-600 text-[11px]">
             <span>Base Tributável (Líquido):</span>
             <span>{formatMZN(net)}</span>
           </div>
-          <div className="flex justify-between text-slate-600">
+          <div className="flex justify-between text-slate-600 text-[11px]">
             <span>IVA (16% Moçambique):</span>
             <span className="text-emerald-700 font-semibold">{formatMZN(tax)}</span>
           </div>
@@ -254,7 +254,7 @@ export default function PosPage() {
             variant="primary"
             disabled={cart.length === 0}
             onClick={openCheckoutModal}
-            className="w-full py-3 text-sm flex items-center justify-center gap-2 shadow-md"
+            className="w-full py-2.5 text-sm flex items-center justify-center gap-2 shadow-md"
           >
             <span>Concluir Venda 100% Digital</span>
             <ArrowRight size={16} />

@@ -266,35 +266,35 @@ export default function PoultryPage() {
   const roundToTwo = (num: number) => Math.round(num * 100) / 100;
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-6">
+    <div className="p-3 sm:p-6 max-w-7xl mx-auto space-y-4 sm:space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
-            <Egg className="w-7 h-7 text-amber-600" />
-            Avicultura & Produção Agropecuária
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
+            <Egg className="w-6 h-6 sm:w-7 sm:h-7 text-amber-600 shrink-0" />
+            <span>Avicultura & Produção Agropecuária</span>
           </h1>
-          <p className="text-sm text-neutral-500">
+          <p className="text-xs sm:text-sm text-neutral-500 mt-1">
             Controlo de lotes de frangos de corte e poedeiras: ração, ovos, mortalidade, conversão alimentar (FCR) e custo por ave.
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <Button
             onClick={() => setIsNewFlockOpen(true)}
-            className="bg-amber-600 hover:bg-amber-700 text-white flex items-center gap-1.5"
+            className="bg-amber-600 hover:bg-amber-700 text-white flex items-center justify-center gap-1.5 whitespace-nowrap w-full sm:w-auto"
           >
             <Plus size={15} />
-            Novo Lote de Aves
+            <span>Novo Lote de Aves</span>
           </Button>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-neutral-200 dark:border-neutral-800 gap-6">
+      <div className="flex border-b border-neutral-200 dark:border-neutral-800 gap-4 sm:gap-6 overflow-x-auto no-scrollbar whitespace-nowrap py-1">
         <button
           onClick={() => setActiveTab('flocks')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'flocks'
               ? 'border-amber-600 text-amber-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'
@@ -304,7 +304,7 @@ export default function PoultryPage() {
         </button>
         <button
           onClick={() => setActiveTab('daily')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'daily'
               ? 'border-amber-600 text-amber-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'
@@ -314,7 +314,7 @@ export default function PoultryPage() {
         </button>
         <button
           onClick={() => setActiveTab('analytics')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'analytics'
               ? 'border-amber-600 text-amber-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'

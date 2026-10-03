@@ -139,43 +139,43 @@ export default function AccountingPage() {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-6">
+    <div className="p-3 sm:p-6 max-w-7xl mx-auto space-y-4 sm:space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
-            <Calculator className="w-7 h-7 text-indigo-600" />
-            Contabilidade Geral (PGC-NIRF Moçambique)
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
+            <Calculator className="w-6 h-6 sm:w-7 sm:h-7 text-indigo-600 shrink-0" />
+            <span>Contabilidade Geral (PGC-NIRF Moçambique)</span>
           </h1>
-          <p className="text-sm text-neutral-500">
+          <p className="text-xs sm:text-sm text-neutral-500 mt-1">
             Plano de contas oficial, partidas dobradas, balancete de verificação, balanço patrimonial, DRE e IVA 16%.
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           <Button
             onClick={() => setIsNewEntryModalOpen(true)}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white flex items-center gap-1.5"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white flex items-center gap-1.5 whitespace-nowrap grow sm:grow-0 justify-center"
           >
             <Plus size={15} />
-            Novo Lançamento
+            <span>Novo Lançamento</span>
           </Button>
           <Button
             variant="outline"
             onClick={() => setIsNewAccountModalOpen(true)}
-            className="flex items-center gap-1.5"
+            className="flex items-center gap-1.5 whitespace-nowrap grow sm:grow-0 justify-center"
           >
             <BookOpen size={15} />
-            Nova Conta
+            <span>Nova Conta</span>
           </Button>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-neutral-200 dark:border-neutral-800 gap-6">
+      <div className="flex border-b border-neutral-200 dark:border-neutral-800 gap-4 sm:gap-6 overflow-x-auto no-scrollbar whitespace-nowrap py-1">
         <button
           onClick={() => setActiveTab('chart')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'chart'
               ? 'border-indigo-600 text-indigo-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'
@@ -185,7 +185,7 @@ export default function AccountingPage() {
         </button>
         <button
           onClick={() => setActiveTab('entries')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'entries'
               ? 'border-indigo-600 text-indigo-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'
@@ -195,7 +195,7 @@ export default function AccountingPage() {
         </button>
         <button
           onClick={() => setActiveTab('trial')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'trial'
               ? 'border-indigo-600 text-indigo-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'
@@ -205,7 +205,7 @@ export default function AccountingPage() {
         </button>
         <button
           onClick={() => setActiveTab('financials')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'financials'
               ? 'border-indigo-600 text-indigo-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'
@@ -215,7 +215,7 @@ export default function AccountingPage() {
         </button>
         <button
           onClick={() => setActiveTab('vat')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'vat'
               ? 'border-indigo-600 text-indigo-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'

@@ -139,22 +139,22 @@ export default function ManufacturingPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <Button
             onClick={() => setIsNewOrderModalOpen(true)}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white flex items-center gap-1.5"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center gap-1.5 whitespace-nowrap w-full sm:w-auto"
           >
             <Plus size={15} />
-            Nova Ordem de Produção
+            <span>Nova Ordem de Produção</span>
           </Button>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-neutral-200 dark:border-neutral-800 gap-6">
+      <div className="flex border-b border-neutral-200 dark:border-neutral-800 gap-4 sm:gap-6 overflow-x-auto no-scrollbar whitespace-nowrap py-1">
         <button
           onClick={() => setActiveTab('orders')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'orders'
               ? 'border-indigo-600 text-indigo-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'
@@ -164,7 +164,7 @@ export default function ManufacturingPage() {
         </button>
         <button
           onClick={() => setActiveTab('budget')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'budget'
               ? 'border-indigo-600 text-indigo-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'
@@ -174,7 +174,7 @@ export default function ManufacturingPage() {
         </button>
         <button
           onClick={() => setActiveTab('cutting')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'cutting'
               ? 'border-indigo-600 text-indigo-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'

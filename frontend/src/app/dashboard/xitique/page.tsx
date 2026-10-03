@@ -185,12 +185,12 @@ export default function XitiquePage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           {selectedGroupSummary && (
-            <div className="flex items-center gap-1 p-1 bg-slate-100 border border-slate-300 rounded-lg">
+            <div className="flex items-center gap-1 p-1 bg-slate-100 border border-slate-300 rounded-lg overflow-x-auto no-scrollbar shrink-0">
               <button
                 onClick={() => setActiveTab('groups')}
-                className={`px-3 py-1 rounded text-xs font-bold ${
+                className={`px-3 py-1 rounded text-xs font-bold whitespace-nowrap ${
                   activeTab === 'groups' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -198,7 +198,7 @@ export default function XitiquePage() {
               </button>
               <button
                 onClick={() => setActiveTab('detail')}
-                className={`px-3 py-1 rounded text-xs font-bold ${
+                className={`px-3 py-1 rounded text-xs font-bold whitespace-nowrap ${
                   activeTab === 'detail' ? 'bg-amber-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -206,7 +206,7 @@ export default function XitiquePage() {
               </button>
               <button
                 onClick={() => setActiveTab('history')}
-                className={`px-3 py-1 rounded text-xs font-bold ${
+                className={`px-3 py-1 rounded text-xs font-bold whitespace-nowrap ${
                   activeTab === 'history' ? 'bg-slate-900 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -219,7 +219,7 @@ export default function XitiquePage() {
             variant="primary"
             size="sm"
             onClick={() => setIsNewGroupModalOpen(true)}
-            className="flex items-center gap-1.5 bg-amber-600 hover:bg-amber-700 text-white"
+            className="flex items-center justify-center gap-1.5 bg-amber-600 hover:bg-amber-700 text-white whitespace-nowrap grow sm:grow-0"
           >
             <Plus size={14} />
             <span>Novo Grupo</span>

@@ -164,10 +164,10 @@ export default function LicenseManagementPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 w-full sm:w-auto">
           <button
             onClick={() => setActiveTab('admin')}
-            className={`py-1.5 px-3 rounded-md font-bold text-xs transition ${
+            className={`py-1.5 px-3 rounded-md font-bold text-xs transition whitespace-nowrap shrink-0 ${
               activeTab === 'admin'
                 ? 'bg-slate-900 text-white shadow-sm'
                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -177,7 +177,7 @@ export default function LicenseManagementPage() {
           </button>
           <button
             onClick={() => setActiveTab('pricing')}
-            className={`py-1.5 px-3 rounded-md font-bold text-xs transition ${
+            className={`py-1.5 px-3 rounded-md font-bold text-xs transition whitespace-nowrap shrink-0 ${
               activeTab === 'pricing'
                 ? 'bg-slate-900 text-white shadow-sm'
                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -187,7 +187,7 @@ export default function LicenseManagementPage() {
           </button>
           <button
             onClick={() => setActiveTab('local')}
-            className={`py-1.5 px-3 rounded-md font-bold text-xs transition ${
+            className={`py-1.5 px-3 rounded-md font-bold text-xs transition whitespace-nowrap shrink-0 ${
               activeTab === 'local'
                 ? 'bg-slate-900 text-white shadow-sm'
                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'

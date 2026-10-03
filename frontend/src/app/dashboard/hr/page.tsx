@@ -198,46 +198,46 @@ export default function HRPage() {
   const totalMassaSalarial = employees.reduce((acc, e) => acc + Number(e.salary || 0), 0);
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-6">
+    <div className="p-3 sm:p-6 max-w-7xl mx-auto space-y-4 sm:space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
-            <Users2 className="w-7 h-7 text-emerald-600" />
-            Recursos Humanos & Folha de Salários INSS/IRPS
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
+            <Users2 className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-600 shrink-0" />
+            <span>Recursos Humanos & Folha de Salários INSS/IRPS</span>
           </h1>
-          <p className="text-sm text-neutral-500">
+          <p className="text-xs sm:text-sm text-neutral-500 mt-1">
             Conformidade com a Lei do Trabalho de Moçambique: INSS 3% trabalhador + 4% patronal, retenção IRPS e exportação SISSMO.
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           <Button
             onClick={() => {
               setEditingEmpId(null);
               setIsNewEmployeeModalOpen(true);
             }}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white flex items-center gap-1.5"
+            className="bg-emerald-600 hover:bg-emerald-700 text-white flex items-center gap-1.5 whitespace-nowrap grow sm:grow-0 justify-center"
           >
             <UserPlus size={15} />
-            Admitir Colaborador
+            <span>Admitir Colaborador</span>
           </Button>
           <Button
             variant="outline"
             onClick={() => setIsAttendanceModalOpen(true)}
-            className="flex items-center gap-1.5"
+            className="flex items-center gap-1.5 whitespace-nowrap grow sm:grow-0 justify-center"
           >
             <Clock size={15} />
-            Registar Ponto
+            <span>Registar Ponto</span>
           </Button>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-neutral-200 dark:border-neutral-800 gap-6">
+      <div className="flex border-b border-neutral-200 dark:border-neutral-800 gap-4 sm:gap-6 overflow-x-auto no-scrollbar whitespace-nowrap py-1">
         <button
           onClick={() => setActiveTab('employees')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'employees'
               ? 'border-emerald-600 text-emerald-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'
@@ -247,7 +247,7 @@ export default function HRPage() {
         </button>
         <button
           onClick={() => setActiveTab('payroll')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'payroll'
               ? 'border-emerald-600 text-emerald-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'
@@ -257,7 +257,7 @@ export default function HRPage() {
         </button>
         <button
           onClick={() => setActiveTab('reports')}
-          className={`pb-3 text-sm font-semibold border-b-2 transition-colors ${
+          className={`pb-3 text-xs sm:text-sm font-semibold border-b-2 transition-colors shrink-0 ${
             activeTab === 'reports'
               ? 'border-emerald-600 text-emerald-600'
               : 'border-transparent text-neutral-500 hover:text-neutral-700'

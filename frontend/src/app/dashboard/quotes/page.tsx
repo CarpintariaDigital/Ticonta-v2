@@ -176,7 +176,7 @@ export default function QuotesPage() {
             onClick={() => setIsModalOpen(true)}
             variant="primary"
             size="sm"
-            className="font-mono text-xs flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500"
+            className="font-mono text-xs flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 whitespace-nowrap w-full sm:w-auto"
           >
             <Plus size={14} />
             <span>Emitir Nova Cotação / Proforma</span>
@@ -185,7 +185,7 @@ export default function QuotesPage() {
 
         {/* Filters & Search */}
         <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-lg border border-slate-300">
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 w-full sm:w-auto shrink-0">
             {[
               { id: 'all', label: 'Todas' },
               { id: 'cotacao', label: 'Cotações' },
@@ -195,7 +195,7 @@ export default function QuotesPage() {
                 key={t.id}
                 type="button"
                 onClick={() => setActiveType(t.id as any)}
-                className={`px-3 py-1.5 rounded-md font-bold text-xs transition ${
+                className={`px-3 py-1.5 rounded-md font-bold text-xs transition whitespace-nowrap shrink-0 ${
                   activeType === t.id
                     ? 'bg-slate-900 text-white shadow-xs'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'

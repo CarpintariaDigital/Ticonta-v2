@@ -57,15 +57,15 @@ export default function DashboardOverview() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
-          <Link href="/dashboard/pos">
-            <Button variant="primary" size="sm" className="flex items-center gap-1.5 shadow-md">
+        <div className="flex flex-wrap items-center gap-2">
+          <Link href="/dashboard/pos" className="w-full sm:w-auto">
+            <Button variant="primary" size="sm" className="w-full sm:w-auto flex items-center justify-center gap-1.5 shadow-md whitespace-nowrap">
               <ShoppingCart size={14} />
               <span>Abrir Caixa PDV</span>
             </Button>
           </Link>
-          <Link href="/dashboard/accounting">
-            <Button variant="secondary" size="sm" className="flex items-center gap-1.5 bg-slate-800 text-slate-200 border-slate-700 hover:bg-slate-700">
+          <Link href="/dashboard/accounting" className="w-full sm:w-auto">
+            <Button variant="secondary" size="sm" className="w-full sm:w-auto flex items-center justify-center gap-1.5 bg-slate-800 text-slate-200 border-slate-700 hover:bg-slate-700 whitespace-nowrap">
               <Calculator size={14} />
               <span>Relatório PGC-NIRF</span>
             </Button>
